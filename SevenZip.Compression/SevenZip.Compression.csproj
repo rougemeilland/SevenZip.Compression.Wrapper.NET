@@ -1,0 +1,55 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net5.0;net6.0</TargetFrameworks>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>False</GeneratePackageOnBuild>
+    <PackageId>Palmtree.SevenZip.Compression.Wrapper.NET</PackageId>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>net50;net60;bzip2;lzma;deflate;deflate64;compress;uncompress;stream</PackageTags>
+    <Company></Company>
+    <Authors>Palmtree Software</Authors>
+    <Product>SevenZip.Compression.Wrapper.NET</Product>
+    <Description>This library is a "7-zip" wrapper library. By using the "7-zip" function, you can call stream-to-stream data compression / uncompress from managed code.
+Caution:
+- Currently, the only supported OS is Windows.
+- Currently only supported architectures are x86 and x64.
+- In addition to this library, you need to obtain the "7-zip" library "7z.dll" and place it in an appropriate directory.</Description>
+    <Copyright>©2022 Palmtree Software</Copyright>
+    <PackageProjectUrl>https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET</RepositoryUrl>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)|$(TargetFramework)'=='Debug|AnyCPU|net5.0'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)|$(TargetFramework)'=='Release|AnyCPU|net5.0'">
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)|$(TargetFramework)'=='Debug|AnyCPU|net6.0'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+		<WarningLevel>5</WarningLevel>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)|$(TargetFramework)'=='Release|AnyCPU|net6.0'">
+		<TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+		<WarningLevel>5</WarningLevel>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\SevenZip.NativeInterface\SevenZip.NativeInterface.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="SevenZip.Compression.settings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </None>
+	</ItemGroup>
+
+</Project>

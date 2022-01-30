@@ -1,0 +1,78 @@
+﻿{
+  "plugins": [
+    {
+      "os": "win",
+      "bits": 32,
+      "subDir": "win-x86",
+      "fileNamePattern": "^{0}\\.dll$"
+    },
+    {
+      "os": "win",
+      "bits": 32,
+      "subDir": "win-arm32",
+      "fileNamePattern": "^{0}\\.dll$"
+    },
+    {
+      "os": "win",
+      "bits": 64,
+      "subDir": "win-x64",
+      "fileNamePattern": "^{0}\\.dll$"
+    },
+    {
+      "os": "win",
+      "bits": 64,
+      "subDir": "win-arm64",
+      "fileNamePattern": "^{0}\\.dll$"
+    },
+
+    {
+      "os": "linux",
+      "bits": 32,
+      "subDir": "linux-x86",
+      "fileNamePattern": "^(lib)?{0}\\.(dll|(so(\\.[0-9]+)?))$"
+    },
+    {
+      "os": "linux",
+      "bits": 32,
+      "subDir": "linux-arm32",
+      "fileNamePattern": "^(lib)?{0}\\.(dll|(so(\\.[0-9]+)?))$"
+    },
+    {
+      "os": "linux",
+      "bits": 64,
+      "subDir": "linux-x64",
+      "fileNamePattern": "^(lib)?{0}\\.(dll|(so(\\.[0-9]+)?))$"
+    },
+    {
+      "os": "linux",
+      "bits": 64,
+      "subDir": "linux-arm64",
+      "fileNamePattern": "^(lib)?{0}\\.(dll|(so(\\.[0-9]+)?))$"
+    },
+
+    {
+      "os": "macos",
+      "bits": 32,
+      "subDir": "macos-x86",
+      "fileNamePattern": "^(lib)?{0}\\.(dll|dylib)$"
+    },
+    {
+      "os": "macos",
+      "bits": 32,
+      "subDir": "macos-arm32",
+      "fileNamePattern": "^(lib)?{0}\\.(dll|dylib)$"
+    },
+    {
+      "os": "macos",
+      "bits": 64,
+      "subDir": "macos-x64",
+      "fileNamePattern": "^(lib)?{0}\\.(dll|dylib)$"
+    },
+    {
+      "os": "macos",
+      "bits": 64,
+      "subDir": "macos-arm64",
+      "fileNamePattern": "^(lib)?{0}\\.(dll|dylib)$"
+    }
+  ]
+}

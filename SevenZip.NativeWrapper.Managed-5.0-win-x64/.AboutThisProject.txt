@@ -1,0 +1,6 @@
+﻿このプロジェクトは、7-zipのライブラリに直接アクセスするアンマネージライブラリのプロジェクトで、c++で記述されています。
+ソースコードはすべてのプラットフォームで共有されていて、c++のプロジェクトファイルのみが各プラットフォーム別に存在します。
+
+
+This project is an unmanaged library project that accesses the 7-zip library directly and is written in c++.
+The source code is shared across all platforms and only the c ++ project files exist for each platform.

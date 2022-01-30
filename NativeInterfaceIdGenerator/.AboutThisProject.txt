@@ -1,0 +1,20 @@
+﻿このプロジェクトは、このソリューションにおける大量ではあるが単調なコードの何種類かを自動的に生成するためのアプリケーションのプロジェクトです。
+
+自動的な生成は.jsonファイルに書かれている内容に基づいて行われます。
+生成するコードの内容は、例えば以下のものが含まれます。
+・7-zipがサポートするインターフェースの定義
+・7-zipがサポートするインターフェースのメンバ関数の、c++側の定義およびc#側の宣言
+これらはひとつひとつは単純なコードですが、同じようなコードが非常に多く繰り返されるので整合性の確認作業が困難であるため、自動的に生成することにしました。
+
+このプロジェクトのアプリケーションは開発中のためのものであり、公開パッケージの中には含まれません。
+
+
+This project is an application project for automatically generating some of the massive but monotonous code in this solution.
+
+The automatic generation is based on what is written in the .json file.
+The content of the generated code includes, for example:
+- Definition of interfaces supported by 7-zip
+- Definition on the c ++ side and declaration on the c # side of the member functions of the interface supported by 7-zip
+Each of these is a simple code, but since it is difficult to check the consistency because similar code is repeated so many times, I decided to generate it automatically.
+
+The applications in this project are for development and are not included in the public package.

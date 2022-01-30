@@ -1,0 +1,1723 @@
+﻿{
+  "interfaces": [
+    {
+      "interfaceName": "IUnknown",
+      "interfaceId": "00000000-0000-0000-c000-000000000046",
+      "baseInerfaceName": "",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": true,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "QueryInterface",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": true,
+          "parameters7z": [
+            {
+              "parameterType": "REFIID",
+              "parameterName": "riid"
+            },
+            {
+              "parameterType": "void**",
+              "parameterName": "ppvObject"
+            }
+          ],
+          "parametersCpp": [
+            {
+              "parameterType": "GUID*",
+              "parameterName": "piid"
+            },
+            {
+              "parameterType": "void**",
+              "parameterName": "ppvObject"
+            }
+          ],
+          "parametersCSharp": [
+            {
+              "parameterType": "ref NativeGUID",
+              "parameterName": "piid"
+            },
+            {
+              "parameterType": "out IntPtr",
+              "parameterName": "pvObject"
+            }
+          ]
+        },
+        {
+          "memberName": "AddRef",
+          "returnValueType": "UInt32",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        },
+        {
+          "memberName": "Release",
+          "returnValueType": "UInt32",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ISequentialInStream",
+      "interfaceId": "23170f69-40c1-278a-0000-000300010000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": true,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "Read",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "void*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            },
+            {
+              "parameterType": "UInt32*",
+              "parameterName": "processedSize"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "void*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            },
+            {
+              "parameterType": "out UInt32",
+              "parameterName": "processedSize"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ISequentialOutStream",
+      "interfaceId": "23170f69-40c1-278a-0000-000300020000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": false,
+      "providedInward": true,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "Write",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "const void*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            },
+            {
+              "parameterType": "UInt32*",
+              "parameterName": "processedSize"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "void*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            },
+            {
+              "parameterType": "out UInt32",
+              "parameterName": "processedSize"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "IInStream",
+      "interfaceId": "23170f69-40c1-278a-0000-000300030000",
+      "baseInerfaceName": "ISequentialInStream",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "Seek",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "Int64",
+              "parameterName": "offset"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "seekOrigin"
+            },
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "newPosition"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "Int64",
+              "parameterName": "offset"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "seekOrigin"
+            },
+            {
+              "parameterType": "out UInt64",
+              "parameterName": "newPosition"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "IOutStream",
+      "interfaceId": "23170f69-40c1-278a-0000-000300040000",
+      "baseInerfaceName": "ISequentialOutStream",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "Seek",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "Int64",
+              "parameterName": "offset"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "seekOrigin"
+            },
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "newPosition"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "Int64",
+              "parameterName": "offset"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "seekOrigin"
+            },
+            {
+              "parameterType": "out UInt64",
+              "parameterName": "newPosition"
+            }
+          ]
+        },
+        {
+          "memberName": "SetSize",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt64",
+              "parameterName": "newSize"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "IStreamGetSize",
+      "interfaceId": "23170f69-40c1-278a-0000-000300060000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "GetSize",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "size"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "out UInt64",
+              "parameterName": "size"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "IOutStreamFinish",
+      "interfaceId": "23170f69-40c1-278a-0000-000300070000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "OutStreamFinish",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "IStreamGetProps",
+      "interfaceId": "23170f69-40c1-278a-0000-000300080000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "GetProps",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "size"
+            },
+            {
+              "parameterType": "FILETIME*",
+              "parameterName": "cTime"
+            },
+            {
+              "parameterType": "FILETIME*",
+              "parameterName": "aTime"
+            },
+            {
+              "parameterType": "FILETIME*",
+              "parameterName": "mTime"
+            },
+            {
+              "parameterType": "UInt32*",
+              "parameterName": "attrib"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "size"
+            },
+            {
+              "parameterType": "void*",
+              "parameterName": "cTime"
+            },
+            {
+              "parameterType": "void*",
+              "parameterName": "aTime"
+            },
+            {
+              "parameterType": "void*",
+              "parameterName": "mTime"
+            },
+            {
+              "parameterType": "UInt32*",
+              "parameterName": "attrib"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "IStreamGetProps2",
+      "interfaceId": "23170f69-40c1-278a-0000-000300090000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "GetProps2",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "CStreamFileProps*",
+              "parameterName": "props"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "void*",
+              "parameterName": "props"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressProgressInfo",
+      "interfaceId": "23170f69-40c1-278a-0000-000400040000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": false,
+      "providedInward": true,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "SetRatioInfo",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "const UInt64*",
+              "parameterName": "inSize"
+            },
+            {
+              "parameterType": "const UInt64*",
+              "parameterName": "outSize"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "inSize"
+            },
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "outSize"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressCoder",
+      "interfaceId": "23170f69-40c1-278a-0000-000400050000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "Code",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": true,
+          "parameters7z": [
+            {
+              "parameterType": "ISequentialInStream*",
+              "parameterName": "inStream"
+            },
+            {
+              "parameterType": "ISequentialOutStream*",
+              "parameterName": "outStream"
+            },
+            {
+              "parameterType": "const UInt64*",
+              "parameterName": "inSize"
+            },
+            {
+              "parameterType": "const UInt64*",
+              "parameterName": "outSize"
+            },
+            {
+              "parameterType": "ICompressProgressInfo*",
+              "parameterName": "progress"
+            }
+          ],
+          "parametersCpp": [
+            {
+              "parameterType": "SequentialInStreamReader",
+              "parameterName": "inStreamReader"
+            },
+            {
+              "parameterType": "SequentialOutStreamWriter",
+              "parameterName": "outStreamWriter"
+            },
+            {
+              "parameterType": "const UInt64*",
+              "parameterName": "inSize"
+            },
+            {
+              "parameterType": "const UInt64*",
+              "parameterName": "outSize"
+            },
+            {
+              "parameterType": "CompressProgressInfoReporter",
+              "parameterName": "progressReporter"
+            }
+          ],
+          "parametersCSharp": [
+            {
+              "parameterType": "NativeInStreamReader",
+              "parameterName": "inStreamReader"
+            },
+            {
+              "parameterType": "NativeOutStraamWriter",
+              "parameterName": "outStreamWriter"
+            },
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "inSize"
+            },
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "outSize"
+            },
+            {
+              "parameterType": "NativeProgressReporter?",
+              "parameterName": "progressReporter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressCoder2",
+      "interfaceId": "23170f69-40c1-278a-0000-000400180000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "Code",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": true,
+          "parameters7z": [
+            {
+              "parameterType": "ISequentialInStream* const*",
+              "parameterName": "inStreams"
+            },
+            {
+              "parameterType": "const UInt64* const*",
+              "parameterName": "inSizes"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numInStreams"
+            },
+            {
+              "parameterType": "ISequentialOutStream* const*",
+              "parameterName": "outStreams"
+            },
+            {
+              "parameterType": "const UInt64* const*",
+              "parameterName": "outSizes"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numOutStreams"
+            },
+            {
+              "parameterType": "ICompressProgressInfo*",
+              "parameterName": "progress"
+            }
+          ],
+          "parametersCpp": [
+            {
+              "parameterType": "SequentialInStreamReader const*",
+              "parameterName": "inStreamReaders"
+            },
+            {
+              "parameterType": "const UInt64* const*",
+              "parameterName": "inSizes"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numInStreams"
+            },
+            {
+              "parameterType": "SequentialOutStreamWriter const*",
+              "parameterName": "outStreamWriters"
+            },
+            {
+              "parameterType": "const UInt64* const*",
+              "parameterName": "outSizes"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numOutStreams"
+            },
+            {
+              "parameterType": "CompressProgressInfoReporter",
+              "parameterName": "progressReporter"
+            }
+          ],
+          "parametersCSharp": [
+            {
+              "parameterType": "NativeInStreamReader*",
+              "parameterName": "inStreamReaders"
+            },
+            {
+              "parameterType": "UInt64**",
+              "parameterName": "inSizes"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numInStreams"
+            },
+            {
+              "parameterType": "NativeOutStraamWriter*",
+              "parameterName": "outStreamWriters"
+            },
+            {
+              "parameterType": "UInt64**",
+              "parameterName": "outSizes"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numOutStreams"
+            },
+            {
+              "parameterType": "NativeProgressReporter?",
+              "parameterName": "progressReporter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetCoderPropertiesOpt",
+      "interfaceId": "23170f69-40c1-278a-0000-0004001f0000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "SetCoderPropertiesOpt",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "const PROPID*",
+              "parameterName": "propIDs"
+            },
+            {
+              "parameterType": "const PROPVARIANT*",
+              "parameterName": "props"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numProps"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "CoderPropID*",
+              "parameterName": "propIDs"
+            },
+            {
+              "parameterType": "PROPVARIANT*",
+              "parameterName": "props"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numProps"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetCoderProperties",
+      "interfaceId": "23170f69-40c1-278a-0000-000400200000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "SetCoderProperties",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "const PROPID*",
+              "parameterName": "propIDs"
+            },
+            {
+              "parameterType": "const PROPVARIANT*",
+              "parameterName": "props"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numProps"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "CoderPropID*",
+              "parameterName": "propIDs"
+            },
+            {
+              "parameterType": "PROPVARIANT*",
+              "parameterName": "props"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numProps"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetDecoderProperties2",
+      "interfaceId": "23170f69-40c1-278a-0000-000400220000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "SetDecoderProperties2",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "const Byte*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "Byte*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressWriteCoderProperties",
+      "interfaceId": "23170f69-40c1-278a-0000-000400230000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "WriteCoderProperties",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": true,
+          "parameters7z": [
+            {
+              "parameterType": "ISequentialOutStream*",
+              "parameterName": "outStream"
+            }
+          ],
+          "parametersCpp": [
+            {
+              "parameterType": "SequentialOutStreamWriter",
+              "parameterName": "outStreamWriter"
+            }
+          ],
+          "parametersCSharp": [
+            {
+              "parameterType": "NativeOutStraamWriter",
+              "parameterName": "outStreamWriter"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressGetInStreamProcessedSize",
+      "interfaceId": "23170f69-40c1-278a-0000-000400240000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "GetInStreamProcessedSize",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "value"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "out UInt64",
+              "parameterName": "value"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetCoderMt",
+      "interfaceId": "23170f69-40c1-278a-0000-000400250000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "SetNumberOfThreads",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "numThreads"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetFinishMode",
+      "interfaceId": "23170f69-40c1-278a-0000-000400260000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "SetFinishMode",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "finishMode"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressGetInStreamProcessedSize2",
+      "interfaceId": "23170f69-40c1-278a-0000-000400270000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "GetInStreamProcessedSize2",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "streamIndex"
+            },
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "value"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "streamIndex"
+            },
+            {
+              "parameterType": "out UInt64",
+              "parameterName": "value"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetMemLimit",
+      "interfaceId": "23170f69-40c1-278a-0000-000400280000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "SetMemLimit",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt64",
+              "parameterName": "memUsage"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressReadUnusedFromInBuf",
+      "interfaceId": "23170f69-40c1-278a-0000-000400290000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "ReadUnusedFromInBuf",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "void*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            },
+            {
+              "parameterType": "UInt32*",
+              "parameterName": "processedSize"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "void*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            },
+            {
+              "parameterType": "out UInt32",
+              "parameterName": "processedSize"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressGetSubStreamSize",
+      "interfaceId": "23170f69-40c1-278a-0000-000400300000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "GetSubStreamSize",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt64",
+              "parameterName": "subStream"
+            },
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "value"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt64",
+              "parameterName": "subStream"
+            },
+            {
+              "parameterType": "out UInt64",
+              "parameterName": "value"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetInStream",
+      "interfaceId": "23170f69-40c1-278a-0000-000400310000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "SetInStream",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": true,
+          "parameters7z": [
+            {
+              "parameterType": "ISequentialInStream*",
+              "parameterName": "inStream"
+            }
+          ],
+          "parametersCpp": [
+            {
+              "parameterType": "SequentialInStreamReader",
+              "parameterName": "inStreamReader"
+            }
+          ],
+          "parametersCSharp": [
+            {
+              "parameterType": "NativeInStreamReader",
+              "parameterName": "inStreamReader"
+            }
+          ]
+        },
+        {
+          "memberName": "ReleaseInStream",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetOutStream",
+      "interfaceId": "23170f69-40c1-278a-0000-000400320000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "SetOutStream",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": true,
+          "parameters7z": [
+            {
+              "parameterType": "ISequentialOutStream*",
+              "parameterName": "outStream"
+            }
+          ],
+          "parametersCpp": [
+            {
+              "parameterType": "SequentialOutStreamWriter",
+              "parameterName": "outStreamWriter"
+            }
+          ],
+          "parametersCSharp": [
+            {
+              "parameterType": "NativeOutStraamWriter",
+              "parameterName": "outStreamWriter"
+            }
+          ]
+        },
+        {
+          "memberName": "ReleaseOutStream",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetOutStreamSize",
+      "interfaceId": "23170f69-40c1-278a-0000-000400340000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "SetOutStreamSize",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "const UInt64*",
+              "parameterName": "outSize"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt64*",
+              "parameterName": "outSize"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetBufSize",
+      "interfaceId": "23170f69-40c1-278a-0000-000400350000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": true,
+      "members": [
+        {
+          "memberName": "SetInBufSize",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "streamIndex"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        },
+        {
+          "memberName": "SetOutBufSize",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "streamIndex"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressInitEncoder",
+      "interfaceId": "23170f69-40c1-278a-0000-000400360000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "InitEncoder",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressSetInStream2",
+      "interfaceId": "23170f69-40c1-278a-0000-000400370000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "SetInStream2",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": true,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "streamIndex"
+            },
+            {
+              "parameterType": "ISequentialInStream*",
+              "parameterName": "inStream"
+            }
+          ],
+          "parametersCpp": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "streamIndex"
+            },
+            {
+              "parameterType": "SequentialInStreamReader",
+              "parameterName": "inStreamReader"
+            }
+          ],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "streamIndex"
+            },
+            {
+              "parameterType": "NativeInStreamReader",
+              "parameterName": "inStreamReader"
+            }
+          ]
+        },
+        {
+          "memberName": "ReleaseInStream2",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "streamIndex"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressFilter",
+      "interfaceId": "23170f69-40c1-278a-0000-000400400000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "Init",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        },
+        {
+          "memberName": "Filter",
+          "returnValueType": "UInt32",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "Byte*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICompressCodecsInfo",
+      "interfaceId": "23170f69-40c1-278a-0000-000400600000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": true,
+      "providedOutward": true,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "GetNumMethods",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32*",
+              "parameterName": "numMethods"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "out UInt32",
+              "parameterName": "numMethods"
+            }
+          ]
+        },
+        {
+          "memberName": "GetProperty",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "index"
+            },
+            {
+              "parameterType": "PROPID",
+              "parameterName": "propID"
+            },
+            {
+              "parameterType": "PROPVARIANT*",
+              "parameterName": "value"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "index"
+            },
+            {
+              "parameterType": "MethodPropID",
+              "parameterName": "propID"
+            },
+            {
+              "parameterType": "ref PROPVARIANT",
+              "parameterName": "value"
+            }
+          ]
+        },
+        {
+          "memberName": "CreateDecoder",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "index"
+            },
+            {
+              "parameterType": "const GUID*",
+              "parameterName": "iid"
+            },
+            {
+              "parameterType": "void**",
+              "parameterName": "coder"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "index"
+            },
+            {
+              "parameterType": "ref NativeGUID",
+              "parameterName": "iid"
+            },
+            {
+              "parameterType": "out IntPtr",
+              "parameterName": "coder"
+            }
+          ]
+        },
+        {
+          "memberName": "CreateEncoder",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "index"
+            },
+            {
+              "parameterType": "const GUID*",
+              "parameterName": "iid"
+            },
+            {
+              "parameterType": "void**",
+              "parameterName": "coder"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "index"
+            },
+            {
+              "parameterType": "ref NativeGUID",
+              "parameterName": "iid"
+            },
+            {
+              "parameterType": "out IntPtr",
+              "parameterName": "coder"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ISetCompressCodecsInfo",
+      "interfaceId": "23170f69-40c1-278a-0000-000400610000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "SetCompressCodecsInfo",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "ICompressCodecsInfo*",
+              "parameterName": "compressCodecsInfo"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "void*",
+              "parameterName": "compressCodecsInfo"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICryptoProperties",
+      "interfaceId": "23170f69-40c1-278a-0000-000400800000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "SetKey",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "const Byte*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "Byte*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ]
+        },
+        {
+          "memberName": "SetInitVector",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "const Byte*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "Byte*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICryptoResetInitVector",
+      "interfaceId": "23170f69-40c1-278a-0000-0004008c0000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "ResetInitVector",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICryptoSetPassword",
+      "interfaceId": "23170f69-40c1-278a-0000-000400900000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "CryptoSetPassword",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "const Byte*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "Byte*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "interfaceName": "ICryptoSetCRC",
+      "interfaceId": "23170f69-40c1-278a-0000-000400a00000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "CryptoSetCRC",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "crc"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "IHasher",
+      "interfaceId": "23170f69-40c1-278a-0000-000400c00000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "Init",
+          "returnValueType": "void",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        },
+        {
+          "memberName": "Update",
+          "returnValueType": "void",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "const void*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "void*",
+              "parameterName": "data"
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size"
+            }
+          ]
+        },
+        {
+          "memberName": "Final",
+          "returnValueType": "void",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "Byte*",
+              "parameterName": "digest"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        },
+        {
+          "memberName": "GetDigestSize",
+          "returnValueType": "UInt32",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        }
+      ]
+    },
+    {
+      "interfaceName": "IHashers",
+      "interfaceId": "23170f69-40c1-278a-0000-000400c10000",
+      "baseInerfaceName": "IUnknown",
+      "implemented": false,
+      "providedOutward": false,
+      "providedInward": false,
+      "canQuery": false,
+      "members": [
+        {
+          "memberName": "GetNumHashers",
+          "returnValueType": "UInt32",
+          "isCustomizedParameter": false,
+          "parameters7z": [],
+          "parametersCpp": [],
+          "parametersCSharp": []
+        },
+        {
+          "memberName": "GetHasherProp",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "index"
+            },
+            {
+              "parameterType": "PROPID",
+              "parameterName": "propID"
+            },
+            {
+              "parameterType": "PROPVARIANT*",
+              "parameterName": "value"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "index"
+            },
+            {
+              "parameterType": "MethodPropID",
+              "parameterName": "propID"
+            },
+            {
+              "parameterType": "PROPVARIANT*",
+              "parameterName": "value"
+            }
+          ]
+        },
+        {
+          "memberName": "CreateHasher",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "parameters7z": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "index"
+            },
+            {
+              "parameterType": "IHasher**",
+              "parameterName": "hasher"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "index"
+            },
+            {
+              "parameterType": "void**",
+              "parameterName": "hasher"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
