@@ -5,6 +5,9 @@ namespace SevenZip.Compression.Lzma
     /// <summary>
     /// A container class for LZMA decoder properties.
     /// </summary>
+    /// <remarks>
+    /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
+    /// </remarks>
     public class LzmaDecoderProperties
     {
         /// <summary>
@@ -41,9 +44,6 @@ namespace SevenZip.Compression.Lzma
         /// If you want to change this value, set the size of the input buffer in bytes.
         /// </para>
         /// </summary>
-        /// <remarks>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
-        /// </remarks>
         public UInt32? InBufSize { get; set; }
 
         /// <summary>
@@ -55,9 +55,6 @@ namespace SevenZip.Compression.Lzma
         /// If you want to change this value, set the size of the output buffer in bytes.
         /// </para>
         /// </summary>
-        /// <remarks>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
-        /// </remarks>
         public UInt32? OutBufSize { get; set; }
     }
 }

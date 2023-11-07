@@ -15,7 +15,7 @@
 // #include "ManagedStreamGetProps2.h"
 // #include "ManagedCompressProgressInfo.h"
 #include "ManagedCompressCoder.h"
-// #include "ManagedCompressCoder2.h"
+#include "ManagedCompressCoder2.h"
 #include "ManagedCompressSetCoderPropertiesOpt.h"
 #include "ManagedCompressSetCoderProperties.h"
 #include "ManagedCompressSetDecoderProperties2.h"
@@ -33,7 +33,7 @@
 #include "ManagedCompressSetBufSize.h"
 // #include "ManagedCompressInitEncoder.h"
 // #include "ManagedCompressSetInStream2.h"
-// #include "ManagedCompressFilter.h"
+#include "ManagedCompressFilter.h"
 #include "ManagedCompressCodecsInfo.h"
 // #include "ManagedSetCompressCodecsInfo.h"
 // #include "ManagedCryptoProperties.h"
@@ -113,9 +113,9 @@ namespace SevenZip
                 {
                     if (guid3 < 0x00002500)
                     {
-                        if (guid3 < 0x00002200)
+                        if (guid3 < 0x00002000)
                         {
-                            if (guid3 < 0x00001f00)
+                            if (guid3 < 0x00001800)
                             {
                                 if (guid3 != 0x00000500)
                                     return nullptr;
@@ -123,10 +123,10 @@ namespace SevenZip
                             }
                             else
                             {
-                                if (guid3 == 0x00001f00)
+                                if (guid3 == 0x00001800)
+                                    return ManagedCompressCoder2::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00001f00)
                                     return ManagedCompressSetCoderPropertiesOpt::Create(nativeUnknownObject);
-                                else if (guid3 == 0x00002000)
-                                    return ManagedCompressSetCoderProperties::Create(nativeUnknownObject);
                                 else
                                     return nullptr;
                             }
@@ -135,9 +135,12 @@ namespace SevenZip
                         {
                             if (guid3 < 0x00002300)
                             {
-                                if (guid3 != 0x00002200)
+                                if (guid3 == 0x00002000)
+                                    return ManagedCompressSetCoderProperties::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00002200)
+                                    return ManagedCompressSetDecoderProperties2::Create(nativeUnknownObject);
+                                else
                                     return nullptr;
-                                return ManagedCompressSetDecoderProperties2::Create(nativeUnknownObject);
                             }
                             else
                             {
@@ -152,41 +155,44 @@ namespace SevenZip
                     }
                     else
                     {
-                        if (guid3 < 0x00002900)
+                        if (guid3 < 0x00003100)
                         {
-                            if (guid3 < 0x00002600)
+                            if (guid3 < 0x00002800)
                             {
-                                if (guid3 != 0x00002500)
+                                if (guid3 == 0x00002500)
+                                    return ManagedCompressSetCoderMt::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00002600)
+                                    return ManagedCompressSetFinishMode::Create(nativeUnknownObject);
+                                else
                                     return nullptr;
-                                return ManagedCompressSetCoderMt::Create(nativeUnknownObject);
                             }
                             else
                             {
-                                if (guid3 == 0x00002600)
-                                    return ManagedCompressSetFinishMode::Create(nativeUnknownObject);
-                                else if (guid3 == 0x00002800)
+                                if (guid3 == 0x00002800)
                                     return ManagedCompressSetMemLimit::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00002900)
+                                    return ManagedCompressReadUnusedFromInBuf::Create(nativeUnknownObject);
                                 else
                                     return nullptr;
                             }
                         }
                         else
                         {
-                            if (guid3 < 0x00003400)
+                            if (guid3 < 0x00003500)
                             {
-                                if (guid3 == 0x00002900)
-                                    return ManagedCompressReadUnusedFromInBuf::Create(nativeUnknownObject);
-                                else if (guid3 == 0x00003100)
+                                if (guid3 == 0x00003100)
                                     return ManagedCompressSetInStream::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00003400)
+                                    return ManagedCompressSetOutStreamSize::Create(nativeUnknownObject);
                                 else
                                     return nullptr;
                             }
                             else
                             {
-                                if (guid3 == 0x00003400)
-                                    return ManagedCompressSetOutStreamSize::Create(nativeUnknownObject);
-                                else if (guid3 == 0x00003500)
+                                if (guid3 == 0x00003500)
                                     return ManagedCompressSetBufSize::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00004000)
+                                    return ManagedCompressFilter::Create(nativeUnknownObject);
                                 else
                                     return nullptr;
                             }
@@ -210,9 +216,9 @@ namespace SevenZip
                 {
                     if (guid3 < 0x00250000)
                     {
-                        if (guid3 < 0x00220000)
+                        if (guid3 < 0x00200000)
                         {
-                            if (guid3 < 0x001f0000)
+                            if (guid3 < 0x00180000)
                             {
                                 if (guid3 != 0x00050000)
                                     return nullptr;
@@ -220,10 +226,10 @@ namespace SevenZip
                             }
                             else
                             {
-                                if (guid3 == 0x001f0000)
+                                if (guid3 == 0x00180000)
+                                    return ManagedCompressCoder2::Create(nativeUnknownObject);
+                                else if (guid3 == 0x001f0000)
                                     return ManagedCompressSetCoderPropertiesOpt::Create(nativeUnknownObject);
-                                else if (guid3 == 0x00200000)
-                                    return ManagedCompressSetCoderProperties::Create(nativeUnknownObject);
                                 else
                                     return nullptr;
                             }
@@ -232,9 +238,12 @@ namespace SevenZip
                         {
                             if (guid3 < 0x00230000)
                             {
-                                if (guid3 != 0x00220000)
+                                if (guid3 == 0x00200000)
+                                    return ManagedCompressSetCoderProperties::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00220000)
+                                    return ManagedCompressSetDecoderProperties2::Create(nativeUnknownObject);
+                                else
                                     return nullptr;
-                                return ManagedCompressSetDecoderProperties2::Create(nativeUnknownObject);
                             }
                             else
                             {
@@ -249,41 +258,44 @@ namespace SevenZip
                     }
                     else
                     {
-                        if (guid3 < 0x00290000)
+                        if (guid3 < 0x00310000)
                         {
-                            if (guid3 < 0x00260000)
+                            if (guid3 < 0x00280000)
                             {
-                                if (guid3 != 0x00250000)
+                                if (guid3 == 0x00250000)
+                                    return ManagedCompressSetCoderMt::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00260000)
+                                    return ManagedCompressSetFinishMode::Create(nativeUnknownObject);
+                                else
                                     return nullptr;
-                                return ManagedCompressSetCoderMt::Create(nativeUnknownObject);
                             }
                             else
                             {
-                                if (guid3 == 0x00260000)
-                                    return ManagedCompressSetFinishMode::Create(nativeUnknownObject);
-                                else if (guid3 == 0x00280000)
+                                if (guid3 == 0x00280000)
                                     return ManagedCompressSetMemLimit::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00290000)
+                                    return ManagedCompressReadUnusedFromInBuf::Create(nativeUnknownObject);
                                 else
                                     return nullptr;
                             }
                         }
                         else
                         {
-                            if (guid3 < 0x00340000)
+                            if (guid3 < 0x00350000)
                             {
-                                if (guid3 == 0x00290000)
-                                    return ManagedCompressReadUnusedFromInBuf::Create(nativeUnknownObject);
-                                else if (guid3 == 0x00310000)
+                                if (guid3 == 0x00310000)
                                     return ManagedCompressSetInStream::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00340000)
+                                    return ManagedCompressSetOutStreamSize::Create(nativeUnknownObject);
                                 else
                                     return nullptr;
                             }
                             else
                             {
-                                if (guid3 == 0x00340000)
-                                    return ManagedCompressSetOutStreamSize::Create(nativeUnknownObject);
-                                else if (guid3 == 0x00350000)
+                                if (guid3 == 0x00350000)
                                     return ManagedCompressSetBufSize::Create(nativeUnknownObject);
+                                else if (guid3 == 0x00400000)
+                                    return ManagedCompressFilter::Create(nativeUnknownObject);
                                 else
                                     return nullptr;
                             }
@@ -305,16 +317,19 @@ namespace SevenZip
                 {
                     if (guid1 < 0x200004000000)
                     {
-                        if (guid1 < 0x50004000000)
+                        if (guid1 < 0x180004000000)
                         {
-                            if (guid1 != 0x10003000000)
+                            if (guid1 == 0x10003000000)
+                                return ManagedSequentialInStream::Create(nativeUnknownObject);
+                            else if (guid1 == 0x50004000000)
+                                return ManagedCompressCoder::Create(nativeUnknownObject);
+                            else
                                 return nullptr;
-                            return ManagedSequentialInStream::Create(nativeUnknownObject);
                         }
                         else
                         {
-                            if (guid1 == 0x50004000000)
-                                return ManagedCompressCoder::Create(nativeUnknownObject);
+                            if (guid1 == 0x180004000000)
+                                return ManagedCompressCoder2::Create(nativeUnknownObject);
                             else if (guid1 == 0x1f0004000000)
                                 return ManagedCompressSetCoderPropertiesOpt::Create(nativeUnknownObject);
                             else
@@ -345,41 +360,44 @@ namespace SevenZip
                 }
                 else
                 {
-                    if (guid1 < 0x290004000000)
+                    if (guid1 < 0x310004000000)
                     {
-                        if (guid1 < 0x260004000000)
+                        if (guid1 < 0x280004000000)
                         {
-                            if (guid1 != 0x250004000000)
+                            if (guid1 == 0x250004000000)
+                                return ManagedCompressSetCoderMt::Create(nativeUnknownObject);
+                            else if (guid1 == 0x260004000000)
+                                return ManagedCompressSetFinishMode::Create(nativeUnknownObject);
+                            else
                                 return nullptr;
-                            return ManagedCompressSetCoderMt::Create(nativeUnknownObject);
                         }
                         else
                         {
-                            if (guid1 == 0x260004000000)
-                                return ManagedCompressSetFinishMode::Create(nativeUnknownObject);
-                            else if (guid1 == 0x280004000000)
+                            if (guid1 == 0x280004000000)
                                 return ManagedCompressSetMemLimit::Create(nativeUnknownObject);
+                            else if (guid1 == 0x290004000000)
+                                return ManagedCompressReadUnusedFromInBuf::Create(nativeUnknownObject);
                             else
                                 return nullptr;
                         }
                     }
                     else
                     {
-                        if (guid1 < 0x340004000000)
+                        if (guid1 < 0x350004000000)
                         {
-                            if (guid1 == 0x290004000000)
-                                return ManagedCompressReadUnusedFromInBuf::Create(nativeUnknownObject);
-                            else if (guid1 == 0x310004000000)
+                            if (guid1 == 0x310004000000)
                                 return ManagedCompressSetInStream::Create(nativeUnknownObject);
+                            else if (guid1 == 0x340004000000)
+                                return ManagedCompressSetOutStreamSize::Create(nativeUnknownObject);
                             else
                                 return nullptr;
                         }
                         else
                         {
-                            if (guid1 == 0x340004000000)
-                                return ManagedCompressSetOutStreamSize::Create(nativeUnknownObject);
-                            else if (guid1 == 0x350004000000)
+                            if (guid1 == 0x350004000000)
                                 return ManagedCompressSetBufSize::Create(nativeUnknownObject);
+                            else if (guid1 == 0x400004000000)
+                                return ManagedCompressFilter::Create(nativeUnknownObject);
                             else
                                 return nullptr;
                         }
@@ -392,16 +410,19 @@ namespace SevenZip
                 {
                     if (guid1 < 0x400200000)
                     {
-                        if (guid1 < 0x400050000)
+                        if (guid1 < 0x400180000)
                         {
-                            if (guid1 != 0x300010000)
+                            if (guid1 == 0x300010000)
+                                return ManagedSequentialInStream::Create(nativeUnknownObject);
+                            else if (guid1 == 0x400050000)
+                                return ManagedCompressCoder::Create(nativeUnknownObject);
+                            else
                                 return nullptr;
-                            return ManagedSequentialInStream::Create(nativeUnknownObject);
                         }
                         else
                         {
-                            if (guid1 == 0x400050000)
-                                return ManagedCompressCoder::Create(nativeUnknownObject);
+                            if (guid1 == 0x400180000)
+                                return ManagedCompressCoder2::Create(nativeUnknownObject);
                             else if (guid1 == 0x4001f0000)
                                 return ManagedCompressSetCoderPropertiesOpt::Create(nativeUnknownObject);
                             else
@@ -432,41 +453,44 @@ namespace SevenZip
                 }
                 else
                 {
-                    if (guid1 < 0x400290000)
+                    if (guid1 < 0x400310000)
                     {
-                        if (guid1 < 0x400260000)
+                        if (guid1 < 0x400280000)
                         {
-                            if (guid1 != 0x400250000)
+                            if (guid1 == 0x400250000)
+                                return ManagedCompressSetCoderMt::Create(nativeUnknownObject);
+                            else if (guid1 == 0x400260000)
+                                return ManagedCompressSetFinishMode::Create(nativeUnknownObject);
+                            else
                                 return nullptr;
-                            return ManagedCompressSetCoderMt::Create(nativeUnknownObject);
                         }
                         else
                         {
-                            if (guid1 == 0x400260000)
-                                return ManagedCompressSetFinishMode::Create(nativeUnknownObject);
-                            else if (guid1 == 0x400280000)
+                            if (guid1 == 0x400280000)
                                 return ManagedCompressSetMemLimit::Create(nativeUnknownObject);
+                            else if (guid1 == 0x400290000)
+                                return ManagedCompressReadUnusedFromInBuf::Create(nativeUnknownObject);
                             else
                                 return nullptr;
                         }
                     }
                     else
                     {
-                        if (guid1 < 0x400340000)
+                        if (guid1 < 0x400350000)
                         {
-                            if (guid1 == 0x400290000)
-                                return ManagedCompressReadUnusedFromInBuf::Create(nativeUnknownObject);
-                            else if (guid1 == 0x400310000)
+                            if (guid1 == 0x400310000)
                                 return ManagedCompressSetInStream::Create(nativeUnknownObject);
+                            else if (guid1 == 0x400340000)
+                                return ManagedCompressSetOutStreamSize::Create(nativeUnknownObject);
                             else
                                 return nullptr;
                         }
                         else
                         {
-                            if (guid1 == 0x400340000)
-                                return ManagedCompressSetOutStreamSize::Create(nativeUnknownObject);
-                            else if (guid1 == 0x400350000)
+                            if (guid1 == 0x400350000)
                                 return ManagedCompressSetBufSize::Create(nativeUnknownObject);
+                            else if (guid1 == 0x400400000)
+                                return ManagedCompressFilter::Create(nativeUnknownObject);
                             else
                                 return nullptr;
                         }
@@ -506,9 +530,9 @@ namespace SevenZip
                 {
                     if (guid3 < 0x00002500)
                     {
-                        if (guid3 < 0x00002200)
+                        if (guid3 < 0x00002000)
                         {
-                            if (guid3 < 0x00001f00)
+                            if (guid3 < 0x00001800)
                             {
                                 if (guid3 != 0x00000500)
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
@@ -519,14 +543,14 @@ namespace SevenZip
                             }
                             else
                             {
-                                if (guid3 == 0x00001f00)
+                                if (guid3 == 0x00001800)
                                 {
-                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderPropertiesOpt)))
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressCoder2)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
-                                else if (guid3 == 0x00002000)
+                                else if (guid3 == 0x00001f00)
                                 {
-                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderProperties)))
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderPropertiesOpt)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
                                 else
@@ -537,12 +561,18 @@ namespace SevenZip
                         {
                             if (guid3 < 0x00002300)
                             {
-                                if (guid3 != 0x00002200)
+                                if (guid3 == 0x00002000)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderProperties)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else if (guid3 == 0x00002200)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetDecoderProperties2)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            {
-                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetDecoderProperties2)))
-                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            }
                             }
                             else
                             {
@@ -563,27 +593,33 @@ namespace SevenZip
                     }
                     else
                     {
-                        if (guid3 < 0x00002900)
+                        if (guid3 < 0x00003100)
                         {
-                            if (guid3 < 0x00002600)
+                            if (guid3 < 0x00002800)
                             {
-                                if (guid3 != 0x00002500)
-                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            {
-                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderMt)))
-                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            }
-                            }
-                            else
-                            {
-                                if (guid3 == 0x00002600)
+                                if (guid3 == 0x00002500)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderMt)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else if (guid3 == 0x00002600)
                                 {
                                     if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetFinishMode)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
-                                else if (guid3 == 0x00002800)
+                                else
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else
+                            {
+                                if (guid3 == 0x00002800)
                                 {
                                     if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetMemLimit)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else if (guid3 == 0x00002900)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressReadUnusedFromInBuf)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
                                 else
@@ -592,16 +628,16 @@ namespace SevenZip
                         }
                         else
                         {
-                            if (guid3 < 0x00003400)
+                            if (guid3 < 0x00003500)
                             {
-                                if (guid3 == 0x00002900)
-                                {
-                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressReadUnusedFromInBuf)))
-                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                                }
-                                else if (guid3 == 0x00003100)
+                                if (guid3 == 0x00003100)
                                 {
                                     if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetInStream)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else if (guid3 == 0x00003400)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetOutStreamSize)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
                                 else
@@ -609,14 +645,14 @@ namespace SevenZip
                             }
                             else
                             {
-                                if (guid3 == 0x00003400)
-                                {
-                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetOutStreamSize)))
-                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                                }
-                                else if (guid3 == 0x00003500)
+                                if (guid3 == 0x00003500)
                                 {
                                     if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetBufSize)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else if (guid3 == 0x00004000)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressFilter)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
                                 else
@@ -645,9 +681,9 @@ namespace SevenZip
                 {
                     if (guid3 < 0x00250000)
                     {
-                        if (guid3 < 0x00220000)
+                        if (guid3 < 0x00200000)
                         {
-                            if (guid3 < 0x001f0000)
+                            if (guid3 < 0x00180000)
                             {
                                 if (guid3 != 0x00050000)
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
@@ -658,14 +694,14 @@ namespace SevenZip
                             }
                             else
                             {
-                                if (guid3 == 0x001f0000)
+                                if (guid3 == 0x00180000)
                                 {
-                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderPropertiesOpt)))
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressCoder2)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
-                                else if (guid3 == 0x00200000)
+                                else if (guid3 == 0x001f0000)
                                 {
-                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderProperties)))
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderPropertiesOpt)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
                                 else
@@ -676,12 +712,18 @@ namespace SevenZip
                         {
                             if (guid3 < 0x00230000)
                             {
-                                if (guid3 != 0x00220000)
+                                if (guid3 == 0x00200000)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderProperties)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else if (guid3 == 0x00220000)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetDecoderProperties2)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            {
-                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetDecoderProperties2)))
-                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            }
                             }
                             else
                             {
@@ -702,27 +744,33 @@ namespace SevenZip
                     }
                     else
                     {
-                        if (guid3 < 0x00290000)
+                        if (guid3 < 0x00310000)
                         {
-                            if (guid3 < 0x00260000)
+                            if (guid3 < 0x00280000)
                             {
-                                if (guid3 != 0x00250000)
-                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            {
-                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderMt)))
-                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            }
-                            }
-                            else
-                            {
-                                if (guid3 == 0x00260000)
+                                if (guid3 == 0x00250000)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderMt)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else if (guid3 == 0x00260000)
                                 {
                                     if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetFinishMode)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
-                                else if (guid3 == 0x00280000)
+                                else
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else
+                            {
+                                if (guid3 == 0x00280000)
                                 {
                                     if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetMemLimit)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else if (guid3 == 0x00290000)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressReadUnusedFromInBuf)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
                                 else
@@ -731,16 +779,16 @@ namespace SevenZip
                         }
                         else
                         {
-                            if (guid3 < 0x00340000)
+                            if (guid3 < 0x00350000)
                             {
-                                if (guid3 == 0x00290000)
-                                {
-                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressReadUnusedFromInBuf)))
-                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                                }
-                                else if (guid3 == 0x00310000)
+                                if (guid3 == 0x00310000)
                                 {
                                     if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetInStream)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else if (guid3 == 0x00340000)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetOutStreamSize)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
                                 else
@@ -748,14 +796,14 @@ namespace SevenZip
                             }
                             else
                             {
-                                if (guid3 == 0x00340000)
-                                {
-                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetOutStreamSize)))
-                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                                }
-                                else if (guid3 == 0x00350000)
+                                if (guid3 == 0x00350000)
                                 {
                                     if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetBufSize)))
+                                        throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                                }
+                                else if (guid3 == 0x00400000)
+                                {
+                                    if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressFilter)))
                                         throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                                 }
                                 else
@@ -779,20 +827,26 @@ namespace SevenZip
                 {
                     if (guid1 < 0x200004000000)
                     {
-                        if (guid1 < 0x50004000000)
+                        if (guid1 < 0x180004000000)
                         {
-                            if (guid1 != 0x10003000000)
+                            if (guid1 == 0x10003000000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ISequentialInStream)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else if (guid1 == 0x50004000000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressCoder)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else
                                 throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                        {
-                            if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ISequentialInStream)))
-                                throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                        }
                         }
                         else
                         {
-                            if (guid1 == 0x50004000000)
+                            if (guid1 == 0x180004000000)
                             {
-                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressCoder)))
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressCoder2)))
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                             }
                             else if (guid1 == 0x1f0004000000)
@@ -840,27 +894,33 @@ namespace SevenZip
                 }
                 else
                 {
-                    if (guid1 < 0x290004000000)
+                    if (guid1 < 0x310004000000)
                     {
-                        if (guid1 < 0x260004000000)
+                        if (guid1 < 0x280004000000)
                         {
-                            if (guid1 != 0x250004000000)
-                                throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                        {
-                            if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderMt)))
-                                throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                        }
-                        }
-                        else
-                        {
-                            if (guid1 == 0x260004000000)
+                            if (guid1 == 0x250004000000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderMt)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else if (guid1 == 0x260004000000)
                             {
                                 if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetFinishMode)))
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                             }
-                            else if (guid1 == 0x280004000000)
+                            else
+                                throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                        }
+                        else
+                        {
+                            if (guid1 == 0x280004000000)
                             {
                                 if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetMemLimit)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else if (guid1 == 0x290004000000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressReadUnusedFromInBuf)))
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                             }
                             else
@@ -869,16 +929,16 @@ namespace SevenZip
                     }
                     else
                     {
-                        if (guid1 < 0x340004000000)
+                        if (guid1 < 0x350004000000)
                         {
-                            if (guid1 == 0x290004000000)
-                            {
-                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressReadUnusedFromInBuf)))
-                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            }
-                            else if (guid1 == 0x310004000000)
+                            if (guid1 == 0x310004000000)
                             {
                                 if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetInStream)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else if (guid1 == 0x340004000000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetOutStreamSize)))
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                             }
                             else
@@ -886,14 +946,14 @@ namespace SevenZip
                         }
                         else
                         {
-                            if (guid1 == 0x340004000000)
-                            {
-                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetOutStreamSize)))
-                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            }
-                            else if (guid1 == 0x350004000000)
+                            if (guid1 == 0x350004000000)
                             {
                                 if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetBufSize)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else if (guid1 == 0x400004000000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressFilter)))
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                             }
                             else
@@ -908,20 +968,26 @@ namespace SevenZip
                 {
                     if (guid1 < 0x400200000)
                     {
-                        if (guid1 < 0x400050000)
+                        if (guid1 < 0x400180000)
                         {
-                            if (guid1 != 0x300010000)
+                            if (guid1 == 0x300010000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ISequentialInStream)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else if (guid1 == 0x400050000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressCoder)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else
                                 throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                        {
-                            if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ISequentialInStream)))
-                                throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                        }
                         }
                         else
                         {
-                            if (guid1 == 0x400050000)
+                            if (guid1 == 0x400180000)
                             {
-                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressCoder)))
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressCoder2)))
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                             }
                             else if (guid1 == 0x4001f0000)
@@ -969,27 +1035,33 @@ namespace SevenZip
                 }
                 else
                 {
-                    if (guid1 < 0x400290000)
+                    if (guid1 < 0x400310000)
                     {
-                        if (guid1 < 0x400260000)
+                        if (guid1 < 0x400280000)
                         {
-                            if (guid1 != 0x400250000)
-                                throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                        {
-                            if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderMt)))
-                                throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                        }
-                        }
-                        else
-                        {
-                            if (guid1 == 0x400260000)
+                            if (guid1 == 0x400250000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetCoderMt)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else if (guid1 == 0x400260000)
                             {
                                 if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetFinishMode)))
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                             }
-                            else if (guid1 == 0x400280000)
+                            else
+                                throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                        }
+                        else
+                        {
+                            if (guid1 == 0x400280000)
                             {
                                 if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetMemLimit)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else if (guid1 == 0x400290000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressReadUnusedFromInBuf)))
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                             }
                             else
@@ -998,16 +1070,16 @@ namespace SevenZip
                     }
                     else
                     {
-                        if (guid1 < 0x400340000)
+                        if (guid1 < 0x400350000)
                         {
-                            if (guid1 == 0x400290000)
-                            {
-                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressReadUnusedFromInBuf)))
-                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            }
-                            else if (guid1 == 0x400310000)
+                            if (guid1 == 0x400310000)
                             {
                                 if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetInStream)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else if (guid1 == 0x400340000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetOutStreamSize)))
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                             }
                             else
@@ -1015,14 +1087,14 @@ namespace SevenZip
                         }
                         else
                         {
-                            if (guid1 == 0x400340000)
-                            {
-                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetOutStreamSize)))
-                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
-                            }
-                            else if (guid1 == 0x400350000)
+                            if (guid1 == 0x400350000)
                             {
                                 if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressSetBufSize)))
+                                    throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
+                            }
+                            else if (guid1 == 0x400400000)
+                            {
+                                if (!IsEqualInterfaceId(interfaceId, __UUIDOF(ICompressFilter)))
                                     throw gcnew System::Exception("There is an error in the algorithm of 'SevenZip::Compression :: Implementation :: CreateManagedInterfaceObject()'.");
                             }
                             else
@@ -1042,6 +1114,7 @@ namespace SevenZip
         {
                 ValidateInterfaceId(__UUIDOF(ISequentialInStream));
                 ValidateInterfaceId(__UUIDOF(ICompressCoder));
+                ValidateInterfaceId(__UUIDOF(ICompressCoder2));
                 ValidateInterfaceId(__UUIDOF(ICompressSetCoderPropertiesOpt));
                 ValidateInterfaceId(__UUIDOF(ICompressSetCoderProperties));
                 ValidateInterfaceId(__UUIDOF(ICompressSetDecoderProperties2));
@@ -1054,6 +1127,7 @@ namespace SevenZip
                 ValidateInterfaceId(__UUIDOF(ICompressSetInStream));
                 ValidateInterfaceId(__UUIDOF(ICompressSetOutStreamSize));
                 ValidateInterfaceId(__UUIDOF(ICompressSetBufSize));
+                ValidateInterfaceId(__UUIDOF(ICompressFilter));
         }
 #endif
     }

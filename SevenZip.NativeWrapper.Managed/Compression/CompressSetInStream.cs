@@ -1,9 +1,9 @@
 ﻿using SevenZip.NativeInterface.Compression;
 using SevenZip.NativeInterface.IO;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
 
-namespace SevenZip.NativeWrapper.Managed.Compression
+namespace SevenZip.NativeWrapper.Managed.win.x64.Compression
 {
     class CompressSetInStream
         : Unknown, ICompressSetInStream
@@ -18,30 +18,36 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         public static ICompressSetInStream Create(IntPtr nativeInterfaceObject)
         {
+            if (nativeInterfaceObject == IntPtr.Zero)
+                throw new ArgumentNullException(nameof(nativeInterfaceObject));
+
             return new CompressSetInStream(nativeInterfaceObject);
         }
 
         void ICompressSetInStream.ReleaseInStream()
         {
-            try
-            {
-                var result = UnmanagedEntryPoint.ICompressSetInStream__ReleaseInStream(NativeInterfaceObject);
-                if (result != HRESULT.S_OK)
-                    throw result.GetExceptionFromHRESULT();
-            }
-            finally
-            {
-                _nativeReader = null;
-            }
+            ReleaseInStream();
         }
 
         void ICompressSetInStream.SetInStream(SequentialInStreamReader sequentialInStreamReader)
         {
+            if (sequentialInStreamReader is null)
+                throw new ArgumentNullException(nameof(sequentialInStreamReader));
+
             var success = false;
             try
             {
+                try
+                {
+                    ReleaseInStream();
+                }
+                catch (Exception)
+                {
+                }
+
                 // To prevent the delegate from being released at an unintended timing by the garbage collector, associate the delegate with the class field.
                 _nativeReader = sequentialInStreamReader.ToNativeDelegate();
+
                 var result = UnmanagedEntryPoint.ICompressSetInStream__SetInStream(NativeInterfaceObject, _nativeReader);
                 if (result != HRESULT.S_OK)
                     throw result.GetExceptionFromHRESULT();
@@ -51,6 +57,23 @@ namespace SevenZip.NativeWrapper.Managed.Compression
             {
                 if (!success)
                     _nativeReader = null;
+            }
+        }
+
+        private void ReleaseInStream()
+        {
+            if (_nativeReader is not null)
+            {
+                try
+                {
+                    var result = UnmanagedEntryPoint.ICompressSetInStream__ReleaseInStream(NativeInterfaceObject);
+                    if (result != HRESULT.S_OK)
+                        throw result.GetExceptionFromHRESULT();
+                }
+                finally
+                {
+                    _nativeReader = null;
+                }
             }
         }
     }

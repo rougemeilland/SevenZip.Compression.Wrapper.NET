@@ -89,14 +89,12 @@ struct ICompressCoder
     virtual HRESULT STDMETHODCALLTYPE Code(ISequentialInStream* inStream, ISequentialOutStream* outStream, const UInt64* inSize, const UInt64* outSize, ICompressProgressInfo* progress) throw() abstract;
 };
 
-#if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressCoder2;
 struct ICompressCoder2
     : public IUnknown
 {
     virtual HRESULT STDMETHODCALLTYPE Code(ISequentialInStream* const* inStreams, const UInt64* const* inSizes, UInt32 numInStreams, ISequentialOutStream* const* outStreams, const UInt64* const* outSizes, UInt32 numOutStreams, ICompressProgressInfo* progress) throw() abstract;
 };
-#endif // This interface is not supported by the wrapper.
 
 extern "C" const GUID IID_ICompressSetCoderPropertiesOpt;
 struct ICompressSetCoderPropertiesOpt
@@ -231,7 +229,6 @@ struct ICompressSetInStream2
 };
 #endif // This interface is not supported by the wrapper.
 
-#if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressFilter;
 struct ICompressFilter
     : public IUnknown
@@ -239,7 +236,6 @@ struct ICompressFilter
     virtual HRESULT STDMETHODCALLTYPE Init() throw() abstract;
     virtual UInt32 STDMETHODCALLTYPE Filter(Byte* data, UInt32 size) throw() abstract;
 };
-#endif // This interface is not supported by the wrapper.
 
 extern "C" const GUID IID_ICompressCodecsInfo;
 struct ICompressCodecsInfo
@@ -247,8 +243,8 @@ struct ICompressCodecsInfo
 {
     virtual HRESULT STDMETHODCALLTYPE GetNumMethods(UInt32* numMethods) throw() abstract;
     virtual HRESULT STDMETHODCALLTYPE GetProperty(UInt32 index, PROPID propID, PROPVARIANT* value) throw() abstract;
-    virtual HRESULT STDMETHODCALLTYPE CreateDecoder(UInt32 index, const GUID* iid, void** coder) throw() abstract;
-    virtual HRESULT STDMETHODCALLTYPE CreateEncoder(UInt32 index, const GUID* iid, void** coder) throw() abstract;
+    virtual HRESULT STDMETHODCALLTYPE CreateDecoder(UInt32 index, const GUID* iid, void** decoder) throw() abstract;
+    virtual HRESULT STDMETHODCALLTYPE CreateEncoder(UInt32 index, const GUID* iid, void** encoder) throw() abstract;
 };
 
 #if false // This interface is not supported by the wrapper.
@@ -322,5 +318,6 @@ struct IHashers
 
 extern HRESULT Customized_IUnknown__QueryInterface(IUnknown*  ifp, GUID* piid, void** ppvObject);
 extern HRESULT Customized_ICompressCoder__Code(ICompressCoder*  ifp, SequentialInStreamReader inStreamReader, SequentialOutStreamWriter outStreamWriter, const UInt64* inSize, const UInt64* outSize, CompressProgressInfoReporter progressReporter);
+extern HRESULT Customized_ICompressCoder2__Code(ICompressCoder2*  ifp, SequentialInStreamReader const* inStreamReaders, const UInt64* const* inSizes, UInt32 numInStreams, SequentialOutStreamWriter const* outStreamWriters, const UInt64* const* outSizes, UInt32 numOutStreams, CompressProgressInfoReporter progressReporter);
 extern HRESULT Customized_ICompressWriteCoderProperties__WriteCoderProperties(ICompressWriteCoderProperties*  ifp, SequentialOutStreamWriter outStreamWriter);
 extern HRESULT Customized_ICompressSetInStream__SetInStream(ICompressSetInStream*  ifp, SequentialInStreamReader inStreamReader);

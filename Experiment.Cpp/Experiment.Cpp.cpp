@@ -5,41 +5,91 @@
 #include <iostream>
 #include <guiddef.h>
 #include <windows.h>
+#include <atlcomcli.h>
+
+size_t GetSizeOfShort()
+{
+    return sizeof(short);
+}
+
+size_t GetSizeOfInt()
+{
+    return sizeof(int);
+}
+
+size_t GetSizeOfLong()
+{
+    return sizeof(long);
+}
+
+size_t GetSizeOfLongLong()
+{
+    return sizeof(long long);
+}
+
+size_t GetSizeOfPointer()
+{
+    return sizeof(void*);
+}
+
+size_t GetSizeOfPROPVARIANT()
+{
+    return sizeof(PROPVARIANT);
+}
+
+void* GetOffsetOfVt(PROPVARIANT* p)
+{
+    return &p->vt;
+}
+
+size_t GetSizeofVt(PROPVARIANT* p)
+{
+    return sizeof(p->vt);
+}
+
+void* GetOffsetOfBooleanValue(PROPVARIANT* p)
+{
+    return &p->boolVal;
+}
+
+size_t GetSizeofBooleanValue(PROPVARIANT* p)
+{
+    return sizeof(p->boolVal);
+}
+
+void* GetOffsetOfUInt32Value(PROPVARIANT* p)
+{
+    return &p->ulVal;
+}
+
+size_t GetSizeofUInt32Value(PROPVARIANT* p)
+{
+    return sizeof(p->ulVal);
+}
+
+void* GetOffsetOfUInt64Value(PROPVARIANT* p)
+{
+    return &p->uhVal.QuadPart;
+}
+
+size_t GetSizeofUInt64Value(PROPVARIANT* p)
+{
+    return sizeof(p->uhVal.QuadPart);
+}
+
+void* GetOffsetOfBSTRValue(PROPVARIANT* p)
+{
+    return p->bstrVal;
+}
+
+size_t GetSizeofBSTRValue(PROPVARIANT* p)
+{
+    return sizeof(p->bstrVal);
+}
 
 int main()
 {
-    printf("");
-    PROPVARIANT propVariant;
-    const unsigned char* addreessOfPropVariant = (unsigned char*)&propVariant;
-    const unsigned char* addreessOfVT = (unsigned char*)&propVariant.vt;
-    const unsigned char* addreessOfBoolean = (unsigned char*)&propVariant.boolVal;
-    const unsigned char* addreessOfUInt32 = (unsigned char*)&propVariant.ulVal;
-    const unsigned char* addreessOfUInt64 = (unsigned char*)&propVariant.uhVal.QuadPart;
-    const unsigned char* addreessOfBSTR = (unsigned char*)&propVariant.bstrVal;
-
-    size_t sizeOfPROPVARIANT = sizeof(PROPVARIANT);
-    size_t sizeOfSizeT = sizeof(size_t);
-
-    size_t offsetOfVT = addreessOfVT - addreessOfPropVariant;
-    size_t sizeOfVT = sizeof(propVariant.vt);
-
-    size_t offsetOfBoolean = addreessOfBoolean - addreessOfPropVariant;
-    size_t sizeOfBoolean = sizeof(propVariant.boolVal);
-
-    size_t offsetOfUInt32 = addreessOfUInt32 - addreessOfPropVariant;
-    size_t sizeOfUInt32 = sizeof(propVariant.ulVal);
-
-    size_t offsetOfUInt64 = addreessOfUInt64 - addreessOfPropVariant;
-    size_t sizeOfUInt64 = sizeof(propVariant.uhVal.QuadPart);
-
-    size_t offsetOfBSTR = addreessOfBSTR - addreessOfPropVariant;
-    size_t sizeOfBSTR = sizeof(propVariant.bstrVal);
-
-    std::cout << "size_t: size=" << sizeOfSizeT << "\n";
-    std::cout << "PROPVARIANT: size=" << sizeOfPROPVARIANT << "\n";
-    std::cout << "PROPVARIANT.vt: offset=" << offsetOfVT << ", size=" << sizeOfVT << "\n";
-    std::cout << "PROPVARIANT.boolVal: offset=" << offsetOfBoolean << ", size=" << sizeOfBoolean << "\n";
-    std::cout << "PROPVARIANT.ulVal: offset=" << offsetOfUInt32 << ", size=" << sizeOfUInt32 << "\n";
-    std::cout << "PROPVARIANT.uhVal.QuadPart: offset=" << offsetOfUInt64 << ", size=" << sizeOfUInt64 << "\n";
-    std::cout << "PROPVARIANT.bstrVal: offset=" << offsetOfBSTR << ", size=" << sizeOfBSTR << "\n";
+    HINSTANCE hModule = LoadLibraryA("xxx.dll");
+    DWORD err = GetLastError();
+    HRESULT result = AtlHresultFromLastError();
 }

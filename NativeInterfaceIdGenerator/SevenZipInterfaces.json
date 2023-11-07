@@ -13,6 +13,9 @@
           "memberName": "QueryInterface",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": true,
+          "memberComment": "Gets the interface object for accessing the specified IUnknown interface object on the specified interface.",
+          "memberAdditionalComment": "If the call to this function is successful, the reference counter for the retrieved interface object has already been incremented. When you no longer need that interface object, you need to decrement the reference counter by calling the <see cref=\"IUnknown__Release(IntPtr)\"/> function.",
+          "returnValueComment": "<para>If <see cref=\"HRESULT.S_OK\"/> is returned, it means that the call to this function was successful.</para><para>If <see cref=\"HRESULT.E_NOINTERFACE\"/> is returned, it means that the call to this function failed because the object specified by <paramref name=\"ifp\"/> does not support the interface specified by <paramref name=\"iid\"/>.</para><para>If a value other than the above is returned, it means that the function call failed due to some error. At this time, the return value means the reason for the error.</para>",
           "parameters7z": [
             {
               "parameterType": "REFIID",
@@ -36,11 +39,13 @@
           "parametersCSharp": [
             {
               "parameterType": "ref NativeGUID",
-              "parameterName": "piid"
+              "parameterName": "iid",
+              "parameterComment": "Set the reference of the <see cref=\"NativeGUID\"/> structure of the interface you want to access."
             },
             {
               "parameterType": "out IntPtr",
-              "parameterName": "pvObject"
+              "parameterName": "intefaceObject",
+              "parameterComment": "If the function call is successful, a pointer to the object to access this object will be output on the interface specified by <paramref name=\"iid\"/>."
             }
           ]
         },
@@ -48,6 +53,9 @@
           "memberName": "AddRef",
           "returnValueType": "UInt32",
           "isCustomizedParameter": false,
+          "memberComment": "Increments the object's reference count.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "Returns an incremented reference count.",
           "parameters7z": [],
           "parametersCpp": [],
           "parametersCSharp": []
@@ -56,6 +64,9 @@
           "memberName": "Release",
           "returnValueType": "UInt32",
           "isCustomizedParameter": false,
+          "memberComment": "Decrement the reference count of an object.",
+          "memberAdditionalComment": "If the decrement results in a reference count of zero, the object is destroyed and the value of <paramref name=\"ifp\"/> is invalid. And then using the same <paramref name=\"ifp\"/> value will cause unexpected results.",
+          "returnValueComment": "Returns an incremented reference count.",
           "parameters7z": [],
           "parametersCpp": [],
           "parametersCSharp": []
@@ -516,10 +527,10 @@
       "interfaceName": "ICompressCoder2",
       "interfaceId": "23170f69-40c1-278a-0000-000400180000",
       "baseInerfaceName": "IUnknown",
-      "implemented": false,
-      "providedOutward": false,
+      "implemented": true,
+      "providedOutward": true,
       "providedInward": false,
-      "canQuery": false,
+      "canQuery": true,
       "members": [
         {
           "memberName": "Code",
@@ -587,7 +598,7 @@
           ],
           "parametersCSharp": [
             {
-              "parameterType": "NativeInStreamReader*",
+              "parameterType": "IntPtr",
               "parameterName": "inStreamReaders"
             },
             {
@@ -599,7 +610,7 @@
               "parameterName": "numInStreams"
             },
             {
-              "parameterType": "NativeOutStraamWriter*",
+              "parameterType": "IntPtr",
               "parameterName": "outStreamWriters"
             },
             {
@@ -758,6 +769,9 @@
           "memberName": "WriteCoderProperties",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": true,
+          "memberComment": "Writes the coder's content property to the specified output stream.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "ISequentialOutStream*",
@@ -773,7 +787,8 @@
           "parametersCSharp": [
             {
               "parameterType": "NativeOutStraamWriter",
-              "parameterName": "outStreamWriter"
+              "parameterName": "outStreamWriter",
+              "parameterComment": "Set a delegate for the function that writes the data to the output stream."
             }
           ]
         }
@@ -792,6 +807,9 @@
           "memberName": "GetInStreamProcessedSize",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Gets the length of the data that the coder reads from the input stream and processes.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "UInt64*",
@@ -802,7 +820,8 @@
           "parametersCSharp": [
             {
               "parameterType": "out UInt64",
-              "parameterName": "value"
+              "parameterName": "value",
+              "parameterComment": "If the call to this function is successful, the total number of bytes of data read and processed from the input stream will be output."
             }
           ]
         }
@@ -821,10 +840,14 @@
           "memberName": "SetNumberOfThreads",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Sets the number of threads used by the coder.",
+          "memberAdditionalComment": "The behavior of this method depends on the implementation in the codec. Note that the number of threads actually used by the coder does not always match the value specified by <paramref name=\"numThreads\"/>.",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "UInt32",
-              "parameterName": "numThreads"
+              "parameterName": "numThreads",
+              "parameterComment": "Set the number of threads that the coder can use."
             }
           ],
           "parametersCpp": [],
@@ -845,10 +868,14 @@
           "memberName": "SetFinishMode",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Sets whether the coding is complete in one stream.",
+          "memberAdditionalComment": "Note that for most codecs, the default behavior if you do not call this method is to code across multiple streams.",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "UInt32",
-              "parameterName": "finishMode"
+              "parameterName": "finishMode",
+              "parameterComment": "Set true if the coding is complete in one stream, false if the coding spans multiple streams."
             }
           ],
           "parametersCpp": [],
@@ -906,10 +933,14 @@
           "memberName": "SetMemLimit",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Sets the amount of memory that the coder can use.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "UInt64",
-              "parameterName": "memUsage"
+              "parameterName": "memUsage",
+              "parameterComment": "The size of the memory that can be used by the coder in bytes."
             }
           ],
           "parametersCpp": [],
@@ -1012,6 +1043,9 @@
           "memberName": "SetInStream",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": true,
+          "memberComment": "Set the input stream to the coder.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "ISequentialInStream*",
@@ -1027,7 +1061,8 @@
           "parametersCSharp": [
             {
               "parameterType": "NativeInStreamReader",
-              "parameterName": "inStreamReader"
+              "parameterName": "inStreamReader",
+              "parameterComment": "Set the delegate for the function that reads the data from the input stream."
             }
           ]
         },
@@ -1035,6 +1070,9 @@
           "memberName": "ReleaseInStream",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Releases the input stream set in the coder.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [],
           "parametersCpp": [],
           "parametersCSharp": []
@@ -1125,6 +1163,9 @@
           "memberName": "SetInBufSize",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Sets the size of the buffer used by the coder for the input stream.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "UInt32",
@@ -1136,12 +1177,26 @@
             }
           ],
           "parametersCpp": [],
-          "parametersCSharp": []
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "streamIndex",
+              "parameterComment": "Set the index number of the stream for which you want to set the size."
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size",
+              "parameterComment": "Set the amount of memory used for the stream in bytes."
+            }
+          ]
         },
         {
           "memberName": "SetOutBufSize",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Sets the size of the buffer used by the coder for the output stream.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "UInt32",
@@ -1153,7 +1208,18 @@
             }
           ],
           "parametersCpp": [],
-          "parametersCSharp": []
+          "parametersCSharp": [
+            {
+              "parameterType": "UInt32",
+              "parameterName": "streamIndex",
+              "parameterComment": "Set the index number of the stream for which you want to set the size."
+            },
+            {
+              "parameterType": "UInt32",
+              "parameterName": "size",
+              "parameterComment": "Set the amount of memory used for the stream in bytes."
+            }
+          ]
         }
       ]
     },
@@ -1239,15 +1305,18 @@
       "interfaceName": "ICompressFilter",
       "interfaceId": "23170f69-40c1-278a-0000-000400400000",
       "baseInerfaceName": "IUnknown",
-      "implemented": false,
-      "providedOutward": false,
+      "implemented": true,
+      "providedOutward": true,
       "providedInward": false,
-      "canQuery": false,
+      "canQuery": true,
       "members": [
         {
           "memberName": "Init",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Initialize the filter.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [],
           "parametersCpp": [],
           "parametersCSharp": []
@@ -1284,6 +1353,9 @@
           "memberName": "GetNumMethods",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Gets the number of supported codecs.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "UInt32*",
@@ -1294,7 +1366,8 @@
           "parametersCSharp": [
             {
               "parameterType": "out UInt32",
-              "parameterName": "numMethods"
+              "parameterName": "numMethods",
+              "parameterComment": "If the call to this function is successful, the number of supported codecs will be output."
             }
           ]
         },
@@ -1302,6 +1375,9 @@
           "memberName": "GetProperty",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Get the property of the codec.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "UInt32",
@@ -1320,15 +1396,18 @@
           "parametersCSharp": [
             {
               "parameterType": "UInt32",
-              "parameterName": "index"
+              "parameterName": "index",
+              "parameterComment": "Set the codec index number."
             },
             {
               "parameterType": "MethodPropID",
-              "parameterName": "propID"
+              "parameterName": "propID",
+              "parameterComment": "Set the ID of the property you want to get."
             },
             {
               "parameterType": "ref PROPVARIANT",
-              "parameterName": "value"
+              "parameterName": "value",
+              "parameterComment": "Set the reference of the <see cref=\"PROPVARIANT\"/> structure to store the value of the retrieved property."
             }
           ]
         },
@@ -1336,6 +1415,9 @@
           "memberName": "CreateDecoder",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Create an interface object for the decoder.",
+          "memberAdditionalComment": "<para>If the call to this function is successful, the reference counter for the retrieved interface object has already been incremented.When you no longer need that interface object, you need to decrement the reference counter by calling the <see cref=\"IUnknown__Release(IntPtr)\"/> function.</para><para>The interface that can be specified for <paramref name=\"iid\"/> is one of the following.:<list type=\"bullet\"><item><description><c>ICompressCoder</c></description></item><item><description><c>ICompressCoder2</c></description></item><item><description><c>ICompressFilter</c></description></item></list></para>",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "UInt32",
@@ -1347,22 +1429,25 @@
             },
             {
               "parameterType": "void**",
-              "parameterName": "coder"
+              "parameterName": "decoder"
             }
           ],
           "parametersCpp": [],
           "parametersCSharp": [
             {
               "parameterType": "UInt32",
-              "parameterName": "index"
+              "parameterName": "index",
+              "parameterComment": "Set the codec index number."
             },
             {
               "parameterType": "ref NativeGUID",
-              "parameterName": "iid"
+              "parameterName": "iid",
+              "parameterComment": "Set the reference of the <see cref=\"NativeGUID\"/> structure of the interface of the decoder you want to create."
             },
             {
               "parameterType": "out IntPtr",
-              "parameterName": "coder"
+              "parameterName": "decoder",
+              "parameterComment": "If the call to this function is successful, a pointer to the created decoder's interface object will be output. This interface object implements the interface specified by  <paramref name=\"iid\"/>."
             }
           ]
         },
@@ -1370,6 +1455,9 @@
           "memberName": "CreateEncoder",
           "returnValueType": "HRESULT",
           "isCustomizedParameter": false,
+          "memberComment": "Create an interface object for the decoder.",
+          "memberAdditionalComment": "<para>If the call to this function is successful, the reference counter for the retrieved interface object has already been incremented.When you no longer need that interface object, you need to decrement the reference counter by calling the <see cref=\"IUnknown__Release(IntPtr)\"/> function.</para><para>The interface that can be specified for <paramref name=\"iid\"/> is one of the following.:<list type=\"bullet\"><item><description><c>ICompressCoder</c></description></item><item><description><c>ICompressCoder2</c></description></item><item><description><c>ICompressFilter</c></description></item></list></para>",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
           "parameters7z": [
             {
               "parameterType": "UInt32",
@@ -1381,22 +1469,25 @@
             },
             {
               "parameterType": "void**",
-              "parameterName": "coder"
+              "parameterName": "encoder"
             }
           ],
           "parametersCpp": [],
           "parametersCSharp": [
             {
               "parameterType": "UInt32",
-              "parameterName": "index"
+              "parameterName": "index",
+              "parameterComment": "Set the codec index number."
             },
             {
               "parameterType": "ref NativeGUID",
-              "parameterName": "iid"
+              "parameterName": "iid",
+              "parameterComment": "Set the reference of the <see cref=\"NativeGUID\"/> structure of the interface of the encoder you want to create."
             },
             {
               "parameterType": "out IntPtr",
-              "parameterName": "coder"
+              "parameterName": "encoder",
+              "parameterComment": "If the call to this function is successful, a pointer to the created decoder's interface object will be output. This interface object implements the interface specified by  <paramref name=\"iid\"/>."
             }
           ]
         }

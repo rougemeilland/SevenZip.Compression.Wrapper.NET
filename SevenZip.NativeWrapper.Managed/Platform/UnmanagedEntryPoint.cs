@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace SevenZip.NativeWrapper.Managed.Platform
+namespace SevenZip.NativeWrapper.Managed.win.x64.Platform
 {
     static partial class UnmanagedEntryPoint
     {
-        private static DateTime _fileTimeOriginForDateTime;
-        private static DateTimeOffset _fileTimeOriginForDateTimeOffset;
+        private static readonly DateTime _fileTimeOriginForDateTime;
+        private static readonly DateTimeOffset _fileTimeOriginForDateTimeOffset;
 
         static UnmanagedEntryPoint()
         {
@@ -17,9 +17,48 @@ namespace SevenZip.NativeWrapper.Managed.Platform
             _fileTimeOriginForDateTimeOffset = new DateTimeOffset(1601, 1, 1, 0, 0, 0, TimeSpan.Zero);
         }
 
-        [DllImport("SevenZip.NativeWrapper.Unmanaged", EntryPoint = "EXPORTED_ICompressCodecsInfo__Create")]
+        /// <summary>
+        /// Create an <c>ICompressCodecsInfo</c> interface object.
+        /// </summary>
+        /// <param name="locationPath">
+        /// Set the pathname of the 7-zip native library file.
+        /// </param>
+        /// <param name="obj">
+        /// If the call to this function is successful, the ICompressCodecsInfo interface object will be output.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
+        [DllImport("${UnmanagedLibralyName}", EntryPoint = "EXPORTED_ICompressCodecsInfo__Create")]
         public static extern HRESULT ICompressCodecsInfo_Create([MarshalAs(UnmanagedType.LPWStr)] string locationPath, out IntPtr obj);
 
+        /// <summary>
+        /// Read data from the stream.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the <c>ISequentialInStream</c> interface object for the input stream.
+        /// </param>
+        /// <param name="buffer">
+        /// Set a buffer to store the read data.
+        /// </param>
+        /// <param name="processedSize">
+        /// If the call to this function is successful, the length in bytes of the data that could actually be read is set.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
         public static HRESULT ISequentialInStream__Read(IntPtr ifp, Span<Byte> buffer, out UInt32 processedSize)
         {
             unsafe
@@ -31,6 +70,27 @@ namespace SevenZip.NativeWrapper.Managed.Platform
             }
         }
 
+        /// <summary>
+        /// Write data to the stream.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the <c>ISequentialOutStream</c> interface object for the output stream.
+        /// </param>
+        /// <param name="buffer">
+        /// Set the buffer in which the data to be written is stored.
+        /// </param>
+        /// <param name="processedSize">
+        /// If the call to this function is successful, the length in bytes of the data that could actually be written is set.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
         public static HRESULT ISequentialOutStream__Write(IntPtr ifp, ReadOnlySpan<Byte> buffer, out UInt32 processedSize)
         {
             unsafe
@@ -42,6 +102,27 @@ namespace SevenZip.NativeWrapper.Managed.Platform
             }
         }
 
+        /// <summary>
+        /// Set the coding progress.
+        /// </summary>
+        /// <param name="ifp">
+        /// An <c>ICompressProgressInfo</c> interface object that stores coding progress.
+        /// </param>
+        /// <param name="inSize">
+        /// The total number of bytes of data in the input stream read by the coder.
+        /// </param>
+        /// <param name="outSize">
+        /// The total number of bytes of data in the output stream written by the coder.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
         public static HRESULT ICompressProgressInfo__SetRatioInfo(IntPtr ifp, UInt64? inSize, UInt64? outSize)
         {
             unsafe
@@ -52,6 +133,39 @@ namespace SevenZip.NativeWrapper.Managed.Platform
             }
         }
 
+        /// <summary>
+        /// Reads data from the input stream, codes it, and writes it to the output stream.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the coder's <c>ICompressCoder</c> interface object.
+        /// </param>
+        /// <param name="inStreamReader">
+        /// Set the delegate for the function that reads the data from the input stream.
+        /// </param>
+        /// <param name="outStreamWriter">
+        /// Set the delegate for the function that writes the data to the output stream.
+        /// </param>
+        /// <param name="inSize">
+        /// If you specify the total size of the data to read from the input stream, set the number of bytes.
+        /// If not, set null.
+        /// </param>
+        /// <param name="outSize">
+        /// If you specify the total size of the data to write to the output stream, set the number of bytes.
+        /// If not, set null.
+        /// </param>
+        /// <param name="progressReporter">
+        /// If you want to be notified of the progress of your coding, set the delegate of the function to be notified.
+        /// If not, set null.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
         public static HRESULT ICompressCoder__Code(IntPtr ifp, NativeInterface.IO.SequentialInStreamReader inStreamReader, NativeInterface.IO.SequentialOutStreamWriter outStreamWriter, UInt64? inSize, UInt64? outSize, NativeInterface.Compression.CompressProgressInfoReporter? progressReporter)
         {
             unsafe
@@ -69,32 +183,191 @@ namespace SevenZip.NativeWrapper.Managed.Platform
             }
         }
 
+        /// <summary>
+        /// Reads data from the input stream, codes it, and writes it to the output stream.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the coder's <c>ICompressCoder2</c> interface object.
+        /// </param>
+        /// <param name="inStreams">
+        /// Set an array of pairs of delegate function to read data from input stream and size of input data.
+        /// </param>
+        /// <param name="outStreams">
+        /// Set an array of pairs of delegate function to write data to output stream and size of output data.
+        /// </param>
+        /// <param name="progressReporter">
+        /// If you want to be notified of the progress of your coding, set the delegate of the function to be notified.
+        /// If not, set null.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
+        public static HRESULT ICompressCoder2__Code(IntPtr ifp, ReadOnlySpan<(NativeInterface.IO.SequentialInStreamReader sequentialInStreamReader, UInt64? inStreamSize)> inStreams, ReadOnlySpan<(NativeInterface.IO.SequentialOutStreamWriter sequentialOutStreamWriter, UInt64? outStreamSize)> outStreams, NativeInterface.Compression.CompressProgressInfoReporter? progressReporter)
+        {
+            var inStreamReaderDelegates = new NativeInStreamReader[inStreams.Length];
+            var outStreamWriterDelegates = new NativeOutStraamWriter[outStreams.Length];
+            unsafe
+            {
+                void** inStreamReaders = stackalloc void* [inStreams.Length];
+                UInt64* inStreamSizeBuffers = stackalloc UInt64[inStreams.Length];
+                UInt64** inStreamSizes = stackalloc UInt64*[inStreams.Length];
+                void** outStreamWriters = stackalloc void*[outStreams.Length];
+                UInt64* outStreamSizeBuffers = stackalloc UInt64[outStreams.Length];
+                UInt64** outStreamSizes = stackalloc UInt64*[outStreams.Length];
+                for (var index = 0; index < inStreams.Length; ++index)
+                {
+                    var (sequentialInStreamReader, inStreamSize) = inStreams[index];
+                    var inStreamReaderDelegate = sequentialInStreamReader.ToNativeDelegate();
+                    inStreamReaderDelegates[index] = inStreamReaderDelegate;
+                    inStreamReaders[index] = Marshal.GetFunctionPointerForDelegate(inStreamReaderDelegate).ToPointer();
+                    inStreamSizes[index] = inStreamSize.ToPointer(&inStreamSizeBuffers[index]);
+                }
+                for (var index = 0; index < outStreams.Length; ++index)
+                {
+                    var (sequentialOutStreamWriter, outStreamSize) = outStreams[index];
+                    var outStreamWriterDelegate = sequentialOutStreamWriter.ToNativeDelegate();
+                    outStreamWriterDelegates[index] = outStreamWriterDelegate;
+                    outStreamWriters[index] = Marshal.GetFunctionPointerForDelegate(outStreamWriterDelegate).ToPointer();
+                    outStreamSizes[index] = outStreamSize.ToPointer(&outStreamSizeBuffers[index]);
+                }
+                return
+                    ICompressCoder2__Code(
+                        ifp,
+                        new IntPtr(inStreamReaders),
+                        inStreamSizes,
+                        (UInt32)inStreams.Length,
+                        new IntPtr(outStreamWriters),
+                        outStreamSizes,
+                        (UInt32)outStreams.Length,
+                        progressReporter is not null ? progressReporter.ToNativeDelegate() : null);
+            }
+        }
+
+        /// <summary>
+        /// Set the properties on the coder.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the coder's <c>ICompressSetCoderPropertiesOpt</c> interface object.
+        /// </param>
+        /// <param name="properties">
+        /// Set an enumerator of property ID / value pairs.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
         public static HRESULT ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt(IntPtr ifp, IEnumerable<(CoderPropertyId propertyId, object propertyValue)> properties)
         {
             return SetNativeProperties(ifp, properties.Where(property => property.propertyId == CoderPropertyId.ExpectedDataSize).ToList());
         }
 
+        /// <summary>
+        /// Set the properties on the coder.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the coder's <c>ICompressSetCoderProperties</c> interface object.
+        /// </param>
+        /// <param name="properties">
+        /// Set an enumerator of property ID / value pairs.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
         public static HRESULT ICompressSetCoderProperties__SetCoderProperties(IntPtr ifp, IEnumerable<(CoderPropertyId propertyId, object propertyValue)> properties)
         {
             return SetNativeProperties(ifp, properties.Where(property => property.propertyId != CoderPropertyId.ExpectedDataSize).ToList());
         }
 
-        public static HRESULT ICompressSetDecoderProperties2__SetDecoderProperties2(IntPtr ifp, ReadOnlySpan<Byte> data)
+        /// <summary>
+        /// Set the content property in the decoder.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the coder's <c>ICompressSetDecoderProperties2</c> interface object.
+        /// </param>
+        /// <param name="contentProperty">
+        /// Set the byte array of content property.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
+        public static HRESULT ICompressSetDecoderProperties2__SetDecoderProperties2(IntPtr ifp, ReadOnlySpan<Byte> contentProperty)
         {
             unsafe
             {
-                fixed (Byte* dataPtr = data)
+                fixed (Byte* contentPropertyPtr = contentProperty)
                 {
-                    return ICompressSetDecoderProperties2__SetDecoderProperties2(ifp, dataPtr, (UInt32)data.Length);
+                    return ICompressSetDecoderProperties2__SetDecoderProperties2(ifp, contentPropertyPtr, (UInt32)contentProperty.Length);
                 }
             }
         }
 
+        /// <summary>
+        /// Writes the byte data of the content property to the specified output stream.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the coder's <c>ICompressWriteCoderProperties</c> interface object.
+        /// </param>
+        /// <param name="outStreamWriter">
+        /// Set a delegate for the function that writes the data to the output stream.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
         public static HRESULT ICompressWriteCoderProperties__WriteCoderProperties(IntPtr ifp, NativeInterface.IO.SequentialOutStreamWriter outStreamWriter)
         {
             return ICompressWriteCoderProperties__WriteCoderProperties(ifp, outStreamWriter.ToNativeDelegate());
         }
 
+        /// <summary>
+        /// Reads uncoded data from the input stream.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the coder's <c>ICompressReadUnusedFromInBuf</c> interface object.
+        /// </param>
+        /// <param name="buffer">
+        /// Set a buffer to store the read data.
+        /// </param>
+        /// <param name="processedSize">
+        /// If the call to this function is successful, the length in bytes of the data that could actually be read is output.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
         public static HRESULT ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf(IntPtr ifp, Span<Byte> buffer, out UInt32 processedSize)
         {
             unsafe
@@ -106,12 +379,59 @@ namespace SevenZip.NativeWrapper.Managed.Platform
             }
         }
 
+        /// <summary>
+        /// Sets the length of the data to read from the output stream.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the coder's <c>ICompressSetOutStreamSize</c> interface object.
+        /// </param>
+        /// <param name="outSize">
+        /// Set the length of the data to read from the output stream. If you don't want to specify the length of the data, set null.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
         public static HRESULT ICompressSetOutStreamSize__SetOutStreamSize(IntPtr ifp, UInt64? outSize)
         {
             unsafe
             {
                 UInt64 outSizeBuffer;
                 return ICompressSetOutStreamSize__SetOutStreamSize(ifp, outSize.ToPointer(&outSizeBuffer));
+            }
+        }
+
+        /// <summary>
+        /// Modifyes the data in the specified buffer to set it in the original buffer.
+        /// </summary>
+        /// <param name="ifp">
+        /// Set the coder's <c>ICompressFilter</c> interface object.
+        /// </param>
+        /// <param name="data">
+        /// Set the array that contains the data to be modified. If the call to this function is successful, the modified data is stored in the same buffer.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
+        public static UInt32 ICompressFilter__Filter(IntPtr ifp, Span<Byte> data)
+        {
+            unsafe
+            {
+                fixed (Byte* dataPtr = data)
+                {
+                    return ICompressFilter__Filter(ifp, dataPtr, (UInt32)data.Length);
+                }
             }
         }
 
@@ -143,42 +463,41 @@ namespace SevenZip.NativeWrapper.Managed.Platform
                     nativeProvertyIds[currentIndex] = (CoderPropID)propertyId;
                     var nativePropertyValue = &nativePropertyValues[currentIndex];
                     PROPVARIANT.Clear(nativePropertyValue);
-                    if (propertyValue is Boolean)
+                    if (propertyValue is Boolean booleanPropertyValue)
                     {
                         nativePropertyValue->ValueType = PropertyValueType.VT_BOOL;
-                        nativePropertyValue->BooleanValue = (Boolean)propertyValue ? PROPVARIANT_BOOLEAN_VALUE.TRUE : PROPVARIANT_BOOLEAN_VALUE.FALSE;
+                        nativePropertyValue->BooleanValue = booleanPropertyValue ? PROPVARIANT_BOOLEAN_VALUE.TRUE : PROPVARIANT_BOOLEAN_VALUE.FALSE;
                         ++currentIndex;
                     }
-                    else if (propertyValue is UInt32)
+                    else if (propertyValue is UInt32 uint32PropertyValue)
                     {
                         nativePropertyValue->ValueType = PropertyValueType.VT_UI4;
-                        nativePropertyValue->UInt32Value = (UInt32)propertyValue;
+                        nativePropertyValue->UInt32Value = uint32PropertyValue;
                         ++currentIndex;
                     }
-                    else if (propertyValue is UInt64)
+                    else if (propertyValue is UInt64 uint64PropertyValue)
                     {
                         nativePropertyValue->ValueType = PropertyValueType.VT_UI4;
-                        nativePropertyValue->UInt64Value = (UInt64)propertyValue;
+                        nativePropertyValue->UInt64Value = uint64PropertyValue;
                         ++currentIndex;
                     }
-                    else if (propertyValue is DateTime)
+                    else if (propertyValue is DateTime dateTimePropertyValue)
                     {
-                        var dateTime = (DateTime)propertyValue;
-                        if (dateTime.Kind == DateTimeKind.Unspecified)
+                        if (dateTimePropertyValue.Kind == DateTimeKind.Unspecified)
                             throw new NotSupportedException("DateTime objects whose Kind property value is 'DateTimeKind.Unspecified' cannot be used as property values.");
                         nativePropertyValue->ValueType = PropertyValueType.VT_UI4;
-                        nativePropertyValue->FileTimeValue.DateTime = (UInt64)(dateTime.ToUniversalTime() - _fileTimeOriginForDateTime).Ticks;
+                        nativePropertyValue->FileTimeValue.DateTime = (UInt64)(dateTimePropertyValue.ToUniversalTime() - _fileTimeOriginForDateTime).Ticks;
                         ++currentIndex;
                     }
-                    else if (propertyValue is DateTimeOffset)
+                    else if (propertyValue is DateTimeOffset dateTimeOffsetPropertyValue)
                     {
                         nativePropertyValue->ValueType = PropertyValueType.VT_UI4;
-                        nativePropertyValue->FileTimeValue.DateTime = (UInt64)(((DateTimeOffset)propertyValue).ToUniversalTime() - _fileTimeOriginForDateTimeOffset).Ticks;
+                        nativePropertyValue->FileTimeValue.DateTime = (UInt64)(dateTimeOffsetPropertyValue.ToUniversalTime() - _fileTimeOriginForDateTimeOffset).Ticks;
                         ++currentIndex;
                     }
-                    else if (propertyValue is string)
+                    else if (propertyValue is string stringPropertyValue)
                     {
-                        fixed (char* ptr = (string)propertyValue)
+                        fixed (char* ptr = stringPropertyValue)
                         {
                             nativePropertyValue->ValueType = PropertyValueType.VT_BSTR;
                             nativePropertyValue->StringValue = ptr;

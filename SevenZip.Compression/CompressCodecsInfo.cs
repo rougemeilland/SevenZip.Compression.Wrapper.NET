@@ -1,4 +1,5 @@
 ﻿using SevenZip.NativeInterface;
+using System.Runtime.InteropServices;
 using SevenZip.NativeInterface.Compression;
 using System;
 using System.Text.RegularExpressions;
@@ -38,13 +39,7 @@ namespace SevenZip.Compression
                 CodecsName.GetHashCode() ^ CoderType.GetHashCode();
         }
 
-#if true
-        private const string _implemetModuleFileName = "SevenZip.NativeWrapper.Managed";
-#else
-        private const string _implemetModuleFileName = "SevenZip.NativeWrapper";
-#endif
-
-        private static Models.SettingsModel _settings;
+        private static readonly Models.SettingsModel _settings;
         private static readonly CompressCodecsInfo _instance;
 
         private readonly IDictionary<CodecsKey, ICompressCodecInfo> _codecs;
@@ -55,15 +50,25 @@ namespace SevenZip.Compression
             _settings = LoadSettingsFile(baseDirectoryPath);
             var pluginLocations = EnumerateAvailablePluginSettings(_settings).ToList();
             if (!pluginLocations.Any())
-                throw new Exception($"The plugins available in the current execution environment are not registered in the configuration file.: os=\"{GetCurrentOs()} ({GetCurrentArchitectureBitsCount()}bits)\"");
-            CompressCodecsInfo compressCodecsInfo = CreateInstance(baseDirectoryPath, pluginLocations);
+                throw new Exception($"The plugins available in the current execution environment are not registered in the configuration file.: framework={GetCurrentFramework()}, os=\"{GetCurrentOs()} ({GetCurrentArchitecture()})\"");
+            var compressCodecsInfo = CreateInstances(baseDirectoryPath, pluginLocations).FirstOrDefault();
+            if (compressCodecsInfo is null)
+                throw new Exception($"No valid plugin was found, or no valid 7-zip native library was found. : framework={GetCurrentFramework()}, os=\"{GetCurrentOs()} ({GetCurrentArchitecture()})\"");
             _instance = compressCodecsInfo;
         }
 
         private CompressCodecsInfo(IEnumerable<ICompressCodecInfo> codecs)
         {
+#if true
+            foreach (var codec in codecs)
+            {
+                if (codec.IsSupportedICompressCoder || codec.IsSupportedICompressCoder2 || codec.IsSupportedICompressFilter)
+                {
+                    Console.WriteLine($"{{ \"index\":{codec.Index}, \"id\":{codec.ID}, \"name\":{codec.CodecName}, \"coderClassId\":{codec.CoderClassId}, \"packStreams\": {codec.PackStreams}, \"type\":{codec.CoderType}, \"isSupportedICompressCoder\":{codec.IsSupportedICompressCoder}, \"isSupportedICompressCoder2\":{codec.IsSupportedICompressCoder2}, \"isSupportedICompressFilter\":{codec.IsSupportedICompressFilter} }}");
+                }
+            }
+#endif
             _codecs = codecs.ToDictionary(codec => new CodecsKey(codec.CodecName, codec.CoderType), codec => codec);
-            var x = _codecs.Keys.Where(key => key.CodecsName.Contains("ppmd", StringComparison.OrdinalIgnoreCase)).ToArray();
         }
 
         public static ICompressCoder CreateCompressCoder(string coderName, CoderType coderType)
@@ -94,82 +99,111 @@ namespace SevenZip.Compression
             return settings;
         }
 
-        private static IEnumerable<Models.PluginModel> EnumerateAvailablePluginSettings(Models.SettingsModel settings)
+        private static IEnumerable<Models.PluginSettingModel> EnumerateAvailablePluginSettings(Models.SettingsModel settings)
         {
-            var currentOs = GetCurrentOs();
-            var currentArchitectureBitCount = GetCurrentArchitectureBitsCount();
+            var platformKey = $"{GetCurrentOs()}-{GetCurrentArchitecture()}";
             foreach (var pluginLocation in settings.Plugins)
             {
-                if (string.Equals(pluginLocation.Os, currentOs, StringComparison.OrdinalIgnoreCase)
-                    && pluginLocation.Bits == currentArchitectureBitCount)
-                {
-                    yield return pluginLocation;
-                }
+                if (string.Equals(pluginLocation.Platform, platformKey, StringComparison.OrdinalIgnoreCase))
+                   yield return pluginLocation.Settings;
             }
         }
 
-        private static CompressCodecsInfo CreateInstance(string baseDirectoryPath, IEnumerable<Models.PluginModel> pluginLocations)
+        private static IEnumerable<CompressCodecsInfo> CreateInstances(string baseDirectoryPath, IEnumerable<Models.PluginSettingModel> pluginLocations)
         {
-            CompressCodecsInfo compressCodecsInfo;
-            try
-            {
-                var pluginObject = EnumeratePluginEntryPoints(baseDirectoryPath, pluginLocations).FirstOrDefault();
-                if (pluginObject is null)
-                    throw new Exception($"There is no plugin file available, or there is no plugin that can be loaded in the current runtime environment.: os={GetCurrentOs()} ({GetCurrentArchitectureBitsCount()}bit)");
-                try
-                {
-                    pluginObject.Initialize();
-                }
-                catch (Exception ex)
-                {
-                    throw new Exception($"Failed to initialize the plugin.: {pluginObject.GetType().FullName}", ex);
-                }
-
-                compressCodecsInfo = new CompressCodecsInfo(pluginObject.EnumerateCodecs());
-            }
-            catch (Exception ex)
-            {
-                throw new Exception("The plug-in corresponding to the current operating environment is not installed or registered in the configuration file.", ex);
-            }
-
-            return compressCodecsInfo;
-        }
-
-        private static IEnumerable<ICompressCodecsInfo> EnumeratePluginEntryPoints(string baseDirectoryPath, IEnumerable<Models.PluginModel> pluginLocations)
-        {
-            foreach (var pluginFilePath in EnumeratePluginFilePath(baseDirectoryPath, pluginLocations))
-            {
-                var pluginAssembly = LoadAssembly(pluginFilePath);
-                if (pluginAssembly is not null)
-                {
-                    foreach (var entrypoint in FindPluginEntryPoint(pluginAssembly))
-                        yield return entrypoint;
-                }
-
-            }
-        }
-
-        private static IEnumerable<string> EnumeratePluginFilePath(string baseDirectoryPath, IEnumerable<Models.PluginModel> pluginLocations)
-        {
+            var pluginFileName = $"SevenZip.NativeWrapper.Managed.{GetCurrentOs()}.{GetCurrentArchitecture()}.dll";
             foreach (var pluginLocation in pluginLocations)
             {
-                var pluginFileNamePattern = new Regex(string.Format(pluginLocation.FileNamePattern, "SevenZip.NativeWrapper.Managed"), RegexOptions.Compiled | RegexOptions.IgnoreCase | RegexOptions.CultureInvariant);
-                var pluginDirectory =
-                    pluginLocation.SubDir is null
-                    ? baseDirectoryPath
-                    : Path.Combine(baseDirectoryPath, pluginLocation.SubDir);
-                foreach (var filePath in Directory.EnumerateFiles(pluginDirectory))
+                foreach (var pluginDir in pluginLocation.PluginDirs.Append("."))
                 {
-                    if (filePath is not null)
+                    var pluginPath = BuildPathName(baseDirectoryPath, Path.Combine(pluginDir, pluginFileName));
+                    if (pluginPath is not null)
                     {
-                        var fileName = Path.GetFileName(filePath);
-                        if (fileName is not null)
+                        var pluginAssembly = LoadAssembly(pluginPath);
+                        if (pluginAssembly is not null)
                         {
-                            if (pluginFileNamePattern.IsMatch(fileName))
-                                yield return filePath;
+                            foreach (var pluginObject in EnumeratePluginObject(pluginAssembly))
+                            {
+                                if (pluginObject is null)
+                                    throw new Exception($"There is no plugin file available, or there is no plugin that can be loaded in the current runtime environment.: os={GetCurrentOs()} ({GetCurrentArchitecture()})");
+                                foreach (var sevenZipLibraryFilePath in pluginLocation.SevenZipLibraryFilePaths)
+                                {
+
+                                    var expandedSevenZipLibraryFilePath = BuildPathName(baseDirectoryPath, sevenZipLibraryFilePath);
+                                    if (expandedSevenZipLibraryFilePath != null)
+                                    {
+                                        if (InitializePlugin(pluginObject, pluginAssembly, expandedSevenZipLibraryFilePath))
+                                            yield return new CompressCodecsInfo(pluginObject.EnumerateCodecs());
+                                    }
+                                }
+                            }
                         }
                     }
                 }
+            }
+        }
+
+        private static string? BuildPathName(string baseDirectoryPath, string pathName)
+        {
+            try
+            {
+                if (pathName.EndsWith("/", StringComparison.Ordinal) || pathName.EndsWith("\\", StringComparison.Ordinal))
+                    pathName = pathName[0..^1];
+                if (!pathName.Contains('/', StringComparison.Ordinal) && !pathName.Contains('\\', StringComparison.Ordinal))
+                    return pathName;
+                else if (string.Equals(pathName, ".", StringComparison.Ordinal)
+                    || string.Equals(pathName, "..", StringComparison.Ordinal)
+                    || pathName.StartsWith("./", StringComparison.Ordinal)
+                    || pathName.StartsWith(".\\", StringComparison.Ordinal)
+                    || pathName.StartsWith("../", StringComparison.Ordinal)
+                    || pathName.StartsWith("..\\", StringComparison.Ordinal))
+                {
+                    var pluginPath = baseDirectoryPath;
+                    foreach (var dirName in pathName.Split('/', '\\'))
+                    {
+                        if (string.IsNullOrEmpty(dirName))
+                            throw new ArgumentException("Illegal path name format.", nameof(pathName));
+                        else if (string.Equals(dirName, ".", StringComparison.Ordinal))
+                        {
+                            // NOP
+                        }
+                        else if (string.Equals(dirName, "..", StringComparison.Ordinal))
+                        {
+                            var parentDir = Path.GetDirectoryName(pluginPath);
+                            if (parentDir is null)
+                                throw new Exception();
+                            pluginPath = parentDir;
+                        }
+                        else
+                        {
+                            pluginPath =
+                                Path.Combine(
+                                    pluginPath,
+                                    dirName
+                                        .Replace("${framework}", GetCurrentFramework())
+                                        .Replace("${os}", GetCurrentOs())
+                                        .Replace("${architecture}", GetCurrentArchitecture()));
+                        }
+                    }
+                    if (!File.Exists(pluginPath))
+                        throw new Exception($"Plugin file is not exists. : {pluginPath}");
+                    return pluginPath;
+                }
+                else
+                {
+                    if (!File.Exists(pathName))
+                        throw new Exception($"Plugin file is not exists. : {pathName}");
+                    return
+                        pathName
+                            .Replace("${framework}", GetCurrentFramework())
+                            .Replace("${os}", GetCurrentOs())
+                            .Replace("${architecture}", GetCurrentArchitecture());
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine($"Failed to build the path name.: message=\"{ex.Message}\", baseDirectoryPath=\"{baseDirectoryPath}\", pathName=\"{pathName}\"");
+                return null;
             }
         }
 
@@ -196,7 +230,7 @@ namespace SevenZip.Compression
             }
         }
 
-        private static IEnumerable<ICompressCodecsInfo> FindPluginEntryPoint(Assembly pluginAssembly)
+        private static IEnumerable<ICompressCodecsInfo> EnumeratePluginObject(Assembly pluginAssembly)
         {
             var interfaceName = typeof(ICompressCodecsInfo).FullName;
             if (interfaceName is not null)
@@ -231,6 +265,35 @@ namespace SevenZip.Compression
             }
         }
 
+        private static bool InitializePlugin(ICompressCodecsInfo pluginObject, Assembly pluginAssembly, string sevenZipLibraryFilePath)
+        {
+            try
+            {
+                if (!pluginObject.Initialize(sevenZipLibraryFilePath))
+                {
+                    System.Diagnostics.Trace.WriteLine($"Failed to initialize plugin: assemblyLocation=\"{pluginAssembly.Location}\", sevenZipLibraryFilePath=\"{sevenZipLibraryFilePath}\"");
+                    return false;
+                }
+                return true;
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Trace.WriteLine($"Failed to initialize plugin: message=\"{ex.Message}\", location={pluginAssembly.Location}");
+                return false;
+            }
+        }
+
+        private static string GetCurrentFramework()
+        {
+#if NET5_0
+            return "net50";
+#elif NET6_0
+            return "net60";
+#else
+#error Undefined macro 'NETx_x'
+#endif
+        }
+
         private static string GetCurrentOs()
         {
             if (OperatingSystem.IsWindows())
@@ -243,12 +306,17 @@ namespace SevenZip.Compression
                 throw new NotSupportedException("Running on an unexpected operating system.");
         }
 
-        private static Int32 GetCurrentArchitectureBitsCount()
+        private static string GetCurrentArchitecture()
         {
-            if (Environment.Is64BitProcess)
-                return 64;
-            else
-                return 32;
+            var processArchitecture = RuntimeInformation.ProcessArchitecture;
+            return
+                processArchitecture switch
+                {
+                    Architecture.X86 => "x86",
+                    Architecture.X64 => "x64",
+                    Architecture.Arm64 => "arm64",
+                    _ => throw new NotSupportedException($"Not supported on this architecture.: {processArchitecture}"),
+                };
         }
     }
 }

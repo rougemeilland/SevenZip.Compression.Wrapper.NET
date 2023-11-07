@@ -1,11 +1,11 @@
 ﻿using SevenZip.NativeInterface;
 using SevenZip.NativeInterface.Compression;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SevenZip.NativeWrapper.Managed.Compression
+namespace SevenZip.NativeWrapper.Managed.win.x64.Compression
 {
     /// <summary>
     /// A class of set of codecs.
@@ -13,13 +13,6 @@ namespace SevenZip.NativeWrapper.Managed.Compression
     public class CompressCodecsInfo
         : Unknown, ICompressCodecsInfo
     {
-        private static string _locationPath;
-
-        static CompressCodecsInfo()
-        {
-            _locationPath = Path.GetDirectoryName(typeof(CompressCodecsInfo).Assembly.Location) ?? ".";
-        }
-
         /// <summary>
         /// The default constructor.
         /// </summary>
@@ -28,13 +21,20 @@ namespace SevenZip.NativeWrapper.Managed.Compression
         {
         }
 
-        void ICompressCodecsInfo.Initialize()
+        bool ICompressCodecsInfo.Initialize(string seevenZipNativeLibraryPath)
         {
-            IntPtr nativeResource;
-            var result = UnmanagedEntryPoint.ICompressCodecsInfo_Create(_locationPath, out nativeResource);
+            if (string.IsNullOrEmpty(seevenZipNativeLibraryPath))
+                throw new ArgumentException($"'{nameof(seevenZipNativeLibraryPath)}' を NULL または空にすることはできません。", nameof(seevenZipNativeLibraryPath));
+
+            var result = UnmanagedEntryPoint.ICompressCodecsInfo_Create(seevenZipNativeLibraryPath, out IntPtr nativeResource);
             if (result != HRESULT.S_OK)
-                throw result.GetExceptionFromHRESULT();
+            {
+                if (result != HRESULT.E_DLL_NOT_FOUND)
+                    throw result.GetExceptionFromHRESULT();
+                return false;
+            }
             AttatchNativeInterfaceObject(nativeResource);
+            return true;
         }
 
         IEnumerable<ICompressCodecInfo> ICompressCodecsInfo.EnumerateCodecs()
@@ -53,6 +53,9 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         IUnknown IUnknown.QueryInterface(Type interfaceType)
         {
+            if (interfaceType is null)
+                throw new ArgumentNullException(nameof(interfaceType));
+
             if (interfaceType.GUID == typeof(IUnknown).GUID)
                 return this;
             else if (interfaceType.GUID == typeof(ICompressCodecsInfo).GUID)
@@ -63,8 +66,7 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         private UInt32 GetNumMethods()
         {
-            UInt32 count;
-            var result = UnmanagedEntryPoint.ICompressCodecsInfo__GetNumMethods(NativeInterfaceObject, out count);
+            var result = UnmanagedEntryPoint.ICompressCodecsInfo__GetNumMethods(NativeInterfaceObject, out UInt32 count);
             if (result != HRESULT.S_OK)
                 throw result.GetExceptionFromHRESULT();
             return count;

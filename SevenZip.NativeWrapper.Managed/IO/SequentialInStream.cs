@@ -1,8 +1,8 @@
 ﻿using SevenZip.NativeInterface.IO;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
 
-namespace SevenZip.NativeWrapper.Managed.IO
+namespace SevenZip.NativeWrapper.Managed.win.x64.IO
 {
     class SequentialInStream
         : Unknown, ISequentialInStream
@@ -19,8 +19,7 @@ namespace SevenZip.NativeWrapper.Managed.IO
 
         UInt32 ISequentialInStream.Read(Span<Byte> buffer)
         {
-            UInt32 processedSize;
-            var result = UnmanagedEntryPoint.ISequentialInStream__Read(NativeInterfaceObject, buffer, out processedSize);
+            var result = UnmanagedEntryPoint.ISequentialInStream__Read(NativeInterfaceObject, buffer, out UInt32 processedSize);
             if (result != HRESULT.S_OK)
                 throw result.GetExceptionFromHRESULT();
             return processedSize;

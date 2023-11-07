@@ -20,51 +20,57 @@ typedef unsigned long long UInt64;
 #error "No platform-dependent types or macros are defined."
 #endif
 
-#if     defined(_PLATFORM_WINDOWS_X86)
+#if     defined(_PLATFORM_WINDOWS_X86) || defined(_PLATFORM_WINDOWS_ARM32)
 #define _PLATFORM_WINDOWS
 #define _ARCHITECTURE_LITTLE_ENDIAN
 #define _ARCHITECTURE_NATIVE_INTEGER_32_BIT
+#define _ARCHITECTURE_NATIVE_ADDRESS_32_BIT
 #define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C" __declspec(dllexport) type __stdcall EXPORTED_ ## interfaceName ## __ ## methodName
-#elif   defined(_PLATFORM_WINDOWS_X64)
+#elif   defined(_PLATFORM_WINDOWS_X64) || defined(_PLATFORM_WINDOWS_ARM64)
 #define _PLATFORM_WINDOWS
 #define _ARCHITECTURE_LITTLE_ENDIAN
 #define _ARCHITECTURE_NATIVE_INTEGER_64_BIT
+#define _ARCHITECTURE_NATIVE_ADDRESS_64_BIT
 #define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C" __declspec(dllexport) type __stdcall EXPORTED_ ## interfaceName ## __ ## methodName
-#elif   defined(_PLATFORM_LINUX_X86)
+#elif   defined(_PLATFORM_LINUX_X86) || defined(_PLATFORM_LINUX_ARM32)
 #error "linux is not supported. If you want to support linux, write as follows, for example."
 #define _PLATFORM_LINUX
 #define _ARCHITECTURE_LITTLE_ENDIAN
 #define _ARCHITECTURE_NATIVE_INTEGER_32_BIT
+#define _ARCHITECTURE_NATIVE_ADDRESS_32_BIT
 #define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C"  type EXPORTED_ ## interfaceName ## __ ## methodName
 typedef struct _FILETIME {
     DWORD dwLowDateTime;
     DWORD dwHighDateTime;
 } FILETIME, * PFILETIME, * LPFILETIME;
-#elif   defined(_PLATFORM_LINUX_X64)
+#elif   defined(_PLATFORM_LINUX_X64) || defined(_PLATFORM_LINUX_ARM64)
 #error "linux is not supported. If you want to support linux, write as follows, for example."
 #define _PLATFORM_LINUX
 #define _ARCHITECTURE_LITTLE_ENDIAN
 #define _ARCHITECTURE_NATIVE_INTEGER_64_BIT
+#define _ARCHITECTURE_NATIVE_ADDRESS_64_BIT
 #define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C"  type EXPORTED_ ## interfaceName ## __ ## methodName
 typedef struct _FILETIME {
     DWORD dwLowDateTime;
     DWORD dwHighDateTime;
 } FILETIME, * PFILETIME, * LPFILETIME;
-#elif   defined(_PLATFORM_MACOS_X86)
+#elif   defined(_PLATFORM_MACOS_X86) || defined(_PLATFORM_MACOS_ARM32)
 #error "MacOS is not supported. If you want to support MacOS, write as follows, for example."
 #define _PLATFORM_MACOS
 #define _ARCHITECTURE_LITTLE_ENDIAN
 #define _ARCHITECTURE_NATIVE_INTEGER_32_BIT
+#define _ARCHITECTURE_NATIVE_ADDRESS_32_BIT
 #define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C"  type EXPORTED_ ## interfaceName ## __ ## methodName
 typedef struct _FILETIME {
     DWORD dwLowDateTime;
     DWORD dwHighDateTime;
 } FILETIME, * PFILETIME, * LPFILETIME;
-#elif   defined(_PLATFORM_MACOS_X64)
+#elif   defined(_PLATFORM_MACOS_X64) || defined(_PLATFORM_MACOS_ARM64)
 #error "MacOS is not supported. If you want to support MacOS, write as follows, for example."
 #define _PLATFORM_MACOS
 #define _ARCHITECTURE_LITTLE_ENDIAN
 #define _ARCHITECTURE_NATIVE_INTEGER_64_BIT
+#define _ARCHITECTURE_NATIVE_ADDRESS_64_BIT
 #define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C"  type EXPORTED_ ## interfaceName ## __ ## methodName
 typedef struct _FILETIME {
     DWORD dwLowDateTime;

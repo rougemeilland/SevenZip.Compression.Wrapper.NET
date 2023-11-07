@@ -1,19 +1,20 @@
 ﻿using System;
 
-namespace SevenZip.NativeWrapper.Managed
+namespace SevenZip.NativeWrapper.Managed.win.x64
 {
     enum MethodPropID
         : UInt32
     {
-       ID,
-       Name,
-       Decoder,
-       Encoder,
-       PackStreams,
-       UnpackStreams,
-       Description,
-       DecoderIsAssigned,
-       EncoderIsAssigned,
-       DigestSize
+        ID,
+        Name,
+        Decoder,
+        Encoder,
+        PackStreams,
+        UnpackStreams,
+        Description,
+        DecoderIsAssigned,
+        EncoderIsAssigned,
+        DigestSize,
+        IsFilter
     }
 }

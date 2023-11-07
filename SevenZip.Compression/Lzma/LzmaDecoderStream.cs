@@ -1,5 +1,4 @@
 ﻿using SevenZip.NativeInterface;
-using System.Runtime.InteropServices;
 using SevenZip.NativeInterface.Compression;
 using SevenZip.NativeInterface.IO;
 using System;
@@ -11,7 +10,7 @@ namespace SevenZip.Compression.Lzma
     /// A class of LZMA decoders in virtual stream format that can be read sequentially.
     /// </summary>
     public class LzmaDecoderStream
-        : CompressCoderInStream
+        : IO.DecoderStream
     {
         /// <summary>
         /// The length of the property embedded in the compressed stream in LZMA format.
@@ -21,28 +20,14 @@ namespace SevenZip.Compression.Lzma
         private readonly ICompressGetInStreamProcessedSize _compressGetInStreamProcessedSize;
 
         private bool _isDisposed;
-        private bool _isFirst;
-        private ICompressSetOutStreamSize _compressSetOutStreamSize;
-        private IO.CoderHeaderParser _lzmaHeaderParser;
-        private IO.CoderHeaderReader _lzmaHeaderReader;
-        private UInt64? _uncompressedOutStreamSize;
 
         private LzmaDecoderStream(
             ISequentialInStream sequentialInStream,
-            ICompressGetInStreamProcessedSize compressGetInStreamProcessedSize,
-            ICompressSetOutStreamSize compressSetOutStreamSize,
-            IO.CoderHeaderParser lzmaHeaderParser,
-            IO.CoderHeaderReader lzmaHeaderReader,
-            UInt64? uncompressedOutStreamSize)
+            ICompressGetInStreamProcessedSize compressGetInStreamProcessedSize)
             : base(sequentialInStream)
         {
             _isDisposed = false;
             _compressGetInStreamProcessedSize = compressGetInStreamProcessedSize;
-            _compressSetOutStreamSize = compressSetOutStreamSize;
-            _lzmaHeaderParser = lzmaHeaderParser;
-            _lzmaHeaderReader = lzmaHeaderReader;
-            _uncompressedOutStreamSize = uncompressedOutStreamSize;
-            _isFirst = true;
         }
 
         /// <summary>
@@ -54,63 +39,35 @@ namespace SevenZip.Compression.Lzma
         /// <param name="properties">
         /// Set a property container object to customize the behavior of the LZMA decoder.
         /// </param>
+        /// <param name="contentProperties">
+        /// <para>
+        /// Set the data that represents the parameters of the compressed data in LZMA format.
+        /// </para>
+        /// <para>
+        /// See the following documents for the meaning of this parameter.:
+        /// "<seealso href="https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET/blob/main/docs/AboutContentProperty_en.md">About content property</seealso>"
+        /// </para>
+        /// </param>
         /// <param name="uncompressedOutStreamSize">
         /// <para>
-        /// Set the length in bytes of the uncompressed data (including the header parsed by <paramref name="lzmaHeaderParser"/>) read from <paramref name="compressedInStream"/>.
+        /// Set the length in bytes of the uncompressed data read from <paramref name="compressedInStream"/>.
         /// </para>
         /// <para>
         /// Set null if the length of the uncompressed data is unknown.
         /// </para>
         /// </param>
-        /// <param name="lzmaHeaderParser">
-        /// A delegate for a function that reads the header of a compressed LZMA input stream.
-        /// </param>
         /// <returns>
         /// The created <see cref="LzmaDecoderStream"/> object.
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="properties"/> is null.
-        /// </exception>
-        /// <example>
-        /// The delegate set in <paramref name="lzmaHeaderParser"/> depends on the application.
-        /// For example, if you want to decode the data in the format described in lzma.txt included in the LZMA SDK, write as follows:
-        /// <code>
-        /// var coder =
-        ///     LzmaDecoderStream.Create(
-        ///         new LzmaDecoderProperties { FinishMode = true },
-        ///         reader =>
-        ///         {
-        ///             reader.ReadProperty(); // Read the 5-byte property and set it in the decoder.
-        ///             var length = reader.ReadUInt64LE() // Read the length of uncompressed data
-        ///             reader.SetOutStreamSize(length); // Sets the length of the output stream to write the uncompressed data
-        ///             return LzmaDecoderStream.LZMA_CONTENT_PROPERTY_SIZE + sizeof(UInt64);
-        ///         });
-        /// </code>
-        /// If you want to uncompress the contents of a ZIP file compressed in LZMA format, write as follows:
-        /// <code>
-        /// var coder =
-        ///     LzmaDecoderStream.Create(
-        ///         new LzmaDecoderProperties { FinishMode = true },
-        ///         reader =>
-        ///         {
-        ///             reader.ReadByte(); // Read the major version of 7-zip. (This value is ignored)
-        ///             reader.ReadByte(); // Read the minor version of 7-zip. (This value is ignored)
-        ///             var length = reader.ReadUInt16LE(); // Read the length of the property. (This value should always match LZMA_CONTENT_PROPERTY_SIZE)
-        ///             if (length != LzmaDecoderStream.LZMA_CONTENT_PROPERTY_SIZE)
-        ///                 throw new Exception("Bad data format.");
-        ///             reader.ReadProperty(); // Read the 5-byte property and set it in the decoder.
-        ///             return sizeof(Byte) + sizeof(Byte) + sizeof(UInt16) + LzmaDecoderStream.LZMA_CONTENT_PROPERTY_SIZE;
-        ///         });
-        /// </code>
-        /// </example>
-        public static Stream Create(Stream compressedInStream, LzmaDecoderProperties properties, UInt64? uncompressedOutStreamSize, IO.CoderHeaderParser lzmaHeaderParser)
+        /// <exception cref="ArgumentNullException"><paramref name="properties"/> is null.</exception>
+        public static LzmaDecoderStream Create(Stream compressedInStream, LzmaDecoderProperties properties, ReadOnlySpan<Byte> contentProperties, UInt64? uncompressedOutStreamSize)
         {
             if (compressedInStream is null)
                 throw new ArgumentNullException(nameof(compressedInStream));
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
 
-            return Create(compressedInStream.AsISequentialInStream(), properties, uncompressedOutStreamSize, lzmaHeaderParser).AsStream();
+            return Create(compressedInStream.GetStreamReader(), properties, contentProperties, uncompressedOutStreamSize);
         }
 
         /// <summary>
@@ -122,69 +79,45 @@ namespace SevenZip.Compression.Lzma
         /// <param name="properties">
         /// Set a property container object to customize the behavior of the LZMA decoder.
         /// </param>
+        /// <param name="contentProperties">
+        /// Set the data that represents the parameters of the compressed data in LZMA format.
+        /// </param>
         /// <param name="uncompressedOutStreamSize">
         /// <para>
-        /// Set the length in bytes of the uncompressed data (including the header parsed by <paramref name="lzmaHeaderParser"/>) read from <paramref name="compressedInStream"/>.
+        /// Set the length in bytes of the uncompressed data read from <paramref name="compressedInStream"/>.
         /// </para>
         /// <para>
         /// Set null if the length of the uncompressed data is unknown.
         /// </para>
         /// </param>
-        /// <param name="lzmaHeaderParser">
-        /// A delegate for the function that reads the LZMA header from the input stream.
-        /// </param>
         /// <returns>
         /// The created <see cref="LzmaDecoderStream"/> object.
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="properties"/> is null.
-        /// </exception>
-        /// <example>
-        /// The delegate set in <paramref name="lzmaHeaderParser"/> depends on the application.
-        /// For example, if you want to decode the data in the format described in lzma.txt included in the LZMA SDK, write as follows:
-        /// <code>
-        /// var coder =
-        ///     LzmaDecoderStream.Create(
-        ///         new LzmaDecoderProperties { FinishMode = true },
-        ///         reader =>
-        ///         {
-        ///             reader.ReadProperty(); // Read the 5-byte property and set it in the decoder.
-        ///             var length = reader.ReadUInt64LE() // Read the length of uncompressed data
-        ///             reader.SetOutStreamSize(length); // Sets the length of the output stream to write the uncompressed data
-        ///             return LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + sizeof(UInt64);
-        ///         });
-        /// </code>
-        /// If you want to uncompress the contents of a ZIP file compressed in LZMA format, write as follows:
-        /// <code>
-        /// var coder =
-        ///     LzmaDecoderStream.Create(
-        ///         new LzmaDecoderProperties { FinishMode = true },
-        ///         reader =>
-        ///         {
-        ///             reader.ReadByte(); // Reads the major version of the encoded application. (This value is ignored.)
-        ///             reader.ReadByte(); // Reads the minor version of the encoded application. (This value is ignored.)
-        ///             var length = reader.ReadUInt16LE(); // Read the length of the property. (This value should always match LZMA_CONTENT_PROPERTY_SIZE)
-        ///             if (length != LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE)
-        ///                 throw new Exception("Bad data format.");
-        ///             reader.ReadProperty(); // Read the 5-byte property and set it in the decoder.
-        ///             return sizeof(Byte) + sizeof(Byte) + sizeof(UInt16) + LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE;
-        ///         });
-        /// </code>
-        /// </example>
-        public static LzmaDecoderStream Create(IO.ISequentialInStream compressedInStream, LzmaDecoderProperties properties, UInt64? uncompressedOutStreamSize, IO.CoderHeaderParser lzmaHeaderParser)
+        /// <exception cref="ArgumentNullException"><paramref name="properties"/> is null.</exception>
+        public static LzmaDecoderStream Create(IO.ISequentialInStream compressedInStream, LzmaDecoderProperties properties, ReadOnlySpan<Byte> contentProperties, UInt64? uncompressedOutStreamSize)
         {
             if (compressedInStream is null)
                 throw new ArgumentNullException(nameof(compressedInStream));
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
 
-            return Create(compressedInStream.GetStreamReader(), properties, uncompressedOutStreamSize, lzmaHeaderParser);
+            return Create(compressedInStream.GetStreamReader(), properties, contentProperties, uncompressedOutStreamSize);
         }
 
         /// <summary>
-        /// The number of bytes of processed data in the coder's input stream.
+        /// The number of bytes of processed data in the decoder's input stream.
         /// </summary>
-        public UInt64 InStreamProcessedSize => _compressGetInStreamProcessedSize.InStreamProcessedSize;
+        /// <exception cref="ObjectDisposedException">The decoder has already been disposed.</exception>
+        public UInt64 InStreamProcessedSize
+        {
+            get
+            {
+                if (_isDisposed)
+                    throw new ObjectDisposedException(GetType().FullName);
+
+                return _compressGetInStreamProcessedSize.InStreamProcessedSize;
+            }
+        }
 
         /// <summary>
         /// Releases the resources associated with the object.
@@ -206,7 +139,7 @@ namespace SevenZip.Compression.Lzma
             base.Dispose(disposing);
         }
 
-        private static LzmaDecoderStream Create(SequentialInStreamReader compressedInStreamReader, LzmaDecoderProperties properties, UInt64? uncompressedOutStreamSize, IO.CoderHeaderParser lzmaHeaderParser)
+        private static LzmaDecoderStream Create(SequentialInStreamReader compressedInStreamReader, LzmaDecoderProperties properties, ReadOnlySpan<Byte> contentProperties, UInt64? uncompressedOutStreamSize)
         {
             ICompressCoder? compressCoder = null;
             ISequentialInStream? sequentialInStream = null;
@@ -223,8 +156,11 @@ namespace SevenZip.Compression.Lzma
                 sequentialInStream = (ISequentialInStream)compressCoder.QueryInterface(typeof(ICompressSetFinishMode));
                 compressGetInStreamProcessedSize = (ICompressGetInStreamProcessedSize)compressCoder.QueryInterface(typeof(ICompressGetInStreamProcessedSize));
                 compressSetOutStreamSize = (ICompressSetOutStreamSize)compressCoder.QueryInterface(typeof(ICompressSetFinishMode));
-                compressSetDecoderProperties2 = (ICompressSetDecoderProperties2)compressCoder.QueryInterface(typeof(ICompressSetDecoderProperties2));
+                compressSetOutStreamSize.SetOutStreamSize(uncompressedOutStreamSize);
                 compressSetInStream = (ICompressSetInStream)compressCoder.QueryInterface(typeof(ICompressSetFinishMode));
+                compressSetInStream.SetInStream(compressedInStreamReader);
+                compressSetDecoderProperties2 = (ICompressSetDecoderProperties2)compressCoder.QueryInterface(typeof(ICompressSetDecoderProperties2));
+                compressSetDecoderProperties2.SetDecoderProperties2(contentProperties);
                 if (properties.FinishMode.HasValue)
                 {
                     compressSetFinishMode = (ICompressSetFinishMode)compressCoder.QueryInterface(typeof(ICompressSetFinishMode));
@@ -244,70 +180,24 @@ namespace SevenZip.Compression.Lzma
                         compressSetBufSize.SetOutBufSize(0, properties.OutBufSize.Value);
                     }
                 }
-                compressSetInStream.SetInStream(compressedInStreamReader);
-                var lzmaDecoderHeaderReader =
-                    IO.CoderHeaderReader.Create(
-                        compressedInStreamReader,
-                        () =>
-                        {
-                            Span<Byte> propertiesBuffer = stackalloc Byte[LZMA_CONTENT_PROPERTY_SIZE];
-                            compressedInStreamReader.ReadBytes(propertiesBuffer);
-                        compressSetDecoderProperties2.SetDecoderProperties2(propertiesBuffer);
-                        });
-                var coder =
-                    new LzmaDecoderStream(
-                        sequentialInStream,
-                        compressGetInStreamProcessedSize,
-                        compressSetOutStreamSize,
-                        lzmaHeaderParser,
-                        lzmaDecoderHeaderReader,
-                        uncompressedOutStreamSize);
+                var decoder = new LzmaDecoderStream(sequentialInStream, compressGetInStreamProcessedSize);
                 success = true;
-                return coder;
+                return decoder;
             }
             finally
             {
                 if (!success)
                 {
-                    (compressSetOutStreamSize as IDisposable)?.Dispose();
                     (compressGetInStreamProcessedSize as IDisposable)?.Dispose();
                     (sequentialInStream as IDisposable)?.Dispose();
                 }
                 (compressSetBufSize as IDisposable)?.Dispose();
                 (compressSetFinishMode as IDisposable)?.Dispose();
-                (compressSetInStream as IDisposable)?.Dispose();
                 (compressSetDecoderProperties2 as IDisposable)?.Dispose();
+                (compressSetOutStreamSize as IDisposable)?.Dispose();
+                (compressSetInStream as IDisposable)?.Dispose();
                 (compressCoder as IDisposable)?.Dispose();
             }
-        }
-
-        /// <summary>
-        /// Read the data from the coder.
-        /// </summary>
-        /// <param name="data">
-        /// Set a buffer to store the data to be read.
-        /// </param>
-        /// <returns>
-        /// Returns the byte length of the read data.
-        /// If the end of the stream is reached and no more data can be read, 0 is returned.
-        /// </returns>
-        public override Int32 Read(Span<Byte> data)
-        {
-            if (_isFirst)
-            {
-                _lzmaHeaderParser(_lzmaHeaderReader);
-                UInt64? uncompressedOutStreamSize;
-                if (_uncompressedOutStreamSize is null)
-                    uncompressedOutStreamSize = _lzmaHeaderReader.OutStreamSize;
-                else if (_lzmaHeaderReader.OutStreamSize is null)
-                    uncompressedOutStreamSize = _uncompressedOutStreamSize;
-                else
-                    uncompressedOutStreamSize = _uncompressedOutStreamSize.Value.Minimum(_lzmaHeaderReader.OutStreamSize.Value);
-                if (uncompressedOutStreamSize.HasValue)
-                    _compressSetOutStreamSize.SetOutStreamSize(uncompressedOutStreamSize);
-                _isFirst = false;
-            }
-            return base.Read(data);
         }
     }
 }

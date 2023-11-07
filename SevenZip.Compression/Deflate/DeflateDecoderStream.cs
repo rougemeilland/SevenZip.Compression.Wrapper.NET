@@ -10,7 +10,7 @@ namespace SevenZip.Compression.Deflate
     /// A class of Deflate decoders in virtual stream format that can be read sequentially.
     /// </summary>
     public class DeflateDecoderStream
-        : CompressCoderInStream
+        : IO.DecoderStream
     {
         private readonly ICompressGetInStreamProcessedSize _compressGetInStreamProcessedSize;
         private readonly ICompressReadUnusedFromInBuf _compressReadUnusedFromInBuf;
@@ -44,9 +44,7 @@ namespace SevenZip.Compression.Deflate
         /// <returns>
         /// The created <see cref="DeflateDecoder"/> object.
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="properties"/> is null.
-        /// </exception>
+        /// <exception cref="ArgumentNullException"><paramref name="compressedInStream"/> or <paramref name="properties"/> is null.</exception>
         public static DeflateDecoderStream Create(IO.ISequentialInStream compressedInStream, DeflateDecoderProperties properties, UInt64? uncompressedOutStreamSize)
         {
             if (compressedInStream is null)
@@ -73,23 +71,34 @@ namespace SevenZip.Compression.Deflate
         /// <returns>
         /// The created <see cref="DeflateDecoderStream"/> object.
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="properties"/> is null.
-        /// </exception>
-        public static Stream Create(Stream compressedInStream, DeflateDecoderProperties properties, UInt64? uncompressedOutStreamSize)
+        /// <exception cref="ArgumentNullException"><paramref name="compressedInStream"/> or <paramref name="properties"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="compressedInStream"/> does not support reading.</exception>
+        public static DeflateDecoderStream Create(Stream compressedInStream, DeflateDecoderProperties properties, UInt64? uncompressedOutStreamSize)
         {
             if (compressedInStream is null)
                 throw new ArgumentNullException(nameof(compressedInStream));
+            if (!compressedInStream.CanRead)
+                throw new ArgumentException("The specified stream does not support reading.", nameof(compressedInStream));
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
 
-            return Create(properties, compressedInStream.GetStreamReader(), uncompressedOutStreamSize).AsStream();
+            return Create(properties, compressedInStream.GetStreamReader(), uncompressedOutStreamSize);
         }
 
         /// <summary>
-        /// The number of bytes of processed data in the coder's input stream.
+        /// The number of bytes of processed data in the decoder's input stream.
         /// </summary>
-        public UInt64 InStreamProcessedSize => _compressGetInStreamProcessedSize.InStreamProcessedSize;
+        /// <exception cref="ObjectDisposedException">The decoder has already been disposed.</exception>
+        public UInt64 InStreamProcessedSize
+        {
+            get
+            {
+                if (_isDisposed)
+                    throw new ObjectDisposedException(GetType().FullName);
+
+                return _compressGetInStreamProcessedSize.InStreamProcessedSize;
+            }
+        }
 
         /// <summary>
         /// Reads the remaining data after processing DeflateDecoder.Code() from the input stream.
@@ -100,8 +109,12 @@ namespace SevenZip.Compression.Deflate
         /// <returns>
         /// The length in bytes of the data actually read.
         /// </returns>
+        /// <exception cref="ObjectDisposedException">The decoder has already been disposed.</exception>
         public Int32 ReadUnusedFromInBuf(Span<Byte> data)
         {
+            if (_isDisposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return checked((Int32)_compressReadUnusedFromInBuf.ReadUnusedFromInBuf(data));
         }
 
@@ -151,13 +164,13 @@ namespace SevenZip.Compression.Deflate
                 }
                 compressSetInStream.SetInStream(compressedInStreamReader);
                 compressSetOutStreamSize.SetOutStreamSize(uncompressedOutStreamSize);
-                var coder =
+                var decoder =
                     new DeflateDecoderStream(
                         sequentialInStream,
                         compressGetInStreamProcessedSize,
                         compressReadUnusedFromInBuf);
                 success = true;
-                return coder;
+                return decoder;
             }
             finally
             {

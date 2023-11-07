@@ -2,7 +2,7 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-namespace SevenZip.NativeWrapper.Managed
+namespace SevenZip.NativeWrapper.Managed.win.x64
 {
     static class HelperExtensions
     {

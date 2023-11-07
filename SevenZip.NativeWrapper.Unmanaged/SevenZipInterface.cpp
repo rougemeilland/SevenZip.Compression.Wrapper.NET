@@ -41,6 +41,31 @@ HRESULT Customized_ICompressCoder__Code(ICompressCoder* ifp, SequentialInStreamR
     }
 }
 
+HRESULT Customized_ICompressCoder2__Code(ICompressCoder2* ifp, SequentialInStreamReader const* inStreamReaders, const UInt64* const* inSizes, UInt32 numInStreams, SequentialOutStreamWriter const* outStreamWriters, const UInt64* const* outSizes, UInt32 numOutStreams, CompressProgressInfoReporter progressReporter)
+{
+    ISequentialInStream** inStreams = new ISequentialInStream * [numInStreams];
+    for (UInt32 index = 0; index < numInStreams; ++index)
+        inStreams[index] = new SequentialInStream(inStreamReaders[index]);
+    ISequentialOutStream** outStreams = new ISequentialOutStream * [numOutStreams];
+    for (UInt32 index = 0; index < numOutStreams; ++index)
+        outStreams[index] = new SequentialOutStream(outStreamWriters[index]);
+    HRESULT result;
+    if (progressReporter == nullptr)
+        result = ifp->Code(inStreams, inSizes, numInStreams, outStreams, outSizes, numOutStreams, nullptr);
+    else
+    {
+        CompressProgressInfo progress(progressReporter);
+        result = ifp->Code(inStreams, inSizes, numInStreams, outStreams, outSizes, numOutStreams, &progress);
+    }
+    for (UInt32 index = 0; index < numOutStreams; ++index)
+        delete outStreams[index];
+    delete[] outStreams;
+    for (UInt32 index = 0; index < numInStreams; ++index)
+        delete inStreams[index];
+    delete[] inStreams;
+    return result;
+}
+
 HRESULT Customized_ICompressWriteCoderProperties__WriteCoderProperties(ICompressWriteCoderProperties* ifp, SequentialOutStreamWriter outStreamWriter)
 {
     SequentialOutStream outStream(outStreamWriter);

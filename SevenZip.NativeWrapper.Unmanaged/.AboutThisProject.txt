@@ -1,6 +1,5 @@
-﻿このプロジェクトは、7-zipのライブラリに直接アクセスするアンマネージライブラリのプロジェクトで、c++で記述されています。
-ソースコードはすべてのプラットフォームで共有されていて、c++のプロジェクトファイルのみが各プラットフォーム別に存在します。
+﻿このプロジェクトは、7-zipのネイティブライブラリがサポートしている各々のインターフェースにアクセスする手段を提供するネイティブライブラリです。
+このプロジェクトはプラットフォーム間で共通のソースを保持するためのプロジェクトであり、このプロジェクトの出力は公開パッケージには含まれません。
 
-
-This project is an unmanaged library project that accesses the 7-zip library directly and is written in c ++.
-The source code is shared across all platforms and only the c ++ project files exist for each platform.
+This project is a native library that provides a way to access each interface supported by the 7-zip native library.
+This project is for maintaining a common source across platforms, and the output of this project is not included in the public package.

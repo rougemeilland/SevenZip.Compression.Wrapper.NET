@@ -1,8 +1,8 @@
 ﻿using SevenZip.NativeInterface.Compression;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
 
-namespace SevenZip.NativeWrapper.Managed.Compression
+namespace SevenZip.NativeWrapper.Managed.win.x64.Compression
 {
     class CompressSetOutStreamSize
         : Unknown, ICompressSetOutStreamSize
@@ -14,6 +14,9 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         public static ICompressSetOutStreamSize Create(IntPtr nativeInterfaceObject)
         {
+            if (nativeInterfaceObject == IntPtr.Zero)
+                throw new ArgumentNullException(nameof(nativeInterfaceObject));
+
             return new CompressSetOutStreamSize(nativeInterfaceObject);
         }
 

@@ -1,78 +1,103 @@
 ﻿{
   "plugins": [
     {
-      "os": "win",
-      "bits": 32,
-      "subDir": "win-x86",
-      "fileNamePattern": "^{0}\\.dll$"
+      "platform": "win-x86",
+      "settings": {
+        "pluginDirs": [],
+        "sevenZipLibraryFilePaths": [
+          "7z-win-x86-p.dll",
+          "7z-win-x86.dll",
+          "7z.dll"
+        ]
+      }
     },
     {
-      "os": "win",
-      "bits": 32,
-      "subDir": "win-arm32",
-      "fileNamePattern": "^{0}\\.dll$"
+      "platform": "win-x64",
+      "settings": {
+        "pluginDirs": [],
+        "sevenZipLibraryFilePaths": [
+          "7z-win-x64-p.dll",
+          "7z-win-x64.dll",
+          "7z.dll"
+        ]
+      }
     },
     {
-      "os": "win",
-      "bits": 64,
-      "subDir": "win-x64",
-      "fileNamePattern": "^{0}\\.dll$"
+      "platform": "win-arm64",
+      "settings": {
+        "pluginDirs": [],
+        "sevenZipLibraryFilePaths": [
+          "7z-win-arm64-p.dll",
+          "7z-win-arm64.dll",
+          "7z.dll"
+        ]
+      }
     },
     {
-      "os": "win",
-      "bits": 64,
-      "subDir": "win-arm64",
-      "fileNamePattern": "^{0}\\.dll$"
-    },
-
-    {
-      "os": "linux",
-      "bits": 32,
-      "subDir": "linux-x86",
-      "fileNamePattern": "^(lib)?{0}\\.(dll|(so(\\.[0-9]+)?))$"
+      "platform": "linux-x86",
+      "settings": {
+        "pluginDirs": [],
+        "sevenZipLibraryFilePaths": [
+          "7z-linux-x86-p.so",
+          "7z-linux-x86.so",
+          "7z.so"
+        ]
+      }
     },
     {
-      "os": "linux",
-      "bits": 32,
-      "subDir": "linux-arm32",
-      "fileNamePattern": "^(lib)?{0}\\.(dll|(so(\\.[0-9]+)?))$"
+      "platform": "linux-x64",
+      "settings": {
+        "pluginDirs": [],
+        "sevenZipLibraryFilePaths": [
+          "7z-linux-x64-p.so",
+          "7z-linux-x64.so",
+          "7z.so"
+        ]
+      }
     },
     {
-      "os": "linux",
-      "bits": 64,
-      "subDir": "linux-x64",
-      "fileNamePattern": "^(lib)?{0}\\.(dll|(so(\\.[0-9]+)?))$"
+      "platform": "linux-arm64",
+      "settings": {
+        "pluginDirs": [],
+        "sevenZipLibraryFilePaths": [
+          "7z-linux-arm64-p.so",
+          "7z-linux-arm64.so",
+          "7z.so"
+        ]
+      }
     },
     {
-      "os": "linux",
-      "bits": 64,
-      "subDir": "linux-arm64",
-      "fileNamePattern": "^(lib)?{0}\\.(dll|(so(\\.[0-9]+)?))$"
-    },
-
-    {
-      "os": "macos",
-      "bits": 32,
-      "subDir": "macos-x86",
-      "fileNamePattern": "^(lib)?{0}\\.(dll|dylib)$"
+      "platform": "macOs-x86",
+      "settings": {
+        "pluginDirs": [],
+        "sevenZipLibraryFilePaths": [
+          "7z-macOs-x86-p.dylib",
+          "7z-macOs-x86.dylib",
+          "7z.dylib"
+        ]
+      }
     },
     {
-      "os": "macos",
-      "bits": 32,
-      "subDir": "macos-arm32",
-      "fileNamePattern": "^(lib)?{0}\\.(dll|dylib)$"
+      "platform": "macOs-x64",
+      "settings": {
+        "pluginDirs": [],
+        "sevenZipLibraryFilePaths": [
+          "7z-macOs-x64-p.dylib",
+          "7z-macOs-x64.dylib",
+          "7z.dylib"
+        ]
+      }
     },
     {
-      "os": "macos",
-      "bits": 64,
-      "subDir": "macos-x64",
-      "fileNamePattern": "^(lib)?{0}\\.(dll|dylib)$"
-    },
-    {
-      "os": "macos",
-      "bits": 64,
-      "subDir": "macos-arm64",
-      "fileNamePattern": "^(lib)?{0}\\.(dll|dylib)$"
+      "platform": "macOs-arm64",
+      "settings": {
+        "pluginDirs": [],
+        "sevenZipLibraryFilePaths": [
+          "7z-macOs-arm64-p.dylib",
+          "7z-macOs-arm64.dylib",
+          "7z.dylib"
+        ]
+      }
     }
   ]
 }

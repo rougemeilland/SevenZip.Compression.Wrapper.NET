@@ -10,8 +10,40 @@ namespace SevenZip.Compression.Bzip2
     /// A class of BZip2 decoders in virtual stream format that can be read sequentially.
     /// </summary>
     public class Bzip2DecoderStream
-        : CompressCoderInStream
+        : IO.DecoderStream
     {
+        private class SystemStream
+            : IO.DecoderStream
+        {
+            private readonly ICompressGetInStreamProcessedSize _compressGetInStreamProcessedSize;
+            private readonly ICompressReadUnusedFromInBuf _compressReadUnusedFromInBuf;
+
+            private bool _isDisposed;
+
+            public SystemStream(ISequentialInStream sequentialInStream, ICompressGetInStreamProcessedSize compressGetInStreamProcessedSize, ICompressReadUnusedFromInBuf compressReadUnusedFromInBuf)
+                : base(sequentialInStream)
+            {
+                _isDisposed = false;
+                _compressGetInStreamProcessedSize = compressGetInStreamProcessedSize;
+                _compressReadUnusedFromInBuf = compressReadUnusedFromInBuf;
+            }
+
+            protected override void Dispose(bool disposing)
+            {
+                if (!_isDisposed)
+                {
+                    if (disposing)
+                    {
+                        (_compressReadUnusedFromInBuf as IDisposable)?.Dispose();
+                        (_compressGetInStreamProcessedSize as IDisposable)?.Dispose();
+                    }
+                    _isDisposed = true;
+                }
+                base.Dispose(disposing);
+            }
+        }
+
+
         private readonly ICompressGetInStreamProcessedSize _compressGetInStreamProcessedSize;
         private readonly ICompressReadUnusedFromInBuf _compressReadUnusedFromInBuf;
 
@@ -44,9 +76,7 @@ namespace SevenZip.Compression.Bzip2
         /// <returns>
         /// The created <see cref="Bzip2DecoderStream"/> object.
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="properties"/> is null.
-        /// </exception>
+        /// <exception cref="ArgumentNullException"><paramref name="compressedInStream"/> or <paramref name="properties"/> is null.</exception>
         public static Bzip2DecoderStream Create(IO.ISequentialInStream compressedInStream, Bzip2DecoderProperties properties, UInt64? uncompressedOutStreamSize)
         {
             if (compressedInStream is null)
@@ -73,23 +103,34 @@ namespace SevenZip.Compression.Bzip2
         /// <returns>
         /// The created <see cref="Bzip2Decoder"/> object.
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="properties"/> is null.
-        /// </exception>
-        public static Stream Create(Stream compressedInStream, Bzip2DecoderProperties properties, UInt64? uncompressedOutStreamSize)
+        /// <exception cref="ArgumentNullException"><paramref name="compressedInStream"/> or <paramref name="properties"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="compressedInStream"/> does not support reading.</exception>
+        public static Bzip2DecoderStream Create(Stream compressedInStream, Bzip2DecoderProperties properties, UInt64? uncompressedOutStreamSize)
         {
             if (compressedInStream is null)
                 throw new ArgumentNullException(nameof(compressedInStream));
+            if (!compressedInStream.CanRead)
+                throw new ArgumentException("The specified stream does not support reading.", nameof(compressedInStream));
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
 
-            return Create(properties, compressedInStream.GetStreamReader(), uncompressedOutStreamSize).AsStream();
+            return Create(properties, compressedInStream.GetStreamReader(), uncompressedOutStreamSize);
         }
 
         /// <summary>
-        /// The number of bytes of processed data in the coder's input stream.
+        /// The number of bytes of processed data in the decoder's input stream.
         /// </summary>
-        public UInt64 InStreamProcessedSize => _compressGetInStreamProcessedSize.InStreamProcessedSize;
+        /// <exception cref="ObjectDisposedException">The decoder has already been disposed.</exception>
+        public UInt64 InStreamProcessedSize
+        {
+            get
+            {
+                if (_isDisposed)
+                    throw new ObjectDisposedException(GetType().FullName);
+
+                return _compressGetInStreamProcessedSize.InStreamProcessedSize;
+            }
+        }
 
         /// <summary>
         /// Reads the remaining data after processing Bzip2Decoder.Code() from the input stream.
@@ -100,8 +141,12 @@ namespace SevenZip.Compression.Bzip2
         /// <returns>
         /// The length in bytes of the data actually read.
         /// </returns>
+        /// <exception cref="ObjectDisposedException">The decoder has already been disposed.</exception>
         public Int32 ReadUnusedFromInBuf(Span<Byte> data)
         {
+            if (_isDisposed)
+                throw new ObjectDisposedException(GetType().FullName);
+
             return checked((Int32)_compressReadUnusedFromInBuf.ReadUnusedFromInBuf(data));
         }
 
@@ -157,13 +202,13 @@ namespace SevenZip.Compression.Bzip2
                 }
                 compressSetInStream.SetInStream(compressedInStreamReader);
                 compressSetOutStreamSize.SetOutStreamSize(uncompressedOutStreamSize);
-                var coder =
+                var decoder =
                     new Bzip2DecoderStream(
                         sequentialInStream,
                         compressGetInStreamProcessedSize,
                         compressReadUnusedFromInBuf);
                 success = true;
-                return coder;
+                return decoder;
             }
             finally
             {

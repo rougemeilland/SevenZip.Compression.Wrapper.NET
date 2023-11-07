@@ -24,9 +24,7 @@ extern "C" const GUID IID_IStreamGetProps2 = { 0x23170f69, 0x40c1, 0x278a, { 0x0
 #endif // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressProgressInfo = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x04, 0x00, 0x00 } };
 extern "C" const GUID IID_ICompressCoder = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x05, 0x00, 0x00 } };
-#if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressCoder2 = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x18, 0x00, 0x00 } };
-#endif // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressSetCoderPropertiesOpt = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x1f, 0x00, 0x00 } };
 extern "C" const GUID IID_ICompressSetCoderProperties = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x20, 0x00, 0x00 } };
 extern "C" const GUID IID_ICompressSetDecoderProperties2 = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x22, 0x00, 0x00 } };
@@ -54,9 +52,7 @@ extern "C" const GUID IID_ICompressInitEncoder = { 0x23170f69, 0x40c1, 0x278a, {
 #if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressSetInStream2 = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x37, 0x00, 0x00 } };
 #endif // This interface is not supported by the wrapper.
-#if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressFilter = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x40, 0x00, 0x00 } };
-#endif // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressCodecsInfo = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x60, 0x00, 0x00 } };
 #if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ISetCompressCodecsInfo = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x61, 0x00, 0x00 } };
@@ -164,13 +160,11 @@ extern "C"
         return Customized_ICompressCoder__Code(ifp, inStreamReader, outStreamWriter, inSize, outSize, progressReporter);
     }
 
-#if false // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCoder2, Code)(ICompressCoder2* ifp, SequentialInStreamReader const* inStreamReaders, const UInt64* const* inSizes, UInt32 numInStreams, SequentialOutStreamWriter const* outStreamWriters, const UInt64* const* outSizes, UInt32 numOutStreams, CompressProgressInfoReporter progressReporter)
     {
         return Customized_ICompressCoder2__Code(ifp, inStreamReaders, inSizes, numInStreams, outStreamWriters, outSizes, numOutStreams, progressReporter);
     }
 
-#endif // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ICompressSetCoderPropertiesOpt, SetCoderPropertiesOpt)(ICompressSetCoderPropertiesOpt* ifp, const PROPID* propIDs, const PROPVARIANT* props, UInt32 numProps)
     {
         return ifp->SetCoderPropertiesOpt(propIDs, props, numProps);
@@ -286,7 +280,6 @@ extern "C"
     }
 
 #endif // This interface is not supported by the wrapper.
-#if false // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ICompressFilter, Init)(ICompressFilter* ifp)
     {
         return ifp->Init();
@@ -297,7 +290,6 @@ extern "C"
         return ifp->Filter(data, size);
     }
 
-#endif // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, GetNumMethods)(ICompressCodecsInfo* ifp, UInt32* numMethods)
     {
         return ifp->GetNumMethods(numMethods);
@@ -308,14 +300,14 @@ extern "C"
         return ifp->GetProperty(index, propID, value);
     }
 
-    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, CreateDecoder)(ICompressCodecsInfo* ifp, UInt32 index, const GUID* iid, void** coder)
+    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, CreateDecoder)(ICompressCodecsInfo* ifp, UInt32 index, const GUID* iid, void** decoder)
     {
-        return ifp->CreateDecoder(index, iid, coder);
+        return ifp->CreateDecoder(index, iid, decoder);
     }
 
-    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, CreateEncoder)(ICompressCodecsInfo* ifp, UInt32 index, const GUID* iid, void** coder)
+    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, CreateEncoder)(ICompressCodecsInfo* ifp, UInt32 index, const GUID* iid, void** encoder)
     {
-        return ifp->CreateEncoder(index, iid, coder);
+        return ifp->CreateEncoder(index, iid, encoder);
     }
 
 #if false // This interface is not supported by the wrapper.

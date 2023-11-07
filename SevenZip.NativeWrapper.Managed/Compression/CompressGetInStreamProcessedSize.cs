@@ -1,8 +1,8 @@
 ﻿using SevenZip.NativeInterface.Compression;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
 
-namespace SevenZip.NativeWrapper.Managed.Compression
+namespace SevenZip.NativeWrapper.Managed.win.x64.Compression
 {
     class CompressGetInStreamProcessedSize
         : Unknown, ICompressGetInStreamProcessedSize
@@ -16,8 +16,7 @@ namespace SevenZip.NativeWrapper.Managed.Compression
         {
             get
             {
-                UInt64 processedSize;
-                var result = UnmanagedEntryPoint.ICompressGetInStreamProcessedSize__GetInStreamProcessedSize(NativeInterfaceObject, out processedSize);
+                var result = UnmanagedEntryPoint.ICompressGetInStreamProcessedSize__GetInStreamProcessedSize(NativeInterfaceObject, out UInt64 processedSize);
                 if (result != HRESULT.S_OK)
                     throw result.GetExceptionFromHRESULT();
                 return processedSize;
@@ -26,6 +25,9 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         public static ICompressGetInStreamProcessedSize Create(IntPtr nativeInterfaceObject)
         {
+            if (nativeInterfaceObject == IntPtr.Zero)
+                throw new ArgumentNullException(nameof(nativeInterfaceObject));
+
             return new CompressGetInStreamProcessedSize(nativeInterfaceObject);
         }
     }

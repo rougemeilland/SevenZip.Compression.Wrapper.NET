@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 namespace SevenZip.NativeInterface.Compression
 {
     /// <summary>
-    /// An interface that can be encoded or decoded.
+    /// An interface that provides a way to code between streams.
     /// </summary>
     [Guid("23170F69-40C1-278A-0000-000400050000")]
     [InterfaceImplementation(InterfaceImplementarionType.ImplementedByInternalCode)]
@@ -13,7 +13,7 @@ namespace SevenZip.NativeInterface.Compression
         : IUnknown
     {
         /// <summary>
-        /// Coding data between streams.
+        /// Coding from one stream to another.
         /// </summary>
         /// <param name="sequentialInStreamReader">
         /// A delegate to the callback function that will be called when it needs to read data from the input stream.

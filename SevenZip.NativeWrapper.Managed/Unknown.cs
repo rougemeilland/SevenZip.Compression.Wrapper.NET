@@ -1,8 +1,8 @@
 ﻿using SevenZip.NativeInterface;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
 
-namespace SevenZip.NativeWrapper.Managed
+namespace SevenZip.NativeWrapper.Managed.win.x64
 {
     /// <summary>
     /// The base class for all interface implementations.
@@ -50,13 +50,17 @@ namespace SevenZip.NativeWrapper.Managed
         /// Returns an object to access the interface of the type specified by <paramref name="interfaceType"/>.
         /// This object can be cast to the type specified by <paramref name="interfaceType"/>.
         /// </returns>
-        /// <exception cref="NotSupportedException">
-        /// This object does not support the interface of the type specified by <paramref name="interfaceType"/>.
-        /// </exception>
+        /// <exception cref="ObjectDisposedException">The interface object has already been disposed.</exception>
+        /// <exception cref="NotSupportedException">This object does not support the interface of the type specified by <paramref name="interfaceType"/>.</exception>
         public IUnknown QueryInterface(Type interfaceType)
         {
+            if (_isDisposed)
+                throw new ObjectDisposedException(GetType().FullName);
+            if (_nativeInterfaceObject == IntPtr.Zero)
+                throw new InvalidOperationException();
+
             var success = false;
-            var newNativeInterfaceObject = QueryInterface(interfaceType.GUID, _nativeInterfaceObject);
+            var newNativeInterfaceObject = QueryInterface(_nativeInterfaceObject, interfaceType.GUID);
             try
             {
                 var managedInterfaceObject = GetInterfaceObjectCreator(interfaceType.GUID, newNativeInterfaceObject);
@@ -87,12 +91,8 @@ namespace SevenZip.NativeWrapper.Managed
         /// <summary>
         /// An object for accessing the native interface.
         /// </summary>
-        /// <exception cref="ObjectDisposedException">
-        /// The object has already been destroyed.
-        /// </exception>
-        /// <exception cref="InvalidOperationException">
-        /// No object has been assigned to access the native interface.
-        /// </exception>
+        /// <exception cref="ObjectDisposedException">The interface object has already been disposed.</exception>
+        /// <exception cref="InvalidOperationException">No object has been assigned to access the native interface.</exception>
         protected IntPtr NativeInterfaceObject
         {
             get
@@ -110,12 +110,8 @@ namespace SevenZip.NativeWrapper.Managed
         /// Assign an object to access the native interface.
         /// </summary>
         /// <param name="nativeInterfaceObject"></param>
-        /// <exception cref="ObjectDisposedException">
-        /// The object has already been destroyed.
-        /// </exception>
-        /// <exception cref="ArgumentException">
-        /// An attempt was made to assign a null pointer.
-        /// </exception>
+        /// <exception cref="ObjectDisposedException">The interface object has already been disposed.</exception>
+        /// <exception cref="ArgumentException">An attempt was made to assign a null pointer.</exception>
         /// <remarks>
         /// If an object has already been assigned to access the native interface, the assignment will be made after releasing the assigned object.
         /// </remarks>
@@ -146,16 +142,19 @@ namespace SevenZip.NativeWrapper.Managed
                 if (disposing)
                 {
                 }
-                _ = UnmanagedEntryPoint.IUnknown__Release(_nativeInterfaceObject);
+                if (_nativeInterfaceObject != IntPtr.Zero)
+                {
+                    _ = UnmanagedEntryPoint.IUnknown__Release(_nativeInterfaceObject);
+                    _nativeInterfaceObject = IntPtr.Zero;
+                }
                 _isDisposed = true;
             }
         }
 
-        private static IntPtr QueryInterface(Guid interfaceId, IntPtr nativeInterfaceObject)
+        private static IntPtr QueryInterface(IntPtr nativeInterfaceObject, Guid interfaceId)
         {
             var interfaceIdBuffer = NativeGUID.FromManagedGuidToNativeGuid(interfaceId);
-            IntPtr newNativeInterfaceObject;
-            var result = UnmanagedEntryPoint.IUnknown__QueryInterface(nativeInterfaceObject, ref interfaceIdBuffer, out newNativeInterfaceObject);
+            var result = UnmanagedEntryPoint.IUnknown__QueryInterface(nativeInterfaceObject, ref interfaceIdBuffer, out IntPtr newNativeInterfaceObject);
             if (result != HRESULT.S_OK)
                 throw result.GetExceptionFromHRESULT();
             return newNativeInterfaceObject;

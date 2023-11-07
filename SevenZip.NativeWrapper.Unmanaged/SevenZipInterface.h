@@ -4,9 +4,9 @@
 
 struct IHasher;
 
-#if defined(_PLATFORM_WINDOWS_X86)
+#if defined(_ARCHITECTURE_NATIVE_ADDRESS_32_BIT)
 typedef UInt32(STDMETHODCALLTYPE* Func_IsArc)(const Byte* p, UInt32 size);
-#elif defined(_PLATFORM_WINDOWS_X64)
+#elif defined(_ARCHITECTURE_NATIVE_ADDRESS_64_BIT)
 typedef UInt32(STDMETHODCALLTYPE* Func_IsArc)(const Byte* p, UInt64 size);
 #else
 #endif

@@ -1,8 +1,8 @@
 ﻿using SevenZip.NativeInterface.Compression;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
 
-namespace SevenZip.NativeWrapper.Managed.Compression
+namespace SevenZip.NativeWrapper.Managed.win.x64.Compression
 {
     class CompressSetMemLimit
         : Unknown, ICompressSetMemLimit

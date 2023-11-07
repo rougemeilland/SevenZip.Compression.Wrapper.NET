@@ -1,8 +1,8 @@
 ﻿using SevenZip.NativeInterface.Compression;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
 
-namespace SevenZip.NativeWrapper.Managed.Compression
+namespace SevenZip.NativeWrapper.Managed.win.x64.Compression
 {
     class CompressReadUnusedFromInBuf
         : Unknown, ICompressReadUnusedFromInBuf
@@ -14,13 +14,15 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         public static ICompressReadUnusedFromInBuf Create(IntPtr nativeInterfaceObject)
         {
+            if (nativeInterfaceObject == IntPtr.Zero)
+                throw new ArgumentNullException(nameof(nativeInterfaceObject));
+
             return new CompressReadUnusedFromInBuf(nativeInterfaceObject);
         }
 
         UInt32 ICompressReadUnusedFromInBuf.ReadUnusedFromInBuf(Span<Byte> data)
         {
-            UInt32 processedSize;
-            var result = UnmanagedEntryPoint.ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf(NativeInterfaceObject, data, out processedSize);
+            var result = UnmanagedEntryPoint.ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf(NativeInterfaceObject, data, out UInt32 processedSize);
             if (result != HRESULT.S_OK)
                 throw result.GetExceptionFromHRESULT();
             return processedSize;

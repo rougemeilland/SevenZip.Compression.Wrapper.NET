@@ -10,11 +10,16 @@ namespace SevenZip.Compression.Ppmd8
     /// A class of PPMd version I encoders.
     /// </summary>
     public class Ppmd8Encoder
-        : CompressCoder
+        : IDisposable
     {
+        private readonly ICompressCoder _compressCoder;
+
+        private bool _isDisposed;
+
         private Ppmd8Encoder(ICompressCoder compressCoder)
-            : base(compressCoder)
         {
+            _isDisposed = false;
+            _compressCoder = compressCoder;
         }
 
         /// <summary>
@@ -26,9 +31,7 @@ namespace SevenZip.Compression.Ppmd8
         /// <returns>
         /// It is an instance of <see cref="Ppmd8Encoder"/> created.
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="properties"/> is null.
-        /// </exception>
+        /// <exception cref="ArgumentNullException"><paramref name="properties"/> is null.</exception>
         public static Ppmd8Encoder Create(Ppmd8EncoderProperties properties)
         {
             if (properties is null)
@@ -42,9 +45,9 @@ namespace SevenZip.Compression.Ppmd8
                 compressCoder = CompressCodecsInfo.CreateCompressCoder("PPMDZip", CoderType.Encoder);
                 compressSetCoderProperties = (ICompressSetCoderProperties)compressCoder.QueryInterface(typeof(ICompressSetCoderProperties));
                 compressSetCoderProperties.SetCoderProperties(properties);
-                var coder = new Ppmd8Encoder(compressCoder);
+                var encoder = new Ppmd8Encoder(compressCoder);
                 success = true;
-                return coder;
+                return encoder;
             }
             finally
             {
@@ -66,26 +69,44 @@ namespace SevenZip.Compression.Ppmd8
         /// Set the output stream to write the compressed data.
         /// </param>
         /// <param name="uncompressedInStreamSize">
-        /// This parameter is ignored.
+        /// <b>The value of this parameter is ignored.</b>
         /// </param>
         /// <param name="compressedOutStreamSize">
-        /// This parameter is ignored.
+        /// <b>The value of this parameter is ignored.</b>
         /// </param>
         /// <param name="progress">
         /// <para>
         /// Set an object to receive notification of coding progress.
-        /// This object must implement <see cref="IProgress{T}">IProgress&lt;(<see cref="Nullable{UInt64}">Nullable&lt;<see cref="UInt64"/>&gt;</see> inStreamProcessedCount, <see cref="Nullable{UInt64}">Nullable&lt;<see cref="UInt64"/>&gt;</see> outStreamProcessedCount)&gt;</see>.
         /// </para>
         /// <para>
         /// Set to null if you do not need to be notified of progress.
         /// </para>
         /// </param>
         /// <remarks>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
+        /// <list type="bullet">
+        /// <item><description>The meaning of the parameter set in the Code method is based on "7-zip 21.07" and may be changed in the future.</description></item>
+        /// </list>
         /// </remarks>
-        public override void Code(Stream uncompressedInStream, Stream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
+        /// <exception cref="ObjectDisposedException">The encoder has already been disposed.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="uncompressedInStream"/> or <paramref name="compressedOutStream"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="uncompressedInStream"/> does not support reading, or <paramref name="compressedOutStream"/> does not support writing.</exception>
+        public void Code(Stream uncompressedInStream, Stream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
         {
-            base.Code(uncompressedInStream, compressedOutStream, uncompressedInStreamSize, compressedOutStreamSize, progress);
+            if (uncompressedInStream is null)
+                throw new ArgumentNullException(nameof(uncompressedInStream));
+            if (!uncompressedInStream.CanRead)
+                throw new ArgumentException("The specified stream does not support reading.", nameof(uncompressedInStream));
+            if (compressedOutStream is null)
+                throw new ArgumentNullException(nameof(compressedOutStream));
+            if (!compressedOutStream.CanWrite)
+                throw new ArgumentException("The specified stream does not support writing.", nameof(compressedOutStream));
+
+            _compressCoder.Code(
+                uncompressedInStream.GetStreamReader(),
+                compressedOutStream.GetStreamWriter(),
+                uncompressedInStreamSize,
+                compressedOutStreamSize,
+                progress.GetProgressReporter());
         }
 
         /// <summary>
@@ -98,32 +119,69 @@ namespace SevenZip.Compression.Ppmd8
         /// Set the output stream to write the compressed data.
         /// </param>
         /// <param name="uncompressedInStreamSize">
-        /// This parameter is ignored.
+        /// <b>The value of this parameter is ignored.</b>
         /// </param>
         /// <param name="compressedOutStreamSize">
-        /// This parameter is ignored.
+        /// <b>The value of this parameter is ignored.</b>
         /// </param>
         /// <param name="progress">
         /// <para>
         /// Set an object to receive notification of coding progress.
-        /// This object must implement <see cref="IProgress{T}">IProgress&lt;(<see cref="Nullable{UInt64}">Nullable&lt;<see cref="UInt64"/>&gt;</see> inStreamProcessedCount, <see cref="Nullable{UInt64}">Nullable&lt;<see cref="UInt64"/>&gt;</see> outStreamProcessedCount)&gt;</see>.
         /// </para>
         /// <para>
         /// Set to null if you do not need to be notified of progress.
         /// </para>
         /// </param>
         /// <remarks>
-        /// <para>
-        /// This override is provided in case you do not want to use <see cref="Stream"/> class for the I/O stream,
-        /// and you must have an implementation of the <see cref="ISequentialInStream"/> and <see cref="ISequentialOutStream"/> interfaces in advance.
-        /// </para>
-        /// <para>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
-        /// </para>
+        /// <list type="bullet">
+        /// <item><description>This override is provided in case you do not want to use <see cref="Stream"/> class for the I/O stream,
+        /// and you must have an implementation of the <see cref="ISequentialInStream"/> and <see cref="ISequentialOutStream"/> interfaces in advance.</description></item>
+        /// <item><description>The meaning of the parameter set in the Code method is based on "7-zip 21.07" and may be changed in the future.</description></item>
+        /// </list>
         /// </remarks>
-        public override void Code(ISequentialInStream uncompressedInStream, ISequentialOutStream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
+        /// <exception cref="ObjectDisposedException">The encoder has already been disposed.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="uncompressedInStream"/> or <paramref name="compressedOutStream"/> is null.</exception>
+        public void Code(ISequentialInStream uncompressedInStream, ISequentialOutStream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
         {
-            base.Code(uncompressedInStream, compressedOutStream, uncompressedInStreamSize, compressedOutStreamSize, progress);
+            if (uncompressedInStream is null)
+                throw new ArgumentNullException(nameof(uncompressedInStream));
+            if (compressedOutStream is null)
+                throw new ArgumentNullException(nameof(compressedOutStream));
+
+            _compressCoder.Code(
+                uncompressedInStream.GetStreamReader(),
+                compressedOutStream.GetStreamWriter(),
+                uncompressedInStreamSize,
+                compressedOutStreamSize,
+                progress.GetProgressReporter());
+        }
+
+        /// <summary>
+        /// Explicitly release the resource associated with this object.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+
+        /// <summary>
+        /// Releases the resources associated with the object.
+        /// </summary>
+        /// <param name="disposing">
+        /// Set true when calling explicitly from <see cref="IDisposable.Dispose"/>.
+        /// Set to false when calling implicitly from the garbage collector.
+        /// </param>
+        protected virtual void Dispose(bool disposing)
+        {
+            if (!_isDisposed)
+            {
+                if (disposing)
+                {
+                    (_compressCoder as IDisposable)?.Dispose();
+                }
+                _isDisposed = true;
+            }
         }
     }
 }

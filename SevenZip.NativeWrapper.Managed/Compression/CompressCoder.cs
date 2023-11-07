@@ -1,8 +1,8 @@
 ﻿using SevenZip.NativeInterface.Compression;
 using SevenZip.NativeInterface.IO;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
-namespace SevenZip.NativeWrapper.Managed.Compression
+namespace SevenZip.NativeWrapper.Managed.win.x64.Compression
 {
     class CompressCoder
         : Unknown, ICompressCoder
@@ -14,11 +14,19 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         public static ICompressCoder Create(IntPtr nativeInterfaceObject)
         {
+            if (nativeInterfaceObject == IntPtr.Zero)
+                throw new ArgumentNullException(nameof(nativeInterfaceObject));
+
             return new CompressCoder(nativeInterfaceObject);
         }
 
         void ICompressCoder.Code(SequentialInStreamReader sequentialInStreamReader, SequentialOutStreamWriter sequentialOutStreamWriter, UInt64? inSize, UInt64? outSize, CompressProgressInfoReporter? progressReporter)
         {
+            if (sequentialInStreamReader is null)
+                throw new ArgumentNullException(nameof(sequentialInStreamReader));
+            if (sequentialOutStreamWriter is null)
+                throw new ArgumentNullException(nameof(sequentialOutStreamWriter));
+
             var result =
                 UnmanagedEntryPoint.ICompressCoder__Code(
                     NativeInterfaceObject,

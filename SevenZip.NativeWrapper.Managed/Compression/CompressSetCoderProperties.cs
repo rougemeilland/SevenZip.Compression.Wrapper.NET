@@ -1,9 +1,9 @@
 ﻿using SevenZip.NativeInterface;
 using SevenZip.NativeInterface.Compression;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
 
-namespace SevenZip.NativeWrapper.Managed.Compression
+namespace SevenZip.NativeWrapper.Managed.win.x64.Compression
 {
     class CompressSetCoderProperties
         : Unknown, ICompressSetCoderProperties
@@ -15,11 +15,17 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         public static ICompressSetCoderProperties Create(IntPtr nativeInterfaceObject)
         {
+            if (nativeInterfaceObject == IntPtr.Zero)
+                throw new ArgumentNullException(nameof(nativeInterfaceObject));
+
             return new CompressSetCoderProperties(nativeInterfaceObject);
         }
 
         void ICompressSetCoderProperties.SetCoderProperties(ICoderProperties propertiesGetter)
         {
+            if (propertiesGetter is null)
+                throw new ArgumentNullException(nameof(propertiesGetter));
+
             var result = UnmanagedEntryPoint.ICompressSetCoderProperties__SetCoderProperties(NativeInterfaceObject, propertiesGetter.EnumerateProperties());
             if (result != HRESULT.S_OK)
                 throw result.GetExceptionFromHRESULT();

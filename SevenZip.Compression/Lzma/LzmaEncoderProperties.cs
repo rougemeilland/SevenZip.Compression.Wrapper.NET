@@ -8,6 +8,9 @@ namespace SevenZip.Compression.Lzma
     /// <summary>
     /// A class of properties that can be specified for the LZMA encoder.
     /// </summary>
+    /// <remarks>
+    /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
+    /// </remarks>
     public class LzmaEncoderProperties
         : ICoderProperties
     {
@@ -83,47 +86,49 @@ namespace SevenZip.Compression.Lzma
         /// Means the size in bytes of the dictionary used for encoding.
         /// This value should be in the following range:
         /// <list type="bullet">
-        /// <item><term>For 32-bit process:</term><description>4KB &lt;= <see cref="DictionarySize"/> &lt;= 128MB</description></item>
-        /// <item><term>For 64-bit process:</term><description>4KB &lt;= <see cref="DictionarySize"/> &lt;= 1536MB</description></item>
+        /// <item><term>For 32-bit process:</term><description><c>4KB &lt;= <see cref="DictionarySize"/> &lt;= 128MB</c></description></item>
+        /// <item><term>For 64-bit process:</term><description><c>4KB &lt;= <see cref="DictionarySize"/> &lt;= 1536MB</c></description></item>
         /// </list>
         /// </para>
         /// <para>
-        /// The default value is null, which means the following values:
-        /// <list type="table">
-        /// <item><term>For <see cref="Level"/> == <see cref="CompressionLevel.Level9"/>:</term><description>64MB</description></item>
-        /// <item><term>For <see cref="Level"/> == <see cref="CompressionLevel.Level8"/>:</term><description>64MB</description></item>
-        /// <item><term>For <see cref="Level"/> == <see cref="CompressionLevel.Level7"/>:</term><description>32MB</description></item>
-        /// <item><term>For <see cref="Level"/> == <see cref="CompressionLevel.Level6"/>:</term><description>32MB</description></item>
-        /// <item><term>For <see cref="Level"/> == <see cref="CompressionLevel.Level5"/>:</term><description>16MB</description></item>
-        /// <item><term>For <see cref="Level"/> == <see cref="CompressionLevel.Level4"/>:</term><description>8MB</description></item>
-        /// <item><term>For <see cref="Level"/> == <see cref="CompressionLevel.Level3"/>:</term><description>4MB</description></item>
-        /// <item><term>For <see cref="Level"/> == <see cref="CompressionLevel.Level2"/>:</term><description>1MB</description></item>
-        /// <item><term>For <see cref="Level"/> == <see cref="CompressionLevel.Level1"/>:</term><description>256KB</description></item>
-        /// </list>
+        /// The default value is null, and the value used in that case depends on the value of the <see cref="Level"/> property.
         /// </para>
         /// </summary>
         /// <remarks>
-        /// <para>
+        /// <list type="bullet">
+        /// <item>
+        /// The default value for <see cref="DictionarySize"/> is determined as follows:
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value of <see cref="Level"/></term><term>Default value of <see cref="DictionarySize"/></term>
+        /// </listheader>
+        /// <item><description><see cref="CompressionLevel.Level1"/></description><description>256KB</description></item>
+        /// <item><description><see cref="CompressionLevel.Level2"/></description><description>1MB</description></item>
+        /// <item><description><see cref="CompressionLevel.Level3"/></description><description>4MB</description></item>
+        /// <item><description><see cref="CompressionLevel.Level4"/></description><description>8MB</description></item>
+        /// <item><description><see cref="CompressionLevel.Level5"/></description><description>16MB</description></item>
+        /// <item><description><see cref="CompressionLevel.Level6"/></description><description>32MB</description></item>
+        /// <item><description><see cref="CompressionLevel.Level7"/></description><description>32MB</description></item>
+        /// <item><description><see cref="CompressionLevel.Level8"/></description><description>64MB</description></item>
+        /// <item><description><see cref="CompressionLevel.Level9"/></description><description>64MB</description></item>
+        /// </list>
+        /// </item>
+        /// <item>
         /// Under the following conditions, the value of <see cref="ReduceSize"/> is used as <see cref="DictionarySize"/> inside 7-zip:
         /// <list type="number">
         /// <item><see cref="ReduceSize"/> is set and</item>
         /// <item><see cref="ReduceSize"/> &gt;= 4MB and</item>
         /// <item><see cref="DictionarySize"/> &gt; <see cref="ReduceSize"/></item>
         /// </list>
-        /// </para>
-        /// <para>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
-        /// </para>
+        /// </item>
+        /// </list>
         /// </remarks>
         public UInt64? DictionarySize { get; set; }
 
         /// <summary>
         /// <para>
         /// Means the number of Literal Context Bits used in the encoding.
-        /// This value should be in the following range:
-        /// <code>
-        /// 0 &lt;= <see cref="LitContextBits"/> &lt;= 8
-        /// </code>
+        /// This property can be set to a value in the range <c>0 &lt;= <see cref="LitContextBits"/> &lt;= 8</c>.
         /// </para>
         /// <para>
         /// The default value is null, which means 3.
@@ -134,10 +139,7 @@ namespace SevenZip.Compression.Lzma
         /// <summary>
         /// <para>
         /// Means the number of Literal Pos Bits used in the encoding.
-        /// This value should be in the following range:
-        /// <code>
-        /// 0 &lt;= <see cref="LitPosBits"/> &lt;= 4
-        /// </code>
+        /// This property can be set to a value in the range <c>0 &lt;= <see cref="LitPosBits"/> &lt;= 4</c>.
         /// </para>
         /// <para>
         /// The default value is null, which means 0.
@@ -148,9 +150,7 @@ namespace SevenZip.Compression.Lzma
         /// <summary>
         /// <para>
         /// Means the number of Pos Bits used in the encoding.
-        /// <code>
-        /// 0 &lt;= <see cref="PosStateBits"/> &lt;= 4
-        /// </code>
+        /// This property can be set to a value in the range <c>0 &lt;= <see cref="PosStateBits"/> &lt;= 4</c>.
         /// </para>
         /// <para>
         /// The default value is null, which means 2.
@@ -172,30 +172,32 @@ namespace SevenZip.Compression.Lzma
         /// </list>
         /// </para>
         /// </summary>
-        /// <remarks>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
-        /// </remarks>
         public UInt32? Algorithm { get; set; }
 
         /// <summary>
         /// <para>
         /// Means the number of fast bytes in the encoder.
-        /// This value can be set to an integer from 5 to 273.
+        /// This property can be set to a value in the range <c>5 &lt;= <see cref="NumFastBytes"/> &lt;= 273</c>.
+        /// </para>
+        /// <para>
+        /// The default value is null, and the value used in that case depends on the value of the <see cref="Level"/> property.
         /// </para>
         /// <para>
         /// Usually, a big number gives a little bit better compression ratio and a slower compression process.
         /// A large fast bytes parameter can significantly increase the compression ratio for files which contain long identical sequences of bytes.
         /// </para>
-        /// <para>
-        /// The default value is null, which means the following values:
-        /// <list type="table">
-        /// <item><term>For <see cref="Level"/> >= <see cref="CompressionLevel.Level7"/> :</term><description>64</description></item>
-        /// <item><term>Otherwise :</term><description>32</description></item>
-        /// </list>
-        /// </para>
         /// </summary>
         /// <remarks>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
+        /// The default value for <see cref="NumFastBytes"/> is determined as follows:
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value of <see cref="Level"/></term><term>Default value of <see cref="NumFastBytes"/></term>
+        /// </listheader>
+        /// <item><description><see cref="CompressionLevel.Level9"/></description><description>64</description></item>
+        /// <item><description><see cref="CompressionLevel.Level8"/></description><description>64</description></item>
+        /// <item><description><see cref="CompressionLevel.Level7"/></description><description>64</description></item>
+        /// <item><description>(Otherwise)</description><description>32</description></item>
+        /// </list>
         /// </remarks>
         public UInt32? NumFastBytes { get; set; }
 
@@ -204,50 +206,83 @@ namespace SevenZip.Compression.Lzma
         /// Means the Match Finder algorithm used in the encoding.
         /// </para>
         /// <para>
-        ///  The default value is MatchFinderType.None, which means the following values:
-        ///  <list type="table">
-        ///  <item><term><see cref="Algorithm"/> == 0:</term><description><see cref="MatchFinderType.HC5"/> </description></item>
-        ///  <item><term>Otherwise:</term><description><see cref="MatchFinderType.BT4"/> </description></item>
-        ///  </list>
+        /// The default value is <see cref="MatchFinderType.None"/>, and the value used in that case depends on the value of the <see cref="Algorithm"/> property.
         /// </para>
         /// </summary>
         /// <remarks>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
+        /// The default value for <see cref="MatchFinder"/> is determined as follows:
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value of <see cref="Algorithm"/></term><term>Default value of <see cref="MatchFinder"/></term>
+        /// </listheader>
+        /// <item><description>0</description><description><see cref="MatchFinderType.HC5"/></description></item>
+        /// <item><description>(Otherwise)</description><description><see cref="MatchFinderType.BT4"/></description></item>
+        /// </list>
         /// </remarks>
         public MatchFinderType MatchFinder { get; set; }
 
         /// <summary>
         /// <para>
         /// Means the number of Match Finder cycles.
+        /// This property can be set to a value in the range <c>1 &lt;= <see cref="MatchFinderCycles"/> &lt;= (1 &lt;&lt; 30)</c>.
         /// </para>
         /// <para>
-        /// The default value is null, which means the following values:
-        /// <list type="table">
-        /// <item><term>For <see cref="MatchFinder"/> == <see cref="MatchFinderType.BT2"/>:</term><description>16 + <see cref="NumFastBytes"/> / 2</description></item>
-        /// <item><term>For <see cref="MatchFinder"/> == <see cref="MatchFinderType.BT3"/>:</term><description>16 + <see cref="NumFastBytes"/> / 2</description></item>
-        /// <item><term>For <see cref="MatchFinder"/> == <see cref="MatchFinderType.BT4"/>:</term><description>16 + <see cref="NumFastBytes"/> / 2</description></item>
-        /// <item><term>For <see cref="MatchFinder"/> == <see cref="MatchFinderType.BT5"/>:</term><description>16 + <see cref="NumFastBytes"/> / 2</description></item>
-        /// <item><term>For <see cref="MatchFinder"/> == <see cref="MatchFinderType.HC4"/>:</term><description>8 + <see cref="NumFastBytes"/> / 4</description></item>
-        /// <item><term>For <see cref="MatchFinder"/> == <see cref="MatchFinderType.HC5"/>:</term><description>8 + <see cref="NumFastBytes"/> / 4</description></item>
-        /// </list>
+        /// The default value is null, and the value used in that case depends on the value of the <see cref="MatchFinder"/> property.
         /// </para>
         /// </summary>
+        /// <remarks>
+        /// The default value for <see cref="MatchFinderCycles"/> is determined as follows:
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value of <see cref="MatchFinder"/></term><term>Default value of <see cref="MatchFinderCycles"/></term>
+        /// </listheader>
+        /// <item><description><see cref="MatchFinderType.BT2"/></description><description><c>16 + <see cref="NumFastBytes"/> / 2</c></description></item>
+        /// <item><description><see cref="MatchFinderType.BT3"/></description><description><c>16 + <see cref="NumFastBytes"/> / 2</c></description></item>
+        /// <item><description><see cref="MatchFinderType.BT4"/></description><description><c>16 + <see cref="NumFastBytes"/> / 2</c></description></item>
+        /// <item><description><see cref="MatchFinderType.BT5"/></description><description><c>16 + <see cref="NumFastBytes"/> / 2</c></description></item>
+        /// <item><description><see cref="MatchFinderType.HC4"/></description><description><c>8 + <see cref="NumFastBytes"/> / 4</c></description></item>
+        /// <item><description><see cref="MatchFinderType.HC5"/></description><description><c>8 + <see cref="NumFastBytes"/> / 4</c></description></item>
+        /// </list>
+        /// </remarks>
         public UInt32? MatchFinderCycles { get; set; }
 
         /// <summary>
         /// <para>
         /// Means the number of threads used for encoding.
-        /// The values that can be set are as follows.:
-        /// <list type="table">
-        /// <item>
-        /// 1 &lt;= <see cref="NumThreads"/> &lt;= 2
-        /// </item>
-        /// </list>
+        /// Possible values are 1 or 2.
         /// </para>
         /// <para>
-        ///  The default value is null, which means 2.
+        /// The default value is null, in which case different values are used depending on the <see cref="Algorithm"/> and <see cref="MatchFinder"/> properties.
         /// </para>
         /// </summary>
+        /// <remarks>
+        /// The default value for <see cref="NumThreads"/> is determined as follows:
+        /// <list type="bullet">
+        /// <item>
+        /// <term>For <see cref="Algorithm"/> == 0:</term>
+        /// <description>1</description>
+        /// </item>
+        /// <item>
+        /// <term>For <see cref="Algorithm"/> != 0:</term>
+        /// <description>
+        /// <list type="table">
+        /// <listheader>
+        /// <term>Value of <see cref="MatchFinder"/></term><term>Default value of <see cref="NumThreads"/></term>
+        /// </listheader>
+        /// <item>
+        /// <description>
+        /// <item><description><see cref="MatchFinderType.BT2"/></description><description>2</description></item>
+        /// <item><description><see cref="MatchFinderType.BT3"/></description><description>2</description></item>
+        /// <item><description><see cref="MatchFinderType.BT4"/></description><description>2</description></item>
+        /// <item><description><see cref="MatchFinderType.BT5"/></description><description>2</description></item>
+        /// <item><description><see cref="MatchFinderType.HC4"/></description><description>1</description></item>
+        /// <item><description><see cref="MatchFinderType.HC5"/></description><description>1</description></item>
+        /// </description>
+        /// </item>
+        /// </list>
+        /// </description></item>
+        /// </list>
+        /// </remarks>
         public UInt32? NumThreads { get; set; }
 
         /// <summary>
@@ -270,7 +305,8 @@ namespace SevenZip.Compression.Lzma
 
         IEnumerable<(CoderPropertyId propertyId, object propertryValue)> ICoderProperties.EnumerateProperties()
         {
-            if (Level.HasValue) yield return (CoderPropertyId.Level, Level.Value);
+            if (Level.HasValue)
+                yield return (CoderPropertyId.Level, (UInt32)Level.Value);
             if (EndMarker.HasValue)
                 yield return (CoderPropertyId.EndMarker, EndMarker.Value);
             if (Affinity.HasValue)

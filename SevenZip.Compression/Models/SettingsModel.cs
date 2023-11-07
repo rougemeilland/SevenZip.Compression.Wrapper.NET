@@ -6,9 +6,9 @@ namespace SevenZip.Compression.Models
     {
         public SettingsModel()
         {
-            Plugins = Array.Empty<PluginModel>();
+            Plugins = Array.Empty<PluginKeyValueModel>();
         }
 
-        public PluginModel[] Plugins { get; set; }
+        public PluginKeyValueModel[] Plugins { get; set; }
     }
 }

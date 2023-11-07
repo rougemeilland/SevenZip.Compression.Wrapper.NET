@@ -13,12 +13,24 @@ namespace SevenZip.NativeInterface.Compression
         : IUnknown
     {
         /// <summary>
-        /// Initialize the instance.
-        /// This method must always be called first.
+        /// Initialize the plugin.
         /// </summary>
-        void Initialize();
+        /// <param name="seevenZipNativeLibraryPath">
+        /// The path to the 7-zip native library.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the initialization is successful, true is returned.
+        /// </para>
+        /// <para>
+        /// If the 7-zip native library specified by seevenZipNativeLibraryPath does not exist, false will be returned.
+        /// </para>
+        /// <para>
+        /// In cases other than the above, an exception will be notified.
+        /// </para>
+        /// </returns>
+        bool Initialize(string seevenZipNativeLibraryPath);
 
-#if true
         /// <summary>
         /// Enumerate the supported codec.
         /// </summary>
@@ -26,16 +38,5 @@ namespace SevenZip.NativeInterface.Compression
         /// An enumerator of supported codecs.
         /// </returns>
         IEnumerable<ICompressCodecInfo> EnumerateCodecs();
-#else
-        /// <summary>
-        /// Enumerates information on supported codecs.
-        /// </summary>
-        /// <param name="compressCodecInfoGetter">
-        /// A delegate for a callback function that returns codec information.
-        /// This callback function will be called for each codec until <see cref="EnumerateCodecs(CompressCodecInfoGetter)"/> returns.
-        /// See <see cref="CompressCodecInfoGetter"/> for more information on callback functions.
-        /// </param>
-        void EnumerateCodecs(CompressCodecInfoGetter compressCodecInfoGetter);
-#endif
     }
 }

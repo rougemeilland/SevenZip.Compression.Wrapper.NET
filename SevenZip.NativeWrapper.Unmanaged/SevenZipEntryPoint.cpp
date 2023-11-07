@@ -1,7 +1,4 @@
 #include "SevenZipEntryPoint.h"
-#if defined(_PLATFORM_WINDOWS)
-#include <strsafe.h>
-#endif
 
 static const Int32 E_INVALIDOPERATION = 0x80131509;
 
@@ -102,31 +99,19 @@ void SevenZipEntryPoint::Release()
 
 HRESULT SevenZipEntryPoint::LoadSevenZipLibrary(const wchar_t* locationPath)
 {
+    // If an error occurs because the 7-zip library does not exist in the path specified by "locationPath", E_DLL_NOT_FOUND must be returned.
+    const UInt32 E_DLL_NOT_FOUND = 0x8007007e;
+
     if (_dllHandle != nullptr)
         return E_INVALIDOPERATION;
 #if defined(_PLATFORM_WINDOWS)
-    HINSTANCE dllHandle = nullptr;
+    HINSTANCE dllHandle = LoadLibraryW(locationPath);
+    if (dllHandle == nullptr)
     {
-        wchar_t modulePath[_MAX_PATH + 1];
-        HRESULT result = StringCchCopyW(modulePath, _MAX_PATH + 1, locationPath);
-        if (result != S_OK)
-            return result;
-        {
-            wchar_t tail = modulePath[lstrlenW(modulePath) - 1];
-            if (tail != L'\\' && tail != L'/')
-            {
-                result = StringCchCatW(modulePath, _MAX_PATH + 1, L"\\");
-                if (result != S_OK)
-                    return result;
-            }
-        }
-        result = StringCchCatW(modulePath, _MAX_PATH + 1, L"7z.dll");
-        if (result != S_OK)
-            return result;
-
-        dllHandle = LoadLibraryW(modulePath);
-        if (dllHandle == nullptr)
-            return AtlHresultFromLastError();
+        return
+            GetLastError() == ERROR_MOD_NOT_FOUND
+            ? E_DLL_NOT_FOUND
+            : AtlHresultFromLastError();
     }
     FuncCreateDecoder fpCreateDecoder = (FuncCreateDecoder)GetProcAddress(dllHandle, "CreateDecoder");
     if (fpCreateDecoder == nullptr)

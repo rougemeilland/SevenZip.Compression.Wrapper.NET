@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace SevenZip.NativeWrapper.Managed
+namespace SevenZip.NativeWrapper.Managed.win.x64
 {
     [StructLayout(LayoutKind.Sequential, Pack = 4, Size = 16)]
     unsafe struct NativeGUID

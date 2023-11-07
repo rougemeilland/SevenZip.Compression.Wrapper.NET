@@ -7,12 +7,15 @@
 		<AllowUnsafeBlocks>False</AllowUnsafeBlocks>
 		<GenerateDocumentationFile>True</GenerateDocumentationFile>
 		<Authors>Palmtree Software</Authors>
-		<Product>SevenZip.Compression.Wrapper.NET</Product>
+		<Product>SevenZip.Compression.Wrapper.NET (Internal interface module)</Product>
 		<PackageProjectUrl>https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET</PackageProjectUrl>
 		<Copyright>©2022 Palmtree Software</Copyright>
 		<RepositoryUrl>https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET</RepositoryUrl>
 		<PackageTags>net50;net60;bzip2;lzma;deflate;deflate64;compress;uncompress;stream</PackageTags>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageId>Palmtree.SevenZip.Compression.Wrapper.NET.Interface</PackageId>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<Description>This package is used internally by SevenZip.Compression.Wrapper.NET and cannot be used alone.</Description>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)|$(TargetFramework)'=='Debug|AnyCPU|net5.0'">

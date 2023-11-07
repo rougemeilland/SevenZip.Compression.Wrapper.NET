@@ -23,7 +23,7 @@ namespace SevenZip.IO
 
         public override Int64 Position { get => throw new NotSupportedException(); set => throw new NotSupportedException(); }
 
-        public override void Flush() => throw new NotSupportedException();
+        public override void Flush() { }
 
         public override Int32 Read(Byte[] buffer, Int32 offset, Int32 count)
         {
@@ -45,5 +45,4 @@ namespace SevenZip.IO
 
         public override void Write(Byte[] buffer, Int32 offset, Int32 count) => throw new NotSupportedException();
     }
-
 }

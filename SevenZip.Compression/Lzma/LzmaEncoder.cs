@@ -10,23 +10,23 @@ namespace SevenZip.Compression.Lzma
     /// A class of LZMA encoders.
     /// </summary>
     public class LzmaEncoder
-        : CompressCoder
+        : IDisposable
     {
         /// <summary>
         /// The length of the property to embed in the compressed stream in LZMA format.
         /// </summary>
         public const Int32 LZMA_CONTENT_PROPERTY_SIZE = 5;
 
-        private bool _isDisposed;
-        private ICompressWriteCoderProperties _compressWriteCoderProperties;
-        private IO.CorderHeaderFormatter _lzmaHeaderFormatter;
+        private readonly ICompressCoder _compressCoder;
+        private readonly ICompressWriteCoderProperties _compressWriteCoderProperties;
 
-        private LzmaEncoder(ICompressCoder compressCoder, ICompressWriteCoderProperties compressWriteCoderProperties, IO.CorderHeaderFormatter lzmaHeaderFormatter)
-            : base(compressCoder)
+        private bool _isDisposed;
+
+        private LzmaEncoder(ICompressCoder compressCoder, ICompressWriteCoderProperties compressWriteCoderProperties)
         {
             _isDisposed = false;
+            _compressCoder = compressCoder;
             _compressWriteCoderProperties = compressWriteCoderProperties;
-            _lzmaHeaderFormatter = lzmaHeaderFormatter;
         }
 
         /// <summary>
@@ -35,46 +35,11 @@ namespace SevenZip.Compression.Lzma
         /// <param name="properties">
         /// Set a container object with properties that specify the behavior of the LZMA encoder.
         /// </param>
-        /// <param name="lzmaHeaderFormatter">
-        /// A delegate for the function that writes the LZMA header to the output stream.
-        /// </param>
         /// <returns>
         /// It is an instance of <see cref="LzmaEncoder"/> created.
         /// </returns>
-        /// <example>
-        /// The delegate set in <paramref name="lzmaHeaderFormatter"/> depends on the application.
-        /// For example, if you want to encode the data in the format described in lzma.txt included in the LZMA SDK, write as follows:
-        /// <code>
-        /// var coder =
-        ///     LzmaEncoder.Create(
-        ///         new LzmaEncoderProperties { Level = CompressionLevel.Normal },
-        ///         writer =>
-        ///         {
-        ///             writer.WriteProperty(); // Write the 5-byte property set in the encoder to the output stream
-        ///             writer.WriteUInt64LE(uncompressedStreamSize) // Write the length of the uncompressed data
-        ///             writer.SetInStreamSize(uncompressedStreamSize); // Sets the length of the input stream to read the uncompressed data.
-        ///             return LzmaEncoder.LZMA_CONTENT_PROPERTY_SIZE + sizeof(UInt64);
-        ///         });
-        /// </code>
-        /// If you want to uncompress the contents of a ZIP file compressed in LZMA format, write as follows:
-        /// <code>
-        /// var coder =
-        ///     LzmaEncoder.Create(
-        ///         new LzmaEncoderProperties { Level = CompressionLevel.Normal },
-        ///         writer =>
-        ///         {
-        ///             writer.WriteByte(MAJOR_VERSION); // Write a major version of the encoder application. (For example, in the case of "7-zip 21.07", the integer 21 is written.)
-        ///             writer.WriteByte(MINOR_VERSION); // Write a minor version of the encoder application. (For example, in the case of "7-zip 21.07", the integer 7 is written.)
-        ///             writer.WriteUInt16LE(LzmaEncoder.LZMA_CONTENT_PROPERTY_SIZE); // Write the length of the encoder property to write next.
-        ///             writer.WriteProperty(); // Write the properties of the 5-byte encoder.
-        ///             return sizeof(Byte) + sizeof(Byte) + sizeof(UInt16 + LzmaEncoder.LZMA_CONTENT_PROPERTY_SIZE;
-        ///         });
-        /// </code>
-        /// </example>
-        /// <exception cref="ArgumentNullException">
-        /// <paramref name="properties"/> is null.
-        /// </exception>
-        public static LzmaEncoder Create(LzmaEncoderProperties properties, IO.CorderHeaderFormatter lzmaHeaderFormatter)
+        /// <exception cref="ArgumentNullException"><paramref name="properties"/> is null.</exception>
+        public static LzmaEncoder Create(LzmaEncoderProperties properties)
         {
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
@@ -92,14 +57,15 @@ namespace SevenZip.Compression.Lzma
                 compressWriteCoderProperties = (ICompressWriteCoderProperties)compressCoder.QueryInterface(typeof(ICompressWriteCoderProperties));
                 compressSetCoderProperties.SetCoderProperties(properties);
                 compressSetCoderPropertiesOpt.SetCoderPropertiesOpt(properties);
-                var coder = new LzmaEncoder(compressCoder, compressWriteCoderProperties, lzmaHeaderFormatter);
+                var encoder = new LzmaEncoder(compressCoder, compressWriteCoderProperties);
                 success = true;
-                return coder;
+                return encoder;
             }
             finally
             {
                 if (!success)
                 {
+                    (compressWriteCoderProperties as IDisposable)?.Dispose();
                     (compressCoder as IDisposable)?.Dispose();
                 }
                 (compressSetCoderPropertiesOpt as IDisposable)?.Dispose();
@@ -117,31 +83,44 @@ namespace SevenZip.Compression.Lzma
         /// Set the output stream to write the compressed data.
         /// </param>
         /// <param name="uncompressedInStreamSize">
-        /// This parameter is ignored.
+        /// <b>The value of this parameter is ignored.</b>
         /// </param>
         /// <param name="compressedOutStreamSize">
-        /// This parameter is ignored.
+        /// <b>The value of this parameter is ignored.</b>
         /// </param>
         /// <param name="progress">
         /// <para>
         /// Set an object to receive notification of coding progress.
-        /// This object must implement <see cref="IProgress{T}">IProgress&lt;(<see cref="Nullable{UInt64}">Nullable&lt;<see cref="UInt64"/>&gt;</see> inStreamProcessedCount, <see cref="Nullable{UInt64}">Nullable&lt;<see cref="UInt64"/>&gt;</see> outStreamProcessedCount)&gt;</see>.
         /// </para>
         /// <para>
         /// Set to null if you do not need to be notified of progress.
         /// </para>
         /// </param>
         /// <remarks>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
+        /// <list type="bullet">
+        /// <item><description>The meaning of the parameter set in the Code method is based on "7-zip 21.07" and may be changed in the future.</description></item>
+        /// </list>
         /// </remarks>
-        public override void Code(Stream uncompressedInStream, Stream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
+        /// <exception cref="ObjectDisposedException">The encoder has already been disposed.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="uncompressedInStream"/> or <paramref name="compressedOutStream"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="uncompressedInStream"/> does not support reading, or <paramref name="compressedOutStream"/> does not support writing.</exception>
+        public void Code(Stream uncompressedInStream, Stream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
         {
-            Code(
-                uncompressedInStream.AsISequentialInStream(),
-                compressedOutStream.AsISequentialOutStream(),
+            if (uncompressedInStream is null)
+                throw new ArgumentNullException(nameof(uncompressedInStream));
+            if (!uncompressedInStream.CanRead)
+                throw new ArgumentException("The specified stream does not support reading.", nameof(uncompressedInStream));
+            if (compressedOutStream is null)
+                throw new ArgumentNullException(nameof(compressedOutStream));
+            if (!compressedOutStream.CanWrite)
+                throw new ArgumentException("The specified stream does not support writing.", nameof(compressedOutStream));
+
+            _compressCoder.Code(
+                uncompressedInStream.GetStreamReader(),
+                compressedOutStream.GetStreamWriter(),
                 uncompressedInStreamSize,
                 compressedOutStreamSize,
-                progress);
+                progress.GetProgressReporter());
         }
 
         /// <summary>
@@ -154,51 +133,97 @@ namespace SevenZip.Compression.Lzma
         /// Set the output stream to write the compressed data.
         /// </param>
         /// <param name="uncompressedInStreamSize">
-        /// This parameter is ignored.
+        /// <b>The value of this parameter is ignored.</b>
         /// </param>
         /// <param name="compressedOutStreamSize">
-        /// This parameter is ignored.
+        /// <b>The value of this parameter is ignored.</b>
         /// </param>
         /// <param name="progress">
         /// <para>
         /// Set an object to receive notification of coding progress.
-        /// This object must implement <see cref="IProgress{T}">IProgress&lt;(<see cref="Nullable{UInt64}">Nullable&lt;<see cref="UInt64"/>&gt;</see> inStreamProcessedCount, <see cref="Nullable{UInt64}">Nullable&lt;<see cref="UInt64"/>&gt;</see> outStreamProcessedCount)&gt;</see>.
         /// </para>
         /// <para>
         /// Set to null if you do not need to be notified of progress.
         /// </para>
         /// </param>
         /// <remarks>
-        /// <para>
-        /// This override is provided in case you do not want to use <see cref="Stream"/> class for the I/O stream,
-        /// and you must have an implementation of the <see cref="ISequentialInStream"/> and <see cref="ISequentialOutStream"/> interfaces in advance.
-        /// </para>
-        /// <para>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
-        /// </para>
+        /// <list type="bullet">
+        /// <item><description>This override is provided in case you do not want to use <see cref="Stream"/> class for the I/O stream,
+        /// and you must have an implementation of the <see cref="ISequentialInStream"/> and <see cref="ISequentialOutStream"/> interfaces in advance.</description></item>
+        /// <item><description>The meaning of the parameter set in the Code method is based on "7-zip 21.07" and may be changed in the future.</description></item>
+        /// </list>
         /// </remarks>
-        public override void Code(ISequentialInStream uncompressedInStream, ISequentialOutStream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
+        /// <exception cref="ObjectDisposedException">The encoder has already been disposed.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="uncompressedInStream"/> or <paramref name="compressedOutStream"/> is null.</exception>
+        public void Code(ISequentialInStream uncompressedInStream, ISequentialOutStream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
         {
-            var lzmaDecoderHeaderWriter =
-                CoderHeaderWriter.Create(
-                    compressedOutStream,
-                    () =>_compressWriteCoderProperties.WriteCoderProperties(compressedOutStream.GetStreamWriter()));
-            var headerLength = _lzmaHeaderFormatter(lzmaDecoderHeaderWriter);
-            if (compressedOutStreamSize is null)
-                compressedOutStreamSize = lzmaDecoderHeaderWriter.OutStreamSize;
-            else if (lzmaDecoderHeaderWriter.OutStreamSize is null)
-                compressedOutStreamSize = compressedOutStreamSize.Value - headerLength;
-            else
-                compressedOutStreamSize = (compressedOutStreamSize.Value - headerLength).Minimum(lzmaDecoderHeaderWriter.OutStreamSize.Value);
-            if (uncompressedInStreamSize is null)
-                uncompressedInStreamSize = lzmaDecoderHeaderWriter.InStreamSize;
-            else if (lzmaDecoderHeaderWriter.InStreamSize is null)
-            {
-                // NOP
-            }
-            else
-                uncompressedInStreamSize = uncompressedInStreamSize.Value.Minimum(lzmaDecoderHeaderWriter.InStreamSize.Value);
-            base.Code(uncompressedInStream, compressedOutStream, uncompressedInStreamSize, compressedOutStreamSize, progress);
+            if (uncompressedInStream is null)
+                throw new ArgumentNullException(nameof(uncompressedInStream));
+            if (compressedOutStream is null)
+                throw new ArgumentNullException(nameof(compressedOutStream));
+
+            _compressCoder.Code(
+                uncompressedInStream.GetStreamReader(),
+                compressedOutStream.GetStreamWriter(),
+                uncompressedInStreamSize,
+                compressedOutStreamSize,
+                progress.GetProgressReporter());
+        }
+
+        /// <summary>
+        /// Writes the content property held by the encoder to the specified output stream.
+        /// </summary>
+        /// <param name="compressedOutStream">
+        /// Set the output stream to write the content property.
+        /// </param>
+        /// <remarks>
+        /// For more information on content property, refer to the following documents.
+        /// "<seealso href="https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET/blob/main/docs/AboutContentProperty_en.md">About content property</seealso>"
+        /// </remarks>
+        /// <exception cref="ObjectDisposedException">The encoder has already been disposed.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="compressedOutStream"/> is null.</exception>
+        /// <exception cref="ArgumentException"><paramref name="compressedOutStream"/> does not support writing.</exception>
+        public void WriteCoderProperties(Stream compressedOutStream)
+        {
+            if (_isDisposed)
+                throw new ObjectDisposedException(GetType().FullName);
+            if (compressedOutStream is null)
+                throw new ArgumentNullException(nameof(compressedOutStream));
+            if (!compressedOutStream.CanWrite)
+                throw new ArgumentException("The specified stream does not support writing.", nameof(compressedOutStream));
+
+            _compressWriteCoderProperties.WriteCoderProperties(compressedOutStream.GetStreamWriter());
+        }
+
+        /// <summary>
+        /// Writes the content property held by the encoder to the specified output stream.
+        /// </summary>
+        /// <param name="compressedOutStream">
+        /// Set the output stream to write the content property.
+        /// </param>
+        /// <remarks>
+        /// For more information on content property, refer to the following documents.
+        /// "<seealso href="https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET/blob/main/docs/AboutContentProperty_en.md">About content property</seealso>"
+        /// </remarks>
+        /// <exception cref="ObjectDisposedException">The encoder has already been disposed.</exception>
+        /// <exception cref="ArgumentNullException"><paramref name="compressedOutStream"/> is null.</exception>
+        public void WriteCoderProperties(IO.ISequentialOutStream compressedOutStream)
+        {
+            if (_isDisposed)
+                throw new ObjectDisposedException(GetType().FullName);
+            if (compressedOutStream is null)
+                throw new ArgumentNullException(nameof(compressedOutStream));
+
+            _compressWriteCoderProperties.WriteCoderProperties(compressedOutStream.GetStreamWriter());
+        }
+
+        /// <summary>
+        /// Explicitly release the resource associated with this object.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
         }
 
         /// <summary>
@@ -208,17 +233,17 @@ namespace SevenZip.Compression.Lzma
         /// Set true when calling explicitly from <see cref="IDisposable.Dispose"/>.
         /// Set to false when calling implicitly from the garbage collector.
         /// </param>
-        protected override void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (!_isDisposed)
             {
                 if (disposing)
                 {
                     (_compressWriteCoderProperties as IDisposable)?.Dispose();
+                    (_compressCoder as IDisposable)?.Dispose();
                 }
                 _isDisposed = true;
             }
-            base.Dispose(disposing);
         }
     }
 }

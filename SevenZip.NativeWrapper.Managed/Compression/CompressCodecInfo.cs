@@ -1,14 +1,14 @@
 ﻿using SevenZip.NativeInterface;
 using SevenZip.NativeInterface.Compression;
-using SevenZip.NativeWrapper.Managed.Platform;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
 using System;
 
-namespace SevenZip.NativeWrapper.Managed.Compression
+namespace SevenZip.NativeWrapper.Managed.win.x64.Compression
 {
     class CompressCodecInfo
         : ICompressCodecInfo, IDisposable
     {
-        private static object _lockObject;
+        private static readonly object _lockObject;
 
         // [Note]
         //  When calling ICompressCodecsInfo__GetProperty, if the PROPVARIANT structure returns the VT_BSTR type,
@@ -21,6 +21,8 @@ namespace SevenZip.NativeWrapper.Managed.Compression
         //  And if possible, you should first call CompressCodecsInfo__GetProperty, which returns the VT_BSTR type.
         private static PROPVARIANT _propertyValueBuffer;
         private static NativeGUID _compressCoderInterfaceId;
+        private static NativeGUID _compressCoder2InterfaceId;
+        private static NativeGUID _compressFilterInterfaceId;
 
         private IntPtr _compressCodecsInfo;
         private bool _isDisposed;
@@ -30,9 +32,11 @@ namespace SevenZip.NativeWrapper.Managed.Compression
             _lockObject = new object();
             PROPVARIANT.Clear(ref _propertyValueBuffer);
             NativeGUID.CopyFromManagedGuidToNativeGuid(typeof(ICompressCoder).GUID, ref _compressCoderInterfaceId);
+            NativeGUID.CopyFromManagedGuidToNativeGuid(typeof(ICompressCoder2).GUID, ref _compressCoder2InterfaceId);
+            NativeGUID.CopyFromManagedGuidToNativeGuid(typeof(ICompressFilter).GUID, ref _compressFilterInterfaceId);
         }
 
-        private CompressCodecInfo(IntPtr compressCodecsInfo, int index, UInt64 id, string codecName, Guid coderClassId, CoderType coderType, bool isSupportedICompressCoder)
+        private CompressCodecInfo(IntPtr compressCodecsInfo, Int32 index, UInt64 id, string codecName, Guid coderClassId, UInt32 packStreams, bool isFilter, CoderType coderType, bool isSupportedICompressCoder, bool isSupportedICompressCoder2, bool isSupportedICompressFilter)
         {
             _isDisposed = false;
             _compressCodecsInfo = compressCodecsInfo;
@@ -40,8 +44,12 @@ namespace SevenZip.NativeWrapper.Managed.Compression
             ID = id;
             CodecName = codecName;
             CoderClassId = coderClassId;
+            PackStreams = packStreams;
+            IsFilter = isFilter;
             CoderType = coderType;
             IsSupportedICompressCoder = isSupportedICompressCoder;
+            IsSupportedICompressCoder2 = isSupportedICompressCoder2;
+            IsSupportedICompressFilter = isSupportedICompressFilter;
         }
 
         ~CompressCodecInfo()
@@ -57,55 +65,105 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         public Guid CoderClassId { get; }
 
+        public UInt32 PackStreams { get; }
+
+        public bool IsFilter { get; }
+
         public CoderType CoderType { get; }
 
         public bool IsSupportedICompressCoder { get; }
 
+        public bool IsSupportedICompressCoder2 { get; }
+
+        public bool IsSupportedICompressFilter { get; }
+
         public static ICompressCodecInfo? Create(IntPtr compressCodecsInfo, Int32 index, CoderType coderType)
         {
+            if (compressCodecsInfo == IntPtr.Zero)
+                throw new ArgumentNullException(nameof(compressCodecsInfo));
+
             lock (_lockObject)
             {
                 var ifp = compressCodecsInfo;
                 var codecName = GetCodecName(ifp, index, ref _propertyValueBuffer);
-                Console.WriteLine($"index={index}, name={codecName}");
+                var packStreams = GetPackStreams(ifp, index, ref _propertyValueBuffer);
+                var isFilter = GetIsFilter(ifp, index, ref _propertyValueBuffer);
                 switch (coderType)
                 {
                     case CoderType.Decoder:
-                        if (IsDecoderAssigned(ifp, index, ref _propertyValueBuffer))
+                        if (GetIsDecoderAssigned(ifp, index, ref _propertyValueBuffer))
                         {
                             var coderClassId = GetDecoderClassId(ifp, index, ref _propertyValueBuffer);
                             var codecId = GetCodecId(ifp, index, ref _propertyValueBuffer);
-                            IntPtr coder = IntPtr.Zero;
+                            IntPtr compressCoder = IntPtr.Zero;
+                            IntPtr compressCoder2 = IntPtr.Zero;
+                            IntPtr compressFilter = IntPtr.Zero;
                             try
                             {
-                                coder = CreateCompressDecoder(ifp, index, ref _compressCoderInterfaceId);
-                                UnmanagedEntryPoint.IUnknown__AddRef(ifp);
-                                return new CompressCodecInfo(ifp, index, codecId, codecName, coderClassId, coderType, coder != IntPtr.Zero);
+                                compressCoder = CreateCompressDecoder(ifp, index, ref _compressCoderInterfaceId);
+                                compressCoder2 = CreateCompressDecoder(ifp, index, ref _compressCoder2InterfaceId);
+                                compressFilter = CreateCompressDecoder(ifp, index, ref _compressFilterInterfaceId);
+                                _ = UnmanagedEntryPoint.IUnknown__AddRef(ifp);
+                                return new CompressCodecInfo(
+                                    ifp,
+                                    index,
+                                    codecId,
+                                    codecName,
+                                    coderClassId,
+                                    packStreams,
+                                    isFilter,
+                                    coderType,
+                                    compressCoder != IntPtr.Zero,
+                                    compressCoder2 != IntPtr.Zero,
+                                    compressFilter != IntPtr.Zero);
                             }
                             finally
                             {
-                                if (coder != IntPtr.Zero)
-                                    UnmanagedEntryPoint.IUnknown__Release(coder);
+                                if (compressFilter != IntPtr.Zero)
+                                    _ = UnmanagedEntryPoint.IUnknown__Release(compressFilter);
+                                if (compressCoder2 != IntPtr.Zero)
+                                    _ = UnmanagedEntryPoint.IUnknown__Release(compressCoder2);
+                                if (compressCoder != IntPtr.Zero)
+                                    _ = UnmanagedEntryPoint.IUnknown__Release(compressCoder);
                             }
                         }
                         else
                             return null;
                     case CoderType.Encoder:
-                        if (IsEncoderAssigned(ifp, index, ref _propertyValueBuffer))
+                        if (GetIsEncoderAssigned(ifp, index, ref _propertyValueBuffer))
                         {
                             var coderClassId = GetEncoderClassId(ifp, index, ref _propertyValueBuffer);
                             var codecId = GetCodecId(ifp, index, ref _propertyValueBuffer);
-                            IntPtr coder = IntPtr.Zero;
+                            IntPtr compressCoder = IntPtr.Zero;
+                            IntPtr compressCoder2 = IntPtr.Zero;
+                            IntPtr compressFilter = IntPtr.Zero;
                             try
                             {
-                                coder = CreateCompressEncoder(ifp, index, ref _compressCoderInterfaceId);
-                                UnmanagedEntryPoint.IUnknown__AddRef(ifp);
-                                return new CompressCodecInfo(ifp, index, codecId, codecName, coderClassId, coderType, coder != IntPtr.Zero);
+                                compressCoder = CreateCompressEncoder(ifp, index, ref _compressCoderInterfaceId);
+                                compressCoder2 = CreateCompressEncoder(ifp, index, ref _compressCoder2InterfaceId);
+                                compressFilter = CreateCompressEncoder(ifp, index, ref _compressFilterInterfaceId);
+                                _ = UnmanagedEntryPoint.IUnknown__AddRef(ifp);
+                                return new CompressCodecInfo(
+                                    ifp,
+                                    index,
+                                    codecId,
+                                    codecName,
+                                    coderClassId,
+                                    packStreams,
+                                    isFilter,
+                                    coderType,
+                                    compressCoder != IntPtr.Zero,
+                                    compressCoder2 != IntPtr.Zero,
+                                    compressFilter != IntPtr.Zero);
                             }
                             finally
                             {
-                                if (coder != IntPtr.Zero)
-                                    UnmanagedEntryPoint.IUnknown__Release(coder);
+                                if (compressFilter != IntPtr.Zero)
+                                    _ = UnmanagedEntryPoint.IUnknown__Release(compressFilter);
+                                if (compressCoder2 != IntPtr.Zero)
+                                    _ = UnmanagedEntryPoint.IUnknown__Release(compressCoder2);
+                                if (compressCoder != IntPtr.Zero)
+                                    _ = UnmanagedEntryPoint.IUnknown__Release(compressCoder);
                             }
                         }
                         else
@@ -116,9 +174,49 @@ namespace SevenZip.NativeWrapper.Managed.Compression
             }
         }
 
-        public ICompressCoder CreateCompressCoder()
+        ICompressCoder ICompressCodecInfo.CreateCompressCoder()
         {
-            return CompressCoder.Create(CreateCompressEncoder(_compressCodecsInfo, Index, ref _compressCoderInterfaceId));
+            if (!IsSupportedICompressCoder)
+                throw new NotSupportedException();
+
+            return
+                CompressCoder.Create(
+                    CoderType switch
+                    {
+                        CoderType.Decoder => CreateCompressDecoder(_compressCodecsInfo, Index, ref _compressCoderInterfaceId),
+                        CoderType.Encoder => CreateCompressEncoder(_compressCodecsInfo, Index, ref _compressCoderInterfaceId),
+                        _ => throw new Exception($"Unknown coder type: {CoderType}"),
+                    });
+        }
+
+        ICompressCoder2 ICompressCodecInfo.CreateCompressCoder2()
+        {
+            if (!IsSupportedICompressCoder2)
+                throw new NotSupportedException();
+
+            return
+                CompressCoder2.Create(
+                    CoderType switch
+                    {
+                        CoderType.Decoder => CreateCompressDecoder(_compressCodecsInfo, Index, ref _compressCoder2InterfaceId),
+                        CoderType.Encoder => CreateCompressEncoder(_compressCodecsInfo, Index, ref _compressCoder2InterfaceId),
+                        _ => throw new Exception($"Unknown coder type: {CoderType}"),
+                    });
+        }
+
+        public ICompressFilter CreateCompressFilter()
+        {
+            if (!IsSupportedICompressFilter)
+                throw new NotSupportedException();
+
+            return
+                CompressFilter.Create(
+                    CoderType switch
+                    {
+                        CoderType.Decoder => CreateCompressDecoder(_compressCodecsInfo, Index, ref _compressFilterInterfaceId),
+                        CoderType.Encoder => CreateCompressEncoder(_compressCodecsInfo, Index, ref _compressFilterInterfaceId),
+                        _ => throw new Exception($"Unknown coder type: {CoderType}"),
+                    });
         }
 
         public void Dispose()
@@ -166,7 +264,7 @@ namespace SevenZip.NativeWrapper.Managed.Compression
             }
         }
 
-        private static bool IsDecoderAssigned(IntPtr ifp, Int32 index, ref PROPVARIANT valueBuffer)
+        private static bool GetIsDecoderAssigned(IntPtr ifp, Int32 index, ref PROPVARIANT valueBuffer)
         {
             var result = UnmanagedEntryPoint.ICompressCodecsInfo__GetProperty(ifp, (UInt32)index, MethodPropID.DecoderIsAssigned, ref valueBuffer);
             if (result != HRESULT.S_OK)
@@ -176,7 +274,7 @@ namespace SevenZip.NativeWrapper.Managed.Compression
             return valueBuffer.BooleanValue != PROPVARIANT_BOOLEAN_VALUE.FALSE;
         }
 
-        private static bool IsEncoderAssigned(IntPtr ifp, Int32 index, ref PROPVARIANT valueBuffer)
+        private static bool GetIsEncoderAssigned(IntPtr ifp, Int32 index, ref PROPVARIANT valueBuffer)
         {
             var result = UnmanagedEntryPoint.ICompressCodecsInfo__GetProperty(ifp, (UInt32)index, MethodPropID.EncoderIsAssigned, ref valueBuffer);
             if (result != HRESULT.S_OK)
@@ -214,8 +312,7 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         private static IntPtr CreateCompressDecoder(IntPtr ifp, Int32 index, ref NativeGUID interfaceId)
         {
-            IntPtr coder;
-            var result = UnmanagedEntryPoint.ICompressCodecsInfo__CreateDecoder(ifp, (UInt32)index, ref interfaceId, out coder);
+            var result = UnmanagedEntryPoint.ICompressCodecsInfo__CreateDecoder(ifp, (UInt32)index, ref interfaceId, out IntPtr coder);
             if (result == HRESULT.S_OK)
                 return coder;
             else if (result == HRESULT.E_NOINTERFACE)
@@ -226,14 +323,37 @@ namespace SevenZip.NativeWrapper.Managed.Compression
 
         private static IntPtr CreateCompressEncoder(IntPtr ifp, Int32 index, ref NativeGUID interfaceId)
         {
-            IntPtr coder;
-            var result = UnmanagedEntryPoint.ICompressCodecsInfo__CreateEncoder(ifp, (UInt32)index, ref interfaceId, out coder);
+            var result = UnmanagedEntryPoint.ICompressCodecsInfo__CreateEncoder(ifp, (UInt32)index, ref interfaceId, out IntPtr coder);
             if (result == HRESULT.S_OK)
                 return coder;
             else if (result == HRESULT.E_NOINTERFACE)
                 return IntPtr.Zero;
             else
                 throw result.GetExceptionFromHRESULT();
+        }
+
+        private static UInt32 GetPackStreams(IntPtr ifp, Int32 index, ref PROPVARIANT valueBuffer)
+        {
+            var result = UnmanagedEntryPoint.ICompressCodecsInfo__GetProperty(ifp, (UInt32)index, MethodPropID.PackStreams, ref valueBuffer);
+            if (result != HRESULT.S_OK)
+                throw result.GetExceptionFromHRESULT();
+            return
+                valueBuffer.ValueType switch
+                {
+                    PropertyValueType.VT_EMPTY => 1,
+                    PropertyValueType.VT_UI4 => valueBuffer.UInt32Value,
+                    _ => throw new Exception("Unexpected value type."),
+                };
+        }
+
+        private static bool GetIsFilter(IntPtr ifp, Int32 index, ref PROPVARIANT valueBuffer)
+        {
+            var result = UnmanagedEntryPoint.ICompressCodecsInfo__GetProperty(ifp, (UInt32)index, MethodPropID.IsFilter, ref valueBuffer);
+            if (result != HRESULT.S_OK)
+                throw result.GetExceptionFromHRESULT();
+            if (valueBuffer.ValueType != PropertyValueType.VT_BOOL)
+                throw new Exception("Unexpected value type.");
+            return valueBuffer.BooleanValue != PROPVARIANT_BOOLEAN_VALUE.FALSE;
         }
     }
 }

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace SevenZip.NativeWrapper.Managed
+namespace SevenZip.NativeWrapper.Managed.win.x64
 {
 
-#if _PLATFORM_WINDOWS_X64
+#if _PLATFORM_X64 || _PLATFORM_ARM64
     [StructLayout(LayoutKind.Explicit, Pack = 8, Size = 24)]
     unsafe struct PROPVARIANT
     {
@@ -44,7 +44,7 @@ namespace SevenZip.NativeWrapper.Managed
             }
         }
     }
-#elif _PLATFORM_WINDOWS_X86
+#elif _PLATFORM_X86 || _PLATFORM_ARM32
     [StructLayout(LayoutKind.Explicit, Pack = 4, Size = 16)]
     unsafe struct PROPVARIANT
     {
@@ -86,14 +86,6 @@ namespace SevenZip.NativeWrapper.Managed
             }
         }
     }
-#elif _PLATFORM_LINUX_X64
-#error Define a PROPVARIANT structure. The layout of the PROPVARIANT structure should match the one on the 7-zip source code.
-#elif _PLATFORM_LINUX_X86
-#error Define a PROPVARIANT structure. The layout of the PROPVARIANT structure should match the one on the 7-zip source code.
-#elif _PLATFORM_MACOS_X64
-#error Define a PROPVARIANT structure. The layout of the PROPVARIANT structure should match the one on the 7-zip source code.
-#elif _PLATFORM_MACOS_X86
-#error Define a PROPVARIANT structure. The layout of the PROPVARIANT structure should match the one on the 7-zip source code.
 #else
 #error Not supported platform
 #endif

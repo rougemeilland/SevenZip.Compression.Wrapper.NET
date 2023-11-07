@@ -1,0 +1,35 @@
+﻿using SevenZip.NativeInterface.Compression;
+using SevenZip.NativeWrapper.Managed.win.x64.Platform;
+using System;
+
+namespace SevenZip.NativeWrapper.Managed.win.x64.Compression
+{
+    class CompressFilter
+        : Unknown, ICompressFilter
+    {
+        protected CompressFilter(IntPtr nativeInterfaceObject)
+            : base(nativeInterfaceObject)
+        {
+        }
+
+        public static ICompressFilter Create(IntPtr nativeInterfaceObject)
+        {
+            if (nativeInterfaceObject == IntPtr.Zero)
+                throw new ArgumentNullException(nameof(nativeInterfaceObject));
+
+            return new CompressFilter(nativeInterfaceObject);
+        }
+
+        void ICompressFilter.Init()
+        {
+            var result = UnmanagedEntryPoint.ICompressFilter__Init(NativeInterfaceObject);
+            if (result != HRESULT.S_OK)
+                throw result.GetExceptionFromHRESULT();
+        }
+
+        UInt32 ICompressFilter.Filter(Span<byte> data)
+        {
+            return UnmanagedEntryPoint.ICompressFilter__Filter(NativeInterfaceObject, data);
+        }
+    }
+}

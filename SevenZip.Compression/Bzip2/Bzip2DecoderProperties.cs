@@ -5,6 +5,9 @@ namespace SevenZip.Compression.Bzip2
     /// <summary>
     /// A container class for BZIP2 decoder properties.
     /// </summary>
+    /// <remarks>
+    /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
+    /// </remarks>
     public class Bzip2DecoderProperties
     {
         /// <summary>
@@ -45,11 +48,8 @@ namespace SevenZip.Compression.Bzip2
         /// </para>
         /// </summary>
         /// <remarks>
-        /// <para>
         /// Note: The BZip2 decoder only determines if the <see cref="NumThreads"/> value is less than 2 or not.
         /// So, for example, the BZip2 decoder behaves the same when the <see cref="NumThreads"/> value is 2 and 10.
-        /// </para>
-        /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
         /// </remarks>
         public UInt32? NumThreads { get; set; }
     }

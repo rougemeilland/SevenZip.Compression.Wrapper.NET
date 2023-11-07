@@ -7,6 +7,9 @@ namespace SevenZip.Compression.Ppmd8
     /// <summary>
     /// A class of properties that can be specified for the PPMd version I encoder.
     /// </summary>
+    /// <remarks>
+    /// Note: This specification is based on 7-Zip 21.07 and is subject to change in future versions.
+    /// </remarks>
     public class Ppmd8EncoderProperties
         : ICoderProperties
     {
@@ -114,7 +117,7 @@ namespace SevenZip.Compression.Ppmd8
         IEnumerable<(CoderPropertyId propertyId, object propertryValue)> ICoderProperties.EnumerateProperties()
         {
             if (Level.HasValue)
-                yield return (CoderPropertyId.Level, Level.Value);
+                yield return (CoderPropertyId.Level, (UInt32)Level.Value);
             if (ReduceSize.HasValue)
                 yield return (CoderPropertyId.ReduceSize, ReduceSize.Value);
             if (Algorithm != PPMd8RestoreMethod.None)
