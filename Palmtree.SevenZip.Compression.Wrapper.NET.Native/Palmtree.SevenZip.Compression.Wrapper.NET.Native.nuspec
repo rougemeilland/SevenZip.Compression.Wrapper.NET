@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+  <metadata>
+    <id>Palmtree.SevenZip.Compression.Wrapper.NET.Native</id>
+    <version>1.1.0-alpha</version>
+    <title>Palmtree.SevenZip.Compression.Wrapper.NET.Native</title>
+    <authors>Palmtree Software</authors>
+    <license type="expression">MIT</license>
+    <licenseUrl>https://licenses.nuget.org/MIT</licenseUrl>
+    <readme>README.md</readme>
+    <projectUrl>https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET</projectUrl>
+    <description>This is a native code library referenced by the package "Palmtree.SevenZip.Compression.Wrapper.NET" in this package "7-zip" wrapper library.
+Please install the package "Palmtree.SevenZip.Compression.Wrapper.NET" instead of this package.</description>
+    <copyright>© 2022-2024 Palmtree Software</copyright>
+    <tags>native 7z bzip2 lzma deflate deflate64 compress uncompress stream native</tags>
+    <repository type="git" url="https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET"/>
+  </metadata>
+  <files>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x86/bin/Release/Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x86.dll" target="runtimes/win-x86"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x86/bin/Release/Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x86.dll" target="runtimes/win-x64"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x64/bin/Release/Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x64.dll" target="runtimes/win-x64"/>
+    <!--
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm32/bin/Release/Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm32.dll" target="runtimes/win-arm"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm32/bin/Release/Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm32.dll" target="runtimes/win-arm64"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm64/bin/Release/Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm64.dll" target="runtimes/win-arm64"/>
+    -->
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x86/bin/x86/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x86.so" target="runtimes/linux-x86"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x86/bin/x86/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x86.so" target="runtimes/linux-x64"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x64/bin/x64/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x64.so" target="runtimes/linux-x64"/>
+    <!--
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm32/bin/arm/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm32.so" target="runtimes/linux-arm"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm32/bin/arm/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm32.so" target="runtimes/linux-arm64"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm64/bin/arm64/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm64.so" target="runtimes/linux-arm64"/>
+    -->
+    <!--
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x86/bin/x86/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x86.dylib" target="runtimes/osx-x86"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x86/bin/x86/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x86.dylib" target="runtimes/osx-x64"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x64/bin/x64/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x64.dylib" target="runtimes/osx-x64"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm32/bin/arm/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm32.dylib" target="runtimes/osx-arm"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm32/bin/arm/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm32.dylib" target="runtimes/osx-arm64"/>
+    <file src="../../../Palmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm64/bin/arm64/Release/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm64.dylib" target="runtimes/osx-arm64"/>
+    -->
+    <file src="../../Native.target" target="build/"/>
+    <file src="../../README.md" target="/"/>
+  </files>
+</package>

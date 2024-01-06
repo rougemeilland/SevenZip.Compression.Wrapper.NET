@@ -89,7 +89,6 @@ size_t GetSizeofBSTRValue(PROPVARIANT* p)
 
 int main()
 {
-    HINSTANCE hModule = LoadLibraryA("xxx.dll");
-    DWORD err = GetLastError();
-    HRESULT result = AtlHresultFromLastError();
+    printf("sizeof(%s) = %d\n", "PROPVARIANT", (int)sizeof(PROPVARIANT));
+    return 0;
 }

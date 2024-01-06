@@ -504,7 +504,7 @@
               "parameterName": "inStreamReader"
             },
             {
-              "parameterType": "NativeOutStraamWriter",
+              "parameterType": "NativeOutStreamWriter",
               "parameterName": "outStreamWriter"
             },
             {
@@ -659,7 +659,7 @@
           "parametersCpp": [],
           "parametersCSharp": [
             {
-              "parameterType": "CoderPropID*",
+              "parameterType": "CoderPropertyId*",
               "parameterName": "propIDs"
             },
             {
@@ -704,7 +704,7 @@
           "parametersCpp": [],
           "parametersCSharp": [
             {
-              "parameterType": "CoderPropID*",
+              "parameterType": "CoderPropertyId*",
               "parameterName": "propIDs"
             },
             {
@@ -786,7 +786,7 @@
           ],
           "parametersCSharp": [
             {
-              "parameterType": "NativeOutStraamWriter",
+              "parameterType": "NativeOutStreamWriter",
               "parameterName": "outStreamWriter",
               "parameterComment": "Set a delegate for the function that writes the data to the output stream."
             }
@@ -1106,7 +1106,7 @@
           ],
           "parametersCSharp": [
             {
-              "parameterType": "NativeOutStraamWriter",
+              "parameterType": "NativeOutStreamWriter",
               "parameterName": "outStreamWriter"
             }
           ]
@@ -1405,9 +1405,9 @@
               "parameterComment": "Set the ID of the property you want to get."
             },
             {
-              "parameterType": "ref PROPVARIANT",
+              "parameterType": "PROPVARIANT*",
               "parameterName": "value",
-              "parameterComment": "Set the reference of the <see cref=\"PROPVARIANT\"/> structure to store the value of the retrieved property."
+              "parameterComment": "Set the pointer of the <see cref=\"PROPVARIANT\"/> structure to store the value of the retrieved property."
             }
           ]
         },

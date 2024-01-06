@@ -1,0 +1,64 @@
+<?xml version="1.0"  encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <!-- windows -->
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-x86/native/Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x86.dll">
+      <Link>Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x86.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-x64/native/Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x64.dll">
+      <Link>Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x64.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+<!--
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-arm/native/Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm32.dll">
+      <Link>Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm32.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-arm64/native/Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm64.dll">
+      <Link>Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm64.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+-->
+
+    <!-- linux -->
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-x86/native/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x86.so">
+      <Link>libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x86.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-x64/native/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x64.so">
+      <Link>libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x64.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+<!--
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-arm/native/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm32.so">
+      <Link>libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm32.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-arm64/native/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm64.so">
+      <Link>libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm64.so</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+-->
+
+    <!-- macOS -->
+<!--
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-x86/native/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x86.dylib">
+      <Link>libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x86.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-x64/native/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x64.dylib">
+      <Link>libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x64.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-arm/native/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm32.dylib">
+      <Link>libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm32.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-arm64/native/libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm64.dylib">
+      <Link>libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm64.dylib</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+-->
+  </ItemGroup>
+</Project>

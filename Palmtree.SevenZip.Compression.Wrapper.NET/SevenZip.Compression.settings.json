@@ -1,0 +1,104 @@
+﻿{
+  "entries": [
+    {
+      "platform": "win-x86",
+      "7zLibraryFilePaths": [
+        "7z.win_x86.dll",
+        "7z.dll"
+      ]
+    },
+    {
+      "platform": "win-x64",
+      "7zLibraryFilePaths": [
+        "7z.win_x64.dll",
+        "7z.dll"
+      ]
+    },
+    {
+      "platform": "win-arm32",
+      "7zLibraryFilePaths": [
+        "7z.win_arm32.dll",
+        "7z.dll"
+      ]
+    },
+    {
+      "platform": "win-arm64",
+      "7zLibraryFilePaths": [
+        "7z.win_arm64.dll",
+        "7z.dll"
+      ]
+    },
+    {
+      "platform": "linux-x86",
+      "7zLibraryFilePaths": [
+        "lib7z.linux_x86.so",
+        "lib7z.so"
+      ]
+    },
+    {
+      "platform": "linux-x64",
+      "7zLibraryFilePaths": [
+        "lib7z.linux_x64.so",
+        "lib7z.so"
+      ]
+    },
+    {
+      "platform": "linux-arm32",
+      "7zLibraryFilePaths": [
+        "lib7z.linux_arm32.so",
+        "lib7z.so"
+      ]
+    },
+    {
+      "platform": "linux-arm64",
+      "7zLibraryFilePaths": [
+        "lib7z.linux_arm64.so",
+        "lib7z.so"
+      ]
+    },
+    {
+      "platform": "osx-x86",
+      "7zLibraryFilePaths": [
+        "lib7z.osx_x86.so",
+        "lib7z.osx_x86.bundle",
+        "lib7z.osx_x86.dynlib",
+        "lib7z.so",
+        "lib7z.bundle",
+        "lib7z.bynlib"
+      ]
+    },
+    {
+      "platform": "osx-x64",
+      "7zLibraryFilePaths": [
+        "lib7z.osx_x64.so",
+        "lib7z.osx_x64.bundle",
+        "lib7z.osx_x64.dynlib",
+        "lib7z.so",
+        "lib7z.bundle",
+        "lib7z.bynlib"
+      ]
+    },
+    {
+      "platform": "osx-arm32",
+      "7zLibraryFilePaths": [
+        "lib7z.osx_arm32.so",
+        "lib7z.osx_arm32.bundle",
+        "lib7z.osx_arm32.dynlib",
+        "lib7z.so",
+        "lib7z.bundle",
+        "lib7z.bynlib"
+      ]
+    },
+    {
+      "platform": "osx-arm64",
+      "7zLibraryFilePaths": [
+        "lib7z.osx_arm64.so",
+        "lib7z.osx_arm64.bundle",
+        "lib7z.osx_arm64.dynlib",
+        "lib7z.so",
+        "lib7z.bundle",
+        "lib7z.bynlib"
+      ]
+    }
+  ]
+}

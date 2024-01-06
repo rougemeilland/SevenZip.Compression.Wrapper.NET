@@ -1,6 +1,0 @@
-﻿このプロジェクトは、プラットフォームに依存しない上位のアセンブリとプラットフォームに依存する下位のアセンブリ(プラグイン)とのインターフェースを提供するライブラリのプロジェクトです。
-ユーザーが直接このインターフェースを利用することはできますが、それが必要になることは稀です。
-
-
-This project is a library project that provides an interface between platform-independent high-level assemblies and platform-dependent low-level assemblies (plug-ins).
-Users can access this interface directly, but it is rarely needed.

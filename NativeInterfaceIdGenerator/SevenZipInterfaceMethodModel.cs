@@ -1,6 +1,8 @@
-﻿namespace NativeInterfaceIdGenerator
+﻿using System;
+
+namespace NativeInterfaceIdGenerator
 {
-    class SevenZipInterfaceMethodModel
+    internal class SevenZipInterfaceMethodModel
     {
         public SevenZipInterfaceMethodModel()
         {
@@ -15,14 +17,14 @@
             ReturnValueComment = "";
         }
 
-        public string MemberName { get; set; }
-        public string ReturnValueType { get; set; }
-        public bool IsCustomizedParameter { get; set; }
+        public String MemberName { get; set; }
+        public String ReturnValueType { get; set; }
+        public Boolean IsCustomizedParameter { get; set; }
         public SevenZipInterfaceMethodParameterModel[] Parameters7z { get; set; }
         public SevenZipInterfaceMethodParameterModel[] ParametersCpp { get; set; }
         public SevenZipInterfaceMethodParameterModel[] ParametersCSharp { get; set; }
-        public string MemberComment { get; set; }
-        public string MemberAdditionalComment { get; set; }
-        public string ReturnValueComment { get; set; }
+        public String MemberComment { get; set; }
+        public String MemberAdditionalComment { get; set; }
+        public String ReturnValueComment { get; set; }
     }
 }

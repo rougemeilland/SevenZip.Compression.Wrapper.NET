@@ -1,6 +1,8 @@
-﻿namespace NativeInterfaceIdGenerator
+﻿using System;
+
+namespace NativeInterfaceIdGenerator
 {
-    class SevenZipInterfaceMethodParameterModel
+    internal class SevenZipInterfaceMethodParameterModel
     {
         public SevenZipInterfaceMethodParameterModel()
         {
@@ -9,8 +11,8 @@
             ParameterComment = "";
         }
 
-        public string ParameterType { get; set; }
-        public string ParameterName { get; set; }
-        public string ParameterComment { get; set; }
+        public String ParameterType { get; set; }
+        public String ParameterName { get; set; }
+        public String ParameterComment { get; set; }
     }
 }

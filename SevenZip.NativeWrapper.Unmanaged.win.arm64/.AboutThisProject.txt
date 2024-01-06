@@ -1,3 +1,0 @@
-﻿このプロジェクトは、Windows (ARM64) 用の7-zipのネイティブライブラリがサポートしている各々のインターフェースにアクセスする手段を提供するネイティブライブラリです。
-
-This project is a native library that provides a way to access each interface supported by the 7-zip native library for Windows (ARM64).

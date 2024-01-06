@@ -1,6 +1,8 @@
-﻿namespace NativeInterfaceIdGenerator
+﻿using System;
+
+namespace NativeInterfaceIdGenerator
 {
-    class SevenZipInterfaceModel
+    internal class SevenZipInterfaceModel
     {
         public SevenZipInterfaceModel()
         {
@@ -10,16 +12,16 @@
             Implemented = false;
             ProvidedOutward = false;
             ProvidedInward = false;
-            Members = System.Array.Empty<SevenZipInterfaceMethodModel>();
+            Members = Array.Empty<SevenZipInterfaceMethodModel>();
         }
 
-        public string InterfaceName { get; set; }
-        public string InterfaceId { get; set; }
-        public string BaseInerfaceName { get; set; }
-        public bool Implemented { get; set; }
-        public bool ProvidedOutward { get; set; }
-        public bool ProvidedInward { get; set; }
-        public bool CanQuery { get; set; }
+        public String InterfaceName { get; set; }
+        public String InterfaceId { get; set; }
+        public String BaseInerfaceName { get; set; }
+        public Boolean Implemented { get; set; }
+        public Boolean ProvidedOutward { get; set; }
+        public Boolean ProvidedInward { get; set; }
+        public Boolean CanQuery { get; set; }
         public SevenZipInterfaceMethodModel[] Members { get; set; }
     }
 }

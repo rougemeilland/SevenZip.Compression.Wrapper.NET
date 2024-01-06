@@ -1,0 +1,83 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net7.0</TargetFrameworks>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
+    <VersionPrefix>1.1.0</VersionPrefix>
+    <VersionSuffix>alpha</VersionSuffix>
+    <Authors>Palmtree Software</Authors>
+    <Copyright>© 2022-2024 Palmtree Software</Copyright>
+    <RepositoryType>git</RepositoryType>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageTags>net80;net70;bzip2;lzma;deflate;deflate64;compress;uncompress;stream</PackageTags>
+    <Product>SevenZip.Compression.Wrapper.NET (Class library for users)</Product>
+    <Description>This library is a "7-zip" wrapper library. By using the "7-zip" function, you can call stream-to-stream data compression/uncompress from managed code.</Description>
+    <Copyright>©2022 Palmtree Software</Copyright>
+    <PackageProjectUrl>https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET</RepositoryUrl>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RootNamespace>SevenZip.Compression</RootNamespace>
+    <Title>$(AssemblyName)</Title>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+  </PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	  <NoWarn>1701;1702;IDE0290;SYSLIB1054;CA1510;CA1512;CA1513;IDE0301;IDE0300</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0|AnyCPU'">
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	  <NoWarn>1701;1702;IDE0290;SYSLIB1054;CA1510;CA1512;CA1513;IDE0301;IDE0300</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	  <NoWarn>1701;1702;IDE0290;SYSLIB1054;CA1510;CA1512;CA1513;IDE0301;IDE0300</NoWarn>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0|AnyCPU'">
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	  <NoWarn>1701;1702;IDE0290;SYSLIB1054;CA1510;CA1512;CA1513;IDE0301;IDE0300</NoWarn>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <None Remove="SevenZip.Compression.settings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ApplicationDefinition Include="SevenZip.Compression.settings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </ApplicationDefinition>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Content Include="docs\README.md">
+	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </Content>
+	  <Content Include="SevenZip.Compression.settings.json">
+	    <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	  </Content>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Palmtree.Core" Version="1.5.0-alpha" />
+	  <PackageReference Include="Palmtree.IO" Version="1.3.0-alpha" />
+	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET.Native" Version="1.1.0-alpha" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Update="docs\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	</ItemGroup>
+
+</Project>
