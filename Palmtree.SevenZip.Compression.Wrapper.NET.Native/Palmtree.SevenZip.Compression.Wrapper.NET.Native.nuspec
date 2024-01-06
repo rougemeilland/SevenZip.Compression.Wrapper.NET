@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Palmtree.SevenZip.Compression.Wrapper.NET.Native</id>
-    <version>1.1.0-alpha</version>
+    <version>1.1.1-alpha</version>
     <title>Palmtree.SevenZip.Compression.Wrapper.NET.Native</title>
     <authors>Palmtree Software</authors>
     <license type="expression">MIT</license>
@@ -12,7 +12,7 @@
     <description>This is a native code library referenced by the package "Palmtree.SevenZip.Compression.Wrapper.NET" in this package "7-zip" wrapper library.
 Please install the package "Palmtree.SevenZip.Compression.Wrapper.NET" instead of this package.</description>
     <copyright>© 2022-2024 Palmtree Software</copyright>
-    <tags>native 7z bzip2 lzma deflate deflate64 compress uncompress stream native</tags>
+    <tags>7zip bzip2 lzma deflate deflate64 compress uncompress stream native</tags>
     <repository type="git" url="https://github.com/rougemeilland/SevenZip.Compression.Wrapper.NET"/>
   </metadata>
   <files>

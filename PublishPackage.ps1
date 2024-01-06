@@ -7,7 +7,7 @@ if (-not (Test-Path $localNugetPackageDirectory -PathType Container)) {
     Exit 2
 }
 
-foreach ($projectDirectory in Get-ChildItem $baseDirectory -Directory | Where-Object {$_.Name -match "^Palmtree\.SevenZip\.Compression\.Wrapper\.NET(\.Native)?$"}) {
+foreach ($projectDirectory in Get-ChildItem $baseDirectory -Directory | Where-Object {$_.Name -match "^((Palmtree\.SevenZip\.Compression\.Wrapper\.NET(\.Native)?)|7z)$"}) {
     $nugetPackageFiles = Get-ChildItem (Join-Path (Join-Path $projectDirectory.FullName "bin") "Release") -File | Where-Object {$_.Name -match "\.nupkg$"}
     foreach ($nugetPackageFile in $nugetPackageFiles) {
         $command = "nuget"

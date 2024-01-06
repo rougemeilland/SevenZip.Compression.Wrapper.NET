@@ -126,12 +126,24 @@ namespace SevenZip.Compression
         {
             foreach (var pluginLocation in pluginLocations)
             {
-                foreach (var SevenZipLibraryFilePath in pluginLocation.SevenZipLibraryFilePaths)
+                foreach (var sevenZipLibraryFilePath in pluginLocation.SevenZipLibraryFilePaths)
                 {
-                    var sevenZipFile = baseDirectory.GetFile(SevenZipLibraryFilePath);
-                    if (sevenZipFile.Exists)
+                    if (sevenZipLibraryFilePath.StartsWith("./", StringComparison.Ordinal)
+                        || sevenZipLibraryFilePath.StartsWith("../", StringComparison.Ordinal))
                     {
-                        var instance = CompressCodecsInfo.Create(sevenZipFile);
+                        // パス名が "./" または "../" で始まっている場合、アセンブリがある場所からの相対パスと見做す
+                        var sevenZipFile = baseDirectory.GetFile(sevenZipLibraryFilePath);
+                        if (sevenZipFile.Exists)
+                        {
+                            var instance = CompressCodecsInfo.Create(sevenZipFile.FullName);
+                            if (instance is not null)
+                                yield return instance;
+                        }
+                    }
+                    else
+                    {
+                        // パス名が "./" または "../" の何れでも始まっていない場合、システムの既定のディレクトリから 7-zip の DLL を検索する。
+                        var instance = CompressCodecsInfo.Create(sevenZipLibraryFilePath);
                         if (instance is not null)
                             yield return instance;
                     }

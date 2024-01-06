@@ -26,14 +26,14 @@ namespace SevenZip.Compression.NativeInterfaces
             }
         }
 
-        public static CompressCodecsInfo? Create(FilePath sevenZipLibrary)
+        public static CompressCodecsInfo? Create(String sevenZipLibraryPath)
         {
             var success = false;
             var instance = (CompressCodecsInfo?)null;
             try
             {
                 instance = new CompressCodecsInfo(IntPtr.Zero);
-                if (!instance.Initialize(sevenZipLibrary.FullName))
+                if (!instance.Initialize(sevenZipLibraryPath))
                     return null;
                 success = true;
                 return instance;
