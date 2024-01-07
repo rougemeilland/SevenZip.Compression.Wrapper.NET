@@ -45,7 +45,6 @@ public:
     };
 
     virtual ~SevenZipEntryPoint();
-    static HRESULT Create(Byte* locationPath, SevenZipEntryPoint** entryPoint);
     static HRESULT Create(EntryPointsTable* entryPointsTable, SevenZipEntryPoint** entryPoint);
     HRESULT STDMETHODCALLTYPE CreateDecoder(UInt32 index, const GUID* iid, void** outObject) const;
     HRESULT STDMETHODCALLTYPE CreateEncoder(UInt32 index, const GUID* iid, void** outObject) const;

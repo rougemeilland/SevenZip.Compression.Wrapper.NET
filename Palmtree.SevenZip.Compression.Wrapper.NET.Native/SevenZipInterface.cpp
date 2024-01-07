@@ -1,5 +1,4 @@
-﻿#include <stdio.h> // TODO: デバッグが終わったら削除
-#include "CompressCodecsInfo.h"
+﻿#include "CompressCodecsInfo.h"
 #include "CompressProgressInfo.h"
 #include "SequentialInStream.h"
 #include "SequentialOutStream.h"
@@ -18,26 +17,7 @@ extern "C"
         return sizeof(*value.bstrVal);
     }
 
-    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, Create)(Byte* locationPath, ICompressCodecsInfo** obj)
-    {
-#ifdef _DEBUG
-        // 型のビット長の自己診断に失敗したらエラーを返す。
-        if (ValidateTypes() != nullptr)
-            return E_UNEXPECTED;
-#endif // _DEBUG
-
-        CompressCodecsInfo* createdObject = nullptr;
-        HRESULT result = CompressCodecsInfo::Create(locationPath, &createdObject);
-        if (result != S_OK)
-        {
-            *obj = nullptr;
-            return result;
-        }
-        *obj = createdObject;
-        return S_OK;
-    }
-
-    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, Create2)(SevenZipEntryPoint::EntryPointsTable* entryPontsTable, ICompressCodecsInfo** obj)
+    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, Create)(SevenZipEntryPoint::EntryPointsTable* entryPontsTable, ICompressCodecsInfo** obj)
     {
 #ifdef _DEBUG
         // 型のビット長の自己診断に失敗したらエラーを返す。
@@ -53,7 +33,6 @@ extern "C"
             return result;
         }
         *obj = createdObject;
-        printf("ICompressCodecsInfo__Create2::ICompressCodecsInfo* obj = 0x%016llx\n", (UInt64)*obj); // TODO: デバッグが終わったら削除
         return S_OK;
     }
 }

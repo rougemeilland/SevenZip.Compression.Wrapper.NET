@@ -22,20 +22,6 @@ SevenZipEntryPoint::~SevenZipEntryPoint()
     UnloadSevenZipLibrary();
 }
 
-HRESULT SevenZipEntryPoint::Create(Byte* locationPath, SevenZipEntryPoint** entryPoint)
-{
-    *entryPoint = nullptr;
-    SevenZipEntryPoint* instance = new SevenZipEntryPoint();
-    HRESULT result = instance->LoadSevenZipLibrary(locationPath);
-    if (result != S_OK)
-    {
-        delete instance;
-        return result;
-    }
-    *entryPoint = instance;
-    return S_OK;
-}
-
 HRESULT SevenZipEntryPoint::Create(EntryPointsTable* entryPoints, SevenZipEntryPoint** entryPoint)
 {
     *entryPoint = nullptr;
@@ -49,19 +35,7 @@ HRESULT SevenZipEntryPoint::Create(EntryPointsTable* entryPoints, SevenZipEntryP
     instance->_fpGetMethodProperty = entryPoints->FpGetMethodProperty;
     instance->_fpGetNumberOfFormats = entryPoints->FpGetNumberOfFormats;
     instance->_fpGetNumberOfMethods = entryPoints->FpGetNumberOfMethods;
-
-    printf("SevenZipEntryPoint::Create::FpCreateDecoder=0x%016llx\n", (UInt64)instance->_fpCreateDecoder); // TODO: デバッグが終わったら削除
-    printf("SevenZipEntryPoint::Create::FpCreateEncoder=0x%016llx\n", (UInt64)instance->_fpCreateEncoder); // TODO: デバッグが終わったら削除
-    printf("SevenZipEntryPoint::Create::FpCreateObject=0x%016llx\n", (UInt64)instance->_fpCreateObject); // TODO: デバッグが終わったら削除
-    printf("SevenZipEntryPoint::Create::FpGetHandlerProperty=0x%016llx\n", (UInt64)instance->_fpGetHandlerProperty); // TODO: デバッグが終わったら削除
-    printf("SevenZipEntryPoint::Create::FpGetHandlerProperty2=0x%016llx\n", (UInt64)instance->_fpGetHandlerProperty2); // TODO: デバッグが終わったら削除
-    printf("SevenZipEntryPoint::Create::FpGetHashers=0x%016llx\n", (UInt64)instance->_fpGetHashers); // TODO: デバッグが終わったら削除
-    printf("SevenZipEntryPoint::Create::FpGetMethodProperty=0x%016llx\n", (UInt64)instance->_fpGetMethodProperty); // TODO: デバッグが終わったら削除
-    printf("SevenZipEntryPoint::Create::FpGetNumberOfFormats=0x%016llx\n", (UInt64)instance->_fpGetNumberOfFormats); // TODO: デバッグが終わったら削除
-    printf("SevenZipEntryPoint::Create::FpGetNumberOfMethods=0x%016llx\n", (UInt64)instance->_fpGetNumberOfMethods); // TODO: デバッグが終わったら削除
-
     *entryPoint = instance;
-    printf("SevenZipEntryPoint::Create::SevenZipEntryPoint* entryPoint = 0x%016llx\n", (UInt64)*entryPoint); // TODO: デバッグが終わったら削除
     return S_OK;
 }
 
