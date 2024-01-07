@@ -96,6 +96,6 @@
     <None Include="Palmtree.SevenZip.Compression.Wrapper.NET.Native.nuspec" />
     <None Include="README.md" />
     <None Include="MakePackage.ps1" />
-    <None Include="Native.target" />
+    <None Include="Palmtree.SevenZip.Compression.Wrapper.NET.Native.targets" />
   </ItemGroup>
 </Project>

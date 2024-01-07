@@ -9,6 +9,7 @@ namespace Experiment
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:未使用のパラメーターを削除します", Justification = "<保留中>")]
         public static void Main(string[] args)
         {
+            // TODO: 7-zipのインストール方法とかREADMEの執筆
             var path = typeof(Program).Assembly.Location;
             var dir = Path.GetDirectoryName(path) ?? throw new Exception();
             var newPath1 = Path.Combine(dir, ".", "a.txt");

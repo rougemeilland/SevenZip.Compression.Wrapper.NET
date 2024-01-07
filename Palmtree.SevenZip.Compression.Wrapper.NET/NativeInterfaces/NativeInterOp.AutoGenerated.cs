@@ -33,16 +33,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IUnknown__QueryInterface")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IUnknown__QueryInterface")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT IUnknown__QueryInterface_win(IntPtr ifp, ref NativeGUID iid, out IntPtr intefaceObject);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IUnknown__QueryInterface")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IUnknown__QueryInterface")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IUnknown__QueryInterface_linux(IntPtr ifp, ref NativeGUID iid, out IntPtr intefaceObject);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IUnknown__QueryInterface")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IUnknown__QueryInterface")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IUnknown__QueryInterface_osx(IntPtr ifp, ref NativeGUID iid, out IntPtr intefaceObject);
 
         #endregion //IUnknown_QueryInterface
@@ -67,16 +67,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IUnknown__AddRef")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IUnknown__AddRef")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial UInt32 IUnknown__AddRef_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IUnknown__AddRef")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IUnknown__AddRef")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial UInt32 IUnknown__AddRef_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IUnknown__AddRef")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IUnknown__AddRef")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial UInt32 IUnknown__AddRef_osx(IntPtr ifp);
 
         #endregion //IUnknown_AddRef
@@ -102,16 +102,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IUnknown__Release")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IUnknown__Release")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial UInt32 IUnknown__Release_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IUnknown__Release")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IUnknown__Release")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial UInt32 IUnknown__Release_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IUnknown__Release")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IUnknown__Release")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial UInt32 IUnknown__Release_osx(IntPtr ifp);
 
         #endregion //IUnknown_Release
@@ -135,16 +135,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ISequentialInStream__Read")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ISequentialInStream__Read")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ISequentialInStream__Read_win(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ISequentialInStream__Read")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ISequentialInStream__Read")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ISequentialInStream__Read_linux(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ISequentialInStream__Read")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ISequentialInStream__Read")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ISequentialInStream__Read_osx(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize);
 
         #endregion //ISequentialInStream_Read
@@ -168,16 +168,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ISequentialOutStream__Write")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ISequentialOutStream__Write")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ISequentialOutStream__Write_win(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ISequentialOutStream__Write")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ISequentialOutStream__Write")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ISequentialOutStream__Write_linux(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ISequentialOutStream__Write")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ISequentialOutStream__Write")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ISequentialOutStream__Write_osx(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize);
 
         #endregion //ISequentialOutStream_Write
@@ -202,16 +202,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IInStream__Seek")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IInStream__Seek")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT IInStream__Seek_win(IntPtr ifp, Int64 offset, UInt32 seekOrigin, out UInt64 newPosition);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IInStream__Seek")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IInStream__Seek")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IInStream__Seek_linux(IntPtr ifp, Int64 offset, UInt32 seekOrigin, out UInt64 newPosition);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IInStream__Seek")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IInStream__Seek")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IInStream__Seek_osx(IntPtr ifp, Int64 offset, UInt32 seekOrigin, out UInt64 newPosition);
 
         #endregion //IInStream_Seek
@@ -237,16 +237,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IOutStream__Seek")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IOutStream__Seek")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT IOutStream__Seek_win(IntPtr ifp, Int64 offset, UInt32 seekOrigin, out UInt64 newPosition);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IOutStream__Seek")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IOutStream__Seek")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IOutStream__Seek_linux(IntPtr ifp, Int64 offset, UInt32 seekOrigin, out UInt64 newPosition);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IOutStream__Seek")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IOutStream__Seek")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IOutStream__Seek_osx(IntPtr ifp, Int64 offset, UInt32 seekOrigin, out UInt64 newPosition);
 
         #endregion //IOutStream_Seek
@@ -266,16 +266,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IOutStream__SetSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IOutStream__SetSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT IOutStream__SetSize_win(IntPtr ifp, UInt64 newSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IOutStream__SetSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IOutStream__SetSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IOutStream__SetSize_linux(IntPtr ifp, UInt64 newSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IOutStream__SetSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IOutStream__SetSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IOutStream__SetSize_osx(IntPtr ifp, UInt64 newSize);
 
         #endregion //IOutStream_SetSize
@@ -301,16 +301,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IStreamGetSize__GetSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IStreamGetSize__GetSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT IStreamGetSize__GetSize_win(IntPtr ifp, out UInt64 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IStreamGetSize__GetSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IStreamGetSize__GetSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IStreamGetSize__GetSize_linux(IntPtr ifp, out UInt64 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IStreamGetSize__GetSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IStreamGetSize__GetSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IStreamGetSize__GetSize_osx(IntPtr ifp, out UInt64 size);
 
         #endregion //IStreamGetSize_GetSize
@@ -336,16 +336,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IOutStreamFinish__OutStreamFinish")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IOutStreamFinish__OutStreamFinish")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT IOutStreamFinish__OutStreamFinish_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IOutStreamFinish__OutStreamFinish")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IOutStreamFinish__OutStreamFinish")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IOutStreamFinish__OutStreamFinish_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IOutStreamFinish__OutStreamFinish")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IOutStreamFinish__OutStreamFinish")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT IOutStreamFinish__OutStreamFinish_osx(IntPtr ifp);
 
         #endregion //IOutStreamFinish_OutStreamFinish
@@ -371,16 +371,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IStreamGetProps__GetProps")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IStreamGetProps__GetProps")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT IStreamGetProps__GetProps_win(IntPtr ifp, UInt64* size, void* cTime, void* aTime, void* mTime, UInt32* attrib);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IStreamGetProps__GetProps")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IStreamGetProps__GetProps")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT IStreamGetProps__GetProps_linux(IntPtr ifp, UInt64* size, void* cTime, void* aTime, void* mTime, UInt32* attrib);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IStreamGetProps__GetProps")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IStreamGetProps__GetProps")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT IStreamGetProps__GetProps_osx(IntPtr ifp, UInt64* size, void* cTime, void* aTime, void* mTime, UInt32* attrib);
 
         #endregion //IStreamGetProps_GetProps
@@ -406,16 +406,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IStreamGetProps2__GetProps2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IStreamGetProps2__GetProps2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT IStreamGetProps2__GetProps2_win(IntPtr ifp, void* props);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IStreamGetProps2__GetProps2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IStreamGetProps2__GetProps2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT IStreamGetProps2__GetProps2_linux(IntPtr ifp, void* props);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IStreamGetProps2__GetProps2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IStreamGetProps2__GetProps2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT IStreamGetProps2__GetProps2_osx(IntPtr ifp, void* props);
 
         #endregion //IStreamGetProps2_GetProps2
@@ -440,16 +440,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressProgressInfo__SetRatioInfo")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressProgressInfo__SetRatioInfo")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICompressProgressInfo__SetRatioInfo_win(IntPtr ifp, UInt64* inSize, UInt64* outSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressProgressInfo__SetRatioInfo")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressProgressInfo__SetRatioInfo")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressProgressInfo__SetRatioInfo_linux(IntPtr ifp, UInt64* inSize, UInt64* outSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressProgressInfo__SetRatioInfo")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressProgressInfo__SetRatioInfo")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressProgressInfo__SetRatioInfo_osx(IntPtr ifp, UInt64* inSize, UInt64* outSize);
 
         #endregion //ICompressProgressInfo_SetRatioInfo
@@ -473,16 +473,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCoder__Code")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCoder__Code")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICompressCoder__Code_win(IntPtr ifp, NativeInStreamReader inStreamReader, NativeOutStreamWriter outStreamWriter, UInt64* inSize, UInt64* outSize, NativeProgressReporter? progressReporter);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCoder__Code")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCoder__Code")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressCoder__Code_linux(IntPtr ifp, NativeInStreamReader inStreamReader, NativeOutStreamWriter outStreamWriter, UInt64* inSize, UInt64* outSize, NativeProgressReporter? progressReporter);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCoder__Code")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCoder__Code")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressCoder__Code_osx(IntPtr ifp, NativeInStreamReader inStreamReader, NativeOutStreamWriter outStreamWriter, UInt64* inSize, UInt64* outSize, NativeProgressReporter? progressReporter);
 
         #endregion //ICompressCoder_Code
@@ -506,16 +506,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCoder2__Code")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCoder2__Code")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICompressCoder2__Code_win(IntPtr ifp, IntPtr inStreamReaders, UInt64** inSizes, UInt32 numInStreams, IntPtr outStreamWriters, UInt64** outSizes, UInt32 numOutStreams, NativeProgressReporter? progressReporter);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCoder2__Code")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCoder2__Code")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressCoder2__Code_linux(IntPtr ifp, IntPtr inStreamReaders, UInt64** inSizes, UInt32 numInStreams, IntPtr outStreamWriters, UInt64** outSizes, UInt32 numOutStreams, NativeProgressReporter? progressReporter);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCoder2__Code")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCoder2__Code")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressCoder2__Code_osx(IntPtr ifp, IntPtr inStreamReaders, UInt64** inSizes, UInt32 numInStreams, IntPtr outStreamWriters, UInt64** outSizes, UInt32 numOutStreams, NativeProgressReporter? progressReporter);
 
         #endregion //ICompressCoder2_Code
@@ -539,16 +539,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt_win(IntPtr ifp, CoderPropertyId* propIDs, PROPVARIANT* props, UInt32 numProps);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt_linux(IntPtr ifp, CoderPropertyId* propIDs, PROPVARIANT* props, UInt32 numProps);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt_osx(IntPtr ifp, CoderPropertyId* propIDs, PROPVARIANT* props, UInt32 numProps);
 
         #endregion //ICompressSetCoderPropertiesOpt_SetCoderPropertiesOpt
@@ -572,16 +572,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetCoderProperties__SetCoderProperties")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetCoderProperties__SetCoderProperties")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICompressSetCoderProperties__SetCoderProperties_win(IntPtr ifp, CoderPropertyId* propIDs, PROPVARIANT* props, UInt32 numProps);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetCoderProperties__SetCoderProperties")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetCoderProperties__SetCoderProperties")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressSetCoderProperties__SetCoderProperties_linux(IntPtr ifp, CoderPropertyId* propIDs, PROPVARIANT* props, UInt32 numProps);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetCoderProperties__SetCoderProperties")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetCoderProperties__SetCoderProperties")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressSetCoderProperties__SetCoderProperties_osx(IntPtr ifp, CoderPropertyId* propIDs, PROPVARIANT* props, UInt32 numProps);
 
         #endregion //ICompressSetCoderProperties_SetCoderProperties
@@ -605,16 +605,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetDecoderProperties2__SetDecoderProperties2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetDecoderProperties2__SetDecoderProperties2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICompressSetDecoderProperties2__SetDecoderProperties2_win(IntPtr ifp, Byte* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetDecoderProperties2__SetDecoderProperties2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetDecoderProperties2__SetDecoderProperties2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressSetDecoderProperties2__SetDecoderProperties2_linux(IntPtr ifp, Byte* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetDecoderProperties2__SetDecoderProperties2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetDecoderProperties2__SetDecoderProperties2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressSetDecoderProperties2__SetDecoderProperties2_osx(IntPtr ifp, Byte* data, UInt32 size);
 
         #endregion //ICompressSetDecoderProperties2_SetDecoderProperties2
@@ -644,16 +644,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressWriteCoderProperties__WriteCoderProperties")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressWriteCoderProperties__WriteCoderProperties")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressWriteCoderProperties__WriteCoderProperties_win(IntPtr ifp, NativeOutStreamWriter outStreamWriter);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressWriteCoderProperties__WriteCoderProperties")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressWriteCoderProperties__WriteCoderProperties")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressWriteCoderProperties__WriteCoderProperties_linux(IntPtr ifp, NativeOutStreamWriter outStreamWriter);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressWriteCoderProperties__WriteCoderProperties")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressWriteCoderProperties__WriteCoderProperties")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressWriteCoderProperties__WriteCoderProperties_osx(IntPtr ifp, NativeOutStreamWriter outStreamWriter);
 
         #endregion //ICompressWriteCoderProperties_WriteCoderProperties
@@ -683,16 +683,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize__GetInStreamProcessedSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize__GetInStreamProcessedSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressGetInStreamProcessedSize__GetInStreamProcessedSize_win(IntPtr ifp, out UInt64 value);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize__GetInStreamProcessedSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize__GetInStreamProcessedSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressGetInStreamProcessedSize__GetInStreamProcessedSize_linux(IntPtr ifp, out UInt64 value);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize__GetInStreamProcessedSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize__GetInStreamProcessedSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressGetInStreamProcessedSize__GetInStreamProcessedSize_osx(IntPtr ifp, out UInt64 value);
 
         #endregion //ICompressGetInStreamProcessedSize_GetInStreamProcessedSize
@@ -723,16 +723,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetCoderMt__SetNumberOfThreads")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetCoderMt__SetNumberOfThreads")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetCoderMt__SetNumberOfThreads_win(IntPtr ifp, UInt32 numThreads);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetCoderMt__SetNumberOfThreads")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetCoderMt__SetNumberOfThreads")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetCoderMt__SetNumberOfThreads_linux(IntPtr ifp, UInt32 numThreads);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetCoderMt__SetNumberOfThreads")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetCoderMt__SetNumberOfThreads")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetCoderMt__SetNumberOfThreads_osx(IntPtr ifp, UInt32 numThreads);
 
         #endregion //ICompressSetCoderMt_SetNumberOfThreads
@@ -763,16 +763,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetFinishMode__SetFinishMode")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetFinishMode__SetFinishMode")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetFinishMode__SetFinishMode_win(IntPtr ifp, UInt32 finishMode);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetFinishMode__SetFinishMode")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetFinishMode__SetFinishMode")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetFinishMode__SetFinishMode_linux(IntPtr ifp, UInt32 finishMode);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetFinishMode__SetFinishMode")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetFinishMode__SetFinishMode")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetFinishMode__SetFinishMode_osx(IntPtr ifp, UInt32 finishMode);
 
         #endregion //ICompressSetFinishMode_SetFinishMode
@@ -797,16 +797,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize2__GetInStreamProcessedSize2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize2__GetInStreamProcessedSize2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressGetInStreamProcessedSize2__GetInStreamProcessedSize2_win(IntPtr ifp, UInt32 streamIndex, out UInt64 value);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize2__GetInStreamProcessedSize2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize2__GetInStreamProcessedSize2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressGetInStreamProcessedSize2__GetInStreamProcessedSize2_linux(IntPtr ifp, UInt32 streamIndex, out UInt64 value);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize2__GetInStreamProcessedSize2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressGetInStreamProcessedSize2__GetInStreamProcessedSize2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressGetInStreamProcessedSize2__GetInStreamProcessedSize2_osx(IntPtr ifp, UInt32 streamIndex, out UInt64 value);
 
         #endregion //ICompressGetInStreamProcessedSize2_GetInStreamProcessedSize2
@@ -837,16 +837,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetMemLimit__SetMemLimit")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetMemLimit__SetMemLimit")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetMemLimit__SetMemLimit_win(IntPtr ifp, UInt64 memUsage);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetMemLimit__SetMemLimit")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetMemLimit__SetMemLimit")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetMemLimit__SetMemLimit_linux(IntPtr ifp, UInt64 memUsage);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetMemLimit__SetMemLimit")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetMemLimit__SetMemLimit")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetMemLimit__SetMemLimit_osx(IntPtr ifp, UInt64 memUsage);
 
         #endregion //ICompressSetMemLimit_SetMemLimit
@@ -870,16 +870,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf_win(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf_linux(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf_osx(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize);
 
         #endregion //ICompressReadUnusedFromInBuf_ReadUnusedFromInBuf
@@ -904,16 +904,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressGetSubStreamSize__GetSubStreamSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressGetSubStreamSize__GetSubStreamSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressGetSubStreamSize__GetSubStreamSize_win(IntPtr ifp, UInt64 subStream, out UInt64 value);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressGetSubStreamSize__GetSubStreamSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressGetSubStreamSize__GetSubStreamSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressGetSubStreamSize__GetSubStreamSize_linux(IntPtr ifp, UInt64 subStream, out UInt64 value);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressGetSubStreamSize__GetSubStreamSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressGetSubStreamSize__GetSubStreamSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressGetSubStreamSize__GetSubStreamSize_osx(IntPtr ifp, UInt64 subStream, out UInt64 value);
 
         #endregion //ICompressGetSubStreamSize_GetSubStreamSize
@@ -944,16 +944,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream__SetInStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream__SetInStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetInStream__SetInStream_win(IntPtr ifp, NativeInStreamReader inStreamReader);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream__SetInStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream__SetInStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetInStream__SetInStream_linux(IntPtr ifp, NativeInStreamReader inStreamReader);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream__SetInStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream__SetInStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetInStream__SetInStream_osx(IntPtr ifp, NativeInStreamReader inStreamReader);
 
         #endregion //ICompressSetInStream_SetInStream
@@ -978,16 +978,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream__ReleaseInStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream__ReleaseInStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetInStream__ReleaseInStream_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream__ReleaseInStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream__ReleaseInStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetInStream__ReleaseInStream_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream__ReleaseInStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream__ReleaseInStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetInStream__ReleaseInStream_osx(IntPtr ifp);
 
         #endregion //ICompressSetInStream_ReleaseInStream
@@ -1012,16 +1012,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetOutStream__SetOutStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetOutStream__SetOutStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetOutStream__SetOutStream_win(IntPtr ifp, NativeOutStreamWriter outStreamWriter);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetOutStream__SetOutStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetOutStream__SetOutStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetOutStream__SetOutStream_linux(IntPtr ifp, NativeOutStreamWriter outStreamWriter);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetOutStream__SetOutStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetOutStream__SetOutStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetOutStream__SetOutStream_osx(IntPtr ifp, NativeOutStreamWriter outStreamWriter);
 
         #endregion //ICompressSetOutStream_SetOutStream
@@ -1041,16 +1041,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetOutStream__ReleaseOutStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetOutStream__ReleaseOutStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetOutStream__ReleaseOutStream_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetOutStream__ReleaseOutStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetOutStream__ReleaseOutStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetOutStream__ReleaseOutStream_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetOutStream__ReleaseOutStream")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetOutStream__ReleaseOutStream")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetOutStream__ReleaseOutStream_osx(IntPtr ifp);
 
         #endregion //ICompressSetOutStream_ReleaseOutStream
@@ -1075,16 +1075,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetOutStreamSize__SetOutStreamSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetOutStreamSize__SetOutStreamSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICompressSetOutStreamSize__SetOutStreamSize_win(IntPtr ifp, UInt64* outSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetOutStreamSize__SetOutStreamSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetOutStreamSize__SetOutStreamSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressSetOutStreamSize__SetOutStreamSize_linux(IntPtr ifp, UInt64* outSize);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetOutStreamSize__SetOutStreamSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetOutStreamSize__SetOutStreamSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressSetOutStreamSize__SetOutStreamSize_osx(IntPtr ifp, UInt64* outSize);
 
         #endregion //ICompressSetOutStreamSize_SetOutStreamSize
@@ -1115,16 +1115,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetBufSize__SetInBufSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetBufSize__SetInBufSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetBufSize__SetInBufSize_win(IntPtr ifp, UInt32 streamIndex, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetBufSize__SetInBufSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetBufSize__SetInBufSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetBufSize__SetInBufSize_linux(IntPtr ifp, UInt32 streamIndex, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetBufSize__SetInBufSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetBufSize__SetInBufSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetBufSize__SetInBufSize_osx(IntPtr ifp, UInt32 streamIndex, UInt32 size);
 
         #endregion //ICompressSetBufSize_SetInBufSize
@@ -1151,16 +1151,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetBufSize__SetOutBufSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetBufSize__SetOutBufSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetBufSize__SetOutBufSize_win(IntPtr ifp, UInt32 streamIndex, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetBufSize__SetOutBufSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetBufSize__SetOutBufSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetBufSize__SetOutBufSize_linux(IntPtr ifp, UInt32 streamIndex, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetBufSize__SetOutBufSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetBufSize__SetOutBufSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetBufSize__SetOutBufSize_osx(IntPtr ifp, UInt32 streamIndex, UInt32 size);
 
         #endregion //ICompressSetBufSize_SetOutBufSize
@@ -1185,16 +1185,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressInitEncoder__InitEncoder")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressInitEncoder__InitEncoder")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressInitEncoder__InitEncoder_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressInitEncoder__InitEncoder")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressInitEncoder__InitEncoder")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressInitEncoder__InitEncoder_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressInitEncoder__InitEncoder")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressInitEncoder__InitEncoder")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressInitEncoder__InitEncoder_osx(IntPtr ifp);
 
         #endregion //ICompressInitEncoder_InitEncoder
@@ -1220,16 +1220,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream2__SetInStream2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream2__SetInStream2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetInStream2__SetInStream2_win(IntPtr ifp, UInt32 streamIndex, NativeInStreamReader inStreamReader);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream2__SetInStream2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream2__SetInStream2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetInStream2__SetInStream2_linux(IntPtr ifp, UInt32 streamIndex, NativeInStreamReader inStreamReader);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream2__SetInStream2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream2__SetInStream2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetInStream2__SetInStream2_osx(IntPtr ifp, UInt32 streamIndex, NativeInStreamReader inStreamReader);
 
         #endregion //ICompressSetInStream2_SetInStream2
@@ -1249,16 +1249,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream2__ReleaseInStream2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream2__ReleaseInStream2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressSetInStream2__ReleaseInStream2_win(IntPtr ifp, UInt32 streamIndex);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream2__ReleaseInStream2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream2__ReleaseInStream2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetInStream2__ReleaseInStream2_linux(IntPtr ifp, UInt32 streamIndex);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressSetInStream2__ReleaseInStream2")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressSetInStream2__ReleaseInStream2")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressSetInStream2__ReleaseInStream2_osx(IntPtr ifp, UInt32 streamIndex);
 
         #endregion //ICompressSetInStream2_ReleaseInStream2
@@ -1288,16 +1288,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressFilter__Init")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressFilter__Init")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressFilter__Init_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressFilter__Init")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressFilter__Init")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressFilter__Init_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressFilter__Init")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressFilter__Init")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressFilter__Init_osx(IntPtr ifp);
 
         #endregion //ICompressFilter_Init
@@ -1317,16 +1317,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressFilter__Filter")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressFilter__Filter")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial UInt32 ICompressFilter__Filter_win(IntPtr ifp, Byte* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressFilter__Filter")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressFilter__Filter")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial UInt32 ICompressFilter__Filter_linux(IntPtr ifp, Byte* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressFilter__Filter")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressFilter__Filter")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial UInt32 ICompressFilter__Filter_osx(IntPtr ifp, Byte* data, UInt32 size);
 
         #endregion //ICompressFilter_Filter
@@ -1356,16 +1356,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__GetNumMethods")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__GetNumMethods")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressCodecsInfo__GetNumMethods_win(IntPtr ifp, out UInt32 numMethods);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__GetNumMethods")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__GetNumMethods")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressCodecsInfo__GetNumMethods_linux(IntPtr ifp, out UInt32 numMethods);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__GetNumMethods")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__GetNumMethods")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressCodecsInfo__GetNumMethods_osx(IntPtr ifp, out UInt32 numMethods);
 
         #endregion //ICompressCodecsInfo_GetNumMethods
@@ -1385,16 +1385,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__GetProperty")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__GetProperty")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICompressCodecsInfo__GetProperty_win(IntPtr ifp, UInt32 index, MethodPropID propID, PROPVARIANT* value);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__GetProperty")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__GetProperty")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressCodecsInfo__GetProperty_linux(IntPtr ifp, UInt32 index, MethodPropID propID, PROPVARIANT* value);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__GetProperty")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__GetProperty")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICompressCodecsInfo__GetProperty_osx(IntPtr ifp, UInt32 index, MethodPropID propID, PROPVARIANT* value);
 
         #endregion //ICompressCodecsInfo_GetProperty
@@ -1423,16 +1423,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateDecoder")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateDecoder")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressCodecsInfo__CreateDecoder_win(IntPtr ifp, UInt32 index, ref NativeGUID iid, out IntPtr decoder);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateDecoder")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateDecoder")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressCodecsInfo__CreateDecoder_linux(IntPtr ifp, UInt32 index, ref NativeGUID iid, out IntPtr decoder);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateDecoder")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateDecoder")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressCodecsInfo__CreateDecoder_osx(IntPtr ifp, UInt32 index, ref NativeGUID iid, out IntPtr decoder);
 
         #endregion //ICompressCodecsInfo_CreateDecoder
@@ -1461,16 +1461,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateEncoder")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateEncoder")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICompressCodecsInfo__CreateEncoder_win(IntPtr ifp, UInt32 index, ref NativeGUID iid, out IntPtr encoder);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateEncoder")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateEncoder")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressCodecsInfo__CreateEncoder_linux(IntPtr ifp, UInt32 index, ref NativeGUID iid, out IntPtr encoder);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateEncoder")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__CreateEncoder")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICompressCodecsInfo__CreateEncoder_osx(IntPtr ifp, UInt32 index, ref NativeGUID iid, out IntPtr encoder);
 
         #endregion //ICompressCodecsInfo_CreateEncoder
@@ -1495,16 +1495,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ISetCompressCodecsInfo__SetCompressCodecsInfo")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ISetCompressCodecsInfo__SetCompressCodecsInfo")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ISetCompressCodecsInfo__SetCompressCodecsInfo_win(IntPtr ifp, void* compressCodecsInfo);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ISetCompressCodecsInfo__SetCompressCodecsInfo")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ISetCompressCodecsInfo__SetCompressCodecsInfo")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ISetCompressCodecsInfo__SetCompressCodecsInfo_linux(IntPtr ifp, void* compressCodecsInfo);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ISetCompressCodecsInfo__SetCompressCodecsInfo")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ISetCompressCodecsInfo__SetCompressCodecsInfo")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ISetCompressCodecsInfo__SetCompressCodecsInfo_osx(IntPtr ifp, void* compressCodecsInfo);
 
         #endregion //ISetCompressCodecsInfo_SetCompressCodecsInfo
@@ -1530,16 +1530,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoProperties__SetKey")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoProperties__SetKey")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICryptoProperties__SetKey_win(IntPtr ifp, Byte* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoProperties__SetKey")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoProperties__SetKey")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICryptoProperties__SetKey_linux(IntPtr ifp, Byte* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoProperties__SetKey")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoProperties__SetKey")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICryptoProperties__SetKey_osx(IntPtr ifp, Byte* data, UInt32 size);
 
         #endregion //ICryptoProperties_SetKey
@@ -1559,16 +1559,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoProperties__SetInitVector")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoProperties__SetInitVector")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICryptoProperties__SetInitVector_win(IntPtr ifp, Byte* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoProperties__SetInitVector")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoProperties__SetInitVector")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICryptoProperties__SetInitVector_linux(IntPtr ifp, Byte* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoProperties__SetInitVector")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoProperties__SetInitVector")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICryptoProperties__SetInitVector_osx(IntPtr ifp, Byte* data, UInt32 size);
 
         #endregion //ICryptoProperties_SetInitVector
@@ -1594,16 +1594,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoResetInitVector__ResetInitVector")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoResetInitVector__ResetInitVector")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICryptoResetInitVector__ResetInitVector_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoResetInitVector__ResetInitVector")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoResetInitVector__ResetInitVector")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICryptoResetInitVector__ResetInitVector_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoResetInitVector__ResetInitVector")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoResetInitVector__ResetInitVector")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICryptoResetInitVector__ResetInitVector_osx(IntPtr ifp);
 
         #endregion //ICryptoResetInitVector_ResetInitVector
@@ -1629,16 +1629,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoSetPassword__CryptoSetPassword")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoSetPassword__CryptoSetPassword")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT ICryptoSetPassword__CryptoSetPassword_win(IntPtr ifp, Byte* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoSetPassword__CryptoSetPassword")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoSetPassword__CryptoSetPassword")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICryptoSetPassword__CryptoSetPassword_linux(IntPtr ifp, Byte* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoSetPassword__CryptoSetPassword")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoSetPassword__CryptoSetPassword")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT ICryptoSetPassword__CryptoSetPassword_osx(IntPtr ifp, Byte* data, UInt32 size);
 
         #endregion //ICryptoSetPassword_CryptoSetPassword
@@ -1664,16 +1664,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoSetCRC__CryptoSetCRC")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoSetCRC__CryptoSetCRC")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial HRESULT ICryptoSetCRC__CryptoSetCRC_win(IntPtr ifp, UInt32 crc);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoSetCRC__CryptoSetCRC")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoSetCRC__CryptoSetCRC")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICryptoSetCRC__CryptoSetCRC_linux(IntPtr ifp, UInt32 crc);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_ICryptoSetCRC__CryptoSetCRC")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICryptoSetCRC__CryptoSetCRC")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial HRESULT ICryptoSetCRC__CryptoSetCRC_osx(IntPtr ifp, UInt32 crc);
 
         #endregion //ICryptoSetCRC_CryptoSetCRC
@@ -1699,16 +1699,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__Init")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__Init")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial void IHasher__Init_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__Init")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__Init")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial void IHasher__Init_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__Init")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__Init")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial void IHasher__Init_osx(IntPtr ifp);
 
         #endregion //IHasher_Init
@@ -1728,16 +1728,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__Update")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__Update")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial void IHasher__Update_win(IntPtr ifp, void* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__Update")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__Update")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial void IHasher__Update_linux(IntPtr ifp, void* data, UInt32 size);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__Update")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__Update")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial void IHasher__Update_osx(IntPtr ifp, void* data, UInt32 size);
 
         #endregion //IHasher_Update
@@ -1757,16 +1757,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__Final")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__Final")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial void IHasher__Final_win(IntPtr ifp, Byte* digest);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__Final")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__Final")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial void IHasher__Final_linux(IntPtr ifp, Byte* digest);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__Final")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__Final")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial void IHasher__Final_osx(IntPtr ifp, Byte* digest);
 
         #endregion //IHasher_Final
@@ -1786,16 +1786,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__GetDigestSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__GetDigestSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial UInt32 IHasher__GetDigestSize_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__GetDigestSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__GetDigestSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial UInt32 IHasher__GetDigestSize_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHasher__GetDigestSize")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHasher__GetDigestSize")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial UInt32 IHasher__GetDigestSize_osx(IntPtr ifp);
 
         #endregion //IHasher_GetDigestSize
@@ -1821,16 +1821,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHashers__GetNumHashers")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHashers__GetNumHashers")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static partial UInt32 IHashers__GetNumHashers_win(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHashers__GetNumHashers")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHashers__GetNumHashers")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial UInt32 IHashers__GetNumHashers_linux(IntPtr ifp);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHashers__GetNumHashers")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHashers__GetNumHashers")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static partial UInt32 IHashers__GetNumHashers_osx(IntPtr ifp);
 
         #endregion //IHashers_GetNumHashers
@@ -1850,16 +1850,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHashers__GetHasherProp")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHashers__GetHasherProp")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT IHashers__GetHasherProp_win(IntPtr ifp, UInt32 index, MethodPropID propID, PROPVARIANT* value);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHashers__GetHasherProp")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHashers__GetHasherProp")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT IHashers__GetHasherProp_linux(IntPtr ifp, UInt32 index, MethodPropID propID, PROPVARIANT* value);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHashers__GetHasherProp")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHashers__GetHasherProp")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT IHashers__GetHasherProp_osx(IntPtr ifp, UInt32 index, MethodPropID propID, PROPVARIANT* value);
 
         #endregion //IHashers_GetHasherProp
@@ -1879,16 +1879,16 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHashers__CreateHasher")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvStdcall)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHashers__CreateHasher")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
         private static unsafe partial HRESULT IHashers__CreateHasher_win(IntPtr ifp, UInt32 index, void** hasher);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHashers__CreateHasher")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHashers__CreateHasher")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT IHashers__CreateHasher_linux(IntPtr ifp, UInt32 index, void** hasher);
 
-        [LibraryImport("Palmtree.SevenZip.Compression.Wrapper.NET.Native", EntryPoint = "EXPORTED_IHashers__CreateHasher")]
-        [UnmanagedCallConv(CallConvs = new Type[] {typeof(CallConvCdecl)})]
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_IHashers__CreateHasher")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
         private static unsafe partial HRESULT IHashers__CreateHasher_osx(IntPtr ifp, UInt32 index, void** hasher);
 
         #endregion //IHashers_CreateHasher

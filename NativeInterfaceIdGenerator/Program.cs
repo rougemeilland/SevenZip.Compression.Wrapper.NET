@@ -308,8 +308,8 @@ namespace NativeInterfaceIdGenerator
                             {
                                 if (!firstAPI)
                                     nativeInterfaceCsWriter.WriteLine();
-                                nativeInterfaceCsWriter.WriteLine($"        [LibraryImport(\"Palmtree.SevenZip.Compression.Wrapper.NET.Native\", EntryPoint = \"EXPORTED_{sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}\")]");
-                                nativeInterfaceCsWriter.WriteLine($"        [UnmanagedCallConv(CallConvs = new Type[] {{typeof({(os == "win" ? "CallConvStdcall" : "CallConvCdecl")})}})]");
+                                nativeInterfaceCsWriter.WriteLine($"        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = \"EXPORTED_{sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}\")]");
+                                nativeInterfaceCsWriter.WriteLine($"        [UnmanagedCallConv(CallConvs = new[] {{typeof({(os == "win" ? "CallConvStdcall" : "CallConvCdecl")})}})]");
                                 nativeInterfaceCsWriter.WriteLine($"        private static {(isSafe ? "" : "unsafe ")}partial {MapTypeFromUnmanageToManage(sevenZipInterfaceMember.ReturnValueType)} {sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}_{os}({parameterDeclaration});");
                                 firstAPI = false;
                             }

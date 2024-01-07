@@ -123,8 +123,8 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="MakePackage.ps1" />
-    <None Include="Native.target" />
     <None Include="Palmtree.SevenZip.Compression.Wrapper.NET.Native.nuspec" />
+    <None Include="Palmtree.SevenZip.Compression.Wrapper.NET.Native.targets" />
     <None Include="README.md" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

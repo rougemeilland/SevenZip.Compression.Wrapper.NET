@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Palmtree.SevenZip.Compression.Wrapper.NET.Engine</id>
-    <version>23.1.0</version>
+    <version>23.1.1</version>
     <title>7-zip Library</title>
     <authors>Palmtree Software</authors>
     <license type="expression">LGPL-3.0-or-later</license>
@@ -41,7 +41,7 @@
     <file src="../lib7z.osx_arm32.dylib" target="runtimes/osx-arm64"/>
     <file src="../lib7z.osx_arm64.dylib" target="runtimes/osx-arm64"/>
     -->
-    <file src="../Engine.target" target="build/"/>
+    <file src="../Palmtree.SevenZip.Compression.Wrapper.NET.Engine.targets" target="build/"/>
     <file src="../README.md" target="/"/>
     <file src="../License.txt" target="content/"/>
     <file src="../makefile_x64.gcc" target="content/linux/"/>
