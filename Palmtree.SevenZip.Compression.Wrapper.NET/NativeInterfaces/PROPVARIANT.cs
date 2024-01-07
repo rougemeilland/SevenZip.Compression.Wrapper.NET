@@ -21,8 +21,8 @@ namespace SevenZip.Compression.NativeInterfaces
 
         static PROPVARIANT()
         {
-            SizeOfPropVariant = NativeInterOp.Global_GetSizeOfPROPVARIANT();
-            SizeOfChar = NativeInterOp.Global_GetSizeOfOleChar();
+            SizeOfPropVariant = NativeInterOp.Global__GetSizeOfPROPVARIANT();
+            SizeOfChar = NativeInterOp.Global__GetSizeOfOleChar();
         }
 
         [FieldOffset(0)]
@@ -69,7 +69,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
                 Encoding encoding;
                 Int32 count;
-                var sizeOfChar = NativeInterOp.Global_GetSizeOfOleChar();
+                var sizeOfChar = NativeInterOp.Global__GetSizeOfOleChar();
                 if (sizeOfChar == sizeof(UInt16))
                 {
                     encoding = Encoding.Unicode;

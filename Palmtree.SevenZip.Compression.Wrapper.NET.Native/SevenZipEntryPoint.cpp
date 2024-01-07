@@ -10,14 +10,6 @@
 
 static const Int32 E_INVALIDOPERATION = 0x80131509;
 
-extern "C"
-{
-    static void STDMETHODCALLTYPE PrintLog(const wchar_t* s)
-    {
-        wprintf(s);
-    }
-}
-
 SevenZipEntryPoint::SevenZipEntryPoint()
 {
     _dllHandle = nullptr;
@@ -41,6 +33,35 @@ HRESULT SevenZipEntryPoint::Create(Byte* locationPath, SevenZipEntryPoint** entr
         return result;
     }
     *entryPoint = instance;
+    return S_OK;
+}
+
+HRESULT SevenZipEntryPoint::Create(EntryPointsTable* entryPoints, SevenZipEntryPoint** entryPoint)
+{
+    *entryPoint = nullptr;
+    SevenZipEntryPoint* instance = new SevenZipEntryPoint();
+    instance->_fpCreateDecoder = entryPoints->FpCreateDecoder;
+    instance->_fpCreateEncoder = entryPoints->FpCreateEncoder;
+    instance->_fpCreateObject = entryPoints->FpCreateObject;
+    instance->_fpGetHandlerProperty = entryPoints->FpGetHandlerProperty;
+    instance->_fpGetHandlerProperty2 = entryPoints->FpGetHandlerProperty2;
+    instance->_fpGetHashers = entryPoints->FpGetHashers;
+    instance->_fpGetMethodProperty = entryPoints->FpGetMethodProperty;
+    instance->_fpGetNumberOfFormats = entryPoints->FpGetNumberOfFormats;
+    instance->_fpGetNumberOfMethods = entryPoints->FpGetNumberOfMethods;
+
+    printf("SevenZipEntryPoint::Create::FpCreateDecoder=0x%016llx\n", (UInt64)instance->_fpCreateDecoder); // TODO: デバッグが終わったら削除
+    printf("SevenZipEntryPoint::Create::FpCreateEncoder=0x%016llx\n", (UInt64)instance->_fpCreateEncoder); // TODO: デバッグが終わったら削除
+    printf("SevenZipEntryPoint::Create::FpCreateObject=0x%016llx\n", (UInt64)instance->_fpCreateObject); // TODO: デバッグが終わったら削除
+    printf("SevenZipEntryPoint::Create::FpGetHandlerProperty=0x%016llx\n", (UInt64)instance->_fpGetHandlerProperty); // TODO: デバッグが終わったら削除
+    printf("SevenZipEntryPoint::Create::FpGetHandlerProperty2=0x%016llx\n", (UInt64)instance->_fpGetHandlerProperty2); // TODO: デバッグが終わったら削除
+    printf("SevenZipEntryPoint::Create::FpGetHashers=0x%016llx\n", (UInt64)instance->_fpGetHashers); // TODO: デバッグが終わったら削除
+    printf("SevenZipEntryPoint::Create::FpGetMethodProperty=0x%016llx\n", (UInt64)instance->_fpGetMethodProperty); // TODO: デバッグが終わったら削除
+    printf("SevenZipEntryPoint::Create::FpGetNumberOfFormats=0x%016llx\n", (UInt64)instance->_fpGetNumberOfFormats); // TODO: デバッグが終わったら削除
+    printf("SevenZipEntryPoint::Create::FpGetNumberOfMethods=0x%016llx\n", (UInt64)instance->_fpGetNumberOfMethods); // TODO: デバッグが終わったら削除
+
+    *entryPoint = instance;
+    printf("SevenZipEntryPoint::Create::SevenZipEntryPoint* entryPoint = 0x%016llx\n", (UInt64)*entryPoint); // TODO: デバッグが終わったら削除
     return S_OK;
 }
 
@@ -72,11 +93,6 @@ HRESULT STDMETHODCALLTYPE SevenZipEntryPoint::GetHandlerProperty2(UInt32 formatI
 HRESULT STDMETHODCALLTYPE SevenZipEntryPoint::GetHashers(IHashers** hashers) const
 {
     return (*_fpGetHashers)(hashers);
-}
-
-HRESULT STDMETHODCALLTYPE SevenZipEntryPoint::GetIsArc(UInt32 formatIndex, Func_IsArc* isArc) const
-{
-    return (*_fpGetIsArc)(formatIndex, isArc);
 }
 
 HRESULT STDMETHODCALLTYPE SevenZipEntryPoint::GetMethodProperty(UInt32 codecIndex, PROPID propID, PROPVARIANT* value) const
@@ -136,9 +152,6 @@ HRESULT SevenZipEntryPoint::LoadSevenZipLibrary(Byte* locationPath)
     FuncGetHashers fpGetHashers = (FuncGetHashers)GetProcAddress(dllHandle, "GetHashers");
     if (fpGetHashers == nullptr)
         return AtlHresultFromLastError();
-    FuncGetIsArc fpGetIsArc = (FuncGetIsArc)GetProcAddress(dllHandle, "GetIsArc");
-    if (fpGetIsArc == nullptr)
-        return AtlHresultFromLastError();
     FuncGetMethodProperty fpGetMethodProperty = (FuncGetMethodProperty)GetProcAddress(dllHandle, "GetMethodProperty");
     if (fpGetMethodProperty == nullptr)
         return AtlHresultFromLastError();
@@ -148,12 +161,6 @@ HRESULT SevenZipEntryPoint::LoadSevenZipLibrary(Byte* locationPath)
     FuncGetNumberOfMethods fpGetNumberOfMethods = (FuncGetNumberOfMethods)GetProcAddress(dllHandle, "GetNumberOfMethods");
     if (fpGetNumberOfMethods == nullptr)
         return AtlHresultFromLastError();
-    FuncSetLogger fpSetLogger = (FuncSetLogger)GetProcAddress(dllHandle, "Debug__SetLogger");
-    if (fpSetLogger != nullptr)
-        (*fpSetLogger)(PrintLog);
-    fpSetLogger = (FuncSetLogger)GetProcAddress(dllHandle, "Debug__SetLogger@4");
-    if (fpSetLogger != nullptr)
-        (*fpSetLogger)(PrintLog);
 #elif defined(_PLATFORM_LINUX_X86) || defined(_PLATFORM_LINUX_X64)
     void* dllHandle = dlopen((const char*)locationPath, RTLD_LAZY | RTLD_LOCAL);
     if (dllHandle == nullptr)
@@ -176,9 +183,6 @@ HRESULT SevenZipEntryPoint::LoadSevenZipLibrary(Byte* locationPath)
     FuncGetHashers fpGetHashers = (FuncGetHashers)dlsym(dllHandle, "GetHashers");
     if (fpGetHashers == nullptr)
         return E_NOTIMPL;
-    FuncGetIsArc fpGetIsArc = (FuncGetIsArc)dlsym(dllHandle, "GetIsArc");
-    if (fpGetIsArc == nullptr)
-        return E_NOTIMPL;
     FuncGetMethodProperty fpGetMethodProperty = (FuncGetMethodProperty)dlsym(dllHandle, "GetMethodProperty");
     if (fpGetMethodProperty == nullptr)
         return E_NOTIMPL;
@@ -188,12 +192,6 @@ HRESULT SevenZipEntryPoint::LoadSevenZipLibrary(Byte* locationPath)
     FuncGetNumberOfMethods fpGetNumberOfMethods = (FuncGetNumberOfMethods)dlsym(dllHandle, "GetNumberOfMethods");
     if (fpGetNumberOfMethods == nullptr)
         return E_NOTIMPL;
-    FuncSetLogger fpSetLogger = (FuncSetLogger)dlsym(dllHandle, "Debug__SetLogger");
-    if (fpSetLogger != nullptr)
-        (*fpSetLogger)(PrintLog);
-    fpSetLogger = (FuncSetLogger)dlsym(dllHandle, "Debug__SetLogger@4");
-    if (fpSetLogger != nullptr)
-        (*fpSetLogger)(PrintLog);
 #elif defined(_PLATFORM_MACOS_X86) || defined(_PLATFORM_MACOS_X64)
 #error "Write the code for symbol resolution of the dynamic link library (shared library) following the code for Windows above."
 #else
@@ -205,7 +203,6 @@ HRESULT SevenZipEntryPoint::LoadSevenZipLibrary(Byte* locationPath)
     _fpGetHandlerProperty = fpGetHandlerProperty;
     _fpGetHandlerProperty2 = fpGetHandlerProperty2;
     _fpGetHashers = fpGetHashers;
-    _fpGetIsArc = fpGetIsArc;
     _fpGetMethodProperty = fpGetMethodProperty;
     _fpGetNumberOfFormats = fpGetNumberOfFormats;
     _fpGetNumberOfMethods = fpGetNumberOfMethods;
@@ -232,7 +229,6 @@ void SevenZipEntryPoint::UnloadSevenZipLibrary()
     _fpGetHandlerProperty = nullptr;
     _fpGetHandlerProperty2 = nullptr;
     _fpGetHashers = nullptr;
-    _fpGetIsArc = nullptr;
     _fpGetMethodProperty = nullptr;
     _fpGetNumberOfFormats = nullptr;
     _fpGetNumberOfMethods = nullptr;

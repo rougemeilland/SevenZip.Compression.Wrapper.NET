@@ -1,3 +1,4 @@
+#include <stdio.h> // TODO: デバッグが終わったら削除
 #include "CompressCodecsInfo.h"
 
 CompressCodecsInfo::CompressCodecsInfo()
@@ -47,6 +48,22 @@ HRESULT CompressCodecsInfo::Create(Byte* locationPath, CompressCodecsInfo** obj)
         return result;
     *obj = new CompressCodecsInfo();
     (*obj)->_entryPoint = entryPoint;
+    return S_OK;
+}
+
+HRESULT CompressCodecsInfo::Create(SevenZipEntryPoint::EntryPointsTable* entryPointsTable, CompressCodecsInfo** obj)
+{
+    *obj = nullptr;
+    SevenZipEntryPoint* entryPoint;
+    HRESULT result = SevenZipEntryPoint::Create(entryPointsTable, &entryPoint);
+    if (result != S_OK)
+        return result;
+    *obj = new CompressCodecsInfo();
+    (*obj)->_entryPoint = entryPoint;
+
+    printf("CompressCodecsInfo::Create::SevenZipEntryPoint* entryPoint = 0x%016llx\n", (UInt64)entryPoint); // TODO: デバッグが終わったら削除
+    printf("CompressCodecsInfo::Create::CompressCodecsInfo* obj = 0x%016llx\n", (UInt64)*obj); // TODO: デバッグが終わったら削除
+
     return S_OK;
 }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -10,82 +11,22 @@ namespace SevenZip.Compression.NativeInterfaces
 {
     internal partial class NativeInterOp
     {
+        private const String _SEVEN_ZIP_DLL_NAME = "7z";
         private const String _NATIVE_METHOD_DLL_NAME = "Palmtree.SevenZip.Compression.Wrapper.NET.Native";
+
+        private static readonly DllNameResolver _dllNameResolver;
 
         static NativeInterOp()
         {
+            _dllNameResolver = new DllNameResolver();
+
             // ネイティブコード DLL のパス名のリゾルバを登録します。
             NativeLibrary.SetDllImportResolver(
                 typeof(NativeInterOp).Assembly,
-                (libraryName, assembly, searchPath) =>
-                {
-                    if (libraryName != _NATIVE_METHOD_DLL_NAME)
-                    {
-                        // LibraryImportAttribute 属性で与えられた DLL 名が、既知のネイティブコード DLL のものではない場合
-
-                        // 本来あり得ないルートであるが、とりあえずそのままロードを試みる。
-                        return
-                            !NativeLibrary.TryLoad(libraryName, assembly, searchPath, out var handle)
-                            ? IntPtr.Zero
-                            : handle;
-                    }
-                    else if (OperatingSystem.IsWindows())
-                    {
-                        var actualLibName =
-                            RuntimeInformation.ProcessArchitecture switch
-                            {
-                                Architecture.X86 => "Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x86.dll",
-                                Architecture.X64 => "Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x64.dll",
-                                Architecture.Arm => "Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm32.dll",
-                                Architecture.Arm64 => "Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm64.dll",
-                                _ => throw new NotSupportedException($"Running on this architecture is not supported. : architecture={RuntimeInformation.ProcessArchitecture}"),
-                            };
-                        return
-                            !NativeLibrary.TryLoad(actualLibName, assembly, searchPath, out var handle)
-                            ? IntPtr.Zero
-                            : handle;
-                    }
-                    else if (OperatingSystem.IsLinux())
-                    {
-                        var actualLibName =
-                            RuntimeInformation.ProcessArchitecture switch
-                            {
-                                Architecture.X86 => "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x86.so",
-                                Architecture.X64 => "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x64.so",
-                                Architecture.Arm => "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm32.so",
-                                Architecture.Arm64 => "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm64.so",
-                                _ => throw new NotSupportedException($"Running on this architecture is not supported. : architecture={RuntimeInformation.ProcessArchitecture}"),
-                            };
-                        return
-                            !NativeLibrary.TryLoad(actualLibName, assembly, searchPath, out var handle)
-                            ? IntPtr.Zero
-                            : handle;
-                    }
-                    else if (OperatingSystem.IsMacOS())
-                    {
-                        String actualLibName;
-                        actualLibName =
-                            RuntimeInformation.ProcessArchitecture switch
-                            {
-                                Architecture.X86 => "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x86.dylib",
-                                Architecture.X64 => "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x64.dylib",
-                                Architecture.Arm => "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm32.dylib",
-                                Architecture.Arm64 => "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm64.dylib",
-                                _ => throw new NotSupportedException($"Running on this architecture is not supported. : architecture={RuntimeInformation.ProcessArchitecture}"),
-                            };
-                        return
-                            !NativeLibrary.TryLoad(actualLibName, assembly, searchPath, out var handle)
-                            ? IntPtr.Zero
-                            : handle;
-                    }
-                    else
-                    {
-                        throw new NotSupportedException("Running on this operating system is not supported.");
-                    }
-                });
+                (libraryName, assembly, searchPath) => _dllNameResolver.ResolveDllName(libraryName, assembly, searchPath));
         }
 
-        #region Global_GetSizeOfPROPVARIANT
+        #region Global__GetSizeOfPROPVARIANT
 
         /// <summary>
         /// ネイティブコードにおける <see cref="PROPVARIANT"/> 構造体のサイズを取得します。
@@ -126,33 +67,33 @@ namespace SevenZip.Compression.NativeInterfaces
         /// </exception>
 
         [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
-        public static Int32 Global_GetSizeOfPROPVARIANT()
+        public static Int32 Global__GetSizeOfPROPVARIANT()
         {
             if (OperatingSystem.IsWindows())
-                return Global_GetSizeOfPROPVARIANT_win();
+                return Global__GetSizeOfPROPVARIANT_win();
             else if (OperatingSystem.IsLinux())
-                return Global_GetSizeOfPROPVARIANT_linux();
+                return Global__GetSizeOfPROPVARIANT_linux();
             else if (OperatingSystem.IsMacOS())
-                return Global_GetSizeOfPROPVARIANT_osx();
+                return Global__GetSizeOfPROPVARIANT_osx();
             else
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_Global__GetSizeOfPROPVARIANT")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
-        private static partial Int32 Global_GetSizeOfPROPVARIANT_win();
+        private static partial Int32 Global__GetSizeOfPROPVARIANT_win();
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_Global__GetSizeOfPROPVARIANT")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
 
-        private static partial Int32 Global_GetSizeOfPROPVARIANT_linux();
+        private static partial Int32 Global__GetSizeOfPROPVARIANT_linux();
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_Global__GetSizeOfPROPVARIANT")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private static partial Int32 Global_GetSizeOfPROPVARIANT_osx();
+        private static partial Int32 Global__GetSizeOfPROPVARIANT_osx();
 
         #endregion
 
-        #region Global_GetSizeOfOleChar
+        #region Global__GetSizeOfOleChar
 
         /// <summary>
         /// COM で使用される文字型の長さを取得します。
@@ -187,33 +128,113 @@ namespace SevenZip.Compression.NativeInterfaces
         /// サポートされていないオペレーティングシステムまたは CPU アーキテクチャです。
         /// </exception>
         [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
-        public static Int32 Global_GetSizeOfOleChar()
+        public static Int32 Global__GetSizeOfOleChar()
         {
             if (OperatingSystem.IsWindows())
-                return Global_GetSizeOfOleChar_win();
+                return Global__GetSizeOfOleChar_win();
             else if (OperatingSystem.IsLinux())
-                return Global_GetSizeOfOleChar_linux();
+                return Global__GetSizeOfOleChar_linux();
             else if (OperatingSystem.IsMacOS())
-                return Global_GetSizeOfOleChar_osx();
+                return Global__GetSizeOfOleChar_osx();
             else
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_Global__GetSizeOfOleChar")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
-        private unsafe static partial Int32 Global_GetSizeOfOleChar_win();
+        private unsafe static partial Int32 Global__GetSizeOfOleChar_win();
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_Global__GetSizeOfOleChar")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private unsafe static partial Int32 Global_GetSizeOfOleChar_linux();
+        private unsafe static partial Int32 Global__GetSizeOfOleChar_linux();
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_Global__GetSizeOfOleChar")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private unsafe static partial Int32 Global_GetSizeOfOleChar_osx();
+        private unsafe static partial Int32 Global__GetSizeOfOleChar_osx();
 
         #endregion
 
-        #region ICompressCodecsInfo_Create
+        #region Global__GetSevenZipEntryPointsTable
+
+        public static unsafe HRESULT Global__GetSevenZipEntryPointsTable(SevenZipEngineEntryPoints* entryPointsTable)
+        {
+            // 7-zip のライブラリのロードを引き起こすためのダミーの呼び出し
+            _ = SevenZip__GetNumberOfMethods(out _);
+
+            // この時点で 7-zip のロードが完了しているはず。
+
+            // 7-zip ライブラリ DLL のハンドルを取得する
+            var handle = _dllNameResolver.GetDllHandle(_SEVEN_ZIP_DLL_NAME);
+            Validation.Assert(handle != IntPtr.Zero, "handle != IntPtr.Zero");
+
+            // 7-zip ライブラリ DLL のエントリポイントを取得する
+            if ((entryPointsTable->FpCreateDecoder = GetExport(handle, "CreateDecoder")) == null)
+                return HRESULT.E_NOT_SUPPORTED;
+            if ((entryPointsTable->FpCreateEncoder = GetExport(handle, "CreateEncoder")) == null)
+                return HRESULT.E_NOT_SUPPORTED;
+            if ((entryPointsTable->FpCreateObject = GetExport(handle, "CreateObject")) == null)
+                return HRESULT.E_NOT_SUPPORTED;
+            if ((entryPointsTable->FpGetHandlerProperty = GetExport(handle, "GetHandlerProperty")) == null)
+                return HRESULT.E_NOT_SUPPORTED;
+            if ((entryPointsTable->FpGetHandlerProperty2 = GetExport(handle, "GetHandlerProperty2")) == null)
+                return HRESULT.E_NOT_SUPPORTED;
+            if ((entryPointsTable->FpGetHashers = GetExport(handle, "GetHashers")) == null)
+                return HRESULT.E_NOT_SUPPORTED;
+            if ((entryPointsTable->FpGetMethodProperty = GetExport(handle, "GetMethodProperty")) == null)
+                return HRESULT.E_NOT_SUPPORTED;
+            if ((entryPointsTable->FpGetNumberOfFormats = GetExport(handle, "GetNumberOfFormats")) == null)
+                return HRESULT.E_NOT_SUPPORTED;
+            if ((entryPointsTable->FpGetNumberOfMethods = GetExport(handle, "GetNumberOfMethods")) == null)
+                return HRESULT.E_NOT_SUPPORTED;
+
+            Console.WriteLine($"Global__GetSevenZipEntryPointsTable: {nameof(SevenZipEngineEntryPoints.FpCreateDecoder)}=0x{(UInt64)entryPointsTable->FpCreateDecoder:x16}"); // TODO: デバッグが終わったら削除
+            Console.WriteLine($"Global__GetSevenZipEntryPointsTable: {nameof(SevenZipEngineEntryPoints.FpCreateEncoder)}=0x{(UInt64)entryPointsTable->FpCreateEncoder:x16}"); // TODO: デバッグが終わったら削除
+            Console.WriteLine($"Global__GetSevenZipEntryPointsTable: {nameof(SevenZipEngineEntryPoints.FpCreateObject)}=0x{(UInt64)entryPointsTable->FpCreateObject:x16}"); // TODO: デバッグが終わったら削除
+            Console.WriteLine($"Global__GetSevenZipEntryPointsTable: {nameof(SevenZipEngineEntryPoints.FpGetHandlerProperty)}=0x{(UInt64)entryPointsTable->FpGetHandlerProperty:x16}"); // TODO: デバッグが終わったら削除
+            Console.WriteLine($"Global__GetSevenZipEntryPointsTable: {nameof(SevenZipEngineEntryPoints.FpGetHandlerProperty2)}=0x{(UInt64)entryPointsTable->FpGetHandlerProperty2:x16}"); // TODO: デバッグが終わったら削除
+            Console.WriteLine($"Global__GetSevenZipEntryPointsTable: {nameof(SevenZipEngineEntryPoints.FpGetHashers)}=0x{(UInt64)entryPointsTable->FpGetHashers:x16}"); // TODO: デバッグが終わったら削除
+            Console.WriteLine($"Global__GetSevenZipEntryPointsTable: {nameof(SevenZipEngineEntryPoints.FpGetMethodProperty)}=0x{(UInt64)entryPointsTable->FpGetMethodProperty:x16}"); // TODO: デバッグが終わったら削除
+            Console.WriteLine($"Global__GetSevenZipEntryPointsTable: {nameof(SevenZipEngineEntryPoints.FpGetNumberOfFormats)}=0x{(UInt64)entryPointsTable->FpGetNumberOfFormats:x16}"); // TODO: デバッグが終わったら削除
+            Console.WriteLine($"Global__GetSevenZipEntryPointsTable: {nameof(SevenZipEngineEntryPoints.FpGetNumberOfMethods)}=0x{(UInt64)entryPointsTable->FpGetNumberOfMethods:x16}"); // TODO: デバッグが終わったら削除
+            return HRESULT.S_OK;
+
+            static void* GetExport(IntPtr handle, String name)
+                => NativeLibrary.TryGetExport(handle, name, out var address)
+                    ? address.ToPointer()
+                    : null;
+        }
+
+        #endregion
+
+        #region SevenZip__GetNumberOfMethods
+
+        private static HRESULT SevenZip__GetNumberOfMethods(out UInt32 numCodecs)
+        {
+            if (OperatingSystem.IsWindows())
+                return SevenZip__GetNumberOfMethods_win(out numCodecs);
+            else if (OperatingSystem.IsLinux())
+                return SevenZip__GetNumberOfMethods_linux(out numCodecs);
+            else if (OperatingSystem.IsMacOS())
+                return SevenZip__GetNumberOfMethods_osx(out numCodecs);
+            else
+                throw new NotSupportedException("Running on this operating system is not supported.");
+        }
+
+        [LibraryImport(_SEVEN_ZIP_DLL_NAME, EntryPoint = "GetNumberOfMethods")]
+        [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
+        private static partial HRESULT SevenZip__GetNumberOfMethods_win(out UInt32 numCodecs);
+
+        [LibraryImport(_SEVEN_ZIP_DLL_NAME, EntryPoint = "GetNumberOfMethods")]
+        [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private static partial HRESULT SevenZip__GetNumberOfMethods_linux(out UInt32 numCodecs);
+
+        [LibraryImport(_SEVEN_ZIP_DLL_NAME, EntryPoint = "GetNumberOfMethods")]
+        [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private static partial HRESULT SevenZip__GetNumberOfMethods_osx(out UInt32 numCodecs);
+
+        #endregion
+
+        #region ICompressCodecsInfo__Create
 
         /// <summary>
         /// Create an <c>ICompressCodecsInfo</c> interface object.
@@ -235,7 +256,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// </returns>
 
         [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
-        public static HRESULT ICompressCodecsInfo_Create(String locationPath, out IntPtr obj)
+        public static HRESULT ICompressCodecsInfo__Create(String locationPath, out IntPtr obj)
         {
             if (OperatingSystem.IsWindows())
             {
@@ -252,7 +273,7 @@ namespace SevenZip.Compression.NativeInterfaces
                         var locationPathBufferBytePtr = (Byte*)locationPathBufferPtr;
                         var locationPathBytes = Encoding.Unicode.GetBytes(locationpathString, new Span<Byte>(locationPathBufferBytePtr, locationPathBuffer.Length << 1));
                         Validation.Assert(locationPathBytes <= (locationPathBuffer.Length << 1), "locationPathBytes <= (locationPathBuffer.Length << 1)");
-                        return ICompressCodecsInfo_Create_win(locationPathBufferBytePtr, out obj);
+                        return ICompressCodecsInfo__Create_win(locationPathBufferBytePtr, out obj);
                     }
                 }
             }
@@ -263,7 +284,7 @@ namespace SevenZip.Compression.NativeInterfaces
                 {
                     fixed (Byte* p = locationPathBytes)
                     {
-                        return ICompressCodecsInfo_Create_linux(p, out obj);
+                        return ICompressCodecsInfo__Create_linux(p, out obj);
                     }
                 }
             }
@@ -274,7 +295,7 @@ namespace SevenZip.Compression.NativeInterfaces
                 {
                     fixed (Byte* p = locationPathBytes)
                     {
-                        return ICompressCodecsInfo_Create_osx(p, out obj);
+                        return ICompressCodecsInfo__Create_osx(p, out obj);
                     }
                 }
             }
@@ -286,15 +307,63 @@ namespace SevenZip.Compression.NativeInterfaces
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__Create")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
-        private unsafe static partial HRESULT ICompressCodecsInfo_Create_win(Byte* locationPath, out IntPtr obj);
+        private unsafe static partial HRESULT ICompressCodecsInfo__Create_win(Byte* locationPath, out IntPtr obj);
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__Create")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private unsafe static partial HRESULT ICompressCodecsInfo_Create_linux(Byte* locationPath, out IntPtr obj);
+        private unsafe static partial HRESULT ICompressCodecsInfo__Create_linux(Byte* locationPath, out IntPtr obj);
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__Create")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private unsafe static partial HRESULT ICompressCodecsInfo_Create_osx(Byte* locationPath, out IntPtr obj);
+        private unsafe static partial HRESULT ICompressCodecsInfo__Create_osx(Byte* locationPath, out IntPtr obj);
+
+        #endregion
+
+        #region ICompressCodecsInfo__Create2
+
+        /// <summary>
+        /// Create an <c>ICompressCodecsInfo</c> interface object.
+        /// </summary>
+        /// <param name="entrypointsTable">
+        /// A pointer to a table of entry points for the 7-zip library.
+        /// </param>
+        /// <param name="obj">
+        /// If the call to this function is successful, the ICompressCodecsInfo interface object will be output.
+        /// </param>
+        /// <returns>
+        /// <para>
+        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
+        /// </para>
+        /// <para>
+        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
+        /// At this time, the return value means the reason for the failure.
+        /// </para>
+        /// </returns>
+
+        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        public unsafe static HRESULT ICompressCodecsInfo__Create2(SevenZipEngineEntryPoints* entrypointsTable, out IntPtr obj)
+        {
+            if (OperatingSystem.IsWindows())
+                return ICompressCodecsInfo__Create2_win(entrypointsTable, out obj);
+            else if (OperatingSystem.IsLinux())
+                return ICompressCodecsInfo__Create2_linux(entrypointsTable, out obj);
+            else if (OperatingSystem.IsMacOS())
+                return ICompressCodecsInfo__Create2_osx(entrypointsTable, out obj);
+            else
+                throw new NotSupportedException("Running on this operating system is not supported.");
+        }
+
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__Create2")]
+        [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
+        private unsafe static partial HRESULT ICompressCodecsInfo__Create2_win(SevenZipEngineEntryPoints* entryPontsTable, out IntPtr obj);
+
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__Create2")]
+        [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private unsafe static partial HRESULT ICompressCodecsInfo__Create2_linux(SevenZipEngineEntryPoints* entryPontsTable, out IntPtr obj);
+
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__Create2")]
+        [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private unsafe static partial HRESULT ICompressCodecsInfo__Create2_osx(SevenZipEngineEntryPoints* entryPontsTable, out IntPtr obj);
 
         #endregion
 
