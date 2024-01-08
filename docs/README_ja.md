@@ -21,6 +21,8 @@
 + [7. 注意事項](#7-注意事項)
   + [7.1 PPMd アルゴリズムの互換性について](#71-PPMd-アルゴリズムの互換性について)
 + [8. 免責事項](#8-免責事項)
++ [9. 付録](#9-付録)
+  + [9.1 他の処理系への移植に関するメモ](#91-他の処理系への移植に関するメモ)
 
 ## 1. 概要
 
@@ -29,7 +31,7 @@
 ## 2. 本ソフトウェアの機能
 
 本ソフトウェアのクラスを利用することにより、7-zip によるデータストリームの圧縮および伸長をする機能を利用することが出来ます。
-本ソフトウェアでサポートされている圧縮/伸長は以下の通りです。
+本ソフトウェアでサポートされている圧縮/伸長の方式は以下の通りです。
 
 | 圧縮方式 | 圧縮のためのクラス | 伸長のためのクラス |
 | --- | --- | --- |
@@ -116,7 +118,7 @@ using SevenZip.Compression.Deflate;
             // Deflate デコーダオブジェクトを作成します。
             using var deflateDecoder = DeflateDecoder.CreateDecoder();
 
-            // 圧縮を開始します。
+            // 伸長を開始します。
             deflateDecoder.Code(
                 inCompressedStream,
                 outUncompressedStream,
@@ -216,7 +218,7 @@ using SevenZip.Compression.Lzma;
             // LZMA デコーダオブジェクトを作成します。
             using var lzmaDecoder = LzmaDecoder.CreateDecoder(contentProperties);
 
-            // 圧縮を開始します。
+            // 伸長を開始します。
             lzmaDecoder.Code(
                 inCompressedStream,
                 outUncompressedStream,
@@ -299,3 +301,21 @@ PPMd アルゴリズムには互換性のないいくつかのバージョンが
 ## 8. 免責事項
 
 本ソフトウェアの利用にあたり何らかの不具合やトラブルが生じたとしても、本ソフトウェアの開発者は一切の責任を取りかねます。ご了承ください。
+
+## 9. 付録
+
+### 9.1 他の処理系への移植に関するメモ
+
+現在のところ、本ソフトウェアがサポートしている OS や CPU は [3. 必要な環境](#3-必要な環境) に示されている通りです。
+しかし、これは本ソフトウェアの開発者が利用可能なハードウェアが制限されていることが理由であって、本ソフトウェアの機構的な理由によるものではありません。
+おそらくは、他のプラットフォームへの移植は以下の手順で可能であると思われます。
+
+1. インクルードファイル `Palmtree.SevenZip.Compression.Wrapper.NET.Native/Platform.h` の処理系依存の部分を修正する。
+2. 追加する処理系固有のネイティブコードをビルドするプロジェクトを `Palmtree.SevenZip.Compression.Wrapper.NET.Native.<OS名>_<アーキテクチャ名>` という名前で作成する。
+  + OS名 => Windows の場合は **"win"** 、Linux の場合は **"linux"** 、MacOS の場合は **"osx"**
+  + アーキテクチャ名 => x86 の場合は **"x86"** 、x64 の場合は **"x64"** 、ARM の場合は **"arm32"** 、ARM64 の場合は **"arm64"**
+3. 追加する処理系の OS が Windows である場合は、`NativeInterfaceIdGenerator.exe` を Visual Studio 上から実行する。(バージョンリソースをテンプレートからコピーするため)
+3. `Palmtree.SevenZip.Compression.Wrapper.NET.Native/Palmtree.SevenZip.Compression.Wrapper.NET.Native.nuspec` を編集して、当該処理系部分のコメントを解除する。
+4. PowerShell で `Palmtree.SevenZip.Compression.Wrapper.NET.Native/MakePackage.ps1` を実行してパッケージを作成する。
+5. Visual Studio から プロジェクト `Palmtree.SevenZip.Compression.Wrapper.NET` の `nuget パッケージの管理` 画面を開き、既にインストールされているパッケージ `Palmtree.SevenZip.Compression.Wrapper.NET.Native` を更新する。
+5. Visual Studio から プロジェクト `Palmtree.SevenZip.Compression.Wrapper.NET` をビルドする。

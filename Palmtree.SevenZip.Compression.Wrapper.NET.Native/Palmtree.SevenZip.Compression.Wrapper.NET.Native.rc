@@ -13,7 +13,6 @@
 #undef APSTUDIO_READONLY_SYMBOLS
 
 /////////////////////////////////////////////////////////////////////////////
-// 日本語 (日本) resources
 
 #if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_JPN)
 LANGUAGE LANG_JAPANESE, SUBLANG_DEFAULT
@@ -70,9 +69,9 @@ BEGIN
             VALUE "CompanyName", "Palmtree Software"
             VALUE "FileDescription", "A native library that provides a way to access each interface supported by the 7-zip native library for ${osDisplayName} (${architectureDisplayName})."
             VALUE "FileVersion", "1.0.0.0"
-            VALUE "InternalName", "Palmtree.SevenZip.Compression.Wrapper.NET.${os}_${architecture}"
-            VALUE "LegalCopyright", "c2022 Palmtree Software"
-            VALUE "OriginalFilename", "Palmtree.SevenZip.Compression.Wrapper.NET.${os}_${architecture}"
+            VALUE "InternalName", "SevenZip.NativeWrapper.Native.${os}_${architecture}"
+            VALUE "LegalCopyright", "(c)2022-2024 Palmtree Software"
+            VALUE "OriginalFilename", "SevenZip.NativeWrapper.Native.${os}_${architecture}"
             VALUE "ProductName", "SevenZip.Compression.Wrapper.NET"
             VALUE "ProductVersion", "1.0.0.0"
         END
@@ -83,7 +82,7 @@ BEGIN
     END
 END
 
-#endif    // 日本語 (日本) resources
+#endif
 /////////////////////////////////////////////////////////////////////////////
 
 
