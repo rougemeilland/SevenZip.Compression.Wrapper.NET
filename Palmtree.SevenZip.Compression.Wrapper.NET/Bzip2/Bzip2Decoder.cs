@@ -11,8 +11,6 @@ namespace SevenZip.Compression.Bzip2
     public partial class Bzip2Decoder
         : IDisposable, ICompressCoder, ICompressGetInStreamProcessedSize, ICompressReadUnusedFromInBuf
     {
-        private const String _coderName = Bzip2Constants.CoderName;
-
         private readonly CompressCoder _compressCoder;
         private readonly CompressGetInStreamProcessedSize _compressGetInStreamProcessedSize;
         private readonly CompressReadUnusedFromInBuf _compressReadUnusedFromInBuf;
@@ -61,7 +59,7 @@ namespace SevenZip.Compression.Bzip2
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Decoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Bzip2Constants.CODER_NAME, CoderType.Decoder);
                 compressGetInStreamProcessedSize = (CompressGetInStreamProcessedSize)compressCoder.QueryInterface(typeof(CompressGetInStreamProcessedSize));
                 compressReadUnusedFromInBuf = (CompressReadUnusedFromInBuf)compressCoder.QueryInterface(typeof(CompressReadUnusedFromInBuf));
                 if (properties.FinishMode is not null)
@@ -428,7 +426,7 @@ namespace SevenZip.Compression.Bzip2
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Decoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Bzip2Constants.CODER_NAME, CoderType.Decoder);
                 compressGetInStreamProcessedSize = (CompressGetInStreamProcessedSize)compressCoder.QueryInterface(typeof(CompressGetInStreamProcessedSize));
                 compressReadUnusedFromInBuf = (CompressReadUnusedFromInBuf)compressCoder.QueryInterface(typeof(CompressReadUnusedFromInBuf));
                 compressSetInStream = (CompressSetInStream)compressCoder.QueryInterface(typeof(CompressSetInStream));

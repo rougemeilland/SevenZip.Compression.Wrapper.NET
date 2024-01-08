@@ -14,9 +14,7 @@ namespace SevenZip.Compression.Rar5
         /// <summary>
         /// The length of the property embedded in the compressed stream in Rar5 format.
         /// </summary>
-        public const Int32 RAR5_CONTENT_PROPERTY_SIZE = Rar5Constants.RAR5_CONTENT_PROPERTY_SIZE;
-
-        private const String _coderName = Rar5Constants.CoderName;
+        public const Int32 CONTENT_PROPERTY_SIZE = Rar5Constants.CONTENT_PROPERTY_SIZE;
 
         private readonly CompressCoder _compressCoder;
 
@@ -68,15 +66,15 @@ namespace SevenZip.Compression.Rar5
         {
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
-            if (contentProperties.Length != RAR5_CONTENT_PROPERTY_SIZE)
-                throw new ArgumentException($"{nameof(contentProperties)} is not {RAR5_CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
+            if (contentProperties.Length != CONTENT_PROPERTY_SIZE)
+                throw new ArgumentException($"{nameof(contentProperties)} is not {CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
 
             var compressCoder = (CompressCoder?)null;
             var compressSetDecoderProperties2 = (CompressSetDecoderProperties2?)null;
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Decoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Rar5Constants.CODER_NAME, CoderType.Decoder);
                 compressSetDecoderProperties2 = (CompressSetDecoderProperties2)compressCoder.QueryInterface(typeof(CompressSetDecoderProperties2));
                 compressSetDecoderProperties2.SetDecoderProperties2(contentProperties);
                 var decoder = new Rar5Decoder(compressCoder);

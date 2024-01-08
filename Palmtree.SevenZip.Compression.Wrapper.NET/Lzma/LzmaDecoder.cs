@@ -14,9 +14,7 @@ namespace SevenZip.Compression.Lzma
         /// <summary>
         /// The length of the property embedded in the compressed stream in LZMA format.
         /// </summary>
-        public const Int32 LZMA_CONTENT_PROPERTY_SIZE = LzmaConstants.LZMA_CONTENT_PROPERTY_SIZE;
-
-        private const String _coderName = LzmaConstants.CoderName;
+        public const Int32 CONTENT_PROPERTY_SIZE = LzmaConstants.CONTENT_PROPERTY_SIZE;
 
         private readonly CompressCoder _compressCoder;
         private readonly CompressGetInStreamProcessedSize _compressGetInStreamProcessedSize;
@@ -87,8 +85,8 @@ namespace SevenZip.Compression.Lzma
         {
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
-            if (contentProperties.Length != LZMA_CONTENT_PROPERTY_SIZE)
-                throw new ArgumentException($"{nameof(contentProperties)} is not {LZMA_CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
+            if (contentProperties.Length != CONTENT_PROPERTY_SIZE)
+                throw new ArgumentException($"{nameof(contentProperties)} is not {CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
 
             var compressCoder = (CompressCoder?)null;
             var compressSetDecoderProperties2 = (CompressSetDecoderProperties2?)null;
@@ -98,7 +96,7 @@ namespace SevenZip.Compression.Lzma
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Decoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(LzmaConstants.CODER_NAME, CoderType.Decoder);
                 compressSetDecoderProperties2 = (CompressSetDecoderProperties2)compressCoder.QueryInterface(typeof(CompressSetDecoderProperties2));
                 compressSetDecoderProperties2.SetDecoderProperties2(contentProperties);
                 if (properties.FinishMode is not null)
@@ -369,8 +367,8 @@ namespace SevenZip.Compression.Lzma
                 throw new ArgumentNullException(nameof(compressedInStream));
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
-            if (contentProperties.Length != LZMA_CONTENT_PROPERTY_SIZE)
-                throw new ArgumentException($"{nameof(contentProperties)} is not {LZMA_CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
+            if (contentProperties.Length != CONTENT_PROPERTY_SIZE)
+                throw new ArgumentException($"{nameof(contentProperties)} is not {CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
 
             var (sequentialInStream, compressSetInStream, compressGetInStreamProcessedSize) =
                 GetParameterToCreateStream(
@@ -430,8 +428,8 @@ namespace SevenZip.Compression.Lzma
                 throw new ArgumentException("The specified stream does not support reading.", nameof(compressedInStream));
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
-            if (contentProperties.Length != LZMA_CONTENT_PROPERTY_SIZE)
-                throw new ArgumentException($"{nameof(contentProperties)} is not {LZMA_CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
+            if (contentProperties.Length != CONTENT_PROPERTY_SIZE)
+                throw new ArgumentException($"{nameof(contentProperties)} is not {CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
 
             var (sequentialInStream, compressSetInStream, compressGetInStreamProcessedSize) =
                 GetParameterToCreateStream(
@@ -495,7 +493,7 @@ namespace SevenZip.Compression.Lzma
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Decoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(LzmaConstants.CODER_NAME, CoderType.Decoder);
                 compressSetDecoderProperties2 = (CompressSetDecoderProperties2)compressCoder.QueryInterface(typeof(CompressSetDecoderProperties2));
                 compressSetDecoderProperties2.SetDecoderProperties2(contentProperties);
                 if (properties.FinishMode is not null)

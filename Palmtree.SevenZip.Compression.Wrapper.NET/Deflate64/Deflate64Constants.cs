@@ -4,6 +4,6 @@ namespace SevenZip.Compression.Deflate64
 {
     internal static class Deflate64Constants
     {
-        public const String CoderName = "Deflate64";
+        public const String CODER_NAME = "Deflate64";
     }
 }

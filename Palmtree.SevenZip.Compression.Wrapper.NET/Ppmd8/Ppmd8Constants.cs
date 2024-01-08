@@ -5,7 +5,7 @@ namespace SevenZip.Compression.Ppmd8
 {
     internal static class Ppmd8Constants
     {
-        public const String CoderName = "PPMDZip";
+        public const String CODER_NAME = "PPMDZip";
     }
 }
 #endif

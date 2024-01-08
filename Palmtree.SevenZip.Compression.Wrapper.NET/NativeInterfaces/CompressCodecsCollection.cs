@@ -4,9 +4,8 @@ using System.IO;
 using System.Linq;
 using Palmtree;
 using Palmtree.IO;
-using SevenZip.Compression.NativeInterfaces;
 
-namespace SevenZip.Compression
+namespace SevenZip.Compression.NativeInterfaces
 {
     internal class CompressCodecsCollection
     {

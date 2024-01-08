@@ -11,8 +11,6 @@ namespace SevenZip.Compression.Bzip2
     public class Bzip2Encoder
         : IDisposable, ICompressCoder
     {
-        private const String _coderName = Bzip2Constants.CoderName;
-
         private readonly CompressCoder _compressCoder;
 
         private Boolean _isDisposed;
@@ -51,7 +49,7 @@ namespace SevenZip.Compression.Bzip2
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Encoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Bzip2Constants.CODER_NAME, CoderType.Encoder);
                 compressSetCoderProperties = (CompressSetCoderProperties)compressCoder.QueryInterface(typeof(CompressSetCoderProperties));
                 compressSetCoderProperties.SetCoderProperties(properties);
                 var encoder = new Bzip2Encoder(compressCoder);

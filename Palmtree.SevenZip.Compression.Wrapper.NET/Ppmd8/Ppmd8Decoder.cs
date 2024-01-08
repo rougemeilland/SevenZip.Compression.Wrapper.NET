@@ -12,8 +12,6 @@ namespace SevenZip.Compression.Ppmd8
     public class Ppmd8Decoder
         : IDisposable
     {
-        private const String _coderName = Ppmd8Constants.CoderName;
-
         private readonly CompressCoder _compressCoder;
         private readonly CompressGetInStreamProcessedSize _compressGetInStreamProcessedSize;
 
@@ -57,7 +55,7 @@ namespace SevenZip.Compression.Ppmd8
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Decoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Ppmd8Constants.CODER_NAME, CoderType.Decoder);
                 if (properties.FinishMode is not null)
                 {
                     compressSetFinishMode = (CompressSetFinishMode)compressCoder.QueryInterface(typeof(CompressSetFinishMode));

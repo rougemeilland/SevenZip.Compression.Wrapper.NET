@@ -1,9 +1,9 @@
-﻿namespace SevenZip.Compression
+﻿namespace SevenZip.Compression.NativeInterfaces
 {
     /// <summary>
     /// An enumeration that indicates the type of coder.
     /// </summary>
-    public enum CoderType
+    internal enum CoderType
     {
         /// <summary>
         /// The type of coder is unknown.

@@ -11,8 +11,6 @@ namespace SevenZip.Compression.Deflate64
     public class Deflate64Decoder
         : IDisposable, ICompressCoder, ICompressGetInStreamProcessedSize, ICompressReadUnusedFromInBuf
     {
-        private const String _coderName = Deflate64Constants.CoderName;
-
         private readonly CompressCoder _compressCoder;
         private readonly CompressGetInStreamProcessedSize _compressGetInStreamProcessedSize;
         private readonly CompressReadUnusedFromInBuf _compressReadUnusedFromInBuf;
@@ -60,7 +58,7 @@ namespace SevenZip.Compression.Deflate64
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Decoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Deflate64Constants.CODER_NAME, CoderType.Decoder);
                 if (properties.FinishMode is not null)
                 {
                     compressSetFinishMode = (CompressSetFinishMode)compressCoder.QueryInterface(typeof(CompressSetFinishMode));
@@ -421,7 +419,7 @@ namespace SevenZip.Compression.Deflate64
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Decoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Deflate64Constants.CODER_NAME, CoderType.Decoder);
                 if (properties.FinishMode is not null)
                 {
                     compressSetFinishMode = (CompressSetFinishMode)compressCoder.QueryInterface(typeof(CompressSetFinishMode));

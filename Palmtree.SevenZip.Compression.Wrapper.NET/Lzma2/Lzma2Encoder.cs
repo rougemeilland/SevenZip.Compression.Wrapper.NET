@@ -14,9 +14,7 @@ namespace SevenZip.Compression.Lzma2
         /// <summary>
         /// The length of the property to embed in the compressed stream in LZMA2 format.
         /// </summary>
-        public const Int32 LZMA2_CONTENT_PROPERTY_SIZE = Lzma2Constants.LZMA2_CONTENT_PROPERTY_SIZE;
-
-        private const String _coderName = Lzma2Constants.CoderName;
+        public const Int32 CONTENT_PROPERTY_SIZE = Lzma2Constants.CONTENT_PROPERTY_SIZE;
 
         private readonly CompressCoder _compressCoder;
         private readonly CompressWriteCoderProperties _compressWriteCoderProperties;
@@ -60,7 +58,7 @@ namespace SevenZip.Compression.Lzma2
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Encoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Lzma2Constants.CODER_NAME, CoderType.Encoder);
                 compressSetCoderProperties = (CompressSetCoderProperties)compressCoder.QueryInterface(typeof(CompressSetCoderProperties));
                 compressSetCoderProperties.SetCoderProperties(properties);
                 compressWriteCoderProperties = (CompressWriteCoderProperties)compressCoder.QueryInterface(typeof(CompressWriteCoderProperties));

@@ -11,8 +11,6 @@ namespace SevenZip.Compression.Deflate64
     public class Deflate64Encoder
         : IDisposable, ICompressCoder
     {
-        private const String _coderName = Deflate64Constants.CoderName;
-
         private readonly CompressCoder _compressCoder;
 
         private Boolean _isDisposed;
@@ -51,7 +49,7 @@ namespace SevenZip.Compression.Deflate64
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Encoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Deflate64Constants.CODER_NAME, CoderType.Encoder);
                 compressSetCoderProperties = (CompressSetCoderProperties)compressCoder.QueryInterface(typeof(CompressSetCoderProperties));
                 compressSetCoderProperties.SetCoderProperties(properties);
                 var encoder = new Deflate64Encoder(compressCoder);

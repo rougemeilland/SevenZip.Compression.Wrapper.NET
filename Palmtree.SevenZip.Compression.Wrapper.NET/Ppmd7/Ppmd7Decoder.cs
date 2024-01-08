@@ -14,9 +14,7 @@ namespace SevenZip.Compression.Ppmd7
         /// <summary>
         /// The length of the property embedded in the compressed stream in PPMd7 format.
         /// </summary>
-        public const Int32 PPMDD7_CONTENT_PROPERTY_SIZE = Ppmd7Constants.PPMDD7_CONTENT_PROPERTY_SIZE;
-
-        private const String _coderName = Ppmd7Constants.CoderName;
+        public const Int32 CONTENT_PROPERTY_SIZE = Ppmd7Constants.CONTENT_PROPERTY_SIZE;
 
         private readonly CompressCoder _compressCoder;
         private readonly CompressGetInStreamProcessedSize _compressGetInStreamProcessedSize;
@@ -87,8 +85,8 @@ namespace SevenZip.Compression.Ppmd7
         {
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
-            if (contentProperties.Length != PPMDD7_CONTENT_PROPERTY_SIZE)
-                throw new ArgumentException($"{nameof(contentProperties)} is not {PPMDD7_CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
+            if (contentProperties.Length != CONTENT_PROPERTY_SIZE)
+                throw new ArgumentException($"{nameof(contentProperties)} is not {CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
 
             var compressCoder = (CompressCoder?)null;
             var compressSetDecoderProperties2 = (CompressSetDecoderProperties2?)null;
@@ -97,7 +95,7 @@ namespace SevenZip.Compression.Ppmd7
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Decoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Ppmd7Constants.CODER_NAME, CoderType.Decoder);
                 compressSetDecoderProperties2 = (CompressSetDecoderProperties2)compressCoder.QueryInterface(typeof(CompressSetDecoderProperties2));
                 compressSetDecoderProperties2.SetDecoderProperties2(contentProperties);
                 if (properties.FinishMode is not null)
@@ -351,8 +349,8 @@ namespace SevenZip.Compression.Ppmd7
                 throw new ArgumentNullException(nameof(compressedInStream));
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
-            if (contentProperties.Length != PPMDD7_CONTENT_PROPERTY_SIZE)
-                throw new ArgumentException($"{nameof(contentProperties)} is not {PPMDD7_CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
+            if (contentProperties.Length != CONTENT_PROPERTY_SIZE)
+                throw new ArgumentException($"{nameof(contentProperties)} is not {CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
 
             var (sequentialInStream, compressSetInStream, compressGetInStreamProcessedSize) =
                 GetParameterToCreateStream(
@@ -412,8 +410,8 @@ namespace SevenZip.Compression.Ppmd7
                 throw new ArgumentException("The specified stream does not support reading.", nameof(compressedInStream));
             if (properties is null)
                 throw new ArgumentNullException(nameof(properties));
-            if (contentProperties.Length != PPMDD7_CONTENT_PROPERTY_SIZE)
-                throw new ArgumentException($"{nameof(contentProperties)} is not {PPMDD7_CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
+            if (contentProperties.Length != CONTENT_PROPERTY_SIZE)
+                throw new ArgumentException($"{nameof(contentProperties)} is not {CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
 
             var (sequentialInStream, compressSetInStream, compressGetInStreamProcessedSize) =
                 GetParameterToCreateStream(
@@ -477,7 +475,7 @@ namespace SevenZip.Compression.Ppmd7
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Decoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Ppmd7Constants.CODER_NAME, CoderType.Decoder);
                 compressSetDecoderProperties2 = (CompressSetDecoderProperties2)compressCoder.QueryInterface(typeof(CompressSetDecoderProperties2));
                 compressSetDecoderProperties2.SetDecoderProperties2(contentProperties);
                 if (properties.FinishMode is not null)

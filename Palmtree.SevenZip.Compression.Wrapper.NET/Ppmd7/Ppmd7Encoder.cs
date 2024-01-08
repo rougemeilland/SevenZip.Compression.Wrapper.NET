@@ -14,9 +14,7 @@ namespace SevenZip.Compression.Ppmd7
         /// <summary>
         /// The length of the property embedded in the compressed stream in PPMd7 format.
         /// </summary>
-        public const Int32 PPMDD7_CONTENT_PROPERTY_SIZE = Ppmd7Constants.PPMDD7_CONTENT_PROPERTY_SIZE;
-
-        private const String _coderName = Ppmd7Constants.CoderName;
+        public const Int32 CONTENT_PROPERTY_SIZE = Ppmd7Constants.CONTENT_PROPERTY_SIZE;
 
         private readonly CompressCoder _compressCoder;
         private readonly CompressWriteCoderProperties _compressWriteCoderProperties;
@@ -59,7 +57,7 @@ namespace SevenZip.Compression.Ppmd7
             var success = false;
             try
             {
-                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(_coderName, CoderType.Encoder);
+                compressCoder = CompressCodecsCollection.Instance.CreateCompressCoder(Ppmd7Constants.CODER_NAME, CoderType.Encoder);
                 compressSetCoderProperties = (CompressSetCoderProperties)compressCoder.QueryInterface(typeof(CompressSetCoderProperties));
                 compressSetCoderProperties.SetCoderProperties(properties);
                 compressWriteCoderProperties = (CompressWriteCoderProperties)compressCoder.QueryInterface(typeof(CompressWriteCoderProperties));
