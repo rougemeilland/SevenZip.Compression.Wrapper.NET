@@ -1,42 +1,42 @@
-Language: [“ú–{Œê](HowToInstall7z_ja.md) **English**
+ï»¿Language: [æ—¥æœ¬èªž](HowToInstall7z_ja.md) **English**
 
 <!--
-# `SevenZip.Compression.Wrapper.NET` ‚©‚ç 7-zip ‚ðŽg—p‰Â”\‚É‚·‚é•û–@
+# `SevenZip.Compression.Wrapper.NET` ã‹ã‚‰ 7-zip ã‚’ä½¿ç”¨å¯èƒ½ã«ã™ã‚‹æ–¹æ³•
 -->
 # How to enable 7-zip from `SevenZip.Compression.Wrapper.NET`
 
 <!--
-## 1. ŠT—v
+## 1. æ¦‚è¦
 -->
 ## 1. Overview
 
 <!--
-`SevenZip.Compression.Wrapper.NET` ‚ðŽg—p‚·‚é‚½‚ß‚É‚ÍA7-zip ‚ð“KØ‚ÉƒCƒ“ƒXƒg[ƒ‹‚µ‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB
-–{e‚Å‚ÍA7-zip ‚ÌƒCƒ“ƒXƒg[ƒ‹‚Ì•û–@‚É‚Â‚¢‚Äà–¾‚µ‚Ü‚·B
+`SevenZip.Compression.Wrapper.NET` ã‚’ä½¿ç”¨ã™ã‚‹ãŸã‚ã«ã¯ã€7-zip ã‚’é©åˆ‡ã«ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚
+æœ¬ç¨¿ã§ã¯ã€7-zip ã®ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã®æ–¹æ³•ã«ã¤ã„ã¦èª¬æ˜Žã—ã¾ã™ã€‚
 -->
 In order to use `SevenZip.Compression.Wrapper.NET`, 7-zip must be properly installed.
 This article explains how to install 7-zip.
 
 <!--
-## 2. Windows ‚Ìê‡
+## 2. Windows ã®å ´åˆ
 -->
 ## 2. For Windows
 
 <!--
-### 2.1 •W€“I‚ÈƒCƒ“ƒXƒg[ƒ‹•û–@
+### 2.1 æ¨™æº–çš„ãªã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ–¹æ³•
 -->
 ### 2.1 Standard installation method
 
 <!--
-ˆÈ‰º‚ÌŽè‡‚ÅƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
+ä»¥ä¸‹ã®æ‰‹é †ã§ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
 -->
 Please follow the steps below to install.
 
 <!--
-1. [7-zip ‚ÌŒöŽ®ƒTƒCƒg](https://7-zip.opensource.jp/) ‚©‚çA‚ ‚È‚½‚ÌƒRƒ“ƒsƒ…[ƒ^‚É“K‚µ‚½ 7-zip ‚ÌƒpƒbƒP[ƒW‚ðƒ_ƒEƒ“ƒ[ƒh‚µ‚Ä‚­‚¾‚³‚¢B
-2. 7-zip ‚ðƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
-3. 7-zip ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚½ƒtƒHƒ‹ƒ_ (—á: `C:\Program Files\7-Zip`) ‚É `7z.dll` ‚Æ‚¢‚¤–¼‘O‚Ìƒtƒ@ƒCƒ‹‚ª‚ ‚é‚±‚Æ‚ðŠm”F‚µ‚Ä‚­‚¾‚³‚¢B
-4. 7-zip ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚½ƒtƒHƒ‹ƒ_‚ð `PATH` ŠÂ‹«•Ï”‚É’Ç‰Á‚µ‚Ä‚­‚¾‚³‚¢B
+1. [7-zip ã®å…¬å¼ã‚µã‚¤ãƒˆ](https://7-zip.opensource.jp/) ã‹ã‚‰ã€ã‚ãªãŸã®ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ã«é©ã—ãŸ 7-zip ã®ãƒ‘ãƒƒã‚±ãƒ¼ã‚¸ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¦ãã ã•ã„ã€‚
+2. 7-zip ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
+3. 7-zip ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚ŒãŸãƒ•ã‚©ãƒ«ãƒ€ (ä¾‹: `C:\Program Files\7-Zip`) ã« `7z.dll` ã¨ã„ã†åå‰ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹ã“ã¨ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚
+4. 7-zip ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚ŒãŸãƒ•ã‚©ãƒ«ãƒ€ã‚’ `PATH` ç’°å¢ƒå¤‰æ•°ã«è¿½åŠ ã—ã¦ãã ã•ã„ã€‚
 -->
 1.Download the appropriate 7-zip package for your computer from [7-zip official website](https://7-zip.opensource.jp/).
 2. Please install 7-zip.
@@ -44,34 +44,34 @@ Please follow the steps below to install.
 4. Add the folder where 7-zip is installed to your `PATH` environment variable.
 
 <!--
-### 2.2 Žè“®‚ÅƒCƒ“ƒXƒg[ƒ‹‚·‚é•û–@
+### 2.2 æ‰‹å‹•ã§ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹æ–¹æ³•
 -->
 ### 2.2 Manual installation method
 
 <!--
-ˆÈ‰º‚Ì‚æ‚¤‚Èó‹µ‚Ìê‡A[2.1 •W€“I‚ÈƒCƒ“ƒXƒg[ƒ‹•û–@](#21-•W€“I‚ÈƒCƒ“ƒXƒg[ƒ‹•û–@) ‚ÅŽ¦‚µ‚½•û–@‚Å‚Í‚¤‚Ü‚­‚¢‚©‚È‚¢‰Â”\«‚ª‚ ‚è‚Ü‚·B
+ä»¥ä¸‹ã®ã‚ˆã†ãªçŠ¶æ³ã®å ´åˆã€[2.1 æ¨™æº–çš„ãªã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ–¹æ³•](#21-æ¨™æº–çš„ãªã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«æ–¹æ³•) ã§ç¤ºã—ãŸæ–¹æ³•ã§ã¯ã†ã¾ãã„ã‹ãªã„å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚
 -->
 In the following situations, the method shown in [2.1 Standard installation method](#21-Standard-installation-method) may not work.
 
 
 <!--
-+ `PATH` ŠÂ‹«•Ï”‚ðÝ’è‚µ‚½‚­‚È‚¢A‚ ‚é‚¢‚ÍÝ’è‚Å‚«‚È‚¢ê‡
-+ •¡”‚ÌƒA[ƒLƒeƒNƒ`ƒƒ (`x86` ‚¨‚æ‚Ñ `x64`) ‚Å `SevenZip.Compression.Wrapper.NET` ‚ð—˜—p‚µ‚½‚¢ê‡[^1]
++ `PATH` ç’°å¢ƒå¤‰æ•°ã‚’è¨­å®šã—ãŸããªã„ã€ã‚ã‚‹ã„ã¯è¨­å®šã§ããªã„å ´åˆ
++ è¤‡æ•°ã®ã‚¢ãƒ¼ã‚­ãƒ†ã‚¯ãƒãƒ£ (`x86` ãŠã‚ˆã³ `x64`) ã§ `SevenZip.Compression.Wrapper.NET` ã‚’åˆ©ç”¨ã—ãŸã„å ´åˆ[^1]
 -->
 + If you don't want or can't set the `PATH` environment variable
 + If you want to use `SevenZip.Compression.Wrapper.NET` on multiple architectures (`x86` and `x64`) [^1]
 
 <!--
-Žè“®‚ÅƒCƒ“ƒXƒg[ƒ‹‚·‚é‚½‚ß‚É‚ÍAˆÈ‰º‚ÌŽè‡‚É]‚Á‚Ä‚­‚¾‚³‚¢B
+æ‰‹å‹•ã§ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹ãŸã‚ã«ã¯ã€ä»¥ä¸‹ã®æ‰‹é †ã«å¾“ã£ã¦ãã ã•ã„ã€‚
 -->
 To install manually, follow the steps below.
 
 <!--
-1. [7-zip ‚ÌŒöŽ®ƒTƒCƒg](https://7-zip.opensource.jp/) ‚©‚çA7-zip ‚ðƒ_ƒEƒ“ƒ[ƒh‚µ‚Ä‚­‚¾‚³‚¢B
-2. 7-zip ‚ðƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚­‚¾‚³‚¢B
-3. 7-zip ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚½ƒtƒHƒ‹ƒ_ (—á: `C:\Program Files\7-Zip`) ‚É `7z.dll` ‚Æ‚¢‚¤–¼‘O‚Ìƒtƒ@ƒCƒ‹‚ª‚ ‚é‚±‚Æ‚ðŠm”F‚µ‚Ä‚­‚¾‚³‚¢B
-4. `SevenZip.Compression.Wrapper.NET` ‚ª ƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_‚ðŠm”F‚µ‚Ä‚­‚¾‚³‚¢B‚»‚ÌƒtƒHƒ‹ƒ_‚É‚Í `Palmtree.SevenZip.Compression.Wrapper.NET.dll` ‚Æ‚¢‚¤–¼‘O‚Ìƒtƒ@ƒCƒ‹‚ª‚ ‚é‚Í‚¸‚Å‚·B
-5. `7z.dll` ‚ð `SevenZip.Compression.Wrapper.NET` ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚éƒtƒHƒ‹ƒ_‚ÉƒRƒs[‚µ‚Ä‚­‚¾‚³‚¢B
+1. [7-zip ã®å…¬å¼ã‚µã‚¤ãƒˆ](https://7-zip.opensource.jp/) ã‹ã‚‰ã€7-zip ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¦ãã ã•ã„ã€‚
+2. 7-zip ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ãã ã•ã„ã€‚
+3. 7-zip ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚ŒãŸãƒ•ã‚©ãƒ«ãƒ€ (ä¾‹: `C:\Program Files\7-Zip`) ã« `7z.dll` ã¨ã„ã†åå‰ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹ã“ã¨ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚
+4. `SevenZip.Compression.Wrapper.NET` ãŒ ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ã‚’ç¢ºèªã—ã¦ãã ã•ã„ã€‚ãã®ãƒ•ã‚©ãƒ«ãƒ€ã«ã¯ `Palmtree.SevenZip.Compression.Wrapper.NET.dll` ã¨ã„ã†åå‰ã®ãƒ•ã‚¡ã‚¤ãƒ«ãŒã‚ã‚‹ã¯ãšã§ã™ã€‚
+5. `7z.dll` ã‚’ `SevenZip.Compression.Wrapper.NET` ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ãƒ•ã‚©ãƒ«ãƒ€ã«ã‚³ãƒ”ãƒ¼ã—ã¦ãã ã•ã„ã€‚
 -->
 1. Download 7-zip from [7-zip official website](https://7-zip.opensource.jp/).
 1. Please install 7-zip.
@@ -80,61 +80,61 @@ To install manually, follow the steps below.
 1. Copy `7z.dll` to the folder where `SevenZip.Compression.Wrapper.NET` is installed.<!--
 
 <!--
-ˆÈã‚ÅƒCƒ“ƒXƒg[ƒ‹‚ÍŠ®—¹‚Å‚·B
-‚à‚µ 7-zip ‚ðŽg—p‚µ‚È‚¢ê‡‚ÍƒAƒ“ƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚à‚©‚Ü‚¢‚Ü‚¹‚ñB
+ä»¥ä¸Šã§ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã¯å®Œäº†ã§ã™ã€‚
+ã‚‚ã— 7-zip ã‚’ä½¿ç”¨ã—ãªã„å ´åˆã¯ã‚¢ãƒ³ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã—ã¦ã‚‚ã‹ã¾ã„ã¾ã›ã‚“ã€‚
 -->
 The installation is now complete.
 If you do not use 7-zip, you can uninstall it.
 
 <!--
-‚È‚¨A`SevenZip.Compression.Wrapper.NET` ‚ð•¡”‚ÌƒA[ƒLƒeƒNƒ`ƒƒ‚Å—˜—p‚·‚éê‡‚ÍA`7z.dll` ‚ðƒRƒs[‚·‚éÛ‚ÉˆÈ‰º‚Ì‚æ‚¤‚Éƒtƒ@ƒCƒ‹–¼‚ð•Ï‚¦‚Ä‚­‚¾‚³‚¢B
+ãªãŠã€`SevenZip.Compression.Wrapper.NET` ã‚’è¤‡æ•°ã®ã‚¢ãƒ¼ã‚­ãƒ†ã‚¯ãƒãƒ£ã§åˆ©ç”¨ã™ã‚‹å ´åˆã¯ã€`7z.dll` ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹éš›ã«ä»¥ä¸‹ã®ã‚ˆã†ã«ãƒ•ã‚¡ã‚¤ãƒ«åã‚’å¤‰ãˆã¦ãã ã•ã„ã€‚
 -->
 If you want to use `SevenZip.Compression.Wrapper.NET` on multiple architectures, please change the file name as shown below when copying `7z.dll`.
 
 <!--
-+ `x86` ”Å 7-zip ‚Ì `7z.dll` ‚Ìê‡ => `7z.win_x86.dll`
-+ `x64` ”Å 7-zip ‚Ì `7z.dll` ‚Ìê‡ => `7z.win_x64.dll`
++ `x86` ç‰ˆ 7-zip ã® `7z.dll` ã®å ´åˆ => `7z.win_x86.dll`
++ `x64` ç‰ˆ 7-zip ã® `7z.dll` ã®å ´åˆ => `7z.win_x64.dll`
 -->
 + For `7z.dll` of `x86` version 7-zip => `7z.win_x86.dll`
 + For `7z.dll` of `x64` version 7-zip => `7z.win_x64.dll`
 
 <!--
-## 3. Linux ‚Ìê‡
+## 3. Linux ã®å ´åˆ
 -->
 ## 3. For Linux
 
 <!--
-Linux ”Å 7-zip ‚Í’Pˆê‚ÌŽÀs‰Â”\ƒtƒ@ƒCƒ‹‚Æ‚µ‚Ä’ñ‹Ÿ‚³‚ê‚Ä‚¢‚ÄAƒ‰ƒCƒuƒ‰ƒŠ‚Æ‚µ‚Ä‚ÍŽg—p‚Å‚«‚Ü‚¹‚ñB
-‚»‚Ì‚½‚ßA`SevenZip.Compression.Wrapper.NET` ‚©‚ç 7-zip ‚ð—˜—p‚·‚é‚½‚ß‚É‚ÍA7-zip ‚Ìƒ\[ƒXƒR[ƒh‚ðŽg—p‚µ‚Äƒrƒ‹ƒh‚µ‚È‚¨‚·•K—v‚ª‚ ‚è‚Ü‚·B
+Linux ç‰ˆ 7-zip ã¯å˜ä¸€ã®å®Ÿè¡Œå¯èƒ½ãƒ•ã‚¡ã‚¤ãƒ«ã¨ã—ã¦æä¾›ã•ã‚Œã¦ã„ã¦ã€ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã¨ã—ã¦ã¯ä½¿ç”¨ã§ãã¾ã›ã‚“ã€‚
+ãã®ãŸã‚ã€`SevenZip.Compression.Wrapper.NET` ã‹ã‚‰ 7-zip ã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã«ã¯ã€7-zip ã®ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’ä½¿ç”¨ã—ã¦ãƒ“ãƒ«ãƒ‰ã—ãªãŠã™å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚
 -->
 7-zip for Linux is provided as a single executable file and cannot be used as a library.
 Therefore, in order to use 7-zip from `SevenZip.Compression.Wrapper.NET`, you need to rebuild it using the 7-zip source code.
 
 <!--
-ˆÈ~‚Å‚ÍALinux ã‚É gcc ‚È‚Ç‚ÌŠJ”­ŠÂ‹«‚ª‚ ‚é‚±‚Æ‚ð‘O’ñ‚ÉAƒrƒ‹ƒh‚ÌŽè‡‚Ìà–¾‚ðs‚¢‚Ü‚·B
+ä»¥é™ã§ã¯ã€Linux ä¸Šã« gcc ãªã©ã®é–‹ç™ºç’°å¢ƒãŒã‚ã‚‹ã“ã¨ã‚’å‰æã«ã€ãƒ“ãƒ«ãƒ‰ã®æ‰‹é †ã®èª¬æ˜Žã‚’è¡Œã„ã¾ã™ã€‚
 -->
 From now on, we will explain the build procedure assuming that you have a development environment such as gcc on Linux.
 
 <!--
-### 3.1 Žè‡ (1) ÅV”Å‚Ìƒ\[ƒXƒR[ƒh‚ð“üŽè‚·‚éB
+### 3.1 æ‰‹é † (1) æœ€æ–°ç‰ˆã®ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’å…¥æ‰‹ã™ã‚‹ã€‚
 -->
 ### 3.1 Steps (1) Obtain the latest version of the source code.
 
 <!--
-[7-zip ‚Ìƒ_ƒEƒ“ƒ[ƒhƒy[ƒW](https://7-zip.opensource.jp/download.html) ‚©‚çA7-zip ‚Ìƒ\[ƒXƒR[ƒh‚ðƒ_ƒEƒ“ƒ[ƒh‚µ‚Ä‚­‚¾‚³‚¢B
-`".tar.xz"` ‚Åˆ³k‚³‚ê‚Ä‚¢‚é‚à‚Ì‚ª‚¢‚¢‚Å‚µ‚å‚¤B
+[7-zip ã®ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ãƒšãƒ¼ã‚¸](https://7-zip.opensource.jp/download.html) ã‹ã‚‰ã€7-zip ã®ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¦ãã ã•ã„ã€‚
+`".tar.xz"` ã§åœ§ç¸®ã•ã‚Œã¦ã„ã‚‹ã‚‚ã®ãŒã„ã„ã§ã—ã‚‡ã†ã€‚
 -->
 Please download the 7-zip source code from the [7-zip download page](https://7-zip.opensource.jp/download.html).
 It is best to use `".tar.xz"`.
 
 
 <!--
-### 3.2 Žè‡ (2) ƒ\[ƒXƒR[ƒh‚Ì‰ð“€
+### 3.2 æ‰‹é † (2) ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã®è§£å‡
 -->
 ### 3.2 Step (2) Unzip the source code
 
 <!--
-—á‚¦‚ÎAƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠã‚É“WŠJ‚·‚éê‡‚ÍAƒVƒFƒ‹‚©‚çˆÈ‰º‚ÌƒRƒ}ƒ“ƒh‚ðŽÀs‚µ‚Ü‚·B
+ä¾‹ãˆã°ã€ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä¸Šã«å±•é–‹ã™ã‚‹å ´åˆã¯ã€ã‚·ã‚§ãƒ«ã‹ã‚‰ä»¥ä¸‹ã®ã‚³ãƒžãƒ³ãƒ‰ã‚’å®Ÿè¡Œã—ã¾ã™ã€‚
 -->
 For example, to extract to the current directory, run the following command from the shell.
 
@@ -143,30 +143,30 @@ xz -dc 7z2301-src.tar.xz | tar xfv -
 ```
 
 <!--
-### 3.3 Žè‡ (3) makefile ‚ÌƒRƒs[
+### 3.3 æ‰‹é † (3) makefile ã®ã‚³ãƒ”ãƒ¼
 -->
 ### 3.3 Step (3) Copy makefile
 
 <!--
-makefile ‚ð“üŽè‚µ‚ÄA ƒ\[ƒXƒtƒ@ƒCƒ‹‚ÌƒfƒBƒŒƒNƒgƒŠã‚ÉƒRƒs[‚µ‚Ü‚·B
+makefile ã‚’å…¥æ‰‹ã—ã¦ã€ ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä¸Šã«ã‚³ãƒ”ãƒ¼ã—ã¾ã™ã€‚
 -->
 Obtain the `makefile` and copy it to the source file directory.
 
 <!--
-+ ƒRƒs[‚·‚é makefile => `x64` —p‚È‚ç‚Î [`makefile_x64.gcc`](../7z/makefile_x64.gcc)A`x86` —p‚È‚ç‚Î [`makefile_x86.gcc`](../7z/makefile_x86.gcc)
-+ ƒRƒs[æ => ƒ\[ƒXƒtƒ@ƒCƒ‹ã‚ÌƒfƒBƒŒƒNƒgƒŠ `CPP/7zip/Bundles/Format7zF/`
++ ã‚³ãƒ”ãƒ¼ã™ã‚‹ makefile => `x64` ç”¨ãªã‚‰ã° [`makefile_x64.gcc`](../7z/makefile_x64.gcc)ã€`x86` ç”¨ãªã‚‰ã° [`makefile_x86.gcc`](../7z/makefile_x86.gcc)
++ ã‚³ãƒ”ãƒ¼å…ˆ => ã‚½ãƒ¼ã‚¹ãƒ•ã‚¡ã‚¤ãƒ«ä¸Šã®ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒª `CPP/7zip/Bundles/Format7zF/`
 -->
 + Makefile to copy => [`makefile_x64.gcc`](../7z/makefile_x64.gcc) for `x64`, [`makefile_x86.gcc`](../7z/makefile_x86.gcc) for `x86`
 + Copy destination => directory on source file `CPP/7zip/Bundles/Format7zF/`
 
 <!--
-### 3.4 Žè‡ (4) make ‚ÌŽÀs
+### 3.4 æ‰‹é † (4) make ã®å®Ÿè¡Œ
 -->
 ### 3.4 Step (4) Run make
 
 <!--
-`makefile` ‚ðƒRƒs[‚µ‚½ƒfƒBƒŒƒNƒgƒŠ‚ÉƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚ðˆÚ“®‚µ‚½ŒãA`make` ‚ðŽÀs‚µ‚Ü‚·B
-ˆÈ‰º‚Ì—á‚Í `x64` ”Å‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚ðƒrƒ‹ƒh‚·‚éê‡‚Ì‚à‚Ì‚Å‚·B
+`makefile` ã‚’ã‚³ãƒ”ãƒ¼ã—ãŸãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã«ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã‚’ç§»å‹•ã—ãŸå¾Œã€`make` ã‚’å®Ÿè¡Œã—ã¾ã™ã€‚
+ä»¥ä¸‹ã®ä¾‹ã¯ `x64` ç‰ˆã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’ãƒ“ãƒ«ãƒ‰ã™ã‚‹å ´åˆã®ã‚‚ã®ã§ã™ã€‚
 -->
 Change the current directory to the directory where you copied the `makefile`, then run `make`.
 The following example is for building the `x64` version of the library.
@@ -176,16 +176,16 @@ make -f makefile_x64.gcc
 ```
 
 <!--
-ƒrƒ‹ƒh‚ªŠ®—¹‚·‚é‚ÆAƒJƒŒƒ“ƒgƒfƒBƒŒƒNƒgƒŠ‚É 7-zip‚Ìƒ‰ƒCƒuƒ‰ƒŠ `lib7z.linux_x64.so` (x86”Å‚Ìê‡‚Í `lib7z.linux_x86.so`) ‚ªo—ˆ‚Ä‚¢‚é‚Í‚¸‚Å‚·B
+ãƒ“ãƒ«ãƒ‰ãŒå®Œäº†ã™ã‚‹ã¨ã€ã‚«ãƒ¬ãƒ³ãƒˆãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªã« 7-zipã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒª `lib7z.linux_x64.so` (x86ç‰ˆã®å ´åˆã¯ `lib7z.linux_x86.so`) ãŒå‡ºæ¥ã¦ã„ã‚‹ã¯ãšã§ã™ã€‚
 -->
 Once the build is complete, the 7-zip library `lib7z.linux_x64.so` (`lib7z.linux_x86.so` for the `x86` version) should be created in the current directory.
 
 <!--
-o—ˆ‚½ `lib7z.linux_x64.so` (‚ ‚é‚¢‚Í `lib7z.linux_x86.so`) ‚ðA`SevenZip.Compression.Wrapper.NET` ‚ªƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ä‚¢‚éƒfƒBƒŒƒNƒgƒŠã‚ÉƒRƒs[‚µ‚Ä‚­‚¾‚³‚¢B
+å‡ºæ¥ãŸ `lib7z.linux_x64.so` (ã‚ã‚‹ã„ã¯ `lib7z.linux_x86.so`) ã‚’ã€`SevenZip.Compression.Wrapper.NET` ãŒã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ãƒ‡ã‚£ãƒ¬ã‚¯ãƒˆãƒªä¸Šã«ã‚³ãƒ”ãƒ¼ã—ã¦ãã ã•ã„ã€‚
 -->
 Copy the created `lib7z.linux_x64.so` (or `lib7z.linux_x86.so`) to the directory where `SevenZip.Compression.Wrapper.NET` is installed.
 
 <!--
-[^1]: Žg—p‚µ‚Ä‚¢‚éƒRƒ“ƒsƒ…[ƒ^‚ª `x64` ƒA[ƒLƒeƒNƒ`ƒƒ‚Å‚ ‚Á‚Ä‚àA`SevenZip.Compression.Wrapper.NET` ‚ð—˜—p‚·‚éƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ª 32 ƒrƒbƒgƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚Å‚ ‚éê‡‚ÍA`x86` —p‚Ì 7-zip ‚ª•K—v‚É‚È‚è‚Ü‚·B
+[^1]: ä½¿ç”¨ã—ã¦ã„ã‚‹ã‚³ãƒ³ãƒ”ãƒ¥ãƒ¼ã‚¿ãŒ `x64` ã‚¢ãƒ¼ã‚­ãƒ†ã‚¯ãƒãƒ£ã§ã‚ã£ã¦ã‚‚ã€`SevenZip.Compression.Wrapper.NET` ã‚’åˆ©ç”¨ã™ã‚‹ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒ 32 ãƒ“ãƒƒãƒˆã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã§ã‚ã‚‹å ´åˆã¯ã€`x86` ç”¨ã® 7-zip ãŒå¿…è¦ã«ãªã‚Šã¾ã™ã€‚
 -->
 [^1]: Even if your computer has `x64` architecture, if your application that utilizes `SevenZip.Compression.Wrapper.NET` is a 32-bit application, you will need 7zip for `x86`.
