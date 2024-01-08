@@ -116,7 +116,7 @@ using SevenZip.Compression.Deflate;
             // Deflate デコーダオブジェクトを作成します。
             using var deflateDecoder = DeflateDecoder.CreateDecoder();
 
-            // 圧縮を開始します。
+            // 伸長を開始します。
             deflateDecoder.Code(
                 inCompressedStream,
                 outUncompressedStream,
@@ -216,7 +216,7 @@ using SevenZip.Compression.Lzma;
             // LZMA デコーダオブジェクトを作成します。
             using var lzmaDecoder = LzmaDecoder.CreateDecoder(contentProperties);
 
-            // 圧縮を開始します。
+            // 伸長を開始します。
             lzmaDecoder.Code(
                 inCompressedStream,
                 outUncompressedStream,
