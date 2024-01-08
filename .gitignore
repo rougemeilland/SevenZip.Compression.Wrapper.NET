@@ -352,3 +352,4 @@ MigrationBackup/
 launchSettings.json
 *.so
 *.dll
+/Experiment/Properties/launchSettings.json
