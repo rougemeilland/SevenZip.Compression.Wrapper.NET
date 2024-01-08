@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
   <metadata>
     <id>Palmtree.SevenZip.Compression.Wrapper.NET.Native</id>
-    <version>1.2.6-alpha</version>
+    <version>1.2.7-alpha</version>
     <title>SevenZip.Compression.Wrapper.NET.Native</title>
     <authors>Palmtree Software</authors>
     <license type="expression">MIT</license>

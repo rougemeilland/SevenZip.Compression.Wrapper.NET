@@ -8,7 +8,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <VersionPrefix>1.3.3</VersionPrefix>
+    <VersionPrefix>1.3.4</VersionPrefix>
     <VersionSuffix>alpha</VersionSuffix>
     <Authors>Palmtree Software</Authors>
     <Copyright>© 2022-2024 Palmtree Software</Copyright>
@@ -57,7 +57,7 @@
 	<ItemGroup>
 	  <PackageReference Include="Palmtree.Core" Version="1.5.0-alpha" />
 	  <PackageReference Include="Palmtree.IO" Version="1.3.0-alpha" />
-	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET.Native" Version="1.2.5-alpha" />
+	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET.Native" Version="1.2.7-alpha" />
 	</ItemGroup>
 
 	<ItemGroup>

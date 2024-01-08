@@ -1,5 +1,6 @@
 #pragma once
 
+#ifdef __GNUC__
 #include <stdint.h>
 
 #ifndef ULONG_MAX
@@ -18,3 +19,4 @@ typedef uint64_t UInt64;
 typedef UInt16  WORD;
 typedef UInt32  DWORD;
 typedef UInt32  ULONG;
+#endif // __GNUC__

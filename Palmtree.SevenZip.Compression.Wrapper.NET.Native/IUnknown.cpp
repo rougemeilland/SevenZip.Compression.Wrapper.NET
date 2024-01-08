@@ -1,3 +1,5 @@
 #include "Platform.h"
 
+#ifndef _PLATFORM_WINDOWS
 extern "C" const GUID IID_IUnknown = { 0x00000000, 0x0000, 0x0000, { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x26 } };
+#endif // !_PLATFORM_WINDOWS
