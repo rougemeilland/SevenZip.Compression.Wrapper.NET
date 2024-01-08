@@ -101,19 +101,19 @@ using System.IO;
 
 Stream inStream = ... ; // 入力ストリームの設定
 Stream outStream = ... ; // 出力ストリームの設定
-Span<Byte> headerData = stackalloc Byte[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + sizeof(UInt64)];
+Span<Byte> headerData = stackalloc Byte[LzmaDecoder.CONTENT_PROPERTY_SIZE + sizeof(UInt64)];
 ReadBytes(inStream, headerData); // ヘッダー部分の読み込み
-Span<Byte> contentProperty = headerData.Slice(0, LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE); // コンテンツプロパティの部分の取得
+Span<Byte> contentProperty = headerData.Slice(0, LzmaDecoder.CONTENT_PROPERTY_SIZE); // コンテンツプロパティの部分の取得
 
 // 圧縮前のデータの長さの取得 (リトルエンディアンの 64 ビット整数)
-UInt64 uncompressedDataLength = (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 0] << (8 * 0);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 1] << (8 * 1);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 2] << (8 * 2);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 3] << (8 * 3);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 4] << (8 * 4);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 5] << (8 * 5);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 6] << (8 * 6);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 7] << (8 * 7);
+UInt64 uncompressedDataLength = (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE + 0] << (8 * 0);
+uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE + 1] << (8 * 1);
+uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE + 2] << (8 * 2);
+uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE + 3] << (8 * 3);
+uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE + 4] << (8 * 4);
+uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE + 5] << (8 * 5);
+uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE + 6] << (8 * 6);
+uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE + 7] << (8 * 7);
 
 using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // コンテンツプロパティを与えてデコーダーを生成
 {
@@ -170,14 +170,14 @@ using System.IO;
 Stream inStream = ... ; // 入力ストリームの設定
 Stream outStream = ... ; // 出力ストリームの設定
 UInt64 uncompressedDataLength = ... ; // 出力ストリームへ書き込まれる伸長後のデータの長さの設定 (この値はZIPのセントラルディレクトリから取得されます)
-Span<Byte> headerData = stackalloc Byte[sizeof(Byte) + sizeof(Byte) + sizeof(UInt16) + LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE];
+Span<Byte> headerData = stackalloc Byte[sizeof(Byte) + sizeof(Byte) + sizeof(UInt16) + LzmaDecoder.CONTENT_PROPERTY_SIZE];
 ReadBytes(inStream, headerData); // ヘッダ部分の読み込み
 Byte majorVersion = headerData[0]; // 使用されない
 Byte minorVersion = headerData[1]; // 使用されない
 UInt16 contentPropertyLength = (UInt16)(((UInt32)headerData[2] << 0) | ((UInt32)headerData[3] << 8)); // コンテンツプロパティの長さの取得
-if (contentPropertyLength != LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE) // コンテンツプロパティの長さの検査
+if (contentPropertyLength != LzmaDecoder.CONTENT_PROPERTY_SIZE) // コンテンツプロパティの長さの検査
     throw new Exception("Illegal LZMA format");
-Span<Byte> contentProperty = headerData.Slice(4, LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE); // コンテンツプロパティの部分の取得
+Span<Byte> contentProperty = headerData.Slice(4, LzmaDecoder.CONTENT_PROPERTY_SIZE); // コンテンツプロパティの部分の取得
 using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // コンテンツプロパティを与えてデコーダーを生成
 {
     decoder.Code(inStream, outStream, null, uncompressedDataLength, null); // データ本体のデコード
@@ -206,8 +206,8 @@ using (LzmaEncoder encoder = LzmaEncoder.Create(new LzmaEncoderProperties { Leve
         Span<Byte> headerBuffer = stackalloc Byte[sizeof(Byte) + sizeof(Byte) + sizeof(UInt16)];
         headerBuffer[0] = majorVersion; // LZMA SDK のメジャーバージョン
         headerBuffer[1] = minorVersion; // LZMA SDK のマイナーバージョン
-        headerBuffer[2] = (Byte)(LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE >> 0); // コンテンツプロパティの長さの下位バイト
-        headerBuffer[3] = (Byte)(LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE >> 8); // コンテンツプロパティの長さの上位バイト
+        headerBuffer[2] = (Byte)(LzmaDecoder.CONTENT_PROPERTY_SIZE >> 0); // コンテンツプロパティの長さの下位バイト
+        headerBuffer[3] = (Byte)(LzmaDecoder.CONTENT_PROPERTY_SIZE >> 8); // コンテンツプロパティの長さの上位バイト
         outStream.Write(headerBuffer);
     }
     encoder.WriteCoderProperties(outStream); // コンテンツプロパティの書き込み
