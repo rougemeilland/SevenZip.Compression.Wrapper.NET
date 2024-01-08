@@ -315,7 +315,8 @@ PPMd アルゴリズムには互換性のないいくつかのバージョンが
   + OS名 => Windows の場合は **"win"** 、Linux の場合は **"linux"** 、MacOS の場合は **"osx"**
   + アーキテクチャ名 => x86 の場合は **"x86"** 、x64 の場合は **"x64"** 、ARM の場合は **"arm32"** 、ARM64 の場合は **"arm64"**
 3. 追加する処理系の OS が Windows である場合は、`NativeInterfaceIdGenerator.exe` を Visual Studio 上から実行する。(バージョンリソースをテンプレートからコピーするため)
-3. `Palmtree.SevenZip.Compression.Wrapper.NET.Native/Palmtree.SevenZip.Compression.Wrapper.NET.Native.nuspec` を編集して、当該処理系部分のコメントを解除する。
-4. PowerShell で `Palmtree.SevenZip.Compression.Wrapper.NET.Native/MakePackage.ps1` を実行してパッケージを作成する。
-5. Visual Studio から プロジェクト `Palmtree.SevenZip.Compression.Wrapper.NET` の `nuget パッケージの管理` 画面を開き、既にインストールされているパッケージ `Palmtree.SevenZip.Compression.Wrapper.NET.Native` を更新する。
-5. Visual Studio から プロジェクト `Palmtree.SevenZip.Compression.Wrapper.NET` をビルドする。
+4. 作成したプロジェクトでは、ディレクトリ `Palmtree.SevenZip.Compression.Wrapper.NET.Native/` 上のソースファイルおよびインクルードファイルを参照して使用する。ただし、`.rc` ファイルと `resource.h` だけは各プロジェクトにあるものを参照する。
+5. `Palmtree.SevenZip.Compression.Wrapper.NET.Native/Palmtree.SevenZip.Compression.Wrapper.NET.Native.nuspec` を編集して、当該処理系部分のコメントを解除する。
+6. PowerShell で `Palmtree.SevenZip.Compression.Wrapper.NET.Native/MakePackage.ps1` を実行してパッケージを作成する。
+7. Visual Studio から プロジェクト `Palmtree.SevenZip.Compression.Wrapper.NET` の `nuget パッケージの管理` 画面を開き、既にインストールされているパッケージ `Palmtree.SevenZip.Compression.Wrapper.NET.Native` を更新する。
+8. Visual Studio から プロジェクト `Palmtree.SevenZip.Compression.Wrapper.NET` をビルドする。
