@@ -170,7 +170,7 @@ Byte[] headerData = new Byte[LzmaDecoder.CONTENT_PROPERTY_SIZE + sizeof(UInt64)]
 ReadBytes(inStream, headerData); // Read the header part
 Span<Byte> contentProperty = new Span<Byte>(headerData, 0, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the content property part
 UInt64 uncompressedDataLength = BitConverter.ToUInt64(headerData, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the size of the data before compression
-using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content property
+using (LzmaDecoder decoder = LzmaDecoder.CreateDecoder(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content property
 {
     decoder.Code(inStream, outStream, null, null, null); // Decode the body of the data
 }
@@ -190,7 +190,7 @@ using System.IO;
 
 Stream inStream = ... ; // Set the input stream
 Stream outStream = ... ; // Set the output stream
-using (LzmaEncoder encoder = LzmaEncoder.Create(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // Create an encoder
+using (LzmaEncoder encoder = LzmaEncoder.CreateEncoder(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // Create an encoder
 {
     encoder.WriteCoderProperties(outStream); // Write content property
     outStream.Write(BitConverter.GetBytes((UInt64)uncompressedDataLength)); // Write the length of the data before compression
@@ -225,7 +225,7 @@ UInt16 contentPropertyLength = BitConverter.ToUInt16(headerData, 2); // Get the 
 if (contentPropertyLength != LzmaDecoder.CONTENT_PROPERTY_SIZE) // Check the length of content property
     throw new Exception("Illegal LZMA format");
 Span<Byte> contentProperty = new Span<Byte>(headerData, 4, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the content property part.
-using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content property
+using (LzmaDecoder decoder = LzmaDecoder.CreateDecoder(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content property
 {
     decoder.Code(inStream, outStream, null, null, null); // Decode the body of the data
 }
@@ -247,7 +247,7 @@ Byte majorVersion = ... ; // Set the major version of the LZMA SDK.
 Byte minorVersion = ... ; // Set the minor version of the LZMA SDK.
 Stream inStream = ... ; // Set the input stream
 Stream outStream = ... ; // Set the output stream
-using (LzmaEncoder encoder = LzmaEncoder.Create(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // Create an encoder
+using (LzmaEncoder encoder = LzmaEncoder.CreateEncoder(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // Create an encoder
 {
     outSteram.WriteByte(majorVersion); // Write a major version of the LZMA SDK
     outSteram.WriteByte(minorVersion); // Write a minor version of the LZMA SDK
