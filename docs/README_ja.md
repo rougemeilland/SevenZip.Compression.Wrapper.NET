@@ -57,7 +57,7 @@
 
 本ソフトウェアを利用するためには、7-zip をインストールする必要があります。
 また、それに加えて、適切な設定を行う必要があります。
-詳細については、"[`SevenZip.Compression.Wrapper.NET` から 7-zip を使用可能にする方法]( (HowToInstall7z_ja.md))" を参照してください。
+詳細については、"[`SevenZip.Compression.Wrapper.NET` から 7-zip を使用可能にする方法](HowToInstall7z_ja.md)" を参照してください。
 
 ## 5. サンプルソースコード
 
