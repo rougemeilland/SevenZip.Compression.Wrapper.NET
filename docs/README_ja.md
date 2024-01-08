@@ -1,37 +1,37 @@
-Œ¾Œê: **“ú–{Œê** [English](README.md)
+è¨€èª: **æ—¥æœ¬èª** [English](README.md)
 
 # SevenZip.Compression.Wrapper.NET
 
-## 0. –ÚŸ
+## 0. ç›®æ¬¡
 
-+ [1. ŠT—v](#1-ŠT—v)
-+ [2. –{ƒ\ƒtƒgƒEƒFƒA‚Ì‹@”\](#3-–{ƒ\ƒtƒgƒEƒFƒA‚Ì‹@”\)
-+ [3. •K—v‚ÈŠÂ‹«](#2-•K—v‚ÈŠÂ‹«)
-+ [4. İ’è‚É‚Â‚¢‚Ä](#4-İ’è‚É‚Â‚¢‚Ä)
-  + [4.1 7-zip ‚ÉŠÖ‚·‚éİ’è](#41-7-zip-‚ÉŠÖ‚·‚éİ’è)
-+ [5. ƒTƒ“ƒvƒ‹ƒ\[ƒXƒR[ƒh](#5-ƒTƒ“ƒvƒ‹ƒ\[ƒXƒR[ƒh)
-  + [5.1 Deflate ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğˆ³k‚·‚é](#51-Deflate-ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğˆ³k‚·‚é)
-  + [5.2 Deflate ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é (1)](#52-Deflate-ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é-1)
-  + [5.3 Deflate ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é (2)](#53-Deflate-ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é-2)
-  + [5.4 LZMA ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğˆ³k‚·‚é](#54-LZMA-ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğˆ³k‚·‚é)
-  + [5.5 LZMA ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é (1)](#55-LZMA-ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é-1)
-  + [5.6 LZMA ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é (2)](#56-LZMA-ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é-2)
-  + [5.7 i’»ó‹µ‚Ì’Ê’m‚ğó‚¯‚éƒNƒ‰ƒX (`ProgressReporter`) ‚ÌÀ‘•ƒTƒ“ƒvƒ‹](#57-i’»ó‹µ‚Ì’Ê’m‚ğó‚¯‚éƒNƒ‰ƒX-(`ProgressReporter`)-‚ÌÀ‘•ƒTƒ“ƒvƒ‹)
-+ [6. ƒ‰ƒCƒZƒ“ƒX](#6-ƒ‰ƒCƒZƒ“ƒX)
-+ [7. ’ˆÓ–€](#7-’ˆÓ–€)
-  + [7.1 PPMd ƒAƒ‹ƒSƒŠƒYƒ€‚ÌŒİŠ·«‚É‚Â‚¢‚Ä](#71-PPMd-ƒAƒ‹ƒSƒŠƒYƒ€‚ÌŒİŠ·«‚É‚Â‚¢‚Ä)
-+ [8. –ÆÓ–€](#8-–ÆÓ–€)
++ [1. æ¦‚è¦](#1-æ¦‚è¦)
++ [2. æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®æ©Ÿèƒ½](#2-æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®æ©Ÿèƒ½)
++ [3. å¿…è¦ãªç’°å¢ƒ](#3-å¿…è¦ãªç’°å¢ƒ)
++ [4. è¨­å®šã«ã¤ã„ã¦](#4-è¨­å®šã«ã¤ã„ã¦)
+  + [4.1 7-zip ã«é–¢ã™ã‚‹è¨­å®š](#41-7-zip-ã«é–¢ã™ã‚‹è¨­å®š)
++ [5. ã‚µãƒ³ãƒ—ãƒ«ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰](#5-ã‚µãƒ³ãƒ—ãƒ«ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰)
+  + [5.1 Deflate ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’åœ§ç¸®ã™ã‚‹](#51-Deflate-ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’åœ§ç¸®ã™ã‚‹)
+  + [5.2 Deflate ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹ (1)](#52-Deflate-ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹-1)
+  + [5.3 Deflate ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹ (2)](#53-Deflate-ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹-2)
+  + [5.4 LZMA ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’åœ§ç¸®ã™ã‚‹](#54-LZMA-ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’åœ§ç¸®ã™ã‚‹)
+  + [5.5 LZMA ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹ (1)](#55-LZMA-ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹-1)
+  + [5.6 LZMA ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹ (2)](#56-LZMA-ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹-2)
+  + [5.7 é€²æ—çŠ¶æ³ã®é€šçŸ¥ã‚’å—ã‘ã‚‹ã‚¯ãƒ©ã‚¹ (`ProgressReporter`) ã®å®Ÿè£…ã‚µãƒ³ãƒ—ãƒ«](#57-é€²æ—çŠ¶æ³ã®é€šçŸ¥ã‚’å—ã‘ã‚‹ã‚¯ãƒ©ã‚¹-ProgressReporter-ã®å®Ÿè£…ã‚µãƒ³ãƒ—ãƒ«)
++ [6. ãƒ©ã‚¤ã‚»ãƒ³ã‚¹](#6-ãƒ©ã‚¤ã‚»ãƒ³ã‚¹)
++ [7. æ³¨æ„äº‹é …](#7-æ³¨æ„äº‹é …)
+  + [7.1 PPMd ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã®äº’æ›æ€§ã«ã¤ã„ã¦](#71-PPMd-ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã®äº’æ›æ€§ã«ã¤ã„ã¦)
++ [8. å…è²¬äº‹é …](#8-å…è²¬äº‹é …)
 
-## 1. ŠT—v
+## 1. æ¦‚è¦
 
-–{ƒ\ƒtƒgƒEƒFƒA (`SevenZip.Compression.Wrapper.NET`) ‚ÍA7-zip ‚ª’ñ‹Ÿ‚µ‚Ä‚¢‚éˆê•”‚Ì‹@”\ (ƒXƒgƒŠ[ƒ€‚Ìˆ³k/L’·)‚ğ .NET ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚©‚ç—˜—p‚·‚é‚½‚ß‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚Å‚·B
+æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ (`SevenZip.Compression.Wrapper.NET`) ã¯ã€7-zip ãŒæä¾›ã—ã¦ã„ã‚‹ä¸€éƒ¨ã®æ©Ÿèƒ½ (ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®åœ§ç¸®/ä¼¸é•·)ã‚’ .NET ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‹ã‚‰åˆ©ç”¨ã™ã‚‹ãŸã‚ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã§ã™ã€‚
 
-## 2. –{ƒ\ƒtƒgƒEƒFƒA‚Ì‹@”\
+## 2. æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®æ©Ÿèƒ½
 
-–{ƒ\ƒtƒgƒEƒFƒA‚ÌƒNƒ‰ƒX‚ğ—˜—p‚·‚é‚±‚Æ‚É‚æ‚èA7-zip ‚É‚æ‚éƒf[ƒ^ƒXƒgƒŠ[ƒ€‚Ìˆ³k‚¨‚æ‚ÑL’·‚ğ‚·‚é‹@”\‚ğ—˜—p‚·‚é‚±‚Æ‚ªo—ˆ‚Ü‚·B
-–{ƒ\ƒtƒgƒEƒFƒA‚ÅƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚éˆ³k/L’·‚ÍˆÈ‰º‚Ì’Ê‚è‚Å‚·B
+æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ã‚¯ãƒ©ã‚¹ã‚’åˆ©ç”¨ã™ã‚‹ã“ã¨ã«ã‚ˆã‚Šã€7-zip ã«ã‚ˆã‚‹ãƒ‡ãƒ¼ã‚¿ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®åœ§ç¸®ãŠã‚ˆã³ä¼¸é•·ã‚’ã™ã‚‹æ©Ÿèƒ½ã‚’åˆ©ç”¨ã™ã‚‹ã“ã¨ãŒå‡ºæ¥ã¾ã™ã€‚
+æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã§ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã‚‹åœ§ç¸®/ä¼¸é•·ã¯ä»¥ä¸‹ã®é€šã‚Šã§ã™ã€‚
 
-| ˆ³k•û® | ˆ³k‚Ì‚½‚ß‚ÌƒNƒ‰ƒX | L’·‚Ì‚½‚ß‚ÌƒNƒ‰ƒX |
+| åœ§ç¸®æ–¹å¼ | åœ§ç¸®ã®ãŸã‚ã®ã‚¯ãƒ©ã‚¹ | ä¼¸é•·ã®ãŸã‚ã®ã‚¯ãƒ©ã‚¹ |
 | --- | --- | --- |
 | BZIP2 | `SevenZip.Compression.Bzip2.Bzip2Encoder` | `SevenZip.Compression.Bzip2.Bzip2Decoder` |
 | Deflate | `SevenZip.Compression.Deflate.DeflateEncoder` | `SevenZip.Compression.Deflate.DeflateDecoder` |
@@ -40,28 +40,28 @@
 | LZMA2 | `SevenZip.Compression.Lzma2.LzmaEncoder` | `SevenZip.Compression.Lzma2.LzmaDecoder` |
 | PPMd version H | `SevenZip.Compression.Ppmd7.Ppmd7Encoder` | `SevenZip.Compression.Ppmd7.Ppmd7Decoder` |
 
-‚È‚¨ –{ƒ\ƒtƒgƒEƒFƒA‚Í‚ ‚­‚Ü‚Å’P‘Ì‚Ìƒf[ƒ^ƒXƒgƒŠ[ƒ€‚Ìˆ³k/L’·‚ğ‚·‚é‚à‚Ì‚Å‚ ‚èA`.zip` ‚â `.7z` ‚È‚Ç‚Ì‘ŒÉ‚Ö‚ÌƒAƒNƒZƒX‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚È‚¢‚±‚Æ‚É’ˆÓ‚µ‚Ä‚­‚¾‚³‚¢B
+ãªãŠ æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã¯ã‚ãã¾ã§å˜ä½“ã®ãƒ‡ãƒ¼ã‚¿ã‚¹ãƒˆãƒªãƒ¼ãƒ ã®åœ§ç¸®/ä¼¸é•·ã‚’ã™ã‚‹ã‚‚ã®ã§ã‚ã‚Šã€`.zip` ã‚„ `.7z` ãªã©ã®æ›¸åº«ã¸ã®ã‚¢ã‚¯ã‚»ã‚¹ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ãªã„ã“ã¨ã«æ³¨æ„ã—ã¦ãã ã•ã„ã€‚
 
-## 3. •K—v‚ÈŠÂ‹«
+## 3. å¿…è¦ãªç’°å¢ƒ
 
-| €–Ú | ğŒ |
+| é …ç›® | æ¡ä»¶ |
 | --- | --- |
 | CPU | x64 / x86 | 
 | OS | Windows / Linux |
-| .NET ƒ‰ƒ“ƒ^ƒCƒ€ | 7.0 / 8.0 |
-| 7-zip | 7-zip 23.01 ‚Å“®ìŠm”FÏ |
+| .NET ãƒ©ãƒ³ã‚¿ã‚¤ãƒ  | 7.0 / 8.0 |
+| 7-zip | 7-zip 23.01 ã§å‹•ä½œç¢ºèªæ¸ˆ |
 
-## 4. İ’è‚É‚Â‚¢‚Ä
+## 4. è¨­å®šã«ã¤ã„ã¦
 
-### 4.1 7-zip ‚ÉŠÖ‚·‚éİ’è
+### 4.1 7-zip ã«é–¢ã™ã‚‹è¨­å®š
 
-–{ƒ\ƒtƒgƒEƒFƒA‚ğ—˜—p‚·‚é‚½‚ß‚É‚ÍA7-zip ‚ğƒCƒ“ƒXƒg[ƒ‹‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B
-‚Ü‚½A‚»‚ê‚É‰Á‚¦‚ÄA“KØ‚Èİ’è‚ğs‚¤•K—v‚ª‚ ‚è‚Ü‚·B
-Ú×‚É‚Â‚¢‚Ä‚ÍA"[`SevenZip.Compression.Wrapper.NET` ‚©‚ç 7-zip ‚ğg—p‰Â”\‚É‚·‚é•û–@]( (HowToInstall7z_ja.md))" ‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã‚’åˆ©ç”¨ã™ã‚‹ãŸã‚ã«ã¯ã€7-zip ã‚’ã‚¤ãƒ³ã‚¹ãƒˆãƒ¼ãƒ«ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚
+ã¾ãŸã€ãã‚Œã«åŠ ãˆã¦ã€é©åˆ‡ãªè¨­å®šã‚’è¡Œã†å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚
+è©³ç´°ã«ã¤ã„ã¦ã¯ã€"[`SevenZip.Compression.Wrapper.NET` ã‹ã‚‰ 7-zip ã‚’ä½¿ç”¨å¯èƒ½ã«ã™ã‚‹æ–¹æ³•]( (HowToInstall7z_ja.md))" ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
-## 5. ƒTƒ“ƒvƒ‹ƒ\[ƒXƒR[ƒh
+## 5. ã‚µãƒ³ãƒ—ãƒ«ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰
 
-### 5.1 Deflate ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğˆ³k‚·‚é
+### 5.1 Deflate ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’åœ§ç¸®ã™ã‚‹
 
 ```csharp
 using System;
@@ -72,30 +72,30 @@ using SevenZip.Compression.Deflate;
 ...
 
 
-        // ‚±‚ê‚ÍAƒtƒ@ƒCƒ‹‚Ì“à—e‚ğ Deflate ‚Åˆ³k‚µ‚Ä•Ê‚Ìƒtƒ@ƒCƒ‹‚Ö•Û‘¶‚·‚éƒƒ\ƒbƒh‚Å‚·B
+        // ã“ã‚Œã¯ã€ãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’ Deflate ã§åœ§ç¸®ã—ã¦åˆ¥ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¸ä¿å­˜ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã§ã™ã€‚
         public static void CompressWithDeflate(string uncompressedFilePath, string compressedFilePath)
         {
-            // “ü—Íƒtƒ@ƒCƒ‹‚ğŠJ‚«‚Ü‚·B
+            // å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã¾ã™ã€‚
             using var inUncompressedStream = new FileStream(uncompressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
 
-            // o—Íƒtƒ@ƒCƒ‹‚ğŠJ‚«‚Ü‚·B
+            // å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã¾ã™ã€‚
             using var outCompressedStream = new FileStream(compressedFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
 
-            // Deflate ƒGƒ“ƒR[ƒ_ƒIƒuƒWƒFƒNƒg‚ğì¬‚µ‚Ü‚·B
+            // Deflate ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã—ã¾ã™ã€‚
             using var deflateEncoder = DeflateEncoder.CreateEncoder(new DeflateEncoderProperties { Level = CompressionLevel.Normal });
 
-            // ˆ³k‚ğŠJn‚µ‚Ü‚·B
+            // åœ§ç¸®ã‚’é–‹å§‹ã—ã¾ã™ã€‚
             deflateEncoder.Code(
                 inUncompressedStream,
                 outCompressedStream,
                 (ulong)inUncompressedStream.Length,
                 null,
-                new ProgressReporter()); // i’»ó‹µ‚Ì•\¦‚ª•s—v‚Èê‡‚É‚ÍA"new ProgressReporter()" ‚Ì‘ã‚í‚è‚É "null" ‚ğw’è‚µ‚Ü‚·B
+                new ProgressReporter()); // é€²æ—çŠ¶æ³ã®è¡¨ç¤ºãŒä¸è¦ãªå ´åˆã«ã¯ã€"new ProgressReporter()" ã®ä»£ã‚ã‚Šã« "null" ã‚’æŒ‡å®šã—ã¾ã™ã€‚
         }
 
 ```
 
-### 5.2 Deflate ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é (1)
+### 5.2 Deflate ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹ (1)
 
 ```csharp
 using System;
@@ -104,30 +104,30 @@ using SevenZip.Compression.Deflate;
 
 ...
 
-        // ‚±‚ê‚ÍADeflate ‚Åˆ³k‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğL’·‚µ‚Ä•Ê‚Ìƒtƒ@ƒCƒ‹‚É•Û‘¶‚·‚éƒƒ\ƒbƒh‚Å‚·B
+        // ã“ã‚Œã¯ã€Deflate ã§åœ§ç¸®ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã—ã¦åˆ¥ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã§ã™ã€‚
         public static void UncompressWithDeflate_1(string compressedFilePath, string uncompressedFilePath)
         {
-            // “ü—Íƒtƒ@ƒCƒ‹‚ğŠJ‚«‚Ü‚·B
+            // å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã¾ã™ã€‚
             using var inCompressedStream = new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
 
-            // o—Íƒtƒ@ƒCƒ‹‚ğŠJ‚«‚Ü‚·B
+            // å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã¾ã™ã€‚
             using var outUncompressedStream = new FileStream(uncompressedFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
 
-            // Deflate ƒfƒR[ƒ_ƒIƒuƒWƒFƒNƒg‚ğì¬‚µ‚Ü‚·B
+            // Deflate ãƒ‡ã‚³ãƒ¼ãƒ€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã—ã¾ã™ã€‚
             using var deflateDecoder = DeflateDecoder.CreateDecoder();
 
-            // ˆ³k‚ğŠJn‚µ‚Ü‚·B
+            // åœ§ç¸®ã‚’é–‹å§‹ã—ã¾ã™ã€‚
             deflateDecoder.Code(
                 inCompressedStream,
                 outUncompressedStream,
                 (ulong)inCompressedStream.Length,
                 null,
-                new ProgressReporter()); // i’»ó‹µ‚Ì•\¦‚ª•s—v‚Èê‡‚É‚ÍA"new ProgressReporter()" ‚Ì‘ã‚í‚è‚É "null" ‚ğw’è‚µ‚Ü‚·B
+                new ProgressReporter()); // é€²æ—çŠ¶æ³ã®è¡¨ç¤ºãŒä¸è¦ãªå ´åˆã«ã¯ã€"new ProgressReporter()" ã®ä»£ã‚ã‚Šã« "null" ã‚’æŒ‡å®šã—ã¾ã™ã€‚
         }
 
 ```
 
-### 5.3 Deflate ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é (2)
+### 5.3 Deflate ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹ (2)
 
 ```csharp
 using System;
@@ -136,20 +136,20 @@ using SevenZip.Compression.Deflate;
 
 ...
 
-        // ‚±‚ê‚ÍADeflate ‚Åˆ³k‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğL’·‚·‚éƒƒ\ƒbƒh‚Ì•Ê‚Ìƒo[ƒWƒ‡ƒ“‚Å‚·B
+        // ã“ã‚Œã¯ã€Deflate ã§åœ§ç¸®ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã®åˆ¥ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã™ã€‚
         public static Stream UncompressWithDeflate_2(string compressedFilePath)
         {
-            // ‚±‚Ìƒƒ\ƒbƒh‚ª•Ô‚µ‚½ Stream ƒIƒuƒWƒFƒNƒg‚©‚ç“Ç‚İ‚Şƒf[ƒ^‚ÍL’·‚³‚ê‚½ƒf[ƒ^‚Å‚·B 
+            // ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ãŒè¿”ã—ãŸ Stream ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰èª­ã¿è¾¼ã‚€ãƒ‡ãƒ¼ã‚¿ã¯ä¼¸é•·ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã§ã™ã€‚ 
             return DeflateDecoder.CreateDecoderStream(new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None), null);
         }
 
 ```
 
-### 5.4 LZMA ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğˆ³k‚·‚é
+### 5.4 LZMA ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’åœ§ç¸®ã™ã‚‹
 
-LZMA ‚¨‚æ‚Ñ LZMA2 ƒAƒ‹ƒSƒŠƒYƒ€‚Å‚Ìˆ³k‚ÌÛ‚É‚ÍAˆ³k‚ğs‚¤‘O‚ÉAƒGƒ“ƒR[ƒ_‚Ì `WriteCoderProperties()` ƒƒ\ƒbƒh‚ğŒÄ‚Ño‚µ‚Äˆ³kæ‚Ìƒtƒ@ƒCƒ‹‚É¬‚³‚Èƒwƒbƒ_‚ğ‘‚«‚Ü‚È‚­‚Ä‚Í‚È‚è‚Ü‚¹‚ñB
-–{ƒ\ƒtƒgƒEƒFƒA‚Å‚Í‚±‚Ì¬‚³‚Èƒwƒbƒ_‚ğ **ƒRƒ“ƒeƒ“ƒcƒvƒƒpƒeƒB** ‚ÆŒÄÌ‚µ‚Ä‚¢‚Ü‚·B
-ƒRƒ“ƒeƒ“ƒcƒvƒƒpƒeƒB‚ÌÚ×‚É‚Â‚¢‚Ä‚ÍA[ƒRƒ“ƒeƒ“ƒcƒvƒƒpƒeƒB‚É‚Â‚¢‚Ä](AboutContentProperties_ja.md) ‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+LZMA ãŠã‚ˆã³ LZMA2 ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ã®åœ§ç¸®ã®éš›ã«ã¯ã€åœ§ç¸®ã‚’è¡Œã†å‰ã«ã€ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ã® `WriteCoderProperties()` ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã—ã¦åœ§ç¸®å…ˆã®ãƒ•ã‚¡ã‚¤ãƒ«ã«å°ã•ãªãƒ˜ãƒƒãƒ€ã‚’æ›¸ãè¾¼ã¾ãªãã¦ã¯ãªã‚Šã¾ã›ã‚“ã€‚
+æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã§ã¯ã“ã®å°ã•ãªãƒ˜ãƒƒãƒ€ã‚’ **ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£** ã¨å‘¼ç§°ã—ã¦ã„ã¾ã™ã€‚
+ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®è©³ç´°ã«ã¤ã„ã¦ã¯ã€[ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã¤ã„ã¦](AboutContentProperties_ja.md) ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
 ```csharp
 using System;
@@ -160,37 +160,37 @@ using SevenZip.Compression.Lzma;
 ...
 
 
-        // ‚±‚ê‚ÍAƒtƒ@ƒCƒ‹‚Ì“à—e‚ğ LZMA ‚Åˆ³k‚µ‚Ä•Ê‚Ìƒtƒ@ƒCƒ‹‚Ö•Û‘¶‚·‚éƒƒ\ƒbƒh‚Å‚·B
+        // ã“ã‚Œã¯ã€ãƒ•ã‚¡ã‚¤ãƒ«ã®å†…å®¹ã‚’ LZMA ã§åœ§ç¸®ã—ã¦åˆ¥ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¸ä¿å­˜ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã§ã™ã€‚
         public static void CompressWithLzma(string uncompressedFilePath, string compressedFilePath)
         {
-            // “ü—Íƒtƒ@ƒCƒ‹‚ğŠJ‚«‚Ü‚·B
+            // å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã¾ã™ã€‚
             using var inUncompressedStream = new FileStream(uncompressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
 
-            // o—Íƒtƒ@ƒCƒ‹‚ğŠJ‚«‚Ü‚·B
+            // å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã¾ã™ã€‚
             using var outCompressedStream = new FileStream(compressedFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
 
-            // LZMA ƒGƒ“ƒR[ƒ_ƒIƒuƒWƒFƒNƒg‚ğì¬‚µ‚Ü‚·B
+            // LZMA ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã—ã¾ã™ã€‚
             using var lzmaEncoder = LzmaEncoder.CreateEncoder(new LzmaEncoderProperties { Level = CompressionLevel.Normal, EndMarker = true });
             
-            // LZMA ‚È‚Ç‚¢‚­‚Â‚©‚ÌƒGƒ“ƒR[ƒ_‚Å‚Í‚±‚Ìè‡‚ª•K—v‚Å‚·B
+            // LZMA ãªã©ã„ãã¤ã‹ã®ã‚¨ãƒ³ã‚³ãƒ¼ãƒ€ã§ã¯ã“ã®æ‰‹é †ãŒå¿…è¦ã§ã™ã€‚
             lzmaEncoder.WriteCoderProperties(outCompressedStream);
 
-            // ˆ³k‚ğŠJn‚µ‚Ü‚·B
+            // åœ§ç¸®ã‚’é–‹å§‹ã—ã¾ã™ã€‚
             lzmaEncoder.Code(
                 inUncompressedStream,
                 outCompressedStream,
                 (ulong)inUncompressedStream.Length,
                 null,
-                new ProgressReporter()); // i’»ó‹µ‚Ì•\¦‚ª•s—v‚Èê‡‚É‚ÍA"new ProgressReporter()" ‚Ì‘ã‚í‚è‚É "null" ‚ğw’è‚µ‚Ü‚·B
+                new ProgressReporter()); // é€²æ—çŠ¶æ³ã®è¡¨ç¤ºãŒä¸è¦ãªå ´åˆã«ã¯ã€"new ProgressReporter()" ã®ä»£ã‚ã‚Šã« "null" ã‚’æŒ‡å®šã—ã¾ã™ã€‚
         }
 ```
 
-### 5.5 LZMA ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é (1)
+### 5.5 LZMA ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹ (1)
 
-LZMA ‚¨‚æ‚Ñ LZMA2 ƒAƒ‹ƒSƒŠƒYƒ€‚Å‚ÌL’·‚ÌÛ‚É‚ÍA‚Ü‚¸ˆ³k‚³‚ê‚Ä‚¢‚éƒf[ƒ^‚Ìæ“ª‚©‚ç¬‚³‚Èƒwƒbƒ_‚ğ“Ç‚İ‚İA“Ç‚İ‚ñ‚¾ƒwƒbƒ_‚ğƒfƒR[ƒ_‚É—^‚¦‚È‚¯‚ê‚Î‚È‚è‚Ü‚¹‚ñB
-–{ƒ\ƒtƒgƒEƒFƒA‚Å‚Í‚±‚Ì¬‚³‚Èƒwƒbƒ_‚ğ **ƒRƒ“ƒeƒ“ƒcƒvƒƒpƒeƒB** ‚ÆŒÄÌ‚µ‚Ä‚¢‚Ü‚·B
-ƒRƒ“ƒeƒ“ƒcƒvƒƒpƒeƒB‚Ì’·‚³ (ƒoƒCƒg”) ‚Íˆ³kƒAƒ‹ƒSƒŠƒYƒ€‚Ìí—Ş‚É‚æ‚Á‚ÄŒˆ‚Ü‚Á‚Ä‚¨‚èALZMAƒfƒR[ƒ_‚Ìê‡‚Í’è” `SevenZip.Compression.Lzma.LzmaDecoder.CONTENT_PROPERTY_SIZE` ‚É’è‹`‚³‚ê‚Ä‚¢‚Ü‚·B
-ƒRƒ“ƒeƒ“ƒcƒvƒƒpƒeƒB‚ÌÚ×‚É‚Â‚¢‚Ä‚ÍA[ƒRƒ“ƒeƒ“ƒcƒvƒƒpƒeƒB‚É‚Â‚¢‚Ä](AboutContentProperties_ja.md) ‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+LZMA ãŠã‚ˆã³ LZMA2 ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ã®ä¼¸é•·ã®éš›ã«ã¯ã€ã¾ãšåœ§ç¸®ã•ã‚Œã¦ã„ã‚‹ãƒ‡ãƒ¼ã‚¿ã®å…ˆé ­ã‹ã‚‰å°ã•ãªãƒ˜ãƒƒãƒ€ã‚’èª­ã¿è¾¼ã¿ã€èª­ã¿è¾¼ã‚“ã ãƒ˜ãƒƒãƒ€ã‚’ãƒ‡ã‚³ãƒ¼ãƒ€ã«ä¸ãˆãªã‘ã‚Œã°ãªã‚Šã¾ã›ã‚“ã€‚
+æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã§ã¯ã“ã®å°ã•ãªãƒ˜ãƒƒãƒ€ã‚’ **ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£** ã¨å‘¼ç§°ã—ã¦ã„ã¾ã™ã€‚
+ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®é•·ã• (ãƒã‚¤ãƒˆæ•°) ã¯åœ§ç¸®ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã®ç¨®é¡ã«ã‚ˆã£ã¦æ±ºã¾ã£ã¦ãŠã‚Šã€LZMAãƒ‡ã‚³ãƒ¼ãƒ€ã®å ´åˆã¯å®šæ•° `SevenZip.Compression.Lzma.LzmaDecoder.CONTENT_PROPERTY_SIZE` ã«å®šç¾©ã•ã‚Œã¦ã„ã¾ã™ã€‚
+ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã®è©³ç´°ã«ã¤ã„ã¦ã¯ã€[ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã¤ã„ã¦](AboutContentProperties_ja.md) ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
 ```csharp
 using System;
@@ -199,34 +199,34 @@ using SevenZip.Compression.Lzma;
 
 ...
 
-        // ‚±‚ê‚ÍALZMA ‚Åˆ³k‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğL’·‚µ‚Ä•Ê‚Ìƒtƒ@ƒCƒ‹‚É•Û‘¶‚·‚éƒƒ\ƒbƒh‚Å‚·B
+        // ã“ã‚Œã¯ã€LZMA ã§åœ§ç¸®ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã—ã¦åˆ¥ã®ãƒ•ã‚¡ã‚¤ãƒ«ã«ä¿å­˜ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã§ã™ã€‚
         public static void UncompressWithLzma_1(string compressedFilePath, string uncompressedFilePath)
         {
-            // “ü—Íƒtƒ@ƒCƒ‹‚ğŠJ‚«‚Ü‚·B
+            // å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã¾ã™ã€‚
             using var inCompressedStream = new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
 
-            // LZMA ‚È‚Ç‚¢‚­‚Â‚©‚ÌƒfƒR[ƒ_‚Å‚Í‚±‚Ìè‡‚ª•K—v‚Å‚·B
+            // LZMA ãªã©ã„ãã¤ã‹ã®ãƒ‡ã‚³ãƒ¼ãƒ€ã§ã¯ã“ã®æ‰‹é †ãŒå¿…è¦ã§ã™ã€‚
             Span<byte> contentProperties = stackalloc byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
             if (inCompressedStream.ReadBytes(contentProperties) != contentProperties.Length)
                 throw new UnexpectedEndOfStreamException();
 
-            // o—Íƒtƒ@ƒCƒ‹‚ğŠJ‚«‚Ü‚·B
+            // å‡ºåŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã¾ã™ã€‚
             using var outUncompressedStream = new FileStream(uncompressedFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
 
-            // LZMA ƒfƒR[ƒ_ƒIƒuƒWƒFƒNƒg‚ğì¬‚µ‚Ü‚·B
+            // LZMA ãƒ‡ã‚³ãƒ¼ãƒ€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ä½œæˆã—ã¾ã™ã€‚
             using var lzmaDecoder = LzmaDecoder.CreateDecoder(contentProperties);
 
-            // ˆ³k‚ğŠJn‚µ‚Ü‚·B
+            // åœ§ç¸®ã‚’é–‹å§‹ã—ã¾ã™ã€‚
             lzmaDecoder.Code(
                 inCompressedStream,
                 outUncompressedStream,
                 (ulong)inCompressedStream.Length,
                 null,
-                new ProgressReporter()); // i’»ó‹µ‚Ì•\¦‚ª•s—v‚Èê‡‚É‚ÍA"new ProgressReporter()" ‚Ì‘ã‚í‚è‚É "null" ‚ğw’è‚µ‚Ü‚·B
+                new ProgressReporter()); // é€²æ—çŠ¶æ³ã®è¡¨ç¤ºãŒä¸è¦ãªå ´åˆã«ã¯ã€"new ProgressReporter()" ã®ä»£ã‚ã‚Šã« "null" ã‚’æŒ‡å®šã—ã¾ã™ã€‚
         }
 ```
 
-### 5.6 LZMA ƒAƒ‹ƒSƒŠƒYƒ€‚Åƒtƒ@ƒCƒ‹‚ğL’·‚·‚é (2)
+### 5.6 LZMA ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹ (2)
 
 ```csharp
 using System;
@@ -235,32 +235,32 @@ using SevenZip.Compression.Lzma;
 
 ...
 
-        // ‚±‚ê‚ÍALZMA ‚Åˆ³k‚³‚ê‚½ƒtƒ@ƒCƒ‹‚ğL’·‚·‚éƒƒ\ƒbƒh‚Ì•Ê‚Ìƒo[ƒWƒ‡ƒ“‚Å‚·B
-        // ‚±‚Ìƒƒ\ƒbƒh‚ª•Ô‚µ‚½ Stream ƒIƒuƒWƒFƒNƒg‚©‚ç“Ç‚İ‚Şƒf[ƒ^‚ÍL’·‚³‚ê‚½ƒf[ƒ^‚Å‚·B
+        // ã“ã‚Œã¯ã€LZMA ã§åœ§ç¸®ã•ã‚ŒãŸãƒ•ã‚¡ã‚¤ãƒ«ã‚’ä¼¸é•·ã™ã‚‹ãƒ¡ã‚½ãƒƒãƒ‰ã®åˆ¥ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã§ã™ã€‚
+        // ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ãŒè¿”ã—ãŸ Stream ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰èª­ã¿è¾¼ã‚€ãƒ‡ãƒ¼ã‚¿ã¯ä¼¸é•·ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã§ã™ã€‚
         public static Stream UncompressWithLzma_2(string compressedFilePath)
         {
-            // “ü—Íƒtƒ@ƒCƒ‹‚ğŠJ‚«‚Ü‚·B
+            // å…¥åŠ›ãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ãã¾ã™ã€‚
             var inCompressedStream = new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
 
-            // LZMA ‚È‚Ç‚¢‚­‚Â‚©‚ÌƒfƒR[ƒ_‚Å‚Í‚±‚Ìè‡‚ª•K—v‚Å‚·B
+            // LZMA ãªã©ã„ãã¤ã‹ã®ãƒ‡ã‚³ãƒ¼ãƒ€ã§ã¯ã“ã®æ‰‹é †ãŒå¿…è¦ã§ã™ã€‚
             Span<byte> contentProperties = stackalloc byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
             if (inCompressedStream.ReadBytes(contentProperties) != contentProperties.Length)
                 throw new UnexpectedEndOfStreamException();
 
-            // ‚±‚Ìƒƒ\ƒbƒh‚ª•Ô‚µ‚½ Stream ƒIƒuƒWƒFƒNƒg‚©‚ç“Ç‚İ‚Şƒf[ƒ^‚ÍL’·‚³‚ê‚½ƒf[ƒ^‚Å‚·B 
+            // ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ãŒè¿”ã—ãŸ Stream ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‹ã‚‰èª­ã¿è¾¼ã‚€ãƒ‡ãƒ¼ã‚¿ã¯ä¼¸é•·ã•ã‚ŒãŸãƒ‡ãƒ¼ã‚¿ã§ã™ã€‚ 
             return LzmaDecoder.CreateDecoderStream(inCompressedStream, null, contentProperties);
         }
 ```
 
-### 5.7 i’»ó‹µ‚Ì’Ê’m‚ğó‚¯‚éƒNƒ‰ƒX (`ProgressReporter`) ‚ÌÀ‘•ƒTƒ“ƒvƒ‹
+### 5.7 é€²æ—çŠ¶æ³ã®é€šçŸ¥ã‚’å—ã‘ã‚‹ã‚¯ãƒ©ã‚¹ (`ProgressReporter`) ã®å®Ÿè£…ã‚µãƒ³ãƒ—ãƒ«
 
 ```csharp
 using System;
 
 ...
 
-        // ‚±‚ÌƒNƒ‰ƒX‚Íˆ³k‚Ìi’»ó‹µ‚ğƒRƒ“ƒ\[ƒ‹‚É•\¦‚·‚é‚½‚ß‚Ì‚à‚Ì‚Å‚·B
-        // •K‚¸‚µ‚à•K—v‚Å‚Í‚ ‚è‚Ü‚¹‚ñB
+        // ã“ã®ã‚¯ãƒ©ã‚¹ã¯åœ§ç¸®ã®é€²æ—çŠ¶æ³ã‚’ã‚³ãƒ³ã‚½ãƒ¼ãƒ«ã«è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ã‚‚ã®ã§ã™ã€‚
+        // å¿…ãšã—ã‚‚å¿…è¦ã§ã¯ã‚ã‚Šã¾ã›ã‚“ã€‚
         private class ProgressReporter
             : IProgress<(ulong? inStreamProgressedCount, ulong? outStreamProcessedCount)>
         {
@@ -276,26 +276,26 @@ using System;
 ```
 
 
-## 6. ƒ‰ƒCƒZƒ“ƒX
+## 6. ãƒ©ã‚¤ã‚»ãƒ³ã‚¹
 
-–{ƒ\ƒtƒgƒEƒFƒA‚Ìƒ\[ƒXƒR[ƒh‚É‚Í MIT ƒ‰ƒCƒZƒ“ƒX‚ª“K—p‚³‚ê‚Ü‚·B
+æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®ã‚½ãƒ¼ã‚¹ã‚³ãƒ¼ãƒ‰ã«ã¯ MIT ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ãŒé©ç”¨ã•ã‚Œã¾ã™ã€‚
 
-7-zip ‚Ìƒ‰ƒCƒZƒ“ƒX‚É‚Â‚¢‚Ä‚ÍA[7-zip ‚ÌŒö®ƒTƒCƒg](https://www.7-zip.org/) ‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+7-zip ã®ãƒ©ã‚¤ã‚»ãƒ³ã‚¹ã«ã¤ã„ã¦ã¯ã€[7-zip ã®å…¬å¼ã‚µã‚¤ãƒˆ](https://www.7-zip.org/) ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
 
-## 7. ’ˆÓ–€
+## 7. æ³¨æ„äº‹é …
 
-### 7.1 PPMd ƒAƒ‹ƒSƒŠƒYƒ€‚ÌŒİŠ·«‚É‚Â‚¢‚Ä
+### 7.1 PPMd ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã®äº’æ›æ€§ã«ã¤ã„ã¦
 
-PPMd ƒAƒ‹ƒSƒŠƒYƒ€‚É‚ÍŒİŠ·«‚Ì‚È‚¢‚¢‚­‚Â‚©‚Ìƒo[ƒWƒ‡ƒ“‚ª‘¶İ‚µ‚Ü‚·B
-–{ƒ\ƒtƒgƒEƒFƒA‚ÅƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚é‚Ì‚ÍA**"PPMd version H"** ‚ÆŒÄ‚Î‚ê‚Ä‚¢‚éƒAƒ‹ƒSƒŠƒYƒ€‚Å‚ ‚èA(‚¨‚»‚ç‚­) ‚±‚ê‚Í 7-zip ‚Ì `.7z` Œ`®‚Ì‘ŒÉ‚ÅÌ—p‚³‚ê‚Ä‚¢‚éƒAƒ‹ƒSƒŠƒYƒ€‚Å‚·B
+PPMd ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã«ã¯äº’æ›æ€§ã®ãªã„ã„ãã¤ã‹ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãŒå­˜åœ¨ã—ã¾ã™ã€‚
+æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã§ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã‚‹ã®ã¯ã€**"PPMd version H"** ã¨å‘¼ã°ã‚Œã¦ã„ã‚‹ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ã‚ã‚Šã€(ãŠãã‚‰ã) ã“ã‚Œã¯ 7-zip ã® `.7z` å½¢å¼ã®æ›¸åº«ã§æ¡ç”¨ã•ã‚Œã¦ã„ã‚‹ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ã™ã€‚
 
-‚»‚ê‚É‘Î‚µ‚ÄA`.zip` ‚ÅÌ—p‚³‚ê‚Ä‚¢‚é‚Ì‚Í **"PPMd version I, Rev 1"** ‚ÆŒÄ‚Î‚ê‚Ä‚¢‚éƒAƒ‹ƒSƒŠƒYƒ€‚Å‚·B
-7-zip ‚Ì `.zip` Œ`®‚Ì‘ŒÉ‚Å‚Í **"PPMd version I, Rev 1"** ‚àÀ‘•‚³‚ê‚Ä‚¢‚é‚Ì‚Å‚·‚ªA‚»‚ê‚Í–{ƒ\ƒtƒgƒEƒFƒA‚Å‚ÍƒTƒ|[ƒg‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB
-‚»‚Ì——R‚ÍA7-zip ‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚ª **"PPMd version I, Rev 1"** ‚ÌÀ‘•‚ğŠO•”‚ÉŒöŠJ‚µ‚Ä‚¢‚È‚¢‚©‚ç‚Å‚·B
+ãã‚Œã«å¯¾ã—ã¦ã€`.zip` ã§æ¡ç”¨ã•ã‚Œã¦ã„ã‚‹ã®ã¯ **"PPMd version I, Rev 1"** ã¨å‘¼ã°ã‚Œã¦ã„ã‚‹ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ã™ã€‚
+7-zip ã® `.zip` å½¢å¼ã®æ›¸åº«ã§ã¯ **"PPMd version I, Rev 1"** ã‚‚å®Ÿè£…ã•ã‚Œã¦ã„ã‚‹ã®ã§ã™ãŒã€ãã‚Œã¯æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã§ã¯ã‚µãƒãƒ¼ãƒˆã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚
+ãã®ç†ç”±ã¯ã€7-zip ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªãŒ **"PPMd version I, Rev 1"** ã®å®Ÿè£…ã‚’å¤–éƒ¨ã«å…¬é–‹ã—ã¦ã„ãªã„ã‹ã‚‰ã§ã™ã€‚
 
-7-zip ‚Ìƒ‰ƒCƒuƒ‰ƒŠ‚É‚¨‚¢‚Ä **"PPMd version I, Rev 1"** ‚ÌÀ‘•‚ªŒöŠJ‚³‚ê‚Ä‚¢‚È‚¢——R‚É‚Â‚¢‚Ä‚ÍA[SourceForge.net ‚Ì 7-zip ‚ÌƒtƒH[ƒ‰ƒ€‚Ì‹L–](https://sourceforge.net/p/sevenzip/discussion/45798/thread/6b7a43b987/?limit=25#00b7) ‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+7-zip ã®ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã«ãŠã„ã¦ **"PPMd version I, Rev 1"** ã®å®Ÿè£…ãŒå…¬é–‹ã•ã‚Œã¦ã„ãªã„ç†ç”±ã«ã¤ã„ã¦ã¯ã€[SourceForge.net ã® 7-zip ã®ãƒ•ã‚©ãƒ¼ãƒ©ãƒ ã®è¨˜äº‹](https://sourceforge.net/p/sevenzip/discussion/45798/thread/6b7a43b987/?limit=25#00b7) ã‚’å‚ç…§ã—ã¦ãã ã•ã„ã€‚
 
-## 8. –ÆÓ–€
+## 8. å…è²¬äº‹é …
 
-–{ƒ\ƒtƒgƒEƒFƒA‚Ì—˜—p‚É‚ ‚½‚è‰½‚ç‚©‚Ì•s‹ï‡‚âƒgƒ‰ƒuƒ‹‚ª¶‚¶‚½‚Æ‚µ‚Ä‚àA–{ƒ\ƒtƒgƒEƒFƒA‚ÌŠJ”­Ò‚ÍˆêØ‚ÌÓ”C‚ğæ‚è‚©‚Ë‚Ü‚·B‚²—¹³‚­‚¾‚³‚¢B
+æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®åˆ©ç”¨ã«ã‚ãŸã‚Šä½•ã‚‰ã‹ã®ä¸å…·åˆã‚„ãƒˆãƒ©ãƒ–ãƒ«ãŒç”Ÿã˜ãŸã¨ã—ã¦ã‚‚ã€æœ¬ã‚½ãƒ•ãƒˆã‚¦ã‚§ã‚¢ã®é–‹ç™ºè€…ã¯ä¸€åˆ‡ã®è²¬ä»»ã‚’å–ã‚Šã‹ã­ã¾ã™ã€‚ã”äº†æ‰¿ãã ã•ã„ã€‚
