@@ -93,23 +93,21 @@ namespace Experiment
             using var inCompressedStream = new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
 
             // LZMA などいくつかのデコーダではこの手順が必要です。
-            Span<byte> buffer = stackalloc byte[LzmaEncoder.LZMA_CONTENT_PROPERTY_SIZE];
+            Span<byte> buffer = stackalloc byte[LzmaEncoder.CONTENT_PROPERTY_SIZE];
             if (inCompressedStream.ReadBytes(buffer) != buffer.Length)
-                throw new Palmtree.IO.UnexpectedEndOfStreamException();
+                throw new UnexpectedEndOfStreamException();
 
             // 出力ファイルを開きます。
-            using (var outUncompressedStream = new FileStream(uncompressedFilePath, FileMode.Create, FileAccess.Write, FileShare.None))
+            using var outUncompressedStream = new FileStream(uncompressedFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
             // deflate デコーダオブジェクトを作成します。
-            using (var deflateEncoder = DeflateDecoder.CreateDecoder())
-            {
-                // 圧縮を開始します。
-                deflateEncoder.Code(
-                    inCompressedStream,
-                    outUncompressedStream,
-                    (ulong)inCompressedStream.Length,
-                    null,
-                    new ProgressReporter()); // 進捗状況の表示が不要な場合には、"new ProgressReporter()" の代わりに "null" を指定します。
-            }
+            using var deflateEncoder = LzmaDecoder.CreateDecoder(buffer);
+            // 圧縮を開始します。
+            deflateEncoder.Code(
+                inCompressedStream,
+                outUncompressedStream,
+                (ulong)inCompressedStream.Length,
+                null,
+                new ProgressReporter()); // 進捗状況の表示が不要な場合には、"new ProgressReporter()" の代わりに "null" を指定します。
         }
 
         // これは、Deflate で圧縮されたファイルを伸長するメソッドの別のバージョンです。

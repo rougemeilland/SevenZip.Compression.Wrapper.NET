@@ -66,7 +66,7 @@ namespace SevenZip.Compression.NativeInterfaces
                         throw new ArgumentOutOfRangeException(nameof(size));
                     unsafe
                     {
-                        var length = outputStream.Write(new Span<Byte>(buffer.ToPointer(), checked((Int32)size)));
+                        var length = outputStream.Write(new ReadOnlySpan<Byte>(buffer.ToPointer(), checked((Int32)size)));
                         processedSize = checked((UInt32)length.Maximum(0));
                         return HRESULT.S_OK;
                     }
@@ -116,7 +116,7 @@ namespace SevenZip.Compression.NativeInterfaces
                         throw new ArgumentOutOfRangeException(nameof(size));
                     unsafe
                     {
-                        outputStream.Write(new Span<Byte>(buffer.ToPointer(), checked((Int32)size)));
+                        outputStream.Write(new ReadOnlySpan<Byte>(buffer.ToPointer(), checked((Int32)size)));
                         processedSize = size;
                         return HRESULT.S_OK;
                     }
