@@ -1,11 +1,10 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-using Palmtree;
+//using Palmtree;
 
 namespace NativeInterfaceIdGenerator
 {
@@ -400,7 +399,7 @@ namespace NativeInterfaceIdGenerator
                     nativeInterfaceCsWriter.WriteLine("            {");
                     foreach (var sevenZipInterface in sevenZipInterfacesModel.Interfaces)
                     {
-                        if (sevenZipInterface.Implemented && sevenZipInterface.InterfaceName.IsNoneOf("IUnknown", "ICompressCodecsInfo"))
+                        if (sevenZipInterface.Implemented && sevenZipInterface.InterfaceName != "IUnknown" && sevenZipInterface.InterfaceName != "ICompressCodecsInfo")
                         {
                             var className = sevenZipInterface.InterfaceName[1..];
                             nativeInterfaceCsWriter.WriteLine($"                (iid: new Guid(\"{sevenZipInterface.InterfaceId}\"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => {className}.Create(nativeInterfaceObject))),");

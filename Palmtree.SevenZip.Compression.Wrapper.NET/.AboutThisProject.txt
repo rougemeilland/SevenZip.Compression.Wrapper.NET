@@ -1,15 +1,13 @@
 ﻿このプロジェクトは、ユーザーに公開されるクラスを持つライブラリのプロジェクトです。
 このライブラリのターゲットは「Any CPU」であり、プラットフォームに依存しません。
-このライブラリの内部の処理はプラットフォームに依存する外部のプラグインアセンブリで行われます。
-プラグインとのインターフェースは「SevenZip.NativeInterface」アセンブリに定義されています。
-どのプラグインを利用するかについては、実行環境により自動的に判断されます。
-「SevenZip.Compression.settings.json」を編集することにより、どの実行環境でどのプラグインが利用可能かをカスタマイズできます。
-しかし、「Windows x86」と「Windows x64」以外はテストされていないことに注意してください。
+このライブラリの内部の処理はプラットフォームに依存する外部のネイティブコードで行われます。
+このライブラリは様々なネイティブコードに対応可能です。(Windows/Linux/MaxOs, x86/x64/ARM/ARM64)
+しかし、実際に実装されているネイティブコードは Windows/Linux および x86/x64 のみです。
+これは、私が開発のためのハードウェアが所有していないからです。
 
 This project is a library project with classes exposed to users.
 The target of this library is "Any CPU" and is platform independent.
-The internal processing of this library is done in a platform-dependent external plug-in assembly.
-The interface with the plugin is defined in the "SevenZip.NativeInterface" assembly.
-Which plug-in to use is automatically determined by the execution environment.
-By editing "SevenZip.Compression.settings.json", you can customize which plugin is available in which execution environment.
-However, keep in mind that it has only been tested on "Windows x86" and "Windows x64".
+The internal processing of this library is performed by external native code that is platform dependent.
+This library can support various native codes. (Windows/Linux/MaxOs, x86/x64/ARM/ARM64)
+However, the actual native code implementation is only for Windows/Linux and x86/x64.
+This is because I don't own any development hardware.

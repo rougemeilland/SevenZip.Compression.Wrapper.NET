@@ -42,11 +42,8 @@
   <ItemGroup>
     <PackageReference Include="Palmtree.Core" Version="1.5.0-alpha" />
     <PackageReference Include="Palmtree.IO" Version="1.3.0-alpha" />
+    <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET" Version="1.2.2-alpha" />
     <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET.Engine" Version="23.1.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\Palmtree.SevenZip.Compression.Wrapper.NET\Palmtree.SevenZip.Compression.Wrapper.NET.csproj" />
   </ItemGroup>
 
 </Project>

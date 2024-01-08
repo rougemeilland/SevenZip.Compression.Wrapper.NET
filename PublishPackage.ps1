@@ -20,7 +20,7 @@ foreach ($projectDirectory in Get-ChildItem $baseDirectory -Directory | Where-Ob
             Write-Warning ("nuget の実行に失敗しました。: 終了コード: " + $process.ExitCode)
         }
         else {
-            Copy-Item $nugetPackageFile $localNugetPackageDirectory
+            # Copy-Item $nugetPackageFile $localNugetPackageDirectory
         }
     }
 }

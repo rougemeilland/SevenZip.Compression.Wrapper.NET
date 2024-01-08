@@ -1,0 +1,5 @@
+このプロジェクトは、c++言語で実験的なコードを実行したり簡単なテストを実行したりするための、テストプログラムのプロジェクトです。
+そのために、頻繁に多くのコードが更新されます。
+
+This project is a project of test programs for running experimental code and running simple tests in the c++ language.
+Therefore, a lot of code is updated frequently.

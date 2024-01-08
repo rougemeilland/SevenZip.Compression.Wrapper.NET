@@ -22,7 +22,7 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw new ArgumentException($"The specified stream ({nameof(inStream)}) does not support reading.", nameof(inStream));
             if (outStream is null)
                 throw new ArgumentNullException(nameof(outStream));
-            if (!inStream.CanWrite)
+            if (!outStream.CanWrite)
                 throw new ArgumentException($"The specified stream ({nameof(outStream)}) does not support writing.", nameof(outStream));
 
             var result =

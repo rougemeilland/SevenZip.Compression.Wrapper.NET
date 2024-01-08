@@ -1,25 +1,37 @@
 ﻿using System;
 using System.IO;
-using Palmtree.IO;
+using SevenZip.Compression;
+using SevenZip.Compression.Deflate;
 
 namespace Experiment
 {
     public class Program
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:未使用のパラメーターを削除します", Justification = "<保留中>")]
+        private class ProgressReporter
+            : IProgress<(ulong? inStreamProgressedCount, ulong? outStreamProcessedCount)>
+        {
+            public void Report((ulong? inStreamProgressedCount, ulong? outStreamProcessedCount) value)
+            {
+                Console.Write("\x1b[0K");
+                Console.Write($"in: {(value.inStreamProgressedCount is null ? "???" : value.inStreamProgressedCount.Value.ToString("N0") + " bytes")}, ");
+                Console.Write($"out: {(value.outStreamProcessedCount is null ? "???" : value.outStreamProcessedCount.Value.ToString("N0") + " bytes")}");
+                Console.Write("\r");
+            }
+        }
+
         public static void Main(string[] args)
         {
-            var path = typeof(Program).Assembly.Location;
-            var dir = Path.GetDirectoryName(path) ?? throw new Exception();
-            var newPath1 = Path.Combine(dir, ".", "a.txt");
-            var newPath2 = Path.Combine(dir, "..", "a.txt");
-            var newPath3 = Path.Combine(dir, "..", "C:\\temp.txt");
+            using (var inUncompressedStream = new FileStream(args[0], FileMode.Open, FileAccess.Read, FileShare.None))
+            using (var outCompressedStream = new FileStream(args[1], FileMode.Create, FileAccess.Write, FileShare.None))
+            using (var deflateEncoder = DeflateEncoder.CreateEncoder(new DeflateEncoderProperties { Level = CompressionLevel.Normal}))
+            {
+                deflateEncoder.Code(inUncompressedStream, outCompressedStream, (ulong)inUncompressedStream.Length, null, new ProgressReporter());
+            }
 
-            var fileInfo1 = new FilePath(newPath1).FullName;
-            var fileInfo2 = new FilePath(newPath2).FullName;
-            var fileInfo3 = new FilePath(newPath3).FullName;
+            Console.WriteLine();
+            Console.WriteLine();
 
-            Console.WriteLine("完了しました。");
+            Console.WriteLine("Completed.");
             Console.Beep();
             _ = Console.ReadLine();
         }

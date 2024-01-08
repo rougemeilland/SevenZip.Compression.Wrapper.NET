@@ -2,40 +2,40 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <!-- windows -->
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-x86/7z.win_x86.dll">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-x86/native/7z.win_x86.dll">
       <Link>7z.win_x86.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-x64/7z.win_x64.dll">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-x64/native/7z.win_x64.dll">
       <Link>7z.win_x64.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 <!--
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-arm/7z.win_arm32.dll">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-arm/native/7z.win_arm32.dll">
       <Link>7z.win_arm32.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-arm64/7z.win_arm64.dll">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/win-arm64/native/7z.win_arm64.dll">
       <Link>7z.win_arm64.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 -->
 
     <!-- linux -->
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-x86/lib7z.linux_x86.so">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-x86/native/lib7z.linux_x86.so">
       <Link>lib7z.linux_x86.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-x64/lib7z.linux_x64.so">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-x64/native/lib7z.linux_x64.so">
       <Link>lib7z.linux_x64.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
 <!--
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-arm/lib7z.linux_arm32.so">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-arm/native/lib7z.linux_arm32.so">
       <Link>lib7z.linux_arm32.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-arm64/lib7z.linux_arm64.so">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/linux-arm64/native/lib7z.linux_arm64.so">
       <Link>lib7z.linux_arm64.so</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -43,19 +43,19 @@
 
     <!-- macOS -->
 <!--
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-x86/lib7z.osx_x86.dylib">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-x86/native/lib7z.osx_x86.dylib">
       <Link>lib7z.osx_x86.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-x64/lib7z.osx_x64.dylib">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-x64/native/lib7z.osx_x64.dylib">
       <Link>lib7z.osx_x64.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-arm/lib7z.osx_arm32.dylib">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-arm/native/lib7z.osx_arm32.dylib">
       <Link>lib7z.osx_arm32.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-arm64/lib7z.osx_arm64.dylib">
+    <None Include="$(MSBuildThisFileDirectory)../runtimes/osx-arm64/native/lib7z.osx_arm64.dylib">
       <Link>lib7z.osx_arm64.dylib</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
