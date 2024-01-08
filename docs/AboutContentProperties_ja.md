@@ -115,7 +115,7 @@ uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE +
 uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE + 6] << (8 * 6);
 uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.CONTENT_PROPERTY_SIZE + 7] << (8 * 7);
 
-using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // コンテンツプロパティを与えてデコーダーを生成
+using (LzmaDecoder decoder = LzmaDecoder.CreateDecoder(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // コンテンツプロパティを与えてデコーダーを生成
 {
     decoder.Code(inStream, outStream, null, uncompressedDataLength, null); // データ本体のデコード
 }
@@ -134,7 +134,7 @@ using System.IO;
 Stream inStream = ... ; // 入力ストリームの設定
 Stream outStream = ... ; // 出力ストリームの設定
 UInt64 uncompressedDataLength = ... ; // 入力ストリームから読み込む圧縮前のデータの長さの設定
-using (LzmaEncoder encoder = LzmaEncoder.Create(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // エンコーダーの生成
+using (LzmaEncoder encoder = LzmaEncoder.CreateEncoder(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // エンコーダーの生成
 {
     encoder.WriteCoderProperties(outStream); // コンテンツプロパティの書き込み
 
@@ -178,7 +178,7 @@ UInt16 contentPropertyLength = (UInt16)(((UInt32)headerData[2] << 0) | ((UInt32)
 if (contentPropertyLength != LzmaDecoder.CONTENT_PROPERTY_SIZE) // コンテンツプロパティの長さの検査
     throw new Exception("Illegal LZMA format");
 Span<Byte> contentProperty = headerData.Slice(4, LzmaDecoder.CONTENT_PROPERTY_SIZE); // コンテンツプロパティの部分の取得
-using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // コンテンツプロパティを与えてデコーダーを生成
+using (LzmaDecoder decoder = LzmaDecoder.CreateDecoder(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // コンテンツプロパティを与えてデコーダーを生成
 {
     decoder.Code(inStream, outStream, null, uncompressedDataLength, null); // データ本体のデコード
 }
@@ -199,7 +199,7 @@ Byte minorVersion = ... ; // LZMA SDK のマイナーバージョンの設定
 Stream inStream = ... ; // 入力ストリームの設定
 Stream outStream = ... ; // 出力ストリームの設定
 UInt64 uncompressedDataLength = ... ; // 入力ストリームから読み込む圧縮前のデータの長さの設定
-using (LzmaEncoder encoder = LzmaEncoder.Create(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // エンコーダーの生成
+using (LzmaEncoder encoder = LzmaEncoder.CreateEncoder(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // エンコーダーの生成
 {
     // コンテンツプロパティを除くヘッダ部分の書き込み
     {
