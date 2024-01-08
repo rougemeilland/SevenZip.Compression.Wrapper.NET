@@ -1,9 +1,9 @@
 Language: [日本語](HowToInstall7z_ja.md) **English**
 
 <!--
-# `Palmtree.SevenZip.Compression.Wrapper.NET` から 7-zip を使用可能にする方法
+# `SevenZip.Compression.Wrapper.NET` から 7-zip を使用可能にする方法
 -->
-# How to enable 7-zip from `Palmtree.SevenZip.Compression.Wrapper.NET`
+# How to enable 7-zip from `SevenZip.Compression.Wrapper.NET`
 
 <!--
 ## 1. 概要
@@ -11,10 +11,10 @@ Language: [日本語](HowToInstall7z_ja.md) **English**
 ## 1. Overview
 
 <!--
-`Palmtree.SevenZip.Compression.Wrapper.NET` を使用するためには、7-zip を適切にインストールしなければなりません。
+`SevenZip.Compression.Wrapper.NET` を使用するためには、7-zip を適切にインストールしなければなりません。
 本稿では、7-zip のインストールの方法について説明します。
 -->
-In order to use `Palmtree.SevenZip.Compression.Wrapper.NET`, 7-zip must be properly installed.
+In order to use `SevenZip.Compression.Wrapper.NET`, 7-zip must be properly installed.
 This article explains how to install 7-zip.
 
 <!--
@@ -56,10 +56,10 @@ In the following situations, the method shown in [2.1 Standard installation meth
 
 <!--
 + `PATH` 環境変数を設定したくない、あるいは設定できない場合
-+ 複数のアーキテクチャ (`x86` および `x64`) で `Palmtree.SevenZip.Compression.Wrapper.NET` を利用したい場合[^1]
++ 複数のアーキテクチャ (`x86` および `x64`) で `SevenZip.Compression.Wrapper.NET` を利用したい場合[^1]
 -->
 + If you don't want or can't set the `PATH` environment variable
-+ If you want to use `Palmtree.SevenZip.Compression.Wrapper.NET` on multiple architectures (`x86` and `x64`) [^1]
++ If you want to use `SevenZip.Compression.Wrapper.NET` on multiple architectures (`x86` and `x64`) [^1]
 
 <!--
 手動でインストールするためには、以下の手順に従ってください。
@@ -70,14 +70,14 @@ To install manually, follow the steps below.
 1. [7-zip の公式サイト](https://7-zip.opensource.jp/) から、7-zip をダウンロードしてください。
 2. 7-zip をインストールしてください。
 3. 7-zip がインストールされたフォルダ (例: `C:\Program Files\7-Zip`) に `7z.dll` という名前のファイルがあることを確認してください。
-4. `Palmtree.SevenZip.Compression.Wrapper.NET` が インストールされているフォルダを確認してください。そのフォルダには `Palmtree.SevenZip.Compression.Wrapper.NET.dll` という名前のファイルがあるはずです。
-5. `7z.dll` を `Palmtree.SevenZip.Compression.Wrapper.NET` がインストールされているフォルダにコピーしてください。
+4. `SevenZip.Compression.Wrapper.NET` が インストールされているフォルダを確認してください。そのフォルダには `Palmtree.SevenZip.Compression.Wrapper.NET.dll` という名前のファイルがあるはずです。
+5. `7z.dll` を `SevenZip.Compression.Wrapper.NET` がインストールされているフォルダにコピーしてください。
 -->
 1. Download 7-zip from [7-zip official website](https://7-zip.opensource.jp/).
 1. Please install 7-zip.
 1. Make sure there is a file named `7z.dll` in the folder where 7-zip is installed (e.g. `C:\Program Files\7-Zip`).
-1. Please check the folder where `Palmtree.SevenZip.Compression.Wrapper.NET` is installed. There should be a file named `Palmtree.SevenZip.Compression.Wrapper.NET.dll` in that folder.
-1. Copy `7z.dll` to the folder where `Palmtree.SevenZip.Compression.Wrapper.NET` is installed.<!--
+1. Please check the folder where `SevenZip.Compression.Wrapper.NET` is installed. There should be a file named `Palmtree.SevenZip.Compression.Wrapper.NET.dll` in that folder.
+1. Copy `7z.dll` to the folder where `SevenZip.Compression.Wrapper.NET` is installed.<!--
 
 <!--
 以上でインストールは完了です。
@@ -87,9 +87,9 @@ The installation is now complete.
 If you do not use 7-zip, you can uninstall it.
 
 <!--
-なお、`Palmtree.SevenZip.Compression.Wrapper.NET` を複数のアーキテクチャで利用する場合は、`7z.dll` をコピーする際に以下のようにファイル名を変えてください。
+なお、`SevenZip.Compression.Wrapper.NET` を複数のアーキテクチャで利用する場合は、`7z.dll` をコピーする際に以下のようにファイル名を変えてください。
 -->
-If you want to use `Palmtree.SevenZip.Compression.Wrapper.NET` on multiple architectures, please change the file name as shown below when copying `7z.dll`.
+If you want to use `SevenZip.Compression.Wrapper.NET` on multiple architectures, please change the file name as shown below when copying `7z.dll`.
 
 <!--
 + `x86` 版 7-zip の `7z.dll` の場合 => `7z.win_x86.dll`
@@ -105,10 +105,10 @@ If you want to use `Palmtree.SevenZip.Compression.Wrapper.NET` on multiple archi
 
 <!--
 Linux 版 7-zip は単一の実行可能ファイルとして提供されていて、ライブラリとしては使用できません。
-そのため、`Palmtree.SevenZip.Compression.Wrapper.NET` から 7-zip を利用するためには、7-zip のソースコードを使用してビルドしなおす必要があります。
+そのため、`SevenZip.Compression.Wrapper.NET` から 7-zip を利用するためには、7-zip のソースコードを使用してビルドしなおす必要があります。
 -->
 7-zip for Linux is provided as a single executable file and cannot be used as a library.
-Therefore, in order to use 7-zip from `Palmtree.SevenZip.Compression.Wrapper.NET`, you need to rebuild it using the 7-zip source code.
+Therefore, in order to use 7-zip from `SevenZip.Compression.Wrapper.NET`, you need to rebuild it using the 7-zip source code.
 
 <!--
 以降では、Linux 上に gcc などの開発環境があることを前提に、ビルドの手順の説明を行います。
@@ -181,11 +181,11 @@ make -f makefile_x64.gcc
 Once the build is complete, the 7-zip library `lib7z.linux_x64.so` (`lib7z.linux_x86.so` for the `x86` version) should be created in the current directory.
 
 <!--
-出来た `lib7z.linux_x64.so` (あるいは `lib7z.linux_x86.so`) を、`Palmtree.SevenZip.Compression.Wrapper.NET` がインストールされているディレクトリ上にコピーしてください。
+出来た `lib7z.linux_x64.so` (あるいは `lib7z.linux_x86.so`) を、`SevenZip.Compression.Wrapper.NET` がインストールされているディレクトリ上にコピーしてください。
 -->
-Copy the created `lib7z.linux_x64.so` (or `lib7z.linux_x86.so`) to the directory where `Palmtree.SevenZip.Compression.Wrapper.NET` is installed.
+Copy the created `lib7z.linux_x64.so` (or `lib7z.linux_x86.so`) to the directory where `SevenZip.Compression.Wrapper.NET` is installed.
 
 <!--
-[^1]: 使用しているコンピュータが `x64` アーキテクチャであっても、`Palmtree.SevenZip.Compression.Wrapper.NET` を利用するアプリケーションが 32 ビットアプリケーションである場合は、`x86` 用の 7-zip が必要になります。
+[^1]: 使用しているコンピュータが `x64` アーキテクチャであっても、`SevenZip.Compression.Wrapper.NET` を利用するアプリケーションが 32 ビットアプリケーションである場合は、`x86` 用の 7-zip が必要になります。
 -->
-[^1]: Even if your computer has `x64` architecture, if your application that utilizes `Palmtree.SevenZip.Compression.Wrapper.NET` is a 32-bit application, you will need 7zip for `x86`.
+[^1]: Even if your computer has `x64` architecture, if your application that utilizes `SevenZip.Compression.Wrapper.NET` is a 32-bit application, you will need 7zip for `x86`.

@@ -1,2 +1,5 @@
+Language: [“ú–{Œê](README_ja.md) **English**
+
 # SevenZip.Compression.Wrapper.NET
-A wrapper library for using 7-zip library functions (compressing or uncompressing data over streams) from .NET.
+
+## 1.Overview

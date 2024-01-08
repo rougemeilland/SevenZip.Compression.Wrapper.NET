@@ -38,6 +38,10 @@ In 7-zip version 21.07, the target codecs are as follows.
 - LZMA
 - LZMA2
 - PPMd7 (PPMd vesion H)
+- Rar1
+- Rar2
+- Rar3
+- Rar5
 
 <!--何故アプリケーションが*コンテンツプロパティ*を管理しなければならないのか？-->
 ## 2. Why does an application have to manage *content property* ?
@@ -58,13 +62,13 @@ According to the document `lzma.txt` and its implementation source code` LzmaAlo
 | ---: | ---: | :--- |
 | 0 | 5バイト | *コンテンツプロパティ* |
 | 5 | 8バイト | エンコード前のデータの長さ (リトルエンディアン)|
-| 13 | | 圧縮されたデータ |
+| 13 | (圧縮されたデータの長さ) | 圧縮されたデータ |
 -->
 | Offset | Length | Description |
 | ---: | ---: | :--- |
 | 0 | 5 bytes | *content property* |
 | 5 | 8 bytes | Data length before encoding (little endian) |
-| 13 | | Compressed data |
+| 13 | (Length of compressed data) | Compressed data |
 
 <!--その一方で、[ZIPファイルフォーマットの仕様書(APPNOTE.TXT)](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT)によると、ZIPファイルに含まれるデータファイルがLZMA形式で圧縮されている場合のファイルフォーマットは以下のように規定されています。(実際に7-zipでのZIPアーカイブファイルの実装でもこの仕様に従っています)-->
 On the other hand, according to the [ZIP File Format Specification (APPNOTE.TXT)](https://pkware.cachefly.net/webdocs/casestudies/APPNOTE.TXT), the file format when the data file included in the ZIP file is compressed in the LZMA format is specified as follows. (Actually, the implementation of ZIP archive file with 7-zip also follows this specification)
@@ -76,15 +80,15 @@ On the other hand, according to the [ZIP File Format Specification (APPNOTE.TXT)
 | 1 | 1バイト | LZMA SDK のマイナーバージョン<br/>7-zipによる実装では7-zipのマイナーバージョン |
 | 2 | 2バイト | *コンテンツプロパティ* の長さ (リトルエンディアン)<br/>常に0x0005|
 | 4 | 5バイト | *コンテンツプロパティ*|
-| 9 | | 圧縮されたデータ |
+| 9 | (Length of compressed data) | 圧縮されたデータ |
 -->
 | Offset | Length | Description |
 | ---: | ---: | :--- |
-| 0 | 1 byte | Major version of LZMA SDK <br/> (Major version of 7-zip in implementation with 7-zip) |
-| 1 | 1 byte | Minor version of LZMA SDK <br/> (Minor version of 7-zip in implementation with 7-zip) |
-| 2 | 2 bytes | Length of *content property* (little endian) <br/> (Always 0x0005) |
+| 0 | 1 byte | Major version of LZMA SDK <br/> Major version of 7-zip in implementation with 7-zip |
+| 1 | 1 byte | Minor version of LZMA SDK <br/> Minor version of 7-zip in implementation with 7-zip |
+| 2 | 2 bytes | Length of *content property* (little endian) <br/> Always 0x0005 |
 | 4 | 5 bytes | *content property* |
-| 9 | | Compressed data |
+| 9 | (Length of compressed data) | Compressed data |
 
 <!--
 7-zipでは、これらのファイルフォーマットのうち「圧縮されたデータ」の部分は同一のコーデックを使用してエンコード/デコードしており共通のフォーマットですが、
@@ -99,12 +103,9 @@ However, as you can see, **the header parts of these file formats are incompatib
 I guessed that the 7-zip developer separated the header part and the compressed data body part and left the processing of the header part to the application in order to support the multiple file formats mentioned above with one codec.[^2]
 
 <!--
-どのような経緯でそうなったかについては筆者の想像でしかありません。
-しかし、結果として、LZMA (およびLZMA2、PPMd7など) では **ヘッダー部分の読み込みと書き込みはアプリケーションの責任によって行われる仕様になりました**。
+しかし、どのような経緯があったかはともかく、結果として、LZMA (およびLZMA2、PPMd7など) では **ヘッダー部分の読み込みと書き込みはアプリケーションの責任によって行われる**ことになりました。
 -->
-It's just my imagination as to why it happened.
-Anyway, for some reason, LZMA (and LZMA2, PPMd7, etc.) has the following specifications:
-**It is the responsibility of the application to read and write the header part.**
+However, regardless of what happened, as a result, LZMA (and LZMA2, PPMd7, etc.) stipulates that **the reading and writing of the header part must be the responsibility of the application**.
 
 <!--
 ## 3. アプリケーションは*コンテンツプロパティ* をどのように管理すればいいのか？
@@ -112,18 +113,20 @@ Anyway, for some reason, LZMA (and LZMA2, PPMd7, etc.) has the following specifi
 ## 3. How should an application manage *content property* ?
 
 <!--
-前述のように、少なくともLZMAおよびLZMA2、PPMd7のコーデックにおいては、エンコードされたデータのヘッダー部分の読み込みと書き込みはアプリケーションが行わなければなりません。
+前述のように、少なくともLZMA (およびLZMA2、PPMd7など)のコーデックにおいては、エンコードされたデータのヘッダー部分の読み込みと書き込みはアプリケーションが行わなければなりません。
 当然、ヘッダー部分のフォーマットはコーデックやファイルフォーマットにより異なるため、それぞれ異なる対応が必要です。
 -->
-As mentioned earlier, at least for the LZMA, LZMA2, and PPMd7 codecs, the application must read and write the header portion of the encoded data.
+As mentioned earlier, at least for the LZMA (and LZMA2, PPMd7, etc.) codecs, the application must read and write the header portion of the encoded data.
 Of course, the format of the header part differs depending on the codec and file format, so different measures are required for each.
 
 <!--
 典型的なLZMAエンコーダ/デコーダのアプリケーションのサンプルコードを以下に挙げますので、参考にしてください。
-LZMA2やPPMd7の場合も同じようなコードで処理できるはずですが、それぞれのファイルフォーマットのヘッダー部分の規定を理解し、それに従ってコードを修正する必要があります。[^3]
+その他のコーデックの場合も同じようなコードで処理できるはずですが、それぞれのファイルフォーマットのヘッダー部分の規定を理解し、それに従ってコードを修正する必要があります。
 -->
+
 The following is sample code for a typical LZMA encoder / decoder application for your reference.
-You should be able to handle similar code for LZMA2 and PPMd7, but you need to understand the header specifications for each file format and modify the code accordingly.[^3]
+You should be able to handle similar code for other codecs.
+However, you need to understand the header part of each file format and modify the code accordingly.
 
 <!--
 なお、`ReadBytes`関数が以下のように定義されているものとします。
@@ -163,23 +166,13 @@ using System.IO;
 
 Stream inStream = ... ; // Set the input stream
 Stream outStream = ... ; // Set the output stream
-Span<Byte> headerData = stackalloc Byte[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + sizeof(UInt64)];
+Byte[] headerData = new Byte[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + sizeof(UInt64)];
 ReadBytes(inStream, headerData); // Read the header part
-Span<Byte> contentProperty = headerData.Slice(0, LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE); // Get the content property part
-
-// Get the size of the data before compression (little endian 64-bit integer)
-UInt64 uncompressedDataLength = (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 0] << (8 * 0);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 1] << (8 * 1);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 2] << (8 * 2);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 3] << (8 * 3);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 4] << (8 * 4);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 5] << (8 * 5);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 6] << (8 * 6);
-uncompressedDataLength |= (UInt64)headerData[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + 7] << (8 * 7);
-
+Span<Byte> contentProperty = new Span<Byte>(headerData, 0, LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE); // Get the content property part
+UInt64 uncompressedDataLength = BitConverter.ToUInt64(headerData, LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE); // Get the size of the data before compression
 using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content property
 {
-    decoder.Code(inStream, outStream, null, uncompressedDataLength, null); // Decode the body of the data
+    decoder.Code(inStream, outStream, null, null, null); // Decode the body of the data
 }
 ```
 
@@ -189,7 +182,6 @@ using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { Fini
 #### 3.1.2. For encoding
 
 ```csharp
-using SevenZip.Compression;
 using SevenZip.Compression.Lzma;
 using System;
 using System.IO;
@@ -198,26 +190,11 @@ using System.IO;
 
 Stream inStream = ... ; // Set the input stream
 Stream outStream = ... ; // Set the output stream
-UInt64 uncompressedDataLength = ... ; // Set the length of the uncompressed data read from the input stream
 using (LzmaEncoder encoder = LzmaEncoder.Create(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // Create an encoder
 {
     encoder.WriteCoderProperties(outStream); // Write content property
-
-    // // Write the length of the data before compression (little endian 64-bit integer)
-    {
-        Span<Byte> uncompressedDataLengthBuffer = stackalloc Byte[sizeof(UInt64) / sizeof(Byte)];
-        uncompressedDataLengthBuffer[0] = (Byte)(uncompressedDataLength >> (8 * 0));
-        uncompressedDataLengthBuffer[1] = (Byte)(uncompressedDataLength >> (8 * 1));
-        uncompressedDataLengthBuffer[2] = (Byte)(uncompressedDataLength >> (8 * 2));
-        uncompressedDataLengthBuffer[3] = (Byte)(uncompressedDataLength >> (8 * 3));
-        uncompressedDataLengthBuffer[4] = (Byte)(uncompressedDataLength >> (8 * 4));
-        uncompressedDataLengthBuffer[5] = (Byte)(uncompressedDataLength >> (8 * 5));
-        uncompressedDataLengthBuffer[6] = (Byte)(uncompressedDataLength >> (8 * 6));
-        uncompressedDataLengthBuffer[7] = (Byte)(uncompressedDataLength >> (8 * 7));
-        outStream.Write(uncompressedDataLengthBuffer);
-    }
-
-    encoder.Code(inStream, outStream, uncompressedDataLengthBuffer, null, null); // Encode the body of the data
+    outStream.Write(BitConverter.GetBytes((UInt64)uncompressedDataLength)); // Write the length of the data before compression
+    encoder.Code(inStream, outStream, null, null, null); // Encode the body of the data
 }
 ```
 
@@ -240,18 +217,17 @@ using System.IO;
 
 Stream inStream = ... ; // Set the input stream
 Stream outStream = ... ; // Set the output stream
-UInt64 uncompressedDataLength = ... ; // Set the length of uncompressed data written to the output stream (This value is taken from the ZIP central directory)
-Span<Byte> headerData = stackalloc Byte[sizeof(Byte) + sizeof(Byte) + sizeof(UInt16) + LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE];
+Byte[] headerData = new Byte[sizeof(Byte) + sizeof(Byte) + sizeof(UInt16) + LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE];
 ReadBytes(inStream, headerData); // Read the header part
-Byte majorVersion = headerData[0]; // The major version value is not used.
-Byte minorVersion = headerData[1]; // The minor version value is not used.
-UInt16 contentPropertyLength = (UInt16)(((UInt32)headerData[2] << 0) | ((UInt32)headerData[3] << 8)); // Get the length of content property
+Byte majorVersion = headerData[0]; // The major version is not used.
+Byte minorVersion = headerData[1]; // The minor version is not used.
+UInt16 contentPropertyLength = BitConverter.ToUInt16(headerData, 2); // Get the length of content property
 if (contentPropertyLength != LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE) // Check the length of content property
     throw new Exception("Illegal LZMA format");
-Span<Byte> contentProperty = headerData.Slice(4, LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE); // Get the content property part.
+Span<Byte> contentProperty = new Span<Byte>(headerData, 4, LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE); // Get the content property part.
 using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content property
 {
-    decoder.Code(inStream, outStream, null, uncompressedDataLength, null); // Decode the body of the data
+    decoder.Code(inStream, outStream, null, null, null); // Decode the body of the data
 }
 ```
 
@@ -261,7 +237,6 @@ using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { Fini
 #### 3.2.2. For encoding
 
 ```csharp
-using SevenZip.Compression;
 using SevenZip.Compression.Lzma;
 using System;
 using System.IO;
@@ -272,20 +247,14 @@ Byte majorVersion = ... ; // Set the major version of the LZMA SDK.
 Byte minorVersion = ... ; // Set the minor version of the LZMA SDK.
 Stream inStream = ... ; // Set the input stream
 Stream outStream = ... ; // Set the output stream
-UInt64 uncompressedDataLength = ... ; // Set the length of uncompressed data read from the input stream
 using (LzmaEncoder encoder = LzmaEncoder.Create(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // Create an encoder
 {
-    // Write the header part excluding the content property
-    {
-        Span<Byte> headerBuffer = stackalloc Byte[sizeof(Byte) + sizeof(Byte) + sizeof(UInt16)];
-        headerBuffer[0] = majorVersion; // Major version of LZMA SDK
-        headerBuffer[1] = minorVersion; // Minor version of LZMA SDK
-        headerBuffer[2] = (Byte)(LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE >> 0); // Low-order byte of content property length
-        headerBuffer[3] = (Byte)(LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE >> 8); // High-order byte of content property length
-        outStream.Write(headerBuffer);
-    }
+    outSteram.WriteByte(majorVersion); // Write a major version of the LZMA SDK
+    outSteram.WriteByte(minorVersion); // Write a minor version of the LZMA SDK
+    outSteram.WriteByte((Byte)(LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE >> 0)); // Write the low-order byte of the content property length
+    outSteram.WriteByte((Byte)(LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE >> 8)); // Write the high-order byte of the content property length
     encoder.WriteCoderProperties(outStream); // Write content property
-    encoder.Code(inStream, outStream, uncompressedDataLength, null, null); // Encode the body of the data
+    encoder.Code(inStream, outStream, null, null, null); // Encode the body of the data
 }
 ```
 
@@ -305,7 +274,7 @@ using (LzmaEncoder encoder = LzmaEncoder.Create(new LzmaEncoderProperties { Leve
 <!--
 - 誤った記述や誤解を招く表現はなるべく避けるように注意してはいますが、万が一このドキュメントを参照したことにより何らかの被害が生じたとしても筆者は(そしてもちろん7-zipの開発者も)責任を負いかねますので、ご注意ください。
 -->
-- I am careful to avoid erroneous descriptions and misleading expressions as much as possible.
+― I am careful to avoid erroneous descriptions and misleading expressions as much as possible.
 However, please note that I (and the 7-zip developers) are not responsible for any damage caused by referring to this document.
 
 <!--
@@ -329,8 +298,3 @@ However, please note that I (and the 7-zip developers) are not responsible for a
     4. Unnecessary 8-byte fields have been removed in determining the LZMA compression format definition for ZIP files. Along with that, a field for the version of the LZMA SDK used by the compressed codec has been added to accommodate possible format changes in the future. (Actually, the LZMA SDK version field seems to be ignored)
     5. The 7-zip developer has considered making it possible to process both the LZMA SDK format and the ZIP format with the same codec. However, since those formats have different header parts, the read / write code in the header part is written at the application level separately from the LZMA codec.
     6. However, the header part of the file format contained *content property* which is important for decoding. Therefore, 7-zip developers have provided the `ICompressWriteCoderProperties` interface and the` ICompressSetDecoderProperties2` interface. The purpose is to allow the application to read and write headers while hiding the contents of the *content property* from the application.
-
-<!--
-[^3]: もちろん、あなたが既存のファイルフォーマットとの互換性を気にしないのであれば、あなたがヘッダー部分のフォーマットを自由に決めることができます。
--->
-[^ 3]: Of course, if you don't care about compatibility with existing file formats, you are free to decide the format of the header part.

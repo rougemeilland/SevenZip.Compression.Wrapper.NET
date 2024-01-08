@@ -28,10 +28,13 @@ namespace Experiment
         {
             // 入力ファイルを開きます。
             using var inUncompressedStream = new FileStream(uncompressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
+
             // 出力ファイルを開きます。
             using var outCompressedStream = new FileStream(compressedFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
+
             // deflate エンコーダオブジェクトを作成します。
             using var deflateEncoder = DeflateEncoder.CreateEncoder(new DeflateEncoderProperties { Level = CompressionLevel.Normal });
+
             // 圧縮を開始します。
             deflateEncoder.Code(
                 inUncompressedStream,
@@ -46,12 +49,15 @@ namespace Experiment
         {
             // 入力ファイルを開きます。
             using var inCompressedStream = new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
+
             // 出力ファイルを開きます。
             using var outUncompressedStream = new FileStream(uncompressedFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
+
             // deflate デコーダオブジェクトを作成します。
-            using var deflateEncoder = DeflateDecoder.CreateDecoder();
+            using var deflateDecoder = DeflateDecoder.CreateDecoder();
+
             // 圧縮を開始します。
-            deflateEncoder.Code(
+            deflateDecoder.Code(
                 inCompressedStream,
                 outUncompressedStream,
                 (ulong)inCompressedStream.Length,
@@ -60,18 +66,23 @@ namespace Experiment
         }
 
         // これは、Deflate で圧縮されたファイルを伸長するメソッドの別のバージョンです。
-        // このメソッドが返した Stream オブジェクトから読み込むデータは伸長されたデータです。
+        // 
         public static Stream UncompressWithDeflate_2(string compressedFilePath)
-            => DeflateDecoder.CreateDecoderStream(new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None), null);
+        {
+            // このメソッドが返した Stream オブジェクトから読み込むデータは伸長されたデータです。 
+            return DeflateDecoder.CreateDecoderStream(new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None), null);
+        }
 
         // これは、ファイルの内容を LZMA で圧縮して別のファイルへ保存するメソッドです。
         public static void CompressWithLzma(string uncompressedFilePath, string compressedFilePath)
         {
             // 入力ファイルを開きます。
             using var inUncompressedStream = new FileStream(uncompressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
+
             // 出力ファイルを開きます。
             using var outCompressedStream = new FileStream(compressedFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            // deflate エンコーダオブジェクトを作成します。
+
+            // LZMA エンコーダオブジェクトを作成します。
             using var lzmaEncoder = LzmaEncoder.CreateEncoder(new LzmaEncoderProperties { Level = CompressionLevel.Normal, EndMarker = true });
             
             // LZMA などいくつかのエンコーダではこの手順が必要です。
@@ -93,16 +104,18 @@ namespace Experiment
             using var inCompressedStream = new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
 
             // LZMA などいくつかのデコーダではこの手順が必要です。
-            Span<byte> buffer = stackalloc byte[LzmaEncoder.CONTENT_PROPERTY_SIZE];
-            if (inCompressedStream.ReadBytes(buffer) != buffer.Length)
+            Span<byte> contentProperties = stackalloc byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
+            if (inCompressedStream.ReadBytes(contentProperties) != contentProperties.Length)
                 throw new UnexpectedEndOfStreamException();
 
             // 出力ファイルを開きます。
             using var outUncompressedStream = new FileStream(uncompressedFilePath, FileMode.Create, FileAccess.Write, FileShare.None);
-            // deflate デコーダオブジェクトを作成します。
-            using var deflateEncoder = LzmaDecoder.CreateDecoder(buffer);
+
+            // LZMA デコーダオブジェクトを作成します。
+            using var lzmaDecoder = LzmaDecoder.CreateDecoder(contentProperties);
+
             // 圧縮を開始します。
-            deflateEncoder.Code(
+            lzmaDecoder.Code(
                 inCompressedStream,
                 outUncompressedStream,
                 (ulong)inCompressedStream.Length,
@@ -110,53 +123,99 @@ namespace Experiment
                 new ProgressReporter()); // 進捗状況の表示が不要な場合には、"new ProgressReporter()" の代わりに "null" を指定します。
         }
 
-        // これは、Deflate で圧縮されたファイルを伸長するメソッドの別のバージョンです。
+        // これは、LZMA で圧縮されたファイルを伸長するメソッドの別のバージョンです。
         // このメソッドが返した Stream オブジェクトから読み込むデータは伸長されたデータです。
-        public static Stream UncompressWithDeflate_2(string compressedFilePath)
+        public static Stream UncompressWithLzma_2(string compressedFilePath)
         {
-            return DeflateDecoder.CreateDecoderStream(new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None), null);
+            // 入力ファイルを開きます。
+            var inCompressedStream = new FileStream(compressedFilePath, FileMode.Open, FileAccess.Read, FileShare.None);
+
+            // LZMA などいくつかのデコーダではこの手順が必要です。
+            Span<byte> contentProperties = stackalloc byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
+            if (inCompressedStream.ReadBytes(contentProperties) != contentProperties.Length)
+                throw new UnexpectedEndOfStreamException();
+
+            // このメソッドが返した Stream オブジェクトから読み込むデータは伸長されたデータです。 
+            return LzmaDecoder.CreateDecoderStream(inCompressedStream, null, contentProperties);
         }
 
         public static void Main(string[] args)
         {
             var sourceFilePath = new FilePath(args[0]);
+
             var compressedFilePath1 = (FilePath?)null;
-            var uncompressedFilePath1 = (FilePath?)null;
+            var uncompressedFilePath1_1 = (FilePath?)null;
+            var uncompressedFilePath1_2 = (FilePath?)null;
+
             var compressedFilePath2 = (FilePath?)null;
-            var uncompressedFilePath2 = (FilePath?)null;
-            var compressedFilePath3 = (FilePath?)null;
-            var uncompressedFilePath3 = (FilePath?)null;
-            var compressedFilePath4 = (FilePath?)null;
-            var uncompressedFilePath4 = (FilePath?)null;
+            var uncompressedFilePath2_1 = (FilePath?)null;
+            var uncompressedFilePath2_2 = (FilePath?)null;
             try
             {
                 compressedFilePath1 = new FilePath(Path.GetTempFileName());
-                uncompressedFilePath1 = new FilePath(Path.GetTempFileName());
+                uncompressedFilePath1_1 = new FilePath(Path.GetTempFileName());
                 CompressWithDeflate(sourceFilePath.FullName, compressedFilePath1.FullName);
-                UncompressWithDeflate_1(compressedFilePath1.FullName, uncompressedFilePath1.FullName);
-                CompareFile(sourceFilePath, uncompressedFilePath1);
 
-                uncompressedFilePath2 = new FilePath(Path.GetTempFileName());
+                Console.WriteLine("\x1b[0KDeflate compresssion completed.");
+                Console.WriteLine();
+
+                UncompressWithDeflate_1(compressedFilePath1.FullName, uncompressedFilePath1_1.FullName);
+                if (!CompareFile(sourceFilePath, uncompressedFilePath1_1))
+                    throw new Exception();
+
+                Console.WriteLine("\x1b[0KDeflate uncompresssion(1) completed.");
+                Console.WriteLine();
+
+                uncompressedFilePath1_2 = new FilePath(Path.GetTempFileName());
                 using (var inStream = UncompressWithDeflate_2(compressedFilePath1.FullName))
-                using (var outStream = uncompressedFilePath2.Create().AsDotNetStream())
+                using (var outStream = uncompressedFilePath1_2.Create().AsDotNetStream())
                 {
                     inStream.CopyTo(outStream);
                 }
 
+                if (!CompareFile(sourceFilePath, uncompressedFilePath1_2))
+                    throw new Exception();
 
+                Console.WriteLine("\x1b[0KDeflate uncompresssion(2) completed.");
+                Console.WriteLine();
+
+                compressedFilePath2 = new FilePath(Path.GetTempFileName());
+                uncompressedFilePath2_1 = new FilePath(Path.GetTempFileName());
+                CompressWithLzma(sourceFilePath.FullName, compressedFilePath2.FullName);
+
+                Console.WriteLine("\x1b[0KLZMA compresssion completed.");
+                Console.WriteLine();
+
+                UncompressWithLzma_1(compressedFilePath2.FullName, uncompressedFilePath2_1.FullName);
+                if (!CompareFile(sourceFilePath, uncompressedFilePath2_1))
+                    throw new Exception();
+
+                Console.WriteLine("\x1b[0KLZMA uncompresssion(1) completed.");
+                Console.WriteLine();
+
+                uncompressedFilePath2_2 = new FilePath(Path.GetTempFileName());
+                using (var inStream = UncompressWithLzma_2(compressedFilePath2.FullName))
+                using (var outStream = uncompressedFilePath2_2.Create().AsDotNetStream())
+                {
+                    inStream.CopyTo(outStream);
+                }
+
+                if (!CompareFile(sourceFilePath, uncompressedFilePath2_2))
+                    throw new Exception();
+
+                Console.WriteLine("\x1b[0KLZMA uncompresssion(2) completed.");
+                Console.WriteLine();
             }
             finally
             {
                 compressedFilePath1?.Delete();
-                uncompressedFilePath1?.Delete();
+                uncompressedFilePath1_1?.Delete();
+                uncompressedFilePath1_2?.Delete();
+
                 compressedFilePath2?.Delete();
-                uncompressedFilePath2?.Delete();
-                compressedFilePath3?.Delete();
-                uncompressedFilePath3?.Delete();
-                compressedFilePath4?.Delete();
-                uncompressedFilePath4?.Delete();
+                uncompressedFilePath2_1?.Delete();
+                uncompressedFilePath2_2?.Delete();
             }
-            CompressWithDeflate(uncompressedFilePath, compressedFilePath);
 
             Console.WriteLine();
             Console.WriteLine();
