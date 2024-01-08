@@ -1,6 +1,6 @@
 //{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
-// Used by Palmtree.SevenZip.Compression.Wrapper.NET.Native..rc
+// Used by Palmtree.SevenZip.NativeWrapper.Native.${os}_${architecture}.rc
 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
