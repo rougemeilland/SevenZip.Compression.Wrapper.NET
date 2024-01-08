@@ -166,10 +166,10 @@ using System.IO;
 
 Stream inStream = ... ; // Set the input stream
 Stream outStream = ... ; // Set the output stream
-Byte[] headerData = new Byte[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE + sizeof(UInt64)];
+Byte[] headerData = new Byte[LzmaDecoder.CONTENT_PROPERTY_SIZE + sizeof(UInt64)];
 ReadBytes(inStream, headerData); // Read the header part
-Span<Byte> contentProperty = new Span<Byte>(headerData, 0, LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE); // Get the content property part
-UInt64 uncompressedDataLength = BitConverter.ToUInt64(headerData, LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE); // Get the size of the data before compression
+Span<Byte> contentProperty = new Span<Byte>(headerData, 0, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the content property part
+UInt64 uncompressedDataLength = BitConverter.ToUInt64(headerData, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the size of the data before compression
 using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content property
 {
     decoder.Code(inStream, outStream, null, null, null); // Decode the body of the data
@@ -217,14 +217,14 @@ using System.IO;
 
 Stream inStream = ... ; // Set the input stream
 Stream outStream = ... ; // Set the output stream
-Byte[] headerData = new Byte[sizeof(Byte) + sizeof(Byte) + sizeof(UInt16) + LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE];
+Byte[] headerData = new Byte[sizeof(Byte) + sizeof(Byte) + sizeof(UInt16) + LzmaDecoder.CONTENT_PROPERTY_SIZE];
 ReadBytes(inStream, headerData); // Read the header part
 Byte majorVersion = headerData[0]; // The major version is not used.
 Byte minorVersion = headerData[1]; // The minor version is not used.
 UInt16 contentPropertyLength = BitConverter.ToUInt16(headerData, 2); // Get the length of content property
-if (contentPropertyLength != LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE) // Check the length of content property
+if (contentPropertyLength != LzmaDecoder.CONTENT_PROPERTY_SIZE) // Check the length of content property
     throw new Exception("Illegal LZMA format");
-Span<Byte> contentProperty = new Span<Byte>(headerData, 4, LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE); // Get the content property part.
+Span<Byte> contentProperty = new Span<Byte>(headerData, 4, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the content property part.
 using (LzmaDecoder decoder = LzmaDecoder.Create(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content property
 {
     decoder.Code(inStream, outStream, null, null, null); // Decode the body of the data
@@ -251,8 +251,8 @@ using (LzmaEncoder encoder = LzmaEncoder.Create(new LzmaEncoderProperties { Leve
 {
     outSteram.WriteByte(majorVersion); // Write a major version of the LZMA SDK
     outSteram.WriteByte(minorVersion); // Write a minor version of the LZMA SDK
-    outSteram.WriteByte((Byte)(LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE >> 0)); // Write the low-order byte of the content property length
-    outSteram.WriteByte((Byte)(LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE >> 8)); // Write the high-order byte of the content property length
+    outSteram.WriteByte((Byte)(LzmaDecoder.CONTENT_PROPERTY_SIZE >> 0)); // Write the low-order byte of the content property length
+    outSteram.WriteByte((Byte)(LzmaDecoder.CONTENT_PROPERTY_SIZE >> 8)); // Write the high-order byte of the content property length
     encoder.WriteCoderProperties(outStream); // Write content property
     encoder.Code(inStream, outStream, null, null, null); // Encode the body of the data
 }
