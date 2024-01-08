@@ -1,4 +1,4 @@
-言語: [日本語](AboutContentProperties_ja.md) | **English**
+Language: [日本語](AboutContentProperties_ja.md) | **English**
 
 <!--コンテンツプロパティについて-->
 # About *Content property*[^1]
