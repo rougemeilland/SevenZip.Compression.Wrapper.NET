@@ -447,6 +447,7 @@ namespace NativeInterfaceIdGenerator
             {
                 (os: "win", architecture: "x86", osDisplayName: "Windows", archtectureDisplayName:"x86"),
                 (os: "win", architecture: "x64", osDisplayName: "Windows", archtectureDisplayName:"x64"),
+                (os: "win", architecture: "arm32", osDisplayName: "Windows", archtectureDisplayName:"ARM"),
                 (os: "win", architecture: "arm64", osDisplayName: "Windows", archtectureDisplayName:"ARM64"),
             })
             {
@@ -483,6 +484,14 @@ namespace NativeInterfaceIdGenerator
                     File.WriteAllText(destinationResourceFilePath, destinationFileText, encoding);
                     //File.SetLastWriteTimeUtc(destinationResourceFilePath, sourceResourceTileTimeStamp);
                     File.SetAttributes(destinationResourceFilePath, File.GetAttributes(destinationResourceFilePath) | FileAttributes.ReadOnly);
+
+                    var sourceResourceIncludeFilePath = Path.Combine(solutionPath, _nativeCodeProjectName, "resource.h");
+                    var sourceIncludeFileText = File.ReadAllText(sourceResourceIncludeFilePath, encoding);
+                    var destinationIncludeFileText = ExpandMacro(sourceIncludeFileText);
+                    var destinationResourceIncludeFilePath = Path.Combine(destinationDirectoryPath, "resource.h");
+                    File.WriteAllText(destinationResourceIncludeFilePath, destinationIncludeFileText);
+                    if (File.Exists(destinationResourceIncludeFilePath))
+                        File.SetAttributes(destinationResourceIncludeFilePath, File.GetAttributes(destinationResourceIncludeFilePath) & ~FileAttributes.ReadOnly);
                 }
             }
         }

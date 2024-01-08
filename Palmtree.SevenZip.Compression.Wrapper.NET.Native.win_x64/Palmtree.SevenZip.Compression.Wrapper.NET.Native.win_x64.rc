@@ -72,9 +72,9 @@ BEGIN
             VALUE "CompanyName", "Palmtree Software"
             VALUE "FileDescription", "A native library that provides a way to access each interface supported by the 7-zip native library for Windows (x64)."
             VALUE "FileVersion", "1.0.0.0"
-            VALUE "InternalName", "SevenZip.NativeWrapper.Unmanaged.win.x64"
+            VALUE "InternalName", "Palmtree.SevenZip.Compression.Wrapper.NET.win_x64"
             VALUE "LegalCopyright", "c2022 Palmtree Software"
-            VALUE "OriginalFilename", "SevenZip.NativeWrapper.Unmanaged.win.x64"
+            VALUE "OriginalFilename", "Palmtree.SevenZip.Compression.Wrapper.NET.win_x64"
             VALUE "ProductName", "SevenZip.Compression.Wrapper.NET"
             VALUE "ProductVersion", "1.0.0.0"
         END
