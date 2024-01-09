@@ -438,7 +438,7 @@ The developer of this software is not responsible for any defects or troubles th
 おそらくは、他のプラットフォームへの移植は以下の手順で可能であると思われます。
 -->
 Currently, the OS and CPUs supported by this soHowever, this is due to the limitations on the hardware available to the developer of this software, and is not due to the mechanism of this software.
-ftware are as shown in [3. Required environment] (#3-Required environment).
+ftware are as shown in [3. Required environment](#3-Required-environment).
 Perhaps porting to other platforms is possible by following the steps below.
 
 <!--
