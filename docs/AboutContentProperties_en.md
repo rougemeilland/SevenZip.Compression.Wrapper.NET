@@ -1,39 +1,39 @@
 Language: [日本語](AboutContentProperties_ja.md) | **English**
 
 <!--コンテンツプロパティについて-->
-# About *Content property*[^1]
+# About *Content properties*[^1]
 
 <!--コンテンツプロパティとは何か？-->
-## 1. What is *content property* ?
+## 1. What is *content properties* ?
 
 <!--コンテンツプロパティの概要-->
-### 1.1. Content property overview
+### 1.1. Content properties overview
 
 <!--*コンテンツプロパティ*とは、7-zipでサポートされているいくつかのコーデックにおいて、エンコードされたデータを正しくデコードするために必要となるバイトデータです。-->
-*Content property* is the byte data required to correctly decode the encoded data in some codecs supported by 7-zip.
+*Content properties* is the byte data required to correctly decode the encoded data in some codecs supported by 7-zip.
 
 <!--アプリケーションの開発者は、*コンテンツプロパティ*はデコードに必要なある長さのバイトデータであることだけを知っていればよく、その内容が何を意味するかを理解する必要はありません。-->
 <!--しかし、*コンテンツプロパティ*は、7-zipが提供するコーデックによってエンコードされたデータには含まれておらず、かつデコードの際には必要なデータであるので、アプリケーションは*コンテンツプロパティ*を正しく管理する必要があります。-->
-Application developers only need to know that the *content property* is byte data of the length required for decoding, and do not need to understand what that content means.
-However, the application needs to manage the *content property* correctly. Because the *content property* is not included in the data encoded by the codec provided by 7-zip, and it is necessary data for decoding.
+Application developers only need to know that the *content properties* is byte data of the length required for decoding, and do not need to understand what that content means.
+However, the application needs to manage the *content properties* correctly. Because the *content properties* is not included in the data encoded by the codec provided by 7-zip, and it is necessary data for decoding.
 
 <!--7-zip では*コンテンツプロパティ*はどのように使用されているか-->
-### 1.2. How is content property used in 7-zip ?
+### 1.2. How is content properties used in 7-zip ?
 
 <!--具体的には、*コンテンツプロパティ*とは、7-zipのソースコードにおける以下のインターフェースで使用されるバイト列のことです。-->
-Specifically, the content property is the byte string used in the following interface in the 7-zip source code.
+Specifically, the content properties is the byte string used in the following interface in the 7-zip source code.
 - `ICompressWriteCoderProperties`
 - `ICompressSetDecoderProperties2`
 
 <!--`ICompressWriteCoderProperties`インターフェースは、指定されたストリームに*コンテンツプロパティ*を書き込むことをエンコーダーに指示するメソッドを含んでいます。-->
-The `ICompressWriteCoderProperties` interface contains a method that tells the encoder to write a *content property* to the specified stream.
+The `ICompressWriteCoderProperties` interface contains a method that tells the encoder to write a *content properties* to the specified stream.
 
 <!--また、`ICompressSetDecoderProperties2`インターフェースは*コンテンツプロパティ*をデコーダーに設定するメソッドを含んでいます。-->
-Also, the `ICompressSetDecoderProperties2` interface contains a method to set the *content property* to the decoder.
+Also, the `ICompressSetDecoderProperties2` interface contains a method to set the *content properties* to the decoder.
 
 <!--これらのインターフェースを実装しているコーデックをアプリケーションが利用する場合は、*コンテンツプロパティ*がアプリケーションによって適切に管理されなければなりません。-->
 <!--7-zip バージョン 21.07 において、その対象となるコーデックは以下の通りです。-->
-If your application uses codecs that implement above interfaces, the *content property* must be properly managed by your application.
+If your application uses codecs that implement above interfaces, the *content properties* must be properly managed by your application.
 In 7-zip version 21.07, the target codecs are as follows.
 - LZMA
 - LZMA2
@@ -44,11 +44,11 @@ In 7-zip version 21.07, the target codecs are as follows.
 - Rar5
 
 <!--何故アプリケーションが*コンテンツプロパティ*を管理しなければならないのか？-->
-## 2. Why does an application have to manage *content property* ?
+## 2. Why does an application have to manage *content properties* ?
 
 <!--本来ならば、少なくともアプリケーションにとっては、*コンテンツプロパティ*のようなデータはエンコードされたデータに含まれていてアプリケーションからはその存在が隠蔽されているのが望ましいことです。-->
 <!--そうはならなかった理由は、おそらくは同じコーデックでも複数のファイルフォーマットが存在することに関係している、と筆者は推測しています。-->
-Originally, at least for applications, it is desirable that data such as *content property* be contained in the encoded data and hidden from the application.
+Originally, at least for applications, it is desirable that data such as *content properties* be contained in the encoded data and hidden from the application.
 I'm guessing that the reason this isn't really the case is probably related to the fact that the same codec supports multiple file formats.
 
 <!--例えば、LZMAの場合の例を挙げます。-->
@@ -66,7 +66,7 @@ According to the document `lzma.txt` and its implementation source code` LzmaAlo
 -->
 | Offset | Length | Description |
 | ---: | ---: | :--- |
-| 0 | 5 bytes | *content property* |
+| 0 | 5 bytes | *content properties* |
 | 5 | 8 bytes | Data length before encoding (little endian) |
 | 13 | (Length of compressed data) | Compressed data |
 
@@ -86,8 +86,8 @@ On the other hand, according to the [ZIP File Format Specification (APPNOTE.TXT)
 | ---: | ---: | :--- |
 | 0 | 1 byte | Major version of LZMA SDK <br/> Major version of 7-zip in implementation with 7-zip |
 | 1 | 1 byte | Minor version of LZMA SDK <br/> Minor version of 7-zip in implementation with 7-zip |
-| 2 | 2 bytes | Length of *content property* (little endian) <br/> Always 0x0005 |
-| 4 | 5 bytes | *content property* |
+| 2 | 2 bytes | Length of *content properties* (little endian) <br/> Always 0x0005 |
+| 4 | 5 bytes | *content properties* |
 | 9 | (Length of compressed data) | Compressed data |
 
 <!--
@@ -110,7 +110,7 @@ However, regardless of what happened, as a result, LZMA (and LZMA2, PPMd7, etc.)
 <!--
 ## 3. アプリケーションは*コンテンツプロパティ* をどのように管理すればいいのか？
 -->
-## 3. How should an application manage *content property* ?
+## 3. How should an application manage *content properties* ?
 
 <!--
 前述のように、少なくともLZMA (およびLZMA2、PPMd7など)のコーデックにおいては、エンコードされたデータのヘッダー部分の読み込みと書き込みはアプリケーションが行わなければなりません。
@@ -168,9 +168,9 @@ Stream inStream = ... ; // Set the input stream
 Stream outStream = ... ; // Set the output stream
 Byte[] headerData = new Byte[LzmaDecoder.CONTENT_PROPERTY_SIZE + sizeof(UInt64)];
 ReadBytes(inStream, headerData); // Read the header part
-Span<Byte> contentProperty = new Span<Byte>(headerData, 0, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the content property part
+Span<Byte> contentProperty = new Span<Byte>(headerData, 0, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the content properties part
 UInt64 uncompressedDataLength = BitConverter.ToUInt64(headerData, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the size of the data before compression
-using (LzmaDecoder decoder = LzmaDecoder.CreateDecoder(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content property
+using (LzmaDecoder decoder = LzmaDecoder.CreateDecoder(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content properties
 {
     decoder.Code(inStream, outStream, null, null, null); // Decode the body of the data
 }
@@ -192,7 +192,7 @@ Stream inStream = ... ; // Set the input stream
 Stream outStream = ... ; // Set the output stream
 using (LzmaEncoder encoder = LzmaEncoder.CreateEncoder(new LzmaEncoderProperties { Level = CompressionLevel.Normal })) // Create an encoder
 {
-    encoder.WriteCoderProperties(outStream); // Write content property
+    encoder.WriteCoderProperties(outStream); // Write content properties
     outStream.Write(BitConverter.GetBytes((UInt64)uncompressedDataLength)); // Write the length of the data before compression
     encoder.Code(inStream, outStream, null, null, null); // Encode the body of the data
 }
@@ -221,11 +221,11 @@ Byte[] headerData = new Byte[sizeof(Byte) + sizeof(Byte) + sizeof(UInt16) + Lzma
 ReadBytes(inStream, headerData); // Read the header part
 Byte majorVersion = headerData[0]; // The major version is not used.
 Byte minorVersion = headerData[1]; // The minor version is not used.
-UInt16 contentPropertyLength = BitConverter.ToUInt16(headerData, 2); // Get the length of content property
-if (contentPropertyLength != LzmaDecoder.CONTENT_PROPERTY_SIZE) // Check the length of content property
+UInt16 contentPropertyLength = BitConverter.ToUInt16(headerData, 2); // Get the length of content properties
+if (contentPropertyLength != LzmaDecoder.CONTENT_PROPERTY_SIZE) // Check the length of content properties
     throw new Exception("Illegal LZMA format");
-Span<Byte> contentProperty = new Span<Byte>(headerData, 4, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the content property part.
-using (LzmaDecoder decoder = LzmaDecoder.CreateDecoder(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content property
+Span<Byte> contentProperty = new Span<Byte>(headerData, 4, LzmaDecoder.CONTENT_PROPERTY_SIZE); // Get the content properties part.
+using (LzmaDecoder decoder = LzmaDecoder.CreateDecoder(new LzmaDecoderProperties { FinishMode = true }, contentProperty)) // Create a decoder with content properties
 {
     decoder.Code(inStream, outStream, null, null, null); // Decode the body of the data
 }
@@ -251,9 +251,9 @@ using (LzmaEncoder encoder = LzmaEncoder.CreateEncoder(new LzmaEncoderProperties
 {
     outSteram.WriteByte(majorVersion); // Write a major version of the LZMA SDK
     outSteram.WriteByte(minorVersion); // Write a minor version of the LZMA SDK
-    outSteram.WriteByte((Byte)(LzmaDecoder.CONTENT_PROPERTY_SIZE >> 0)); // Write the low-order byte of the content property length
-    outSteram.WriteByte((Byte)(LzmaDecoder.CONTENT_PROPERTY_SIZE >> 8)); // Write the high-order byte of the content property length
-    encoder.WriteCoderProperties(outStream); // Write content property
+    outSteram.WriteByte((Byte)(LzmaDecoder.CONTENT_PROPERTY_SIZE >> 0)); // Write the low-order byte of the content properties length
+    outSteram.WriteByte((Byte)(LzmaDecoder.CONTENT_PROPERTY_SIZE >> 8)); // Write the high-order byte of the content properties length
+    encoder.WriteCoderProperties(outStream); // Write content properties
     encoder.Code(inStream, outStream, null, null, null); // Encode the body of the data
 }
 ```
@@ -280,7 +280,7 @@ However, please note that I (and the 7-zip developers) are not responsible for a
 <!--
 [^1]: *コンテンツプロパティ*という用語は、本ソフトウェアの作者による造語です。7-zipのファイルフォーマット仕様書やソースコードでは単に*プロパティ*と記載されていますが、ICompressSetCoderPropertiesインターフェースなどで使用される同様の用語と紛らわしいことがあるため、本ソフトウェアでは*コンテンツプロパティ*と称することにしました。
 -->
-[^1]: The term *content property* was coined by the author of this software. In the 7-zip file format specification and source code, it is simply described as "property". However, the term "property" can be confusing with similar terms used in the `ICompressSetCoderProperties` interface, etc., so I chose to call it *content property* in this software.
+[^1]: The term *content properties* was coined by the author of this software. In the 7-zip file format specification and source code, it is simply described as "property". However, the term "property" can be confusing with similar terms used in the `ICompressSetCoderProperties` interface, etc., so I chose to call it *content properties* in this software.
 
 <!--
 [^2]: 筆者には正確にはわかりませんが、LZMAに限って言えば7-zipの開発者側で以下のような経緯があったのではないかという推測をしています。
@@ -297,4 +297,4 @@ However, please note that I (and the 7-zip developers) are not responsible for a
     3. The ZIP file originally holds the "length of data before compression" in the header. Therefore, it was decided that the 8-byte field of "data length before encoding" in the file format of the LZMA SDK is completely unnecessary.
     4. Unnecessary 8-byte fields have been removed in determining the LZMA compression format definition for ZIP files. Along with that, a field for the version of the LZMA SDK used by the compressed codec has been added to accommodate possible format changes in the future. (Actually, the LZMA SDK version field seems to be ignored)
     5. The 7-zip developer has considered making it possible to process both the LZMA SDK format and the ZIP format with the same codec. However, since those formats have different header parts, the read / write code in the header part is written at the application level separately from the LZMA codec.
-    6. However, the header part of the file format contained *content property* which is important for decoding. Therefore, 7-zip developers have provided the `ICompressWriteCoderProperties` interface and the` ICompressSetDecoderProperties2` interface. The purpose is to allow the application to read and write headers while hiding the contents of the *content property* from the application.
+    6. However, the header part of the file format contained *content properties* which is important for decoding. Therefore, 7-zip developers have provided the `ICompressWriteCoderProperties` interface and the` ICompressSetDecoderProperties2` interface. The purpose is to allow the application to read and write headers while hiding the contents of the *content properties* from the application.
