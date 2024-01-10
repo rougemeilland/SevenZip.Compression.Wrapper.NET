@@ -15,7 +15,7 @@ namespace SevenZip.Compression
         /// A <see cref="UInt32"/> value that indicates the 7-zip version number.
         /// The upper 16 bits are the major version, and the lower 16 bits are the minor version.
         /// </value>
-        public static UInt32 Versio => CompressCodecsCollection.Instance.Version;
+        public static readonly UInt32 Versio;
 
         /// <summary>
         /// Get the interface type.
@@ -27,6 +27,12 @@ namespace SevenZip.Compression
         /// <item><term>If the IUnknown interface does not support virtual destructor</term><description>0</description></item>
         /// </list>
         /// </value>
-        public static UInt32 InterfaceType => CompressCodecsCollection.Instance.InterfaceType;
+        public static readonly UInt32 InterfaceType;
+
+        static SevenZipModule()
+        {
+            Versio = CompressCodecsCollection.Instance.Version;
+            InterfaceType = CompressCodecsCollection.Instance.InterfaceType;
+        }
     }
 }
