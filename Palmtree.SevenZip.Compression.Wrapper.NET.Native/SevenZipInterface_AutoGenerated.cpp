@@ -310,6 +310,11 @@ extern "C"
         return ifp->CreateEncoder(index, iid, encoder);
     }
 
+    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, GetModuleProp)(ICompressCodecsInfo* ifp, PROPID propID, PROPVARIANT* value)
+    {
+        return ifp->GetModuleProp(propID, value);
+    }
+
 #if false // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ISetCompressCodecsInfo, SetCompressCodecsInfo)(ISetCompressCodecsInfo* ifp, ICompressCodecsInfo* compressCodecsInfo)
     {

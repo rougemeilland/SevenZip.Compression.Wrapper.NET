@@ -38,11 +38,11 @@ ULONG STDMETHODCALLTYPE CompressCodecsInfo::Release(void)
     return Unknown::Release();
 }
 
-HRESULT CompressCodecsInfo::Create(SevenZipEntryPoint::EntryPointsTable* entryPointsTable, CompressCodecsInfo** obj)
+HRESULT CompressCodecsInfo::Create(SevenZipEntryPoint::EntryPointsTable* entryPointsTable, UInt32 sizeOfEntryPointsTable, CompressCodecsInfo** obj)
 {
     *obj = nullptr;
     SevenZipEntryPoint* entryPoint;
-    HRESULT result = SevenZipEntryPoint::Create(entryPointsTable, &entryPoint);
+    HRESULT result = SevenZipEntryPoint::Create(entryPointsTable, sizeOfEntryPointsTable, &entryPoint);
     if (result != S_OK)
         return result;
     *obj = new CompressCodecsInfo();
@@ -68,4 +68,9 @@ HRESULT STDMETHODCALLTYPE CompressCodecsInfo::CreateDecoder(UInt32 index, const 
 HRESULT STDMETHODCALLTYPE CompressCodecsInfo::CreateEncoder(UInt32 index, const GUID* iid, void** coder) throw()
 {
     return _entryPoint->CreateEncoder(index, iid, coder);
+}
+
+HRESULT STDMETHODCALLTYPE CompressCodecsInfo::GetModuleProp(PROPID propID, PROPVARIANT* value) throw()
+{
+    return _entryPoint->GetModuleProp(propID, value);
 }

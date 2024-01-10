@@ -1490,6 +1490,37 @@
               "parameterComment": "If the call to this function is successful, a pointer to the created decoder's interface object will be output. This interface object implements the interface specified by  <paramref name=\"iid\"/>."
             }
           ]
+        },
+        {
+          "memberName": "GetModuleProp",
+          "returnValueType": "HRESULT",
+          "isCustomizedParameter": false,
+          "memberComment": "Get information about installed 7-zip modules.",
+          "memberAdditionalComment": "",
+          "returnValueComment": "<para>If the return value is <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref=\"HRESULT.S_OK\"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para>",
+          "parameters7z": [
+            {
+              "parameterType": "PROPID",
+              "parameterName": "propID"
+            },
+            {
+              "parameterType": "PROPVARIANT*",
+              "parameterName": "value"
+            }
+          ],
+          "parametersCpp": [],
+          "parametersCSharp": [
+            {
+              "parameterType": "ModulePropID",
+              "parameterName": "propID",
+              "parameterComment": "Set the ID of the property you want to get."
+            },
+            {
+              "parameterType": "PROPVARIANT*",
+              "parameterName": "value",
+              "parameterComment": "Set the pointer of the <see cref=\"PROPVARIANT\"/> structure to store the value of the retrieved property."
+            }
+          ]
         }
       ]
     },

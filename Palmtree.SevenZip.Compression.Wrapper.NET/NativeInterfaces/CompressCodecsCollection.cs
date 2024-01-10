@@ -41,6 +41,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         private static CompressCodecsCollection? _instance;
 
+        private readonly CompressCodecsInfo _codecsInfo;
         private readonly IDictionary<CodecsKey, CompressCodecInfo> _codecs;
 
         static CompressCodecsCollection()
@@ -48,8 +49,9 @@ namespace SevenZip.Compression.NativeInterfaces
             _lockObject = new Object();
         }
 
-        private CompressCodecsCollection(IDictionary<CodecsKey, CompressCodecInfo> codecs)
+        private CompressCodecsCollection(CompressCodecsInfo codecsInfo, IDictionary<CodecsKey, CompressCodecInfo> codecs)
         {
+            _codecsInfo = codecsInfo;
             _codecs = codecs;
         }
 
@@ -65,6 +67,9 @@ namespace SevenZip.Compression.NativeInterfaces
                 }
             }
         }
+
+        public UInt32 Version => _codecsInfo.Version;
+        public UInt32 InterfaceType => _codecsInfo.InterfaceType;
 
         public CompressCoder CreateCompressCoder(String coderName, CoderType coderType)
         {
@@ -87,6 +92,7 @@ namespace SevenZip.Compression.NativeInterfaces
                 ?? throw new FileNotFoundException($"The native library package (Palmtree.SevenZip.Compression.Wrapper.NET.Native) of this library (Palmtree.SevenZip.Compression.Wrapper.NET) is not installed.");
             return
                 new CompressCodecsCollection(
+                    codecsInfo,
                     codecsInfo.EnumerateCodecs()
                     .ToDictionary(
                         codec => new CodecsKey(codec.CodecName, codec.CoderType),

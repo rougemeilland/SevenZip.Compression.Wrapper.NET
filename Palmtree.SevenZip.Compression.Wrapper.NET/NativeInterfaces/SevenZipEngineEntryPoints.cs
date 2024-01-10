@@ -31,5 +31,8 @@ namespace SevenZip.Compression.NativeInterfaces
 
         /* 08 */
         public void* FpGetNumberOfMethods;
+
+        /* 09 */
+        public void* FpGetModuleProp;
     }
 }

@@ -1475,6 +1475,35 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #endregion //ICompressCodecsInfo_CreateEncoder
 
+        #region ICompressCodecsInfo_GetModuleProp
+
+        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        private static unsafe HRESULT ICompressCodecsInfo__GetModuleProp(IntPtr ifp, ModulePropID propID, PROPVARIANT* value)
+        {
+            if (OperatingSystem.IsWindows())
+                return ICompressCodecsInfo__GetModuleProp_win(ifp, propID, value);
+            else if (OperatingSystem.IsLinux())
+                return ICompressCodecsInfo__GetModuleProp_linux(ifp, propID, value);
+            else if (OperatingSystem.IsMacOS())
+                return ICompressCodecsInfo__GetModuleProp_osx(ifp, propID, value);
+            else
+                throw new NotSupportedException("Running on this operating system is not supported.");
+        }
+
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__GetModuleProp")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvStdcall)})]
+        private static unsafe partial HRESULT ICompressCodecsInfo__GetModuleProp_win(IntPtr ifp, ModulePropID propID, PROPVARIANT* value);
+
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__GetModuleProp")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
+        private static unsafe partial HRESULT ICompressCodecsInfo__GetModuleProp_linux(IntPtr ifp, ModulePropID propID, PROPVARIANT* value);
+
+        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__GetModuleProp")]
+        [UnmanagedCallConv(CallConvs = new[] {typeof(CallConvCdecl)})]
+        private static unsafe partial HRESULT ICompressCodecsInfo__GetModuleProp_osx(IntPtr ifp, ModulePropID propID, PROPVARIANT* value);
+
+        #endregion //ICompressCodecsInfo_GetModuleProp
+
         #endregion // ICompressCodecsInfo
 
         #region ISetCompressCodecsInfo

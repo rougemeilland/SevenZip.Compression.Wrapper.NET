@@ -17,7 +17,7 @@ extern "C"
         return sizeof(*value.bstrVal);
     }
 
-    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, Create)(SevenZipEntryPoint::EntryPointsTable* entryPontsTable, ICompressCodecsInfo** obj)
+    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, Create)(SevenZipEntryPoint::EntryPointsTable* entryPontsTable, UInt32 sizeOfEntryPontsTable, ICompressCodecsInfo** obj)
     {
 #ifdef _DEBUG
         // 型のビット長の自己診断に失敗したらエラーを返す。
@@ -26,7 +26,7 @@ extern "C"
 #endif // _DEBUG
 
         CompressCodecsInfo* createdObject = nullptr;
-        HRESULT result = CompressCodecsInfo::Create(entryPontsTable, &createdObject);
+        HRESULT result = CompressCodecsInfo::Create(entryPontsTable, sizeOfEntryPontsTable, &createdObject);
         if (result != S_OK)
         {
             *obj = nullptr;

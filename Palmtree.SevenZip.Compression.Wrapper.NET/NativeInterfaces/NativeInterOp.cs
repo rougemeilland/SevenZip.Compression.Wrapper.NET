@@ -193,6 +193,8 @@ namespace SevenZip.Compression.NativeInterfaces
                 return HRESULT.E_NOT_SUPPORTED;
             if ((entryPointsTable->FpGetNumberOfMethods = GetExport(handle, "GetNumberOfMethods")) == null)
                 return HRESULT.E_NOT_SUPPORTED;
+            if ((entryPointsTable->FpGetModuleProp = GetExport(handle, "GetModuleProp")) == null)
+                return HRESULT.E_NOT_SUPPORTED;
             return HRESULT.S_OK;
 
             static void* GetExport(IntPtr handle, String name)
@@ -239,6 +241,9 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="entrypointsTable">
         /// A pointer to a table of entry points for the 7-zip library.
         /// </param>
+        /// <param name="sizeOfEntryPontsTable">
+        /// The size of <see cref="SevenZipEngineEntryPoints"/> structure.
+        /// </param>
         /// <param name="obj">
         /// If the call to this function is successful, the ICompressCodecsInfo interface object will be output.
         /// </param>
@@ -253,37 +258,45 @@ namespace SevenZip.Compression.NativeInterfaces
         /// </returns>
 
         [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
-        public unsafe static HRESULT ICompressCodecsInfo__Create(SevenZipEngineEntryPoints* entrypointsTable, out IntPtr obj)
+        public unsafe static HRESULT ICompressCodecsInfo__Create(SevenZipEngineEntryPoints* entrypointsTable, UInt32 sizeOfEntryPontsTable, out IntPtr obj)
         {
             if (OperatingSystem.IsWindows())
-                return ICompressCodecsInfo__Create_win(entrypointsTable, out obj);
+                return ICompressCodecsInfo__Create_win(entrypointsTable, sizeOfEntryPontsTable, out obj);
             else if (OperatingSystem.IsLinux())
-                return ICompressCodecsInfo__Create_linux(entrypointsTable, out obj);
+                return ICompressCodecsInfo__Create_linux(entrypointsTable, sizeOfEntryPontsTable, out obj);
             else if (OperatingSystem.IsMacOS())
-                return ICompressCodecsInfo__Create_osx(entrypointsTable, out obj);
+                return ICompressCodecsInfo__Create_osx(entrypointsTable, sizeOfEntryPontsTable, out obj);
             else
                 throw new NotSupportedException("Running on this operating system is not supported.");
         }
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__Create")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvStdcall) })]
-        private unsafe static partial HRESULT ICompressCodecsInfo__Create_win(SevenZipEngineEntryPoints* entryPontsTable, out IntPtr obj);
+        private unsafe static partial HRESULT ICompressCodecsInfo__Create_win(SevenZipEngineEntryPoints* entryPontsTable, UInt32 sizeOfEntryPontsTable, out IntPtr obj);
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__Create")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private unsafe static partial HRESULT ICompressCodecsInfo__Create_linux(SevenZipEngineEntryPoints* entryPontsTable, out IntPtr obj);
+        private unsafe static partial HRESULT ICompressCodecsInfo__Create_linux(SevenZipEngineEntryPoints* entryPontsTable, UInt32 sizeOfEntryPontsTable, out IntPtr obj);
 
         [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = "EXPORTED_ICompressCodecsInfo__Create")]
         [UnmanagedCallConv(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private unsafe static partial HRESULT ICompressCodecsInfo__Create_osx(SevenZipEngineEntryPoints* entryPontsTable, out IntPtr obj);
+        private unsafe static partial HRESULT ICompressCodecsInfo__Create_osx(SevenZipEngineEntryPoints* entryPontsTable, UInt32 sizeOfEntryPontsTable, out IntPtr obj);
 
         #endregion
 
         #region ICompressCodecsInfo__GetProperty
 
         [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
-        public static unsafe HRESULT ICompressCodecsInfo__GetProperty(IntPtr ifp, UInt32 index, MethodPropID propID, PROPVARIANT_BUFFER* propValue)
-            => ICompressCodecsInfo__GetProperty(ifp, index, propID, (PROPVARIANT*)propValue);
+        public static unsafe HRESULT ICompressCodecsInfo__GetProperty(IntPtr ifp, UInt32 index, MethodPropID propID, PROPVARIANT_BUFFER* value)
+            => ICompressCodecsInfo__GetProperty(ifp, index, propID, (PROPVARIANT*)value);
+
+        #endregion
+
+        #region ICompressCodecsInfo__GetModuleProp
+
+        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        public static unsafe HRESULT ICompressCodecsInfo__GetModuleProp(IntPtr ifp, ModulePropID propID, PROPVARIANT_BUFFER* value)
+            => ICompressCodecsInfo__GetModuleProp(ifp, propID, (PROPVARIANT*)value);
 
         #endregion
 

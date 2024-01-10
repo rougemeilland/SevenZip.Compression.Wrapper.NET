@@ -15,8 +15,8 @@ private:
     typedef HRESULT(STDMETHODCALLTYPE* FuncGetMethodProperty)(UInt32 codecIndex, PROPID propID, PROPVARIANT* value);
     typedef HRESULT(STDMETHODCALLTYPE* FuncGetNumberOfFormats)(UInt32* numFormats);
     typedef HRESULT(STDMETHODCALLTYPE* FuncGetNumberOfMethods)(UInt32* numCodecs);
+    typedef HRESULT(STDMETHODCALLTYPE* FuncGetModuleProp)(PROPID propID, PROPVARIANT* value);
 
-    void* _dllHandle;
     UInt32 _referenceCount;
     FuncCreateDecoder _fpCreateDecoder;
     FuncCreateEncoder _fpCreateEncoder;
@@ -27,6 +27,7 @@ private:
     FuncGetMethodProperty _fpGetMethodProperty;
     FuncGetNumberOfFormats _fpGetNumberOfFormats;
     FuncGetNumberOfMethods _fpGetNumberOfMethods;
+    FuncGetModuleProp _fpGetModuleProp;
     SevenZipEntryPoint();
     SevenZipEntryPoint(const SevenZipEntryPoint& p); // unused
 
@@ -42,10 +43,11 @@ public:
         /* 06 */FuncGetMethodProperty FpGetMethodProperty;
         /* 07 */FuncGetNumberOfFormats FpGetNumberOfFormats;
         /* 08 */FuncGetNumberOfMethods FpGetNumberOfMethods;
+        /* 09 */FuncGetModuleProp FpGetModuleProp;
     };
 
     virtual ~SevenZipEntryPoint();
-    static HRESULT Create(EntryPointsTable* entryPointsTable, SevenZipEntryPoint** entryPoint);
+    static HRESULT Create(EntryPointsTable* entryPointsTable, UInt32 sizeOfEntryPointsTable, SevenZipEntryPoint** entryPoint);
     HRESULT STDMETHODCALLTYPE CreateDecoder(UInt32 index, const GUID* iid, void** outObject) const;
     HRESULT STDMETHODCALLTYPE CreateEncoder(UInt32 index, const GUID* iid, void** outObject) const;
     HRESULT STDMETHODCALLTYPE CreateObject(const GUID& clsid, const GUID& iid, void** outObject) const;
@@ -55,9 +57,7 @@ public:
     HRESULT STDMETHODCALLTYPE GetMethodProperty(UInt32 codecIndex, PROPID propID, PROPVARIANT* value) const;
     HRESULT STDMETHODCALLTYPE GetNumberOfFormats(UInt32* numFormats) const;
     HRESULT STDMETHODCALLTYPE GetNumberOfMethods(UInt32* numCodecs) const;
+    HRESULT STDMETHODCALLTYPE GetModuleProp(PROPID propID, PROPVARIANT* value) const;
     void AddRef();
     void Release();
-private:
-    HRESULT LoadSevenZipLibrary(Byte* locationPath);
-    void UnloadSevenZipLibrary();
 };

@@ -637,7 +637,7 @@ namespace NativeInterfaceIdGenerator
         private static Boolean IsCSharpSafeType(String unmanagedType)
             => unmanagedType switch
             {
-                "Int16" or "UInt16" or "Int32" or "UInt32" or "Int64" or "UInt64" or "MethodPropID" or "NativeInStreamReader" or "NativeOutStreamWriter" or "NativeProgressReporter" or "NativeProgressReporter?" or "IntPtr" or "ref NativeGUID" or "ref PROPVARIANT" or "out UInt32" or "out UInt64" or "out IntPtr" => true,
+                "Int16" or "UInt16" or "Int32" or "UInt32" or "Int64" or "UInt64" or "MethodPropID" or "ModulePropID" or "NativeInStreamReader" or "NativeOutStreamWriter" or "NativeProgressReporter" or "NativeProgressReporter?" or "IntPtr" or "ref NativeGUID" or "ref PROPVARIANT" or "out UInt32" or "out UInt64" or "out IntPtr" => true,
                 "void*" or "Byte*" or "UInt32*" or "UInt64*" or "CoderPropertyId*" or "PROPVARIANT*" or "NativeInStreamReader*" or "NativeOutStreamWriter*" or "void**" or "UInt64**" => false,
                 _ => throw new Exception($"Unhandled type: {unmanagedType}"),
             };
@@ -653,6 +653,7 @@ namespace NativeInterfaceIdGenerator
                 case "UInt64":
                 case "CoderPropertyId":
                 case "MethodPropID":
+                case "ModulePropID":
                 case "HRESULT":
                 case "NativeInStreamReader":
                 case "NativeOutStreamWriter":

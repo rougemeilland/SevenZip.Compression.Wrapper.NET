@@ -283,7 +283,7 @@ namespace Test.Coders
                 {
                     using var inStream = pipe.OpenInputStream();
                     using var outStream = CreateDataValidationStream();
-                    Span<byte> contentProperties = stackalloc byte[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE];
+                    Span<byte> contentProperties = stackalloc byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
                     if (inStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var decoder = LzmaDecoder.CreateDecoder(contentProperties);
@@ -319,7 +319,7 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     var baseOfInStream = pipe.OpenInputStream();
-                    Span<byte> contentProperties = stackalloc byte[LzmaDecoder.LZMA_CONTENT_PROPERTY_SIZE];
+                    Span<byte> contentProperties = stackalloc byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
                     if (baseOfInStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var inStream = LzmaDecoder.CreateDecoderStream(baseOfInStream, DATA_SIZE, contentProperties);
@@ -356,7 +356,7 @@ namespace Test.Coders
                 {
                     using var inStream = pipe.OpenInputStream();
                     using var outStream = CreateDataValidationStream();
-                    Span<byte> contentProperties = stackalloc byte[Lzma2Decoder.LZMA2_CONTENT_PROPERTY_SIZE];
+                    Span<byte> contentProperties = stackalloc byte[Lzma2Decoder.CONTENT_PROPERTY_SIZE];
                     if (inStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var decoder = Lzma2Decoder.CreateDecoder(contentProperties);
@@ -391,7 +391,7 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     var baseOfInStream = pipe.OpenInputStream();
-                    Span<byte> contentProperties = stackalloc byte[Lzma2Decoder.LZMA2_CONTENT_PROPERTY_SIZE];
+                    Span<byte> contentProperties = stackalloc byte[Lzma2Decoder.CONTENT_PROPERTY_SIZE];
                     if (baseOfInStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var inStream = Lzma2Decoder.CreateDecoderStream(baseOfInStream, DATA_SIZE, contentProperties);
@@ -427,7 +427,7 @@ namespace Test.Coders
                 {
                     using var inStream = pipe.OpenInputStream();
                     using var outStream = CreateDataValidationStream();
-                    Span<byte> contentProperties = stackalloc byte[Ppmd7Decoder.PPMDD7_CONTENT_PROPERTY_SIZE];
+                    Span<byte> contentProperties = stackalloc byte[Ppmd7Decoder.CONTENT_PROPERTY_SIZE];
                     if (inStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var decoder = Ppmd7Decoder.CreateDecoder(contentProperties);
@@ -461,7 +461,7 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     var baseOfInStream = pipe.OpenInputStream();
-                    Span<byte> contentProperties = stackalloc byte[Ppmd7Decoder.PPMDD7_CONTENT_PROPERTY_SIZE];
+                    Span<byte> contentProperties = stackalloc byte[Ppmd7Decoder.CONTENT_PROPERTY_SIZE];
                     if (baseOfInStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var inStream = Ppmd7Decoder.CreateDecoderStream(baseOfInStream, DATA_SIZE, contentProperties);

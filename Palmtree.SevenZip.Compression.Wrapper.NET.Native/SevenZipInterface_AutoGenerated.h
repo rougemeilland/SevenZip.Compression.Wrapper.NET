@@ -245,6 +245,7 @@ struct ICompressCodecsInfo
     virtual HRESULT STDMETHODCALLTYPE GetProperty(UInt32 index, PROPID propID, PROPVARIANT* value) = 0;
     virtual HRESULT STDMETHODCALLTYPE CreateDecoder(UInt32 index, const GUID* iid, void** decoder) = 0;
     virtual HRESULT STDMETHODCALLTYPE CreateEncoder(UInt32 index, const GUID* iid, void** encoder) = 0;
+    virtual HRESULT STDMETHODCALLTYPE GetModuleProp(PROPID propID, PROPVARIANT* value) = 0;
 };
 
 #if false // This interface is not supported by the wrapper.
