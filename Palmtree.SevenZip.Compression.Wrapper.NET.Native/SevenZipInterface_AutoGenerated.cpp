@@ -24,7 +24,9 @@ extern "C" const GUID IID_IStreamGetProps2 = { 0x23170f69, 0x40c1, 0x278a, { 0x0
 #endif // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressProgressInfo = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x04, 0x00, 0x00 } };
 extern "C" const GUID IID_ICompressCoder = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x05, 0x00, 0x00 } };
+#if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressCoder2 = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x18, 0x00, 0x00 } };
+#endif // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressSetCoderPropertiesOpt = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x1f, 0x00, 0x00 } };
 extern "C" const GUID IID_ICompressSetCoderProperties = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x20, 0x00, 0x00 } };
 extern "C" const GUID IID_ICompressSetDecoderProperties2 = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x22, 0x00, 0x00 } };
@@ -52,7 +54,9 @@ extern "C" const GUID IID_ICompressInitEncoder = { 0x23170f69, 0x40c1, 0x278a, {
 #if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressSetInStream2 = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x37, 0x00, 0x00 } };
 #endif // This interface is not supported by the wrapper.
+#if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressFilter = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x40, 0x00, 0x00 } };
+#endif // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressCodecsInfo = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x60, 0x00, 0x00 } };
 #if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ISetCompressCodecsInfo = { 0x23170f69, 0x40c1, 0x278a, { 0x00, 0x00, 0x00, 0x04, 0x00, 0x61, 0x00, 0x00 } };
@@ -98,73 +102,18 @@ extern "C"
         return ifp->Read(data, size, processedSize);
     }
 
-    __DEFINE_PUBLIC_FUNC(HRESULT, ISequentialOutStream, Write)(ISequentialOutStream* ifp, const void* data, UInt32 size, UInt32* processedSize)
-    {
-        return ifp->Write(data, size, processedSize);
-    }
-
-#if false // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(HRESULT, IInStream, Seek)(IInStream* ifp, Int64 offset, UInt32 seekOrigin, UInt64* newPosition)
-    {
-        return ifp->Seek(offset, seekOrigin, newPosition);
-    }
-
-#endif // This interface is not supported by the wrapper.
-#if false // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(HRESULT, IOutStream, Seek)(IOutStream* ifp, Int64 offset, UInt32 seekOrigin, UInt64* newPosition)
-    {
-        return ifp->Seek(offset, seekOrigin, newPosition);
-    }
-
-    __DEFINE_PUBLIC_FUNC(HRESULT, IOutStream, SetSize)(IOutStream* ifp, UInt64 newSize)
-    {
-        return ifp->SetSize(newSize);
-    }
-
-#endif // This interface is not supported by the wrapper.
-#if false // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(HRESULT, IStreamGetSize, GetSize)(IStreamGetSize* ifp, UInt64* size)
-    {
-        return ifp->GetSize(size);
-    }
-
-#endif // This interface is not supported by the wrapper.
-#if false // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(HRESULT, IOutStreamFinish, OutStreamFinish)(IOutStreamFinish* ifp)
-    {
-        return ifp->OutStreamFinish();
-    }
-
-#endif // This interface is not supported by the wrapper.
-#if false // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(HRESULT, IStreamGetProps, GetProps)(IStreamGetProps* ifp, UInt64* size, FILETIME* cTime, FILETIME* aTime, FILETIME* mTime, UInt32* attrib)
-    {
-        return ifp->GetProps(size, cTime, aTime, mTime, attrib);
-    }
-
-#endif // This interface is not supported by the wrapper.
-#if false // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(HRESULT, IStreamGetProps2, GetProps2)(IStreamGetProps2* ifp, CStreamFileProps* props)
-    {
-        return ifp->GetProps2(props);
-    }
-
-#endif // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressProgressInfo, SetRatioInfo)(ICompressProgressInfo* ifp, const UInt64* inSize, const UInt64* outSize)
-    {
-        return ifp->SetRatioInfo(inSize, outSize);
-    }
-
     __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCoder, Code)(ICompressCoder* ifp, SequentialInStreamReader inStreamReader, SequentialOutStreamWriter outStreamWriter, const UInt64* inSize, const UInt64* outSize, CompressProgressInfoReporter progressReporter)
     {
         return Customized_ICompressCoder__Code(ifp, inStreamReader, outStreamWriter, inSize, outSize, progressReporter);
     }
 
+#if false // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCoder2, Code)(ICompressCoder2* ifp, SequentialInStreamReader const* inStreamReaders, const UInt64* const* inSizes, UInt32 numInStreams, SequentialOutStreamWriter const* outStreamWriters, const UInt64* const* outSizes, UInt32 numOutStreams, CompressProgressInfoReporter progressReporter)
     {
         return Customized_ICompressCoder2__Code(ifp, inStreamReaders, inSizes, numInStreams, outStreamWriters, outSizes, numOutStreams, progressReporter);
     }
 
+#endif // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ICompressSetCoderPropertiesOpt, SetCoderPropertiesOpt)(ICompressSetCoderPropertiesOpt* ifp, const PROPID* propIDs, const PROPVARIANT* props, UInt32 numProps)
     {
         return ifp->SetCoderPropertiesOpt(propIDs, props, numProps);
@@ -217,13 +166,6 @@ extern "C"
         return ifp->ReadUnusedFromInBuf(data, size, processedSize);
     }
 
-#if false // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(HRESULT, ICompressGetSubStreamSize, GetSubStreamSize)(ICompressGetSubStreamSize* ifp, UInt64 subStream, UInt64* value)
-    {
-        return ifp->GetSubStreamSize(subStream, value);
-    }
-
-#endif // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ICompressSetInStream, SetInStream)(ICompressSetInStream* ifp, SequentialInStreamReader inStreamReader)
     {
         return Customized_ICompressSetInStream__SetInStream(ifp, inStreamReader);
@@ -280,6 +222,7 @@ extern "C"
     }
 
 #endif // This interface is not supported by the wrapper.
+#if false // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ICompressFilter, Init)(ICompressFilter* ifp)
     {
         return ifp->Init();
@@ -290,6 +233,7 @@ extern "C"
         return ifp->Filter(data, size);
     }
 
+#endif // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ICompressCodecsInfo, GetNumMethods)(ICompressCodecsInfo* ifp, UInt32* numMethods)
     {
         return ifp->GetNumMethods(numMethods);
@@ -315,13 +259,6 @@ extern "C"
         return ifp->GetModuleProp(propID, value);
     }
 
-#if false // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(HRESULT, ISetCompressCodecsInfo, SetCompressCodecsInfo)(ISetCompressCodecsInfo* ifp, ICompressCodecsInfo* compressCodecsInfo)
-    {
-        return ifp->SetCompressCodecsInfo(compressCodecsInfo);
-    }
-
-#endif // This interface is not supported by the wrapper.
 #if false // This interface is not supported by the wrapper.
     __DEFINE_PUBLIC_FUNC(HRESULT, ICryptoProperties, SetKey)(ICryptoProperties* ifp, const Byte* data, UInt32 size)
     {
@@ -352,45 +289,6 @@ extern "C"
     __DEFINE_PUBLIC_FUNC(HRESULT, ICryptoSetCRC, CryptoSetCRC)(ICryptoSetCRC* ifp, UInt32 crc)
     {
         return ifp->CryptoSetCRC(crc);
-    }
-
-#endif // This interface is not supported by the wrapper.
-#if false // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(void, IHasher, Init)(IHasher* ifp)
-    {
-        ifp->Init();
-    }
-
-    __DEFINE_PUBLIC_FUNC(void, IHasher, Update)(IHasher* ifp, const void* data, UInt32 size)
-    {
-        ifp->Update(data, size);
-    }
-
-    __DEFINE_PUBLIC_FUNC(void, IHasher, Final)(IHasher* ifp, Byte* digest)
-    {
-        ifp->Final(digest);
-    }
-
-    __DEFINE_PUBLIC_FUNC(UInt32, IHasher, GetDigestSize)(IHasher* ifp)
-    {
-        return ifp->GetDigestSize();
-    }
-
-#endif // This interface is not supported by the wrapper.
-#if false // This interface is not supported by the wrapper.
-    __DEFINE_PUBLIC_FUNC(UInt32, IHashers, GetNumHashers)(IHashers* ifp)
-    {
-        return ifp->GetNumHashers();
-    }
-
-    __DEFINE_PUBLIC_FUNC(HRESULT, IHashers, GetHasherProp)(IHashers* ifp, UInt32 index, PROPID propID, PROPVARIANT* value)
-    {
-        return ifp->GetHasherProp(index, propID, value);
-    }
-
-    __DEFINE_PUBLIC_FUNC(HRESULT, IHashers, CreateHasher)(IHashers* ifp, UInt32 index, IHasher** hasher)
-    {
-        return ifp->CreateHasher(index, hasher);
     }
 
 #endif // This interface is not supported by the wrapper.

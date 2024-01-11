@@ -60,33 +60,6 @@ HRESULT STDMETHODCALLTYPE Customized_ICompressCoder__Code(ICompressCoder* ifp, S
     }
 }
 
-HRESULT STDMETHODCALLTYPE Customized_ICompressCoder2__Code(ICompressCoder2* ifp, SequentialInStreamReader const* inStreamReaders, const UInt64* const* inSizes, UInt32 numInStreams, SequentialOutStreamWriter const* outStreamWriters, const UInt64* const* outSizes, UInt32 numOutStreams, CompressProgressInfoReporter progressReporter)
-{
-    ISequentialInStream** inStreams = new ISequentialInStream * [numInStreams];
-    for (UInt32 index = 0; index < numInStreams; ++index)
-        inStreams[index] = new SequentialInStream(inStreamReaders[index], false);
-    ISequentialOutStream** outStreams = new ISequentialOutStream * [numOutStreams];
-    for (UInt32 index = 0; index < numOutStreams; ++index)
-        outStreams[index] = new SequentialOutStream(outStreamWriters[index], false);
-    HRESULT result;
-    if (progressReporter == nullptr)
-    {
-        result = ifp->Code(inStreams, inSizes, numInStreams, outStreams, outSizes, numOutStreams, nullptr);
-    }
-    else
-    {
-        CompressProgressInfo progress(progressReporter, true);
-        result = ifp->Code(inStreams, inSizes, numInStreams, outStreams, outSizes, numOutStreams, &progress);
-    }
-    for (UInt32 index = 0; index < numOutStreams; ++index)
-        outStreams[index]->Release();
-    delete[] outStreams;
-    for (UInt32 index = 0; index < numInStreams; ++index)
-        inStreams[index]->Release();
-    delete[] inStreams;
-    return result;
-}
-
 HRESULT STDMETHODCALLTYPE Customized_ICompressWriteCoderProperties__WriteCoderProperties(ICompressWriteCoderProperties* ifp, SequentialOutStreamWriter outStreamWriter)
 {
     SequentialOutStream outStream(outStreamWriter, true);

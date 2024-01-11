@@ -527,10 +527,10 @@
       "interfaceName": "ICompressCoder2",
       "interfaceId": "23170f69-40c1-278a-0000-000400180000",
       "baseInerfaceName": "IUnknown",
-      "implemented": true,
+      "implemented": false,
       "providedOutward": true,
       "providedInward": false,
-      "canQuery": true,
+      "canQuery": false,
       "members": [
         {
           "memberName": "Code",
@@ -888,7 +888,7 @@
       "interfaceId": "23170f69-40c1-278a-0000-000400270000",
       "baseInerfaceName": "IUnknown",
       "implemented": false,
-      "providedOutward": false,
+      "providedOutward": true,
       "providedInward": false,
       "canQuery": false,
       "members": [
@@ -1084,7 +1084,7 @@
       "interfaceId": "23170f69-40c1-278a-0000-000400320000",
       "baseInerfaceName": "IUnknown",
       "implemented": false,
-      "providedOutward": false,
+      "providedOutward": true,
       "providedInward": false,
       "canQuery": false,
       "members": [
@@ -1228,7 +1228,7 @@
       "interfaceId": "23170f69-40c1-278a-0000-000400360000",
       "baseInerfaceName": "IUnknown",
       "implemented": false,
-      "providedOutward": false,
+      "providedOutward": true,
       "providedInward": false,
       "canQuery": false,
       "members": [
@@ -1247,7 +1247,7 @@
       "interfaceId": "23170f69-40c1-278a-0000-000400370000",
       "baseInerfaceName": "IUnknown",
       "implemented": false,
-      "providedOutward": false,
+      "providedOutward": true,
       "providedInward": false,
       "canQuery": false,
       "members": [
@@ -1305,10 +1305,10 @@
       "interfaceName": "ICompressFilter",
       "interfaceId": "23170f69-40c1-278a-0000-000400400000",
       "baseInerfaceName": "IUnknown",
-      "implemented": true,
+      "implemented": false,
       "providedOutward": true,
       "providedInward": false,
-      "canQuery": true,
+      "canQuery": false,
       "members": [
         {
           "memberName": "Init",
@@ -1558,7 +1558,7 @@
       "interfaceId": "23170f69-40c1-278a-0000-000400800000",
       "baseInerfaceName": "IUnknown",
       "implemented": false,
-      "providedOutward": false,
+      "providedOutward": true,
       "providedInward": false,
       "canQuery": false,
       "members": [
@@ -1621,7 +1621,7 @@
       "interfaceId": "23170f69-40c1-278a-0000-0004008c0000",
       "baseInerfaceName": "IUnknown",
       "implemented": false,
-      "providedOutward": false,
+      "providedOutward": true,
       "providedInward": false,
       "canQuery": false,
       "members": [
@@ -1640,7 +1640,7 @@
       "interfaceId": "23170f69-40c1-278a-0000-000400900000",
       "baseInerfaceName": "IUnknown",
       "implemented": false,
-      "providedOutward": false,
+      "providedOutward": true,
       "providedInward": false,
       "canQuery": false,
       "members": [
@@ -1677,7 +1677,7 @@
       "interfaceId": "23170f69-40c1-278a-0000-000400a00000",
       "baseInerfaceName": "IUnknown",
       "implemented": false,
-      "providedOutward": false,
+      "providedOutward": true,
       "providedInward": false,
       "canQuery": false,
       "members": [
@@ -1702,7 +1702,7 @@
       "baseInerfaceName": "IUnknown",
       "implemented": false,
       "providedOutward": false,
-      "providedInward": false,
+      "providedInward": true,
       "canQuery": false,
       "members": [
         {
@@ -1768,7 +1768,7 @@
       "baseInerfaceName": "IUnknown",
       "implemented": false,
       "providedOutward": false,
-      "providedInward": false,
+      "providedInward": true,
       "canQuery": false,
       "members": [
         {

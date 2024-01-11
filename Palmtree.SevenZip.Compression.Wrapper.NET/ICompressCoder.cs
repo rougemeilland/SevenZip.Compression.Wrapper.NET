@@ -31,6 +31,6 @@ namespace SevenZip.Compression
         /// An object for receiving input and output progress notifications.
         /// Null if no progress notifications should be received.
         /// </param>
-        void Code(ISequentialInputByteStream sequentialInStream, ISequentialOutputByteStream sequentialOutStream, UInt64? inSize, UInt64? outSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress);
+        void Code(ISequentialInputByteStream sequentialInStream, ISequentialOutputByteStream sequentialOutStream, UInt64? inSize, UInt64? outSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress);
     }
 }

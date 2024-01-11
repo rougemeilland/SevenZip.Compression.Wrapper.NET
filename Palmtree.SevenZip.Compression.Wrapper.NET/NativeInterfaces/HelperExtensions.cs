@@ -129,7 +129,7 @@ namespace SevenZip.Compression.NativeInterfaces
             }
         }
 
-        public static NativeProgressReporter? FromProgressToNativeDelegate(this IProgress<(UInt64? inSize, UInt64? outSize)>? progress)
+        public static NativeProgressReporter? FromProgressToNativeDelegate(this IProgress<(UInt64 inSize, UInt64 outSize)>? progress)
         {
             if (progress is null)
                 return null;
@@ -140,17 +140,15 @@ namespace SevenZip.Compression.NativeInterfaces
                 {
                     unsafe
                     {
-                        progress.Report(
-                            (
-                                inSize == IntPtr.Zero ? null : *(UInt64*)inSize.ToPointer(),
-                                outSize == IntPtr.Zero ? null : *(UInt64*)outSize.ToPointer()
-                            ));
+                        progress.Report((ToUInt64Value(inSize), ToUInt64Value(outSize)));
                     }
                 }
                 catch (Exception)
                 {
                 }
             }
+
+            static unsafe UInt64 ToUInt64Value(IntPtr p) => p == IntPtr.Zero ? 0 : *(UInt64*)p.ToPointer();
 
             return nativeReporter;
         }

@@ -20,6 +20,7 @@ namespace Test.Coders
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:未使用のパラメーターを削除します", Justification = "<保留中>")]
         public static void Main(string[] args)
         {
+            // TODO: デッドコード削減の結果の検証。エンコーダ/デコーダのオプショナルなインターフェースのテストも忘れずに。
             const ulong DATA_SIZE = 64 * 1024LU;
 
             Console.WriteLine("自己診断中…");

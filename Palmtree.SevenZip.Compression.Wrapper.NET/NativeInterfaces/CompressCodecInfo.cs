@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 
 namespace SevenZip.Compression.NativeInterfaces
 {
@@ -22,15 +21,11 @@ namespace SevenZip.Compression.NativeInterfaces
         //  Also, for the same reason, the PROPVARIANT structure must first be initialized to zero.
         //  And if possible, you should first call CompressCodecsInfo__GetProperty, which returns the VT_BSTR type.
         private static NativeGUID _compressCoderInterfaceId;
-        private static NativeGUID _compressCoder2InterfaceId;
-        private static NativeGUID _compressFilterInterfaceId;
 
         static CompressCodecInfo()
         {
             _lockObject = new Object();
             NativeGUID.CopyFromManagedGuidToNativeGuid(typeof(CompressCoder).GUID, ref _compressCoderInterfaceId);
-            NativeGUID.CopyFromManagedGuidToNativeGuid(typeof(CompressCoder2).GUID, ref _compressCoder2InterfaceId);
-            NativeGUID.CopyFromManagedGuidToNativeGuid(typeof(CompressFilter).GUID, ref _compressFilterInterfaceId);
         }
 
         private CompressCodecInfo(
@@ -40,11 +35,8 @@ namespace SevenZip.Compression.NativeInterfaces
             String codecName,
             Guid coderClassId,
             UInt32 packStreams,
-            Boolean isFilter,
             CoderType coderType,
-            Boolean isSupportedICompressCoder,
-            Boolean isSupportedICompressCoder2,
-            Boolean isSupportedICompressFilter)
+            Boolean isSupportedICompressCoder)
             : base(compressCodecsInfo)
         {
             Index = index;
@@ -52,11 +44,8 @@ namespace SevenZip.Compression.NativeInterfaces
             CodecName = codecName;
             CoderClassId = coderClassId;
             PackStreams = packStreams;
-            IsFilter = isFilter;
             CoderType = coderType;
             IsSupportedICompressCoder = isSupportedICompressCoder;
-            IsSupportedICompressCoder2 = isSupportedICompressCoder2;
-            IsSupportedICompressFilter = isSupportedICompressFilter;
         }
 
         /// <summary>
@@ -97,16 +86,6 @@ namespace SevenZip.Compression.NativeInterfaces
         public Boolean IsSupportedICompressCoder { get; }
 
         /// <summary>
-        /// True is returned if a coder that implements the <see cref="CompressCoder2"/> interface can be created. If not, false is returned.
-        /// </summary>
-        public Boolean IsSupportedICompressCoder2 { get; }
-
-        /// <summary>
-        /// True is returned if a coder that implements the <see cref="CompressFilter"/> interface can be created. If not, false is returned.
-        /// </summary>
-        public Boolean IsSupportedICompressFilter { get; }
-
-        /// <summary>
         /// Create a coder that implements <see cref="CompressCoder"/>.
         /// </summary>
         /// <returns>
@@ -143,80 +122,6 @@ namespace SevenZip.Compression.NativeInterfaces
                     });
         }
 
-        /// <summary>
-        /// Create a coder that implements <see cref="CompressCoder2"/>.
-        /// </summary>
-        /// <returns>
-        /// The created object that implements the <see cref="CompressCoder2"/> interface.
-        /// </returns>
-        /// <remarks>
-        /// <para>
-        /// The <see cref="CompressCoder2"/> interface does not inherit from the <see cref="IDisposable"/> interface, but the created coder object implements the <see cref="IDisposable"/> interface.
-        /// If you no longer need the created coder object, release it by calling <see cref="IDisposable.Dispose"/>.
-        /// </para>
-        /// <para>
-        /// The sample code is as follows.:
-        /// <code>
-        /// ICompressCoder2 coderObject = codec.CreateCompressCoder2();
-        /// 
-        /// ...
-        /// 
-        /// (coderObject as IDisposable)?.Dispose();
-        /// </code>
-        /// </para>
-        /// </remarks>
-        public CompressCoder2 CreateCompressCoder2()
-        {
-            if (!IsSupportedICompressCoder2)
-                throw new NotSupportedException();
-
-            return
-                CompressCoder2.Create(
-                    CoderType switch
-                    {
-                        CoderType.Decoder => CreateCompressDecoder(NativeInterfaceObject, Index, ref _compressCoder2InterfaceId),
-                        CoderType.Encoder => CreateCompressEncoder(NativeInterfaceObject, Index, ref _compressCoder2InterfaceId),
-                        _ => throw new Exception($"Unknown coder type: {CoderType}"),
-                    });
-        }
-
-        /// <summary>
-        /// Create a coder that implements <see cref="CompressFilter"/>.
-        /// </summary>
-        /// <returns>
-        /// The created object that implements the <see cref="CompressFilter"/> interface.
-        /// </returns>
-        /// <remarks>
-        /// <para>
-        /// The <see cref="CompressFilter"/> interface does not inherit from the <see cref="IDisposable"/> interface, but the created coder object implements the <see cref="IDisposable"/> interface.
-        /// If you no longer need the created coder object, release it by calling <see cref="IDisposable.Dispose"/>.
-        /// </para>
-        /// <para>
-        /// The sample code is as follows.:
-        /// <code>
-        /// ICompressFilter filterObject = codec.CreateCompressFilter();
-        /// 
-        /// ...
-        /// 
-        /// (filterObject as IDisposable)?.Dispose();
-        /// </code>
-        /// </para>
-        /// </remarks>
-        public CompressFilter CreateCompressFilter()
-        {
-            if (!IsSupportedICompressFilter)
-                throw new NotSupportedException();
-
-            return
-                CompressFilter.Create(
-                    CoderType switch
-                    {
-                        CoderType.Decoder => CreateCompressDecoder(NativeInterfaceObject, Index, ref _compressFilterInterfaceId),
-                        CoderType.Encoder => CreateCompressEncoder(NativeInterfaceObject, Index, ref _compressFilterInterfaceId),
-                        _ => throw new Exception($"Unknown coder type: {CoderType}"),
-                    });
-        }
-
         public static CompressCodecInfo? Create(IntPtr compressCodecsInfo, Int32 index, CoderType coderType)
         {
             if (compressCodecsInfo == IntPtr.Zero)
@@ -227,7 +132,6 @@ namespace SevenZip.Compression.NativeInterfaces
                 var ifp = compressCodecsInfo;
                 var codecName = GetCodecName(ifp, index);
                 var packStreams = GetPackStreams(ifp, index);
-                var isFilter = GetIsFilter(ifp, index);
                 switch (coderType)
                 {
                     case CoderType.Decoder:
@@ -236,13 +140,9 @@ namespace SevenZip.Compression.NativeInterfaces
                             var coderClassId = GetDecoderClassId(ifp, index);
                             var codecId = GetCodecId(ifp, index);
                             IntPtr compressCoder = IntPtr.Zero;
-                            IntPtr compressCoder2 = IntPtr.Zero;
-                            IntPtr compressFilter = IntPtr.Zero;
                             try
                             {
                                 compressCoder = CreateCompressDecoder(ifp, index, ref _compressCoderInterfaceId);
-                                compressCoder2 = CreateCompressDecoder(ifp, index, ref _compressCoder2InterfaceId);
-                                compressFilter = CreateCompressDecoder(ifp, index, ref _compressFilterInterfaceId);
                                 _ = NativeInterOp.IUnknown__AddRef(ifp);
                                 return new CompressCodecInfo(
                                     ifp,
@@ -251,18 +151,11 @@ namespace SevenZip.Compression.NativeInterfaces
                                     codecName,
                                     coderClassId,
                                     packStreams,
-                                    isFilter,
                                     coderType,
-                                    compressCoder != IntPtr.Zero,
-                                    compressCoder2 != IntPtr.Zero,
-                                    compressFilter != IntPtr.Zero);
+                                    compressCoder != IntPtr.Zero);
                             }
                             finally
                             {
-                                if (compressFilter != IntPtr.Zero)
-                                    _ = NativeInterOp.IUnknown__Release(compressFilter);
-                                if (compressCoder2 != IntPtr.Zero)
-                                    _ = NativeInterOp.IUnknown__Release(compressCoder2);
                                 if (compressCoder != IntPtr.Zero)
                                     _ = NativeInterOp.IUnknown__Release(compressCoder);
                             }
@@ -278,13 +171,9 @@ namespace SevenZip.Compression.NativeInterfaces
                             var coderClassId = GetEncoderClassId(ifp, index);
                             var codecId = GetCodecId(ifp, index);
                             IntPtr compressCoder = IntPtr.Zero;
-                            IntPtr compressCoder2 = IntPtr.Zero;
-                            IntPtr compressFilter = IntPtr.Zero;
                             try
                             {
                                 compressCoder = CreateCompressEncoder(ifp, index, ref _compressCoderInterfaceId);
-                                compressCoder2 = CreateCompressEncoder(ifp, index, ref _compressCoder2InterfaceId);
-                                compressFilter = CreateCompressEncoder(ifp, index, ref _compressFilterInterfaceId);
                                 _ = NativeInterOp.IUnknown__AddRef(ifp);
                                 return new CompressCodecInfo(
                                     ifp,
@@ -293,18 +182,11 @@ namespace SevenZip.Compression.NativeInterfaces
                                     codecName,
                                     coderClassId,
                                     packStreams,
-                                    isFilter,
                                     coderType,
-                                    compressCoder != IntPtr.Zero,
-                                    compressCoder2 != IntPtr.Zero,
-                                    compressFilter != IntPtr.Zero);
+                                    compressCoder != IntPtr.Zero);
                             }
                             finally
                             {
-                                if (compressFilter != IntPtr.Zero)
-                                    _ = NativeInterOp.IUnknown__Release(compressFilter);
-                                if (compressCoder2 != IntPtr.Zero)
-                                    _ = NativeInterOp.IUnknown__Release(compressCoder2);
                                 if (compressCoder != IntPtr.Zero)
                                     _ = NativeInterOp.IUnknown__Release(compressCoder);
                             }

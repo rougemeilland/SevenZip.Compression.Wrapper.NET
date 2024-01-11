@@ -356,13 +356,12 @@ using System;
         // This class is for displaying the compression progress on the console.
         // This is not necessary.
         private class ProgressReporter
-            : IProgress<(ulong? inStreamProgressedCount, ulong? outStreamProcessedCount)>
+            : IProgress<(ulong inStreamProgressedCount, ulong outStreamProcessedCount)>
         {
-            public void Report((ulong? inStreamProgressedCount, ulong? outStreamProcessedCount) value)
+            public void Report((ulong inStreamProgressedCount, ulong outStreamProcessedCount) value)
             {
                 Console.Write("\x1b[0K");
-                Console.Write($"in: {(value.inStreamProgressedCount is null ? "???" : value.inStreamProgressedCount.Value.ToString("N0") + " bytes")}, ");
-                Console.Write($"out: {(value.outStreamProcessedCount is null ? "???" : value.outStreamProcessedCount.Value.ToString("N0") + " bytes")}");
+                Console.Write($"in: {value.inStreamProgressedCount:N0} bytes, out: {value.outStreamProcessedCount:N0} bytes");
                 Console.Write("\r");
             }
         }

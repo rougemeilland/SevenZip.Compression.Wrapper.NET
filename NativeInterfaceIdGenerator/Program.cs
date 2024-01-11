@@ -167,38 +167,41 @@ namespace NativeInterfaceIdGenerator
                     nativeInterfaceCppWriter.WriteLine("{");
                     foreach (var sevenZipInterface in sevenZipInterfacesModel.Interfaces)
                     {
-                        if (!sevenZipInterface.Implemented)
-                            nativeInterfaceCppWriter.WriteLine("#if false // This interface is not supported by the wrapper.");
-
-                        foreach (var sevenZipInterfaceMember in sevenZipInterface.Members)
+                        if (sevenZipInterface.ProvidedOutward)
                         {
-                            var parameters = String.Join(", ", sevenZipInterfaceMember.ParametersCpp.Select(parameter => $"{parameter.ParameterType} {parameter.ParameterName}").Prepend($"{sevenZipInterface.InterfaceName}* ifp"));
-                            nativeInterfaceCppWriter.WriteLine($"    __DEFINE_PUBLIC_FUNC({sevenZipInterfaceMember.ReturnValueType}, {sevenZipInterface.InterfaceName}, {sevenZipInterfaceMember.MemberName})({parameters})");
-                            nativeInterfaceCppWriter.WriteLine("    {");
-                            if (sevenZipInterfaceMember.IsCustomizedParameter)
+                            if (!sevenZipInterface.Implemented)
+                                nativeInterfaceCppWriter.WriteLine("#if false // This interface is not supported by the wrapper.");
+
+                            foreach (var sevenZipInterfaceMember in sevenZipInterface.Members)
                             {
-                                var values = String.Join(", ", sevenZipInterfaceMember.ParametersCpp.Select(parameter => parameter.ParameterName).Prepend("ifp"));
-                                if (String.Equals(sevenZipInterfaceMember.ReturnValueType, "void", StringComparison.Ordinal))
-                                    nativeInterfaceCppWriter.WriteLine($"        Customized_{sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}({values});");
+                                var parameters = String.Join(", ", sevenZipInterfaceMember.ParametersCpp.Select(parameter => $"{parameter.ParameterType} {parameter.ParameterName}").Prepend($"{sevenZipInterface.InterfaceName}* ifp"));
+                                nativeInterfaceCppWriter.WriteLine($"    __DEFINE_PUBLIC_FUNC({sevenZipInterfaceMember.ReturnValueType}, {sevenZipInterface.InterfaceName}, {sevenZipInterfaceMember.MemberName})({parameters})");
+                                nativeInterfaceCppWriter.WriteLine("    {");
+                                if (sevenZipInterfaceMember.IsCustomizedParameter)
+                                {
+                                    var values = String.Join(", ", sevenZipInterfaceMember.ParametersCpp.Select(parameter => parameter.ParameterName).Prepend("ifp"));
+                                    if (String.Equals(sevenZipInterfaceMember.ReturnValueType, "void", StringComparison.Ordinal))
+                                        nativeInterfaceCppWriter.WriteLine($"        Customized_{sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}({values});");
+                                    else
+                                        nativeInterfaceCppWriter.WriteLine($"        return Customized_{sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}({values});");
+                                    nativeInterfaceCppWriter.WriteLine("    }");
+                                }
                                 else
-                                    nativeInterfaceCppWriter.WriteLine($"        return Customized_{sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}({values});");
-                                nativeInterfaceCppWriter.WriteLine("    }");
-                            }
-                            else
-                            {
-                                var values = String.Join(", ", sevenZipInterfaceMember.Parameters7z.Select(parameter => parameter.ParameterName));
-                                if (String.Equals(sevenZipInterfaceMember.ReturnValueType, "void", StringComparison.Ordinal))
-                                    nativeInterfaceCppWriter.WriteLine($"        ifp->{sevenZipInterfaceMember.MemberName}({values});");
-                                else
-                                    nativeInterfaceCppWriter.WriteLine($"        return ifp->{sevenZipInterfaceMember.MemberName}({values});");
-                                nativeInterfaceCppWriter.WriteLine("    }");
+                                {
+                                    var values = String.Join(", ", sevenZipInterfaceMember.Parameters7z.Select(parameter => parameter.ParameterName));
+                                    if (String.Equals(sevenZipInterfaceMember.ReturnValueType, "void", StringComparison.Ordinal))
+                                        nativeInterfaceCppWriter.WriteLine($"        ifp->{sevenZipInterfaceMember.MemberName}({values});");
+                                    else
+                                        nativeInterfaceCppWriter.WriteLine($"        return ifp->{sevenZipInterfaceMember.MemberName}({values});");
+                                    nativeInterfaceCppWriter.WriteLine("    }");
+                                }
+
+                                nativeInterfaceCppWriter.WriteLine();
                             }
 
-                            nativeInterfaceCppWriter.WriteLine();
+                            if (!sevenZipInterface.Implemented)
+                                nativeInterfaceCppWriter.WriteLine("#endif // This interface is not supported by the wrapper.");
                         }
-
-                        if (!sevenZipInterface.Implemented)
-                            nativeInterfaceCppWriter.WriteLine("#endif // This interface is not supported by the wrapper.");
                     }
 
                     nativeInterfaceCppWriter.WriteLine("}");
@@ -233,96 +236,99 @@ namespace NativeInterfaceIdGenerator
                     var firstInterface = true;
                     foreach (var sevenZipInterface in sevenZipInterfacesModel.Interfaces)
                     {
-                        if (!firstInterface)
-                            nativeInterfaceCsWriter.WriteLine();
-                        nativeInterfaceCsWriter.WriteLine($"        #region {sevenZipInterface.InterfaceName}");
-                        nativeInterfaceCsWriter.WriteLine();
-                        if (!sevenZipInterface.Implemented)
-                            nativeInterfaceCsWriter.WriteLine($"#if false // {sevenZipInterface.InterfaceName} interface is not supported by the wrapper.");
-                        var firstInterfaceMember = true;
-                        foreach (var sevenZipInterfaceMember in sevenZipInterface.Members)
+                        if (sevenZipInterface.ProvidedOutward)
                         {
-                            if (!firstInterfaceMember)
+                            if (!firstInterface)
                                 nativeInterfaceCsWriter.WriteLine();
-                            nativeInterfaceCsWriter.WriteLine($"        #region {sevenZipInterface.InterfaceName}_{sevenZipInterfaceMember.MemberName}");
+                            nativeInterfaceCsWriter.WriteLine($"        #region {sevenZipInterface.InterfaceName}");
                             nativeInterfaceCsWriter.WriteLine();
-                            var parametersSource = sevenZipInterfaceMember.ParametersCSharp;
-                            var isSafe = parametersSource.All(parameter => IsCSharpSafeType(parameter.ParameterType));
-                            if (isSafe && !String.IsNullOrEmpty(sevenZipInterfaceMember.MemberComment))
+                            if (!sevenZipInterface.Implemented)
+                                nativeInterfaceCsWriter.WriteLine($"#if false // {sevenZipInterface.InterfaceName} interface is not supported by the wrapper.");
+                            var firstInterfaceMember = true;
+                            foreach (var sevenZipInterfaceMember in sevenZipInterface.Members)
                             {
-                                nativeInterfaceCsWriter.WriteLine("        /// <summary>");
-                                nativeInterfaceCsWriter.WriteLine($"        /// {sevenZipInterfaceMember.MemberComment}");
-                                nativeInterfaceCsWriter.WriteLine("        /// </summary>");
-                                nativeInterfaceCsWriter.WriteLine($"        /// <param name=\"ifp\">Set a pointer to the {sevenZipInterface.InterfaceName} interface object.</param>");
-                                foreach (var parameter in sevenZipInterfaceMember.ParametersCSharp)
-                                    nativeInterfaceCsWriter.WriteLine($"        /// <param name=\"{parameter.ParameterName}\">{parameter.ParameterComment}</param>");
-                                var returnValueType = MapTypeFromUnmanageToManage(sevenZipInterfaceMember.ReturnValueType);
-                                if (!String.Equals(returnValueType, "void", StringComparison.Ordinal))
-                                    nativeInterfaceCsWriter.WriteLine($"        /// <returns>{sevenZipInterfaceMember.ReturnValueComment}</returns>");
-                                if (!String.IsNullOrEmpty(sevenZipInterfaceMember.MemberAdditionalComment))
-                                    nativeInterfaceCsWriter.WriteLine($"        /// <remarks>{sevenZipInterfaceMember.MemberAdditionalComment}</remarks>");
-                            }
+                                if (!firstInterfaceMember)
+                                    nativeInterfaceCsWriter.WriteLine();
+                                nativeInterfaceCsWriter.WriteLine($"        #region {sevenZipInterface.InterfaceName}_{sevenZipInterfaceMember.MemberName}");
+                                nativeInterfaceCsWriter.WriteLine();
+                                var parametersSource = sevenZipInterfaceMember.ParametersCSharp;
+                                var isSafe = parametersSource.All(parameter => IsCSharpSafeType(parameter.ParameterType));
+                                if (isSafe && !String.IsNullOrEmpty(sevenZipInterfaceMember.MemberComment))
+                                {
+                                    nativeInterfaceCsWriter.WriteLine("        /// <summary>");
+                                    nativeInterfaceCsWriter.WriteLine($"        /// {sevenZipInterfaceMember.MemberComment}");
+                                    nativeInterfaceCsWriter.WriteLine("        /// </summary>");
+                                    nativeInterfaceCsWriter.WriteLine($"        /// <param name=\"ifp\">Set a pointer to the {sevenZipInterface.InterfaceName} interface object.</param>");
+                                    foreach (var parameter in sevenZipInterfaceMember.ParametersCSharp)
+                                        nativeInterfaceCsWriter.WriteLine($"        /// <param name=\"{parameter.ParameterName}\">{parameter.ParameterComment}</param>");
+                                    var returnValueType = MapTypeFromUnmanageToManage(sevenZipInterfaceMember.ReturnValueType);
+                                    if (!String.Equals(returnValueType, "void", StringComparison.Ordinal))
+                                        nativeInterfaceCsWriter.WriteLine($"        /// <returns>{sevenZipInterfaceMember.ReturnValueComment}</returns>");
+                                    if (!String.IsNullOrEmpty(sevenZipInterfaceMember.MemberAdditionalComment))
+                                        nativeInterfaceCsWriter.WriteLine($"        /// <remarks>{sevenZipInterfaceMember.MemberAdditionalComment}</remarks>");
+                                }
 
-                            var parameterDeclaration =
-                                String.Join(
-                                    ", ",
-                                    parametersSource
-                                        .Select(parameter => $"{MapTypeFromUnmanageToManage(parameter.ParameterType)} {parameter.ParameterName}")
-                                        .Prepend($"IntPtr ifp"));
-                            var parameters =
-                                String.Join(", ", parametersSource
-                                .Select(parameter =>
-                                {
-                                    if (parameter.ParameterType.StartsWith("out "))
-                                        return $"out {parameter.ParameterName}";
-                                    if (parameter.ParameterType.StartsWith("ref "))
-                                        return $"ref {parameter.ParameterName}";
-                                    else
-                                        return parameter.ParameterName;
-                                })
-                                .Prepend("ifp"));
-                            nativeInterfaceCsWriter.WriteLine("        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]");
-                            nativeInterfaceCsWriter.WriteLine($"        {(isSafe ? "public" : "private")} static {(isSafe ? "" : "unsafe ")}{MapTypeFromUnmanageToManage(sevenZipInterfaceMember.ReturnValueType)} {sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}({parameterDeclaration})");
-                            nativeInterfaceCsWriter.WriteLine("        {");
-                            var firstArchitecture = true;
-                            foreach (var (operatingSystemChecker, operatingSystem) in
-                                new[]
-                                {
+                                var parameterDeclaration =
+                                    String.Join(
+                                        ", ",
+                                        parametersSource
+                                            .Select(parameter => $"{MapTypeFromUnmanageToManage(parameter.ParameterType)} {parameter.ParameterName}")
+                                            .Prepend($"IntPtr ifp"));
+                                var parameters =
+                                    String.Join(", ", parametersSource
+                                    .Select(parameter =>
+                                    {
+                                        if (parameter.ParameterType.StartsWith("out "))
+                                            return $"out {parameter.ParameterName}";
+                                        if (parameter.ParameterType.StartsWith("ref "))
+                                            return $"ref {parameter.ParameterName}";
+                                        else
+                                            return parameter.ParameterName;
+                                    })
+                                    .Prepend("ifp"));
+                                nativeInterfaceCsWriter.WriteLine("        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]");
+                                nativeInterfaceCsWriter.WriteLine($"        {(isSafe ? "public" : "private")} static {(isSafe ? "" : "unsafe ")}{MapTypeFromUnmanageToManage(sevenZipInterfaceMember.ReturnValueType)} {sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}({parameterDeclaration})");
+                                nativeInterfaceCsWriter.WriteLine("        {");
+                                var firstArchitecture = true;
+                                foreach (var (operatingSystemChecker, operatingSystem) in
+                                    new[]
+                                    {
                                     ("IsWindows", "win"),
                                     ("IsLinux", "linux"),
                                     ("IsMacOS", "osx"),
-                                })
-                            {
-                                nativeInterfaceCsWriter.WriteLine($"            {(firstArchitecture ? "" : "else ")}if (OperatingSystem.{operatingSystemChecker}())");
-                                nativeInterfaceCsWriter.WriteLine($"                return {sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}_{operatingSystem}({parameters});");
-                                firstArchitecture = false;
+                                    })
+                                {
+                                    nativeInterfaceCsWriter.WriteLine($"            {(firstArchitecture ? "" : "else ")}if (OperatingSystem.{operatingSystemChecker}())");
+                                    nativeInterfaceCsWriter.WriteLine($"                return {sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}_{operatingSystem}({parameters});");
+                                    firstArchitecture = false;
+                                }
+
+                                nativeInterfaceCsWriter.WriteLine("            else");
+                                nativeInterfaceCsWriter.WriteLine("                throw new NotSupportedException(\"Running on this operating system is not supported.\");");
+                                nativeInterfaceCsWriter.WriteLine("        }");
+                                nativeInterfaceCsWriter.WriteLine();
+                                var firstAPI = true;
+                                foreach (var os in new[] { "win", "linux", "osx" })
+                                {
+                                    if (!firstAPI)
+                                        nativeInterfaceCsWriter.WriteLine();
+                                    nativeInterfaceCsWriter.WriteLine($"        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = \"EXPORTED_{sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}\")]");
+                                    nativeInterfaceCsWriter.WriteLine($"        [UnmanagedCallConv(CallConvs = new[] {{typeof({(os == "win" ? "CallConvStdcall" : "CallConvCdecl")})}})]");
+                                    nativeInterfaceCsWriter.WriteLine($"        private static {(isSafe ? "" : "unsafe ")}partial {MapTypeFromUnmanageToManage(sevenZipInterfaceMember.ReturnValueType)} {sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}_{os}({parameterDeclaration});");
+                                    firstAPI = false;
+                                }
+
+                                nativeInterfaceCsWriter.WriteLine();
+                                nativeInterfaceCsWriter.WriteLine($"        #endregion //{sevenZipInterface.InterfaceName}_{sevenZipInterfaceMember.MemberName}");
+                                firstInterfaceMember = false;
                             }
 
-                            nativeInterfaceCsWriter.WriteLine("            else");
-                            nativeInterfaceCsWriter.WriteLine("                throw new NotSupportedException(\"Running on this operating system is not supported.\");");
-                            nativeInterfaceCsWriter.WriteLine("        }");
+                            if (!sevenZipInterface.Implemented)
+                                nativeInterfaceCsWriter.WriteLine($"#endif // {sevenZipInterface.InterfaceName} interface is not supported by the wrapper.");
                             nativeInterfaceCsWriter.WriteLine();
-                            var firstAPI = true;
-                            foreach (var os in new[] { "win", "linux", "osx" })
-                            {
-                                if (!firstAPI)
-                                    nativeInterfaceCsWriter.WriteLine();
-                                nativeInterfaceCsWriter.WriteLine($"        [LibraryImport(_NATIVE_METHOD_DLL_NAME, EntryPoint = \"EXPORTED_{sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}\")]");
-                                nativeInterfaceCsWriter.WriteLine($"        [UnmanagedCallConv(CallConvs = new[] {{typeof({(os == "win" ? "CallConvStdcall" : "CallConvCdecl")})}})]");
-                                nativeInterfaceCsWriter.WriteLine($"        private static {(isSafe ? "" : "unsafe ")}partial {MapTypeFromUnmanageToManage(sevenZipInterfaceMember.ReturnValueType)} {sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}_{os}({parameterDeclaration});");
-                                firstAPI = false;
-                            }
-
-                            nativeInterfaceCsWriter.WriteLine();
-                            nativeInterfaceCsWriter.WriteLine($"        #endregion //{sevenZipInterface.InterfaceName}_{sevenZipInterfaceMember.MemberName}");
-                            firstInterfaceMember = false;
+                            nativeInterfaceCsWriter.WriteLine($"        #endregion // {sevenZipInterface.InterfaceName}");
+                            firstInterface = false;
                         }
-
-                        if (!sevenZipInterface.Implemented)
-                            nativeInterfaceCsWriter.WriteLine($"#endif // {sevenZipInterface.InterfaceName} interface is not supported by the wrapper.");
-                        nativeInterfaceCsWriter.WriteLine();
-                        nativeInterfaceCsWriter.WriteLine($"        #endregion // {sevenZipInterface.InterfaceName}");
-                        firstInterface = false;
                     }
 
                     nativeInterfaceCsWriter.WriteLine("    }");
@@ -341,7 +347,7 @@ namespace NativeInterfaceIdGenerator
                     _ = Directory.CreateDirectory(destinationFileDirectory);
                     foreach (var sevenZipInterface in sevenZipInterfacesModel.Interfaces)
                     {
-                        if (sevenZipInterface.Implemented && sevenZipInterface.InterfaceName != "IUnknown")
+                        if (sevenZipInterface.Implemented && sevenZipInterface.ProvidedOutward && sevenZipInterface.InterfaceName != "IUnknown")
                         {
                             var className = sevenZipInterface.InterfaceName[1..];
                             var destinationFilePath = Path.Combine(destinationFileDirectory, $"{className}.AutoGenerated.cs");
@@ -399,7 +405,7 @@ namespace NativeInterfaceIdGenerator
                     nativeInterfaceCsWriter.WriteLine("            {");
                     foreach (var sevenZipInterface in sevenZipInterfacesModel.Interfaces)
                     {
-                        if (sevenZipInterface.Implemented && sevenZipInterface.InterfaceName != "IUnknown" && sevenZipInterface.InterfaceName != "ICompressCodecsInfo")
+                        if (sevenZipInterface.Implemented && sevenZipInterface.ProvidedOutward && sevenZipInterface.CanQuery && sevenZipInterface.InterfaceName != "IUnknown" && sevenZipInterface.InterfaceName != "ICompressCodecsInfo")
                         {
                             var className = sevenZipInterface.InterfaceName[1..];
                             nativeInterfaceCsWriter.WriteLine($"                (iid: new Guid(\"{sevenZipInterface.InterfaceId}\"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => {className}.Create(nativeInterfaceObject))),");

@@ -6,6 +6,7 @@
 #include <atlcomcli.h> // Required to convert the Windows API error code (the value that can be obtained with GetLastError) to HRESULT.
 
 #define __INLINE __inline
+#define __EXPORT_SYMBOL__   __declspec(dllexport)
 
 #define E_DLL_NOT_FOUND ((HRESULT)0x8007007e)
 
@@ -23,6 +24,7 @@ typedef unsigned long long UInt64;
 #include "_COM.h"
 
 #define __INLINE inline
+#define __EXPORT_SYMBOL__   __attribute__((visibility ("default")))
 
 #define STDMETHODCALLTYPE
 
@@ -39,25 +41,20 @@ typedef unsigned long long UInt64;
 #if     defined(_PLATFORM_WINDOWS_X86) || defined(_PLATFORM_WINDOWS_ARM32)
 #define _PLATFORM_WINDOWS
 #define _ARCHITECTURE_NATIVE_ADDRESS_32_BIT
-#define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C" __declspec(dllexport) type __stdcall EXPORTED_ ## interfaceName ## __ ## methodName
 #elif   defined(_PLATFORM_WINDOWS_X64) || defined(_PLATFORM_WINDOWS_ARM64)
 #define _PLATFORM_WINDOWS
 #define _ARCHITECTURE_NATIVE_ADDRESS_64_BIT
-#define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C" __declspec(dllexport) type __stdcall EXPORTED_ ## interfaceName ## __ ## methodName
 #elif   defined(_PLATFORM_LINUX_X86) || defined(_PLATFORM_LINUX_ARM32)
 #define _PLATFORM_LINUX
 #define _ARCHITECTURE_NATIVE_ADDRESS_32_BIT
-#define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C"  type EXPORTED_ ## interfaceName ## __ ## methodName
 #elif   defined(_PLATFORM_LINUX_X64) || defined(_PLATFORM_LINUX_ARM64)
 #define _PLATFORM_LINUX
 #define _ARCHITECTURE_NATIVE_ADDRESS_64_BIT
-#define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C"  type EXPORTED_ ## interfaceName ## __ ## methodName
 
 #elif   defined(_PLATFORM_MACOS_X86) || defined(_PLATFORM_MACOS_ARM32)
 #error "MacOS is not supported. If you want to support MacOS, write as follows, for example."
 #define _PLATFORM_MACOS
 #define _ARCHITECTURE_NATIVE_ADDRESS_32_BIT
-#define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C"  type EXPORTED_ ## interfaceName ## __ ## methodName
 typedef struct _FILETIME {
     DWORD dwLowDateTime;
     DWORD dwHighDateTime;
@@ -66,7 +63,6 @@ typedef struct _FILETIME {
 #error "MacOS is not supported. If you want to support MacOS, write as follows, for example."
 #define _PLATFORM_MACOS
 #define _ARCHITECTURE_NATIVE_ADDRESS_64_BIT
-#define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C"  type EXPORTED_ ## interfaceName ## __ ## methodName
 typedef struct _FILETIME {
     DWORD dwLowDateTime;
     DWORD dwHighDateTime;
@@ -74,6 +70,8 @@ typedef struct _FILETIME {
 #else
 #error "No architecture-maceos are defined."
 #endif
+
+#define __DEFINE_PUBLIC_FUNC(type, interfaceName, methodName) extern "C" __EXPORT_SYMBOL__ type STDMETHODCALLTYPE EXPORTED_ ## interfaceName ## __ ## methodName
 
 #ifdef _DEBUG
 //Code that self-diagnoses that the type definition is correct.

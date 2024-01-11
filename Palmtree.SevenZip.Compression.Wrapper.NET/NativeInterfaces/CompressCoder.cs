@@ -14,7 +14,7 @@ namespace SevenZip.Compression.NativeInterfaces
             return new CompressCoder(nativeInterfaceObject);
         }
 
-        public void Code(Stream inStream, Stream outStream, UInt64? inSize, UInt64? outSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
+        public void Code(Stream inStream, Stream outStream, UInt64? inSize, UInt64? outSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
             if (inStream is null)
                 throw new ArgumentNullException(nameof(inStream));
@@ -37,7 +37,7 @@ namespace SevenZip.Compression.NativeInterfaces
                 throw result.GetExceptionFromHRESULT();
         }
 
-        public void Code(ISequentialInputByteStream inStream, ISequentialOutputByteStream outStream, UInt64? inSize, UInt64? outSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
+        public void Code(ISequentialInputByteStream inStream, ISequentialOutputByteStream outStream, UInt64? inSize, UInt64? outSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
             if (inStream is null)
                 throw new ArgumentNullException(nameof(inStream));

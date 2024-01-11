@@ -300,41 +300,6 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #endregion
 
-        #region ICompressProgressInfo__SetRatioInfo
-
-        /// <summary>
-        /// Set the coding progress.
-        /// </summary>
-        /// <param name="ifp">
-        /// An <c>ICompressProgressInfo</c> interface object that stores coding progress.
-        /// </param>
-        /// <param name="inSize">
-        /// The total number of bytes of data in the input stream read by the coder.
-        /// </param>
-        /// <param name="outSize">
-        /// The total number of bytes of data in the output stream written by the coder.
-        /// </param>
-        /// <returns>
-        /// <para>
-        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
-        /// </para>
-        /// <para>
-        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
-        /// At this time, the return value means the reason for the failure.
-        /// </para>
-        /// </returns>
-        public static HRESULT ICompressProgressInfo__SetRatioInfo(IntPtr ifp, UInt64? inSize, UInt64? outSize)
-        {
-            unsafe
-            {
-                UInt64 inSizeBuffer;
-                UInt64 outSizeBuffer;
-                return ICompressProgressInfo__SetRatioInfo(ifp, inSize.ToPointer(&inSizeBuffer), outSize.ToPointer(&outSizeBuffer));
-            }
-        }
-
-        #endregion
-
         #region ICompressCoder__Code
 
         /// <summary>
@@ -384,97 +349,6 @@ namespace SevenZip.Compression.NativeInterfaces
                         inSize.ToPointer(&inSizeBuffer),
                         outSize.ToPointer(&outSizeBuffer),
                         progress);
-            }
-        }
-
-        #endregion
-
-        #region ICompressCoder2__Code
-
-        /// <summary>
-        /// Reads data from the input stream, codes it, and writes it to the output stream.
-        /// </summary>
-        /// <param name="ifp">
-        /// Set the coder's <c>ICompressCoder2</c> interface object.
-        /// </param>
-        /// <param name="inStreams">
-        /// An array of tuple values for the following objects:
-        /// <list type="bullet">
-        /// <item>Delegate that reads data from the input stream</item>
-        /// <item>Length of input stream (number of bytes or null)</item>
-        /// </list>
-        /// </param>
-        /// <param name="outStreams">
-        /// An array of tuple values for the following objects:
-        /// <list type="bullet">
-        /// <item>Delegate that writes data to the output stream</item>
-        /// <item>Length of output stream (number of bytes or null)</item>
-        /// </list>
-        /// </param>
-        /// <param name="progress">
-        /// If you want to be notified of the progress of your coding, set the delegate of the function to be notified.
-        /// If not, set null.
-        /// </param>
-        /// <returns>
-        /// <para>
-        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
-        /// </para>
-        /// <para>
-        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
-        /// At this time, the return value means the reason for the failure.
-        /// </para>
-        /// </returns>
-        public static HRESULT ICompressCoder2__Code(
-            IntPtr ifp,
-            ReadOnlySpan<(NativeInStreamReader inStreamReader, UInt64? inSize)> inStreams,
-            ReadOnlySpan<(NativeOutStreamWriter outStreamWriter, UInt64? outSize)> outStreams,
-            IProgress<(UInt64? inSize, UInt64? outSize)>? progress)
-        {
-            var inStreamReaderDelegates = new NativeInStreamReader[inStreams.Length];
-            var outStreamWriterDelegates = new NativeOutStreamWriter[outStreams.Length];
-
-            unsafe
-            {
-                var inStreamReadersArray = new void*[inStreams.Length];
-                var inStreamSizeBuffersArray = new UInt64[inStreams.Length];
-                var inStreamSizesArray = new UInt64*[inStreams.Length];
-                var outStreamWritersArray = new void*[outStreams.Length];
-                var outStreamSizeBuffersArray = new UInt64[outStreams.Length];
-                var outStreamSizesArray = new UInt64*[outStreams.Length];
-                fixed (void** _inStreamReadersArray = inStreamReadersArray)
-                fixed (UInt64* _inStreamSizeBuffersArray = inStreamSizeBuffersArray)
-                fixed (UInt64** _inStreamSizesArray = inStreamSizesArray)
-                fixed (void** _outStreamWritersArray = outStreamWritersArray)
-                fixed (UInt64* _outStreamSizeBuffersArray = outStreamSizeBuffersArray)
-                fixed (UInt64** _outStreamSizesArray = outStreamSizesArray)
-                {
-                    for (var index = 0; index < inStreams.Length; ++index)
-                    {
-                        var (inStreamReader, inStreamSize) = inStreams[index];
-                        inStreamReaderDelegates[index] = inStreamReader; // これを設定しておかないと、inStreamReadersArray[] が指す関数へのポインタが、ガベージコレクタによって無効になってしまうことがある。
-                        _inStreamReadersArray[index] = Marshal.GetFunctionPointerForDelegate(inStreamReader).ToPointer();
-                        _inStreamSizesArray[index] = inStreamSize.ToPointer(&_inStreamSizeBuffersArray[index]);
-                    }
-
-                    for (var index = 0; index < outStreams.Length; ++index)
-                    {
-                        var (outStreamWriter, outStreamSize) = outStreams[index];
-                        outStreamWriterDelegates[index] = outStreamWriter; // これを設定しておかないと、outStreamWritersArray[] が指す関数へのポインタが、ガベージコレクタによって無効になってしまうことがある。
-                        _outStreamWritersArray[index] = Marshal.GetFunctionPointerForDelegate(outStreamWriter).ToPointer();
-                        _outStreamSizesArray[index] = outStreamSize.ToPointer(&_outStreamSizeBuffersArray[index]);
-                    }
-
-                    return
-                        ICompressCoder2__Code(
-                            ifp,
-                            new IntPtr(_inStreamReadersArray),
-                            _inStreamSizesArray,
-                            checked((UInt32)inStreams.Length),
-                            new IntPtr(_outStreamWritersArray),
-                            _outStreamSizesArray,
-                            checked((UInt32)outStreams.Length),
-                            progress.FromProgressToNativeDelegate());
-                }
             }
         }
 
@@ -630,39 +504,6 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #endregion
 
-        #region ICompressFilter__Filter
-
-        /// <summary>
-        /// Modifyes the data in the specified buffer to set it in the original buffer.
-        /// </summary>
-        /// <param name="ifp">
-        /// Set the coder's <c>ICompressFilter</c> interface object.
-        /// </param>
-        /// <param name="data">
-        /// Set the array that contains the data to be modified. If the call to this function is successful, the modified data is stored in the same buffer.
-        /// </param>
-        /// <returns>
-        /// <para>
-        /// If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.
-        /// </para>
-        /// <para>
-        /// If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.
-        /// At this time, the return value means the reason for the failure.
-        /// </para>
-        /// </returns>
-        public static UInt32 ICompressFilter__Filter(IntPtr ifp, Span<Byte> data)
-        {
-            unsafe
-            {
-                fixed (Byte* dataPtr = data)
-                {
-                    return ICompressFilter__Filter(ifp, dataPtr, (UInt32)data.Length);
-                }
-            }
-        }
-
-        #endregion
-
         #region ISequentialInStream__Read
 
         public static HRESULT ISequentialInStream__Read(IntPtr ifp, Span<Byte> bytes, out UInt32 processedSize)
@@ -672,21 +513,6 @@ namespace SevenZip.Compression.NativeInterfaces
                 fixed (Byte* p = bytes)
                 {
                     return ISequentialInStream__Read(ifp, p, checked((UInt32)bytes.Length), out processedSize);
-                }
-            }
-        }
-
-        #endregion
-
-        #region ISequentialOutStream__Write
-
-        public static HRESULT ISequentialOutStream__Write(IntPtr ifp, ReadOnlySpan<Byte> bytes, out UInt32 processedSize)
-        {
-            unsafe
-            {
-                fixed (Byte* p = bytes)
-                {
-                    return ISequentialOutStream__Write(ifp, p, checked((UInt32)bytes.Length), out processedSize);
                 }
             }
         }

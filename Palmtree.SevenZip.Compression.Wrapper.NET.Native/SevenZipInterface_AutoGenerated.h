@@ -89,12 +89,14 @@ struct ICompressCoder
     virtual HRESULT STDMETHODCALLTYPE Code(ISequentialInStream* inStream, ISequentialOutStream* outStream, const UInt64* inSize, const UInt64* outSize, ICompressProgressInfo* progress) = 0;
 };
 
+#if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressCoder2;
 struct ICompressCoder2
     : public IUnknown
 {
     virtual HRESULT STDMETHODCALLTYPE Code(ISequentialInStream* const* inStreams, const UInt64* const* inSizes, UInt32 numInStreams, ISequentialOutStream* const* outStreams, const UInt64* const* outSizes, UInt32 numOutStreams, ICompressProgressInfo* progress) = 0;
 };
+#endif // This interface is not supported by the wrapper.
 
 extern "C" const GUID IID_ICompressSetCoderPropertiesOpt;
 struct ICompressSetCoderPropertiesOpt
@@ -229,6 +231,7 @@ struct ICompressSetInStream2
 };
 #endif // This interface is not supported by the wrapper.
 
+#if false // This interface is not supported by the wrapper.
 extern "C" const GUID IID_ICompressFilter;
 struct ICompressFilter
     : public IUnknown
@@ -236,6 +239,7 @@ struct ICompressFilter
     virtual HRESULT STDMETHODCALLTYPE Init() = 0;
     virtual UInt32 STDMETHODCALLTYPE Filter(Byte* data, UInt32 size) = 0;
 };
+#endif // This interface is not supported by the wrapper.
 
 extern "C" const GUID IID_ICompressCodecsInfo;
 struct ICompressCodecsInfo
@@ -319,6 +323,5 @@ struct IHashers
 
 extern HRESULT STDMETHODCALLTYPE Customized_IUnknown__QueryInterface(IUnknown*  ifp, GUID* piid, void** ppvObject);
 extern HRESULT STDMETHODCALLTYPE Customized_ICompressCoder__Code(ICompressCoder*  ifp, SequentialInStreamReader inStreamReader, SequentialOutStreamWriter outStreamWriter, const UInt64* inSize, const UInt64* outSize, CompressProgressInfoReporter progressReporter);
-extern HRESULT STDMETHODCALLTYPE Customized_ICompressCoder2__Code(ICompressCoder2*  ifp, SequentialInStreamReader const* inStreamReaders, const UInt64* const* inSizes, UInt32 numInStreams, SequentialOutStreamWriter const* outStreamWriters, const UInt64* const* outSizes, UInt32 numOutStreams, CompressProgressInfoReporter progressReporter);
 extern HRESULT STDMETHODCALLTYPE Customized_ICompressWriteCoderProperties__WriteCoderProperties(ICompressWriteCoderProperties*  ifp, SequentialOutStreamWriter outStreamWriter);
 extern HRESULT STDMETHODCALLTYPE Customized_ICompressSetInStream__SetInStream(ICompressSetInStream*  ifp, SequentialInStreamReader inStreamReader);

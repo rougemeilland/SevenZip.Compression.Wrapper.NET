@@ -71,6 +71,8 @@
     <ClCompile>
       <PreprocessorDefinitions>_PLATFORM_LINUX_X86;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <TreatWarningAsError>true</TreatWarningAsError>
+      <LinkTimeOptimization>true</LinkTimeOptimization>
+      <SymbolsHiddenByDefault>true</SymbolsHiddenByDefault>
     </ClCompile>
     <PostBuildEvent>
       <Command>
@@ -80,6 +82,8 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
     <ClCompile>
       <PreprocessorDefinitions>_PLATFORM_LINUX_X86;_DEBUG</PreprocessorDefinitions>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <SymbolsHiddenByDefault>true</SymbolsHiddenByDefault>
     </ClCompile>
     <PostBuildEvent>
       <Command>

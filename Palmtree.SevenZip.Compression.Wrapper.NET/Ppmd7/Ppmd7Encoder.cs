@@ -108,7 +108,7 @@ namespace SevenZip.Compression.Ppmd7
         /// <exception cref="ObjectDisposedException">The encoder has already been disposed.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="uncompressedInStream"/> or <paramref name="compressedOutStream"/> is null.</exception>
         /// <exception cref="ArgumentException"><paramref name="uncompressedInStream"/> does not support reading, or <paramref name="compressedOutStream"/> does not support writing.</exception>
-        public void Code(Stream uncompressedInStream, Stream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
+        public void Code(Stream uncompressedInStream, Stream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
             if (uncompressedInStream is null)
                 throw new ArgumentNullException(nameof(uncompressedInStream));
@@ -159,7 +159,7 @@ namespace SevenZip.Compression.Ppmd7
         /// </remarks>
         /// <exception cref="ObjectDisposedException">The encoder has already been disposed.</exception>
         /// <exception cref="ArgumentNullException"><paramref name="uncompressedInStream"/> or <paramref name="compressedOutStream"/> is null.</exception>
-        public void Code(ISequentialInputByteStream uncompressedInStream, ISequentialOutputByteStream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64? inStreamProcessedCount, UInt64? outStreamProcessedCount)>? progress)
+        public void Code(ISequentialInputByteStream uncompressedInStream, ISequentialOutputByteStream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
             if (uncompressedInStream is null)
                 throw new ArgumentNullException(nameof(uncompressedInStream));

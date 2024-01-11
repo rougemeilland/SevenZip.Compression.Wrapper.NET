@@ -12,10 +12,7 @@ namespace SevenZip.Compression.NativeInterfaces
         private static readonly (Guid iid, Func<IntPtr, Unknown> instanceCreator)[] _instanceCreators = new []
             {
                 (iid: new Guid("23170f69-40c1-278a-0000-000300010000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => SequentialInStream.Create(nativeInterfaceObject))),
-                (iid: new Guid("23170f69-40c1-278a-0000-000300020000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => SequentialOutStream.Create(nativeInterfaceObject))),
-                (iid: new Guid("23170f69-40c1-278a-0000-000400040000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => CompressProgressInfo.Create(nativeInterfaceObject))),
                 (iid: new Guid("23170f69-40c1-278a-0000-000400050000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => CompressCoder.Create(nativeInterfaceObject))),
-                (iid: new Guid("23170f69-40c1-278a-0000-000400180000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => CompressCoder2.Create(nativeInterfaceObject))),
                 (iid: new Guid("23170f69-40c1-278a-0000-0004001f0000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => CompressSetCoderPropertiesOpt.Create(nativeInterfaceObject))),
                 (iid: new Guid("23170f69-40c1-278a-0000-000400200000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => CompressSetCoderProperties.Create(nativeInterfaceObject))),
                 (iid: new Guid("23170f69-40c1-278a-0000-000400220000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => CompressSetDecoderProperties2.Create(nativeInterfaceObject))),
@@ -28,7 +25,6 @@ namespace SevenZip.Compression.NativeInterfaces
                 (iid: new Guid("23170f69-40c1-278a-0000-000400310000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => CompressSetInStream.Create(nativeInterfaceObject))),
                 (iid: new Guid("23170f69-40c1-278a-0000-000400340000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => CompressSetOutStreamSize.Create(nativeInterfaceObject))),
                 (iid: new Guid("23170f69-40c1-278a-0000-000400350000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => CompressSetBufSize.Create(nativeInterfaceObject))),
-                (iid: new Guid("23170f69-40c1-278a-0000-000400400000"), instanceCreator: (Func<IntPtr, Unknown>)(nativeInterfaceObject => CompressFilter.Create(nativeInterfaceObject))),
             }
             .OrderBy(item => item.iid)
             .ToArray();
