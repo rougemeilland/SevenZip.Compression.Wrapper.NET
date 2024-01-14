@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Palmtree;
-using Palmtree.Collections;
+using Palmtree.Debug.IO;
 using Palmtree.IO;
 using SevenZip.Compression;
 using SevenZip.Compression.Bzip2;
@@ -69,9 +68,12 @@ namespace Test.Coders
 
         private static void TestStore(ulong DATA_SIZE)
         {
-            using var inStream = GetSouceStream(DATA_SIZE);
-            using var outStream = CreateDataValidationStream();
+            var exception = (Exception?)null;
+            using var inStream = InputTestDataStream.Create(DATA_SIZE);
+            using var outStream = OutputTestDataStream.Create(ex => exception = ex);
             inStream.CopyTo(outStream);
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestBzip2(ulong DATA_SIZE)
@@ -84,10 +86,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = Bzip2Encoder.CreateEncoder(properties);
                     encoder.Code(inStream, outStream, null, null, null);
@@ -97,12 +100,14 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     using var inStream = pipe.OpenInputStream();
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     using var decoder = Bzip2Decoder.CreateDecoder();
                     decoder.Code(inStream, outStream, null, null, null);
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestBzip2Stream(ulong DATA_SIZE)
@@ -115,10 +120,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = Bzip2Encoder.CreateEncoder(properties);
                     encoder.Code(inStream, outStream, null, null, null);
@@ -128,11 +134,13 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     using var inStream = Bzip2Decoder.CreateDecoderStream(pipe.OpenInputStream(), DATA_SIZE);
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     inStream.CopyTo(outStream);
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestDeflate(ulong DATA_SIZE)
@@ -145,10 +153,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = DeflateEncoder.CreateEncoder(properties);
                     encoder.Code(inStream, outStream, null, null, null);
@@ -158,12 +167,14 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     using var inStream = pipe.OpenInputStream();
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     using var decoder = DeflateDecoder.CreateDecoder();
                     decoder.Code(inStream, outStream, null, null, null);
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestDeflateStream(ulong DATA_SIZE)
@@ -176,10 +187,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = DeflateEncoder.CreateEncoder(properties);
                     encoder.Code(inStream, outStream, null, null, null);
@@ -189,11 +201,13 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     using var inStream = DeflateDecoder.CreateDecoderStream(pipe.OpenInputStream(), DATA_SIZE);
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     inStream.CopyTo(outStream);
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestDeflate64(ulong DATA_SIZE)
@@ -206,10 +220,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = Deflate64Encoder.CreateEncoder(properties);
                     encoder.Code(inStream, outStream, null, null, null);
@@ -219,12 +234,14 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     using var inStream = pipe.OpenInputStream();
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     using var decoder = Deflate64Decoder.CreateDecoder();
                     decoder.Code(inStream, outStream, null, null, null);
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestDeflate64Stream(ulong DATA_SIZE)
@@ -237,11 +254,12 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
                     using var encoder = Deflate64Encoder.CreateEncoder(properties);
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     encoder.Code(inStream, outStream, null, null, null);
                 });
@@ -250,11 +268,13 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     using var inStream = Deflate64Decoder.CreateDecoderStream(pipe.OpenInputStream(), DATA_SIZE);
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     inStream.CopyTo(outStream);
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestLzma(ulong DATA_SIZE)
@@ -269,10 +289,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = LzmaEncoder.CreateEncoder(properties);
                     encoder.WriteCoderProperties(outStream);
@@ -283,7 +304,7 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     using var inStream = pipe.OpenInputStream();
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     Span<byte> contentProperties = stackalloc byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
                     if (inStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
@@ -292,6 +313,8 @@ namespace Test.Coders
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestLzmaStream(ulong DATA_SIZE)
@@ -306,10 +329,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = LzmaEncoder.CreateEncoder(properties);
                     encoder.WriteCoderProperties(outStream);
@@ -324,11 +348,13 @@ namespace Test.Coders
                     if (baseOfInStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var inStream = LzmaDecoder.CreateDecoderStream(baseOfInStream, DATA_SIZE, contentProperties);
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     inStream.CopyTo(outStream);
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestLzma2(ulong DATA_SIZE)
@@ -342,10 +368,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = Lzma2Encoder.CreateEncoder(properties);
                     encoder.WriteCoderProperties(outStream);
@@ -356,7 +383,7 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     using var inStream = pipe.OpenInputStream();
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     Span<byte> contentProperties = stackalloc byte[Lzma2Decoder.CONTENT_PROPERTY_SIZE];
                     if (inStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
@@ -365,6 +392,8 @@ namespace Test.Coders
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestLzma2Stream(ulong DATA_SIZE)
@@ -378,10 +407,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = Lzma2Encoder.CreateEncoder(properties);
                     encoder.WriteCoderProperties(outStream);
@@ -396,11 +426,13 @@ namespace Test.Coders
                     if (baseOfInStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var inStream = Lzma2Decoder.CreateDecoderStream(baseOfInStream, DATA_SIZE, contentProperties);
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     inStream.CopyTo(outStream);
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestPpmd7(ulong DATA_SIZE)
@@ -413,10 +445,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = Ppmd7Encoder.CreateEncoder(properties);
                     encoder.WriteCoderProperties(outStream);
@@ -427,7 +460,7 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     using var inStream = pipe.OpenInputStream();
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     Span<byte> contentProperties = stackalloc byte[Ppmd7Decoder.CONTENT_PROPERTY_SIZE];
                     if (inStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
@@ -436,6 +469,8 @@ namespace Test.Coders
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
+            if (exception is not null)
+                throw exception;
         }
 
         private static void TestPpmd7Stream(ulong DATA_SIZE)
@@ -448,10 +483,11 @@ namespace Test.Coders
 
             var pipe = new InProcessPipe();
 
+            var exception = (Exception?)null;
             var encodingTask =
                 Task.Run(() =>
                 {
-                    using var inStream = GetSouceStream(DATA_SIZE);
+                    using var inStream = InputTestDataStream.Create(DATA_SIZE);
                     using var outStream = pipe.OpenOutputStream();
                     using var encoder = Ppmd7Encoder.CreateEncoder(properties);
                     encoder.WriteCoderProperties(outStream);
@@ -466,65 +502,13 @@ namespace Test.Coders
                     if (baseOfInStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var inStream = Ppmd7Decoder.CreateDecoderStream(baseOfInStream, DATA_SIZE, contentProperties);
-                    using var outStream = CreateDataValidationStream();
+                    using var outStream = OutputTestDataStream.Create(ex => exception = ex);
                     inStream.CopyTo(outStream);
                 });
 
             Task.WhenAll(encodingTask, decodingTask).Wait();
-        }
-
-        private static ISequentialInputByteStream GetSouceStream(ulong totalSize)
-            => EnumerateSourceBytes(totalSize).AsByteStream();
-
-        private static IEnumerable<byte> EnumerateSourceBytes(ulong totalSize)
-        {
-            if (totalSize < sizeof(ulong) + sizeof(uint))
-                throw new ArgumentOutOfRangeException(nameof(totalSize));
-
-            var contentSize = totalSize - (sizeof(ulong) + sizeof(uint));
-            var header = new byte[sizeof(ulong)];
-            header.SetValueLE(0, contentSize);
-            for (var index = 0; index < header.Length; ++index)
-                yield return header[index];
-            var crc32State = Crc32.CreateCalculationState();
-            var count = 0UL;
-            while (count < contentSize)
-            {
-                var length = checked((int)(contentSize - count).Minimum((ulong)int.MaxValue));
-                foreach (var value in RandomSequence.GetByteSequence().Take(length))
-                {
-                    yield return value;
-                    crc32State.Put(value);
-                    checked
-                    {
-                        ++count;
-                    }
-                }
-            }
-
-            var (crc32Value, _) = crc32State.GetResultValue();
-            var crcBytes = new byte[sizeof(uint)];
-            crcBytes.SetValueLE(0, crc32Value);
-            for (var index = 0; index < crcBytes.Length; ++index)
-                yield return crcBytes[index];
-        }
-
-        private static ISequentialOutputByteStream CreateDataValidationStream()
-        {
-            var pipe = new InProcessPipe();
-            _ = Task.Run(() =>
-            {
-                using var inStream = pipe.OpenInputStream();
-                var contentSize = inStream.ReadUInt64LE();
-                var actualCrc32Value = inStream.WithPartial(contentSize, true).CalculateCrc32().Crc;
-                var crc32Value = inStream.ReadUInt32LE();
-                if (crc32Value != actualCrc32Value)
-                    throw new Exception("データが一致しません。");
-                var remain = inStream.ReadAllBytes();
-                if (remain.Length > 0)
-                    throw new Exception("データが一致しません。");
-            });
-            return pipe.OpenOutputStream();
+            if (exception is not null)
+                throw exception;
         }
     }
 }
