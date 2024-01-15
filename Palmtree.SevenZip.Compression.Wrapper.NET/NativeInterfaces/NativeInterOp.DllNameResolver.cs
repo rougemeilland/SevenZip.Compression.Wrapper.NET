@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
+using Palmtree;
 using Palmtree.IO;
 
 namespace SevenZip.Compression.NativeInterfaces
@@ -69,45 +70,24 @@ namespace SevenZip.Compression.NativeInterfaces
                 if (OperatingSystem.IsWindows())
                 {
                     return
-                        (RuntimeInformation.ProcessArchitecture switch
-                        {
-                            Architecture.X86 => EnumerablePath(assembly, "7z.win_x86.dll"),
-                            Architecture.X64 => EnumerablePath(assembly, "7z.win_x64.dll"),
-                            Architecture.Arm => EnumerablePath(assembly, "7z.win_arm32.dll"),
-                            Architecture.Arm64 => EnumerablePath(assembly, "7z.win_arm64.dll"),
-                            _ => throw new NotSupportedException($"Running on this architecture is not supported. : architecture={RuntimeInformation.ProcessArchitecture}"),
-                        })
-                        .Concat(EnumerablePath(assembly, "7z.dll"));
+                        EnumerablePath(assembly, $"7z.{Platform.NativeCodeId}.dll", Platform.NugetResourceId)
+                        .Concat(EnumerablePath(assembly, "7z.dll", Platform.NugetResourceId));
                 }
                 else if (OperatingSystem.IsLinux())
                 {
                     return
-                        (RuntimeInformation.ProcessArchitecture switch
-                        {
-                            Architecture.X86 => EnumerablePath(assembly, "lib7z.linux_x86.so"),
-                            Architecture.X64 => EnumerablePath(assembly, "lib7z.linux_x64.so"),
-                            Architecture.Arm => EnumerablePath(assembly, "lib7z.linux_arm32.so"),
-                            Architecture.Arm64 => EnumerablePath(assembly, "lib7z.linux_arm64.so"),
-                            _ => throw new NotSupportedException($"Running on this architecture is not supported. : architecture={RuntimeInformation.ProcessArchitecture}"),
-                        })
-                        .Concat(EnumerablePath(assembly, "lib7z.so"))
-                        .Concat(EnumerablePath(assembly, "7z.so"));
+                        EnumerablePath(assembly, $"lib7z.{Platform.NativeCodeId}.so", Platform.NugetResourceId)
+                        .Concat(EnumerablePath(assembly, "lib7z.so", Platform.NugetResourceId))
+                        .Concat(EnumerablePath(assembly, "7z.so", Platform.NugetResourceId));
                 }
                 else if (OperatingSystem.IsMacOS())
                 {
                     return
-                        (RuntimeInformation.ProcessArchitecture switch
-                        {
-                            Architecture.X86 => EnumerablePath(assembly, "lib7z.osx_x86.dylib"),
-                            Architecture.X64 => EnumerablePath(assembly, "lib7z.osx_x64.dylib"),
-                            Architecture.Arm => EnumerablePath(assembly, "lib7z.osx_arm32.dylib"),
-                            Architecture.Arm64 => EnumerablePath(assembly, "lib7z.osx_arm64.dylib"),
-                            _ => throw new NotSupportedException($"Running on this architecture is not supported. : architecture={RuntimeInformation.ProcessArchitecture}"),
-                        })
-                        .Concat(EnumerablePath(assembly, "lib7z.dylib"))
-                        .Concat(EnumerablePath(assembly, "7z.dylib"))
-                        .Concat(EnumerablePath(assembly, "lib7z.so"))
-                        .Concat(EnumerablePath(assembly, "7z.so"));
+                        EnumerablePath(assembly, $"lib7z.{Platform.NativeCodeId}.dylib", Platform.NugetResourceId)
+                        .Concat(EnumerablePath(assembly, "lib7z.dylib", Platform.NugetResourceId))
+                        .Concat(EnumerablePath(assembly, "7z.dylib", Platform.NugetResourceId))
+                        .Concat(EnumerablePath(assembly, "lib7z.so", Platform.NugetResourceId))
+                        .Concat(EnumerablePath(assembly, "7z.so", Platform.NugetResourceId));
                 }
                 else
                 {
@@ -118,59 +98,37 @@ namespace SevenZip.Compression.NativeInterfaces
             private static IEnumerable<String> EnumerateNativeMethodDllNames(Assembly assembly)
             {
                 if (OperatingSystem.IsWindows())
-                {
-                    return
-                        RuntimeInformation.ProcessArchitecture switch
-                        {
-                            Architecture.X86 => EnumerablePath(assembly, "Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x86.dll"),
-                            Architecture.X64 => EnumerablePath(assembly, "Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_x64.dll"),
-                            Architecture.Arm => EnumerablePath(assembly, "Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm32.dll"),
-                            Architecture.Arm64 => EnumerablePath(assembly, "Palmtree.SevenZip.Compression.Wrapper.NET.Native.win_arm64.dll"),
-                            _ => throw new NotSupportedException($"Running on this architecture is not supported. : architecture={RuntimeInformation.ProcessArchitecture}"),
-                        };
-                }
+                    return EnumerablePath(assembly, $"Palmtree.SevenZip.Compression.Wrapper.NET.Native.{Platform.NativeCodeId}.dll", Platform.NugetResourceId);
                 else if (OperatingSystem.IsLinux())
-                {
-                    return
-                        RuntimeInformation.ProcessArchitecture switch
-                        {
-                            Architecture.X86 => EnumerablePath(assembly, "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x86.so"),
-                            Architecture.X64 => EnumerablePath(assembly, "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_x64.so"),
-                            Architecture.Arm => EnumerablePath(assembly, "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm32.so"),
-                            Architecture.Arm64 => EnumerablePath(assembly, "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.linux_arm64.so"),
-                            _ => throw new NotSupportedException($"Running on this architecture is not supported. : architecture={RuntimeInformation.ProcessArchitecture}"),
-                        };
-                }
+                    return EnumerablePath(assembly, $"libPalmtree.SevenZip.Compression.Wrapper.NET.Native.{Platform.NativeCodeId}.so", Platform.NugetResourceId);
                 else if (OperatingSystem.IsMacOS())
-                {
-                    return
-                        RuntimeInformation.ProcessArchitecture switch
-                        {
-                            Architecture.X86 => EnumerablePath(assembly, "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x86.dylib"),
-                            Architecture.X64 => EnumerablePath(assembly, "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_x64.dylib"),
-                            Architecture.Arm => EnumerablePath(assembly, "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm32.dylib"),
-                            Architecture.Arm64 => EnumerablePath(assembly, "libPalmtree.SevenZip.Compression.Wrapper.NET.Native.osx_arm64.dylib"),
-                            _ => throw new NotSupportedException($"Running on this architecture is not supported. : architecture={RuntimeInformation.ProcessArchitecture}"),
-                        };
-                }
+                    return EnumerablePath(assembly, $"libPalmtree.SevenZip.Compression.Wrapper.NET.Native.{Platform.NativeCodeId}.dylib", Platform.NugetResourceId);
                 else
-                {
                     throw new NotSupportedException("Running on this operating system is not supported.");
-                }
             }
 
-            private static IEnumerable<String> EnumerablePath(Assembly assembly, String libraryName)
+            private static IEnumerable<String> EnumerablePath(Assembly assembly, String libraryFileName, String nugetResourceId)
             {
-                // 先に、アセンブリと同じディレクトリの下にライブラリファイルが存在しているかどうかを確認する
-                var file = assembly.GetBaseDirectory().GetFile(libraryName);
-                if (file.Exists)
+                var baseDirectory = assembly.GetBaseDirectory();
+
+                // アセンブリと同じディレクトリの下にライブラリファイルが存在しているかどうかを確認する
+                var dllFile1 = baseDirectory.GetFile(libraryFileName);
+                if (dllFile1.Exists)
                 {
                     // 存在していればそのフルパスを返す
-                    yield return file.FullName;
+                    yield return dllFile1.FullName;
                 }
 
-                // 次に、与えられたライブラリ名をそのまま返す。
-                yield return libraryName;
+                // アセンブリと同じディレクトリの "./runtimes/<platform-id>/native" の下にライブラリファイルが存在しているかどうかを確認する
+                var dllFile2 = baseDirectory.GetSubDirectory("runtimes", nugetResourceId, "native").GetFile(libraryFileName);
+                if (dllFile2.Exists)
+                {
+                    // 存在していればそのフルパスを返す
+                    yield return dllFile2.FullName;
+                }
+
+                // 与えられたライブラリ名をそのまま返す。
+                yield return libraryFileName;
             }
         }
     }
