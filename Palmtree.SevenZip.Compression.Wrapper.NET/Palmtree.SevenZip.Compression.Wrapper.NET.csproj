@@ -48,7 +48,6 @@
 
 	<ItemGroup>
 	  <Content Include="docs\README.md">
-	    <CopyToOutputDirectory>Never</CopyToOutputDirectory>
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
     </Content>
@@ -66,5 +65,9 @@
 	    <PackagePath>\</PackagePath>
 	  </None>
 	</ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="del &quot;$(BaseOutputPath)\$(Configuration)\*.nupkg&quot; 2&gt;NUL" />
+  </Target>
 
 </Project>
