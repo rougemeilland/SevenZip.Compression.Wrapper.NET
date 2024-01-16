@@ -104,11 +104,11 @@ namespace SevenZip.Compression.NativeInterfaces
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe PROPVARIANT* GetElementOfArray(PROPVARIANT* array, Int32 index)
             => (PROPVARIANT*)((Byte*)array + index * SizeOfPropVariant);
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public void Clear()
         {
             fixed (PROPVARIANT* thiPropertyValuePtr = &this)

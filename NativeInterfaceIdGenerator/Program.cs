@@ -286,7 +286,7 @@ namespace NativeInterfaceIdGenerator
                                             return parameter.ParameterName;
                                     })
                                     .Prepend("ifp"));
-                                nativeInterfaceCsWriter.WriteLine("        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]");
+                                nativeInterfaceCsWriter.WriteLine("        [MethodImpl(MethodImplOptions.AggressiveInlining)]");
                                 nativeInterfaceCsWriter.WriteLine($"        {(isSafe ? "public" : "private")} static {(isSafe ? "" : "unsafe ")}{MapTypeFromUnmanageToManage(sevenZipInterfaceMember.ReturnValueType)} {sevenZipInterface.InterfaceName}__{sevenZipInterfaceMember.MemberName}({parameterDeclaration})");
                                 nativeInterfaceCsWriter.WriteLine("        {");
                                 var firstArchitecture = true;

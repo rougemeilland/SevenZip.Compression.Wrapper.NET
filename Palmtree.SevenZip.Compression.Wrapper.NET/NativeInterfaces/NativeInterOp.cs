@@ -66,7 +66,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// サポートされていないオペレーティングシステムまたは CPU アーキテクチャです。
         /// </exception>
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Int32 Global__GetSizeOfPROPVARIANT()
         {
             if (OperatingSystem.IsWindows())
@@ -127,7 +127,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <exception cref="NotSupportedException">
         /// サポートされていないオペレーティングシステムまたは CPU アーキテクチャです。
         /// </exception>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Int32 Global__GetSizeOfOleChar()
         {
             if (OperatingSystem.IsWindows())
@@ -257,7 +257,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// </para>
         /// </returns>
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public unsafe static HRESULT ICompressCodecsInfo__Create(SevenZipEngineEntryPoints* entrypointsTable, UInt32 sizeOfEntryPontsTable, out IntPtr obj)
         {
             if (OperatingSystem.IsWindows())
@@ -286,7 +286,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressCodecsInfo__GetProperty
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe HRESULT ICompressCodecsInfo__GetProperty(IntPtr ifp, UInt32 index, MethodPropID propID, PROPVARIANT_BUFFER* value)
             => ICompressCodecsInfo__GetProperty(ifp, index, propID, (PROPVARIANT*)value);
 
@@ -294,7 +294,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressCodecsInfo__GetModuleProp
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining | MethodImplOptions.AggressiveOptimization)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static unsafe HRESULT ICompressCodecsInfo__GetModuleProp(IntPtr ifp, ModulePropID propID, PROPVARIANT_BUFFER* value)
             => ICompressCodecsInfo__GetModuleProp(ifp, propID, (PROPVARIANT*)value);
 

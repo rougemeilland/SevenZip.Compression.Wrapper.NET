@@ -20,7 +20,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="intefaceObject">If the function call is successful, a pointer to the object to access this object will be output on the interface specified by <paramref name="iid"/>.</param>
         /// <returns><para>If <see cref="HRESULT.S_OK"/> is returned, it means that the call to this function was successful.</para><para>If <see cref="HRESULT.E_NOINTERFACE"/> is returned, it means that the call to this function failed because the object specified by <paramref name="ifp"/> does not support the interface specified by <paramref name="iid"/>.</para><para>If a value other than the above is returned, it means that the function call failed due to some error. At this time, the return value means the reason for the error.</para></returns>
         /// <remarks>If the call to this function is successful, the reference counter for the retrieved interface object has already been incremented. When you no longer need that interface object, you need to decrement the reference counter by calling the <see cref="IUnknown__Release(IntPtr)"/> function.</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT IUnknown__QueryInterface(IntPtr ifp, ref NativeGUID iid, out IntPtr intefaceObject)
         {
             if (OperatingSystem.IsWindows())
@@ -54,7 +54,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// </summary>
         /// <param name="ifp">Set a pointer to the IUnknown interface object.</param>
         /// <returns>Returns an incremented reference count.</returns>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt32 IUnknown__AddRef(IntPtr ifp)
         {
             if (OperatingSystem.IsWindows())
@@ -89,7 +89,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="ifp">Set a pointer to the IUnknown interface object.</param>
         /// <returns>Returns an incremented reference count.</returns>
         /// <remarks>If the decrement results in a reference count of zero, the object is destroyed and the value of <paramref name="ifp"/> is invalid. And then using the same <paramref name="ifp"/> value will cause unexpected results.</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static UInt32 IUnknown__Release(IntPtr ifp)
         {
             if (OperatingSystem.IsWindows())
@@ -122,7 +122,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ISequentialInStream_Read
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ISequentialInStream__Read(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize)
         {
             if (OperatingSystem.IsWindows())
@@ -155,7 +155,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressCoder_Code
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICompressCoder__Code(IntPtr ifp, NativeInStreamReader inStreamReader, NativeOutStreamWriter outStreamWriter, UInt64* inSize, UInt64* outSize, NativeProgressReporter? progressReporter)
         {
             if (OperatingSystem.IsWindows())
@@ -189,7 +189,7 @@ namespace SevenZip.Compression.NativeInterfaces
 #if false // ICompressCoder2 interface is not supported by the wrapper.
         #region ICompressCoder2_Code
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICompressCoder2__Code(IntPtr ifp, IntPtr inStreamReaders, UInt64** inSizes, UInt32 numInStreams, IntPtr outStreamWriters, UInt64** outSizes, UInt32 numOutStreams, NativeProgressReporter? progressReporter)
         {
             if (OperatingSystem.IsWindows())
@@ -223,7 +223,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressSetCoderPropertiesOpt_SetCoderPropertiesOpt
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICompressSetCoderPropertiesOpt__SetCoderPropertiesOpt(IntPtr ifp, CoderPropertyId* propIDs, PROPVARIANT* props, UInt32 numProps)
         {
             if (OperatingSystem.IsWindows())
@@ -256,7 +256,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressSetCoderProperties_SetCoderProperties
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICompressSetCoderProperties__SetCoderProperties(IntPtr ifp, CoderPropertyId* propIDs, PROPVARIANT* props, UInt32 numProps)
         {
             if (OperatingSystem.IsWindows())
@@ -289,7 +289,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressSetDecoderProperties2_SetDecoderProperties2
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICompressSetDecoderProperties2__SetDecoderProperties2(IntPtr ifp, Byte* data, UInt32 size)
         {
             if (OperatingSystem.IsWindows())
@@ -328,7 +328,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="ifp">Set a pointer to the ICompressWriteCoderProperties interface object.</param>
         /// <param name="outStreamWriter">Set a delegate for the function that writes the data to the output stream.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressWriteCoderProperties__WriteCoderProperties(IntPtr ifp, NativeOutStreamWriter outStreamWriter)
         {
             if (OperatingSystem.IsWindows())
@@ -367,7 +367,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="ifp">Set a pointer to the ICompressGetInStreamProcessedSize interface object.</param>
         /// <param name="value">If the call to this function is successful, the total number of bytes of data read and processed from the input stream will be output.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressGetInStreamProcessedSize__GetInStreamProcessedSize(IntPtr ifp, out UInt64 value)
         {
             if (OperatingSystem.IsWindows())
@@ -407,7 +407,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="numThreads">Set the number of threads that the coder can use.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
         /// <remarks>The behavior of this method depends on the implementation in the codec. Note that the number of threads actually used by the coder does not always match the value specified by <paramref name="numThreads"/>.</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetCoderMt__SetNumberOfThreads(IntPtr ifp, UInt32 numThreads)
         {
             if (OperatingSystem.IsWindows())
@@ -447,7 +447,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="finishMode">Set true if the coding is complete in one stream, false if the coding spans multiple streams.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
         /// <remarks>Note that for most codecs, the default behavior if you do not call this method is to code across multiple streams.</remarks>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetFinishMode__SetFinishMode(IntPtr ifp, UInt32 finishMode)
         {
             if (OperatingSystem.IsWindows())
@@ -481,7 +481,7 @@ namespace SevenZip.Compression.NativeInterfaces
 #if false // ICompressGetInStreamProcessedSize2 interface is not supported by the wrapper.
         #region ICompressGetInStreamProcessedSize2_GetInStreamProcessedSize2
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressGetInStreamProcessedSize2__GetInStreamProcessedSize2(IntPtr ifp, UInt32 streamIndex, out UInt64 value)
         {
             if (OperatingSystem.IsWindows())
@@ -521,7 +521,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="ifp">Set a pointer to the ICompressSetMemLimit interface object.</param>
         /// <param name="memUsage">The size of the memory that can be used by the coder in bytes.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetMemLimit__SetMemLimit(IntPtr ifp, UInt64 memUsage)
         {
             if (OperatingSystem.IsWindows())
@@ -554,7 +554,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressReadUnusedFromInBuf_ReadUnusedFromInBuf
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICompressReadUnusedFromInBuf__ReadUnusedFromInBuf(IntPtr ifp, void* data, UInt32 size, out UInt32 processedSize)
         {
             if (OperatingSystem.IsWindows())
@@ -593,7 +593,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="ifp">Set a pointer to the ICompressSetInStream interface object.</param>
         /// <param name="inStreamReader">Set the delegate for the function that reads the data from the input stream.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetInStream__SetInStream(IntPtr ifp, NativeInStreamReader inStreamReader)
         {
             if (OperatingSystem.IsWindows())
@@ -627,7 +627,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// </summary>
         /// <param name="ifp">Set a pointer to the ICompressSetInStream interface object.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetInStream__ReleaseInStream(IntPtr ifp)
         {
             if (OperatingSystem.IsWindows())
@@ -661,7 +661,7 @@ namespace SevenZip.Compression.NativeInterfaces
 #if false // ICompressSetOutStream interface is not supported by the wrapper.
         #region ICompressSetOutStream_SetOutStream
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetOutStream__SetOutStream(IntPtr ifp, NativeOutStreamWriter outStreamWriter)
         {
             if (OperatingSystem.IsWindows())
@@ -690,7 +690,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressSetOutStream_ReleaseOutStream
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetOutStream__ReleaseOutStream(IntPtr ifp)
         {
             if (OperatingSystem.IsWindows())
@@ -724,7 +724,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressSetOutStreamSize_SetOutStreamSize
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICompressSetOutStreamSize__SetOutStreamSize(IntPtr ifp, UInt64* outSize)
         {
             if (OperatingSystem.IsWindows())
@@ -764,7 +764,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="streamIndex">Set the index number of the stream for which you want to set the size.</param>
         /// <param name="size">Set the amount of memory used for the stream in bytes.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetBufSize__SetInBufSize(IntPtr ifp, UInt32 streamIndex, UInt32 size)
         {
             if (OperatingSystem.IsWindows())
@@ -800,7 +800,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="streamIndex">Set the index number of the stream for which you want to set the size.</param>
         /// <param name="size">Set the amount of memory used for the stream in bytes.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetBufSize__SetOutBufSize(IntPtr ifp, UInt32 streamIndex, UInt32 size)
         {
             if (OperatingSystem.IsWindows())
@@ -834,7 +834,7 @@ namespace SevenZip.Compression.NativeInterfaces
 #if false // ICompressInitEncoder interface is not supported by the wrapper.
         #region ICompressInitEncoder_InitEncoder
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressInitEncoder__InitEncoder(IntPtr ifp)
         {
             if (OperatingSystem.IsWindows())
@@ -869,7 +869,7 @@ namespace SevenZip.Compression.NativeInterfaces
 #if false // ICompressSetInStream2 interface is not supported by the wrapper.
         #region ICompressSetInStream2_SetInStream2
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetInStream2__SetInStream2(IntPtr ifp, UInt32 streamIndex, NativeInStreamReader inStreamReader)
         {
             if (OperatingSystem.IsWindows())
@@ -898,7 +898,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressSetInStream2_ReleaseInStream2
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressSetInStream2__ReleaseInStream2(IntPtr ifp, UInt32 streamIndex)
         {
             if (OperatingSystem.IsWindows())
@@ -938,7 +938,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// </summary>
         /// <param name="ifp">Set a pointer to the ICompressFilter interface object.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressFilter__Init(IntPtr ifp)
         {
             if (OperatingSystem.IsWindows())
@@ -967,7 +967,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressFilter_Filter
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe UInt32 ICompressFilter__Filter(IntPtr ifp, Byte* data, UInt32 size)
         {
             if (OperatingSystem.IsWindows())
@@ -1007,7 +1007,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="ifp">Set a pointer to the ICompressCodecsInfo interface object.</param>
         /// <param name="numMethods">If the call to this function is successful, the number of supported codecs will be output.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressCodecsInfo__GetNumMethods(IntPtr ifp, out UInt32 numMethods)
         {
             if (OperatingSystem.IsWindows())
@@ -1036,7 +1036,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressCodecsInfo_GetProperty
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICompressCodecsInfo__GetProperty(IntPtr ifp, UInt32 index, MethodPropID propID, PROPVARIANT* value)
         {
             if (OperatingSystem.IsWindows())
@@ -1074,7 +1074,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="decoder">If the call to this function is successful, a pointer to the created decoder's interface object will be output. This interface object implements the interface specified by  <paramref name="iid"/>.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
         /// <remarks><para>If the call to this function is successful, the reference counter for the retrieved interface object has already been incremented.When you no longer need that interface object, you need to decrement the reference counter by calling the <see cref="IUnknown__Release(IntPtr)"/> function.</para><para>The interface that can be specified for <paramref name="iid"/> is one of the following.:<list type="bullet"><item><description><c>ICompressCoder</c></description></item><item><description><c>ICompressCoder2</c></description></item><item><description><c>ICompressFilter</c></description></item></list></para></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressCodecsInfo__CreateDecoder(IntPtr ifp, UInt32 index, ref NativeGUID iid, out IntPtr decoder)
         {
             if (OperatingSystem.IsWindows())
@@ -1112,7 +1112,7 @@ namespace SevenZip.Compression.NativeInterfaces
         /// <param name="encoder">If the call to this function is successful, a pointer to the created decoder's interface object will be output. This interface object implements the interface specified by  <paramref name="iid"/>.</param>
         /// <returns><para>If the return value is <see cref="HRESULT.S_OK"/>, it means that the call to this function was successful.</para><para>If the return value is not <see cref="HRESULT.S_OK"/>, it means that the call to this function failed.At this time, the return value means the reason for the failure.</para></returns>
         /// <remarks><para>If the call to this function is successful, the reference counter for the retrieved interface object has already been incremented.When you no longer need that interface object, you need to decrement the reference counter by calling the <see cref="IUnknown__Release(IntPtr)"/> function.</para><para>The interface that can be specified for <paramref name="iid"/> is one of the following.:<list type="bullet"><item><description><c>ICompressCoder</c></description></item><item><description><c>ICompressCoder2</c></description></item><item><description><c>ICompressFilter</c></description></item></list></para></remarks>
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICompressCodecsInfo__CreateEncoder(IntPtr ifp, UInt32 index, ref NativeGUID iid, out IntPtr encoder)
         {
             if (OperatingSystem.IsWindows())
@@ -1141,7 +1141,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICompressCodecsInfo_GetModuleProp
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICompressCodecsInfo__GetModuleProp(IntPtr ifp, ModulePropID propID, PROPVARIANT* value)
         {
             if (OperatingSystem.IsWindows())
@@ -1175,7 +1175,7 @@ namespace SevenZip.Compression.NativeInterfaces
 #if false // ICryptoProperties interface is not supported by the wrapper.
         #region ICryptoProperties_SetKey
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICryptoProperties__SetKey(IntPtr ifp, Byte* data, UInt32 size)
         {
             if (OperatingSystem.IsWindows())
@@ -1204,7 +1204,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         #region ICryptoProperties_SetInitVector
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICryptoProperties__SetInitVector(IntPtr ifp, Byte* data, UInt32 size)
         {
             if (OperatingSystem.IsWindows())
@@ -1239,7 +1239,7 @@ namespace SevenZip.Compression.NativeInterfaces
 #if false // ICryptoResetInitVector interface is not supported by the wrapper.
         #region ICryptoResetInitVector_ResetInitVector
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICryptoResetInitVector__ResetInitVector(IntPtr ifp)
         {
             if (OperatingSystem.IsWindows())
@@ -1274,7 +1274,7 @@ namespace SevenZip.Compression.NativeInterfaces
 #if false // ICryptoSetPassword interface is not supported by the wrapper.
         #region ICryptoSetPassword_CryptoSetPassword
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT ICryptoSetPassword__CryptoSetPassword(IntPtr ifp, Byte* data, UInt32 size)
         {
             if (OperatingSystem.IsWindows())
@@ -1309,7 +1309,7 @@ namespace SevenZip.Compression.NativeInterfaces
 #if false // ICryptoSetCRC interface is not supported by the wrapper.
         #region ICryptoSetCRC_CryptoSetCRC
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static HRESULT ICryptoSetCRC__CryptoSetCRC(IntPtr ifp, UInt32 crc)
         {
             if (OperatingSystem.IsWindows())

@@ -9,7 +9,6 @@ namespace SevenZip.Compression.NativeInterfaces
 {
     internal static class HelperExtensions
     {
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public static Exception GetExceptionFromHRESULT(this HRESULT result)
         {
             Validation.Assert(result != HRESULT.S_OK, "result != HRESULT.S_OK");

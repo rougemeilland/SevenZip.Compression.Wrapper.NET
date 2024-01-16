@@ -330,7 +330,7 @@ namespace SevenZip.Compression.NativeInterfaces
             }
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveOptimization | MethodImplOptions.AggressiveInlining)]
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
         private static unsafe HRESULT GetPropertyValue(IntPtr ifp, Int32 index, MethodPropID propId, PROPVARIANT_BUFFER* propValueBuffer)
             => NativeInterOp.ICompressCodecsInfo__GetProperty(ifp, checked((UInt32)index), propId, propValueBuffer);
     }
