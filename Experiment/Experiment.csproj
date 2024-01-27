@@ -46,9 +46,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Palmtree.Core" Version="1.8.1-alpha" />
-	  <PackageReference Include="Palmtree.IO" Version="1.5.1-alpha" />
-	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET" Version="1.7.8-alpha" />
+	  <PackageReference Include="Palmtree.Core" Version="1.8.3-alpha" />
+	  <PackageReference Include="Palmtree.IO" Version="1.5.3-alpha" />
+	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET" Version="1.7.9-alpha" />
 	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET.Engine" Version="23.1.1" />
 	</ItemGroup>
 
