@@ -42,10 +42,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Palmtree.Core" Version="1.9.0-alpha" />
-    <PackageReference Include="Palmtree.Debug" Version="1.0.8-alpha" />
-    <PackageReference Include="Palmtree.IO" Version="1.5.4-alpha" />
-    <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET" Version="1.7.10-alpha" />
+    <PackageReference Include="Palmtree.Core" Version="1.9.1-alpha" />
+    <PackageReference Include="Palmtree.Debug" Version="1.0.10-alpha" />
+    <PackageReference Include="Palmtree.IO" Version="1.6.0-alpha" />
+    <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET" Version="1.7.11-alpha" />
     <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET.Engine" Version="23.1.1" />
   </ItemGroup>
 
