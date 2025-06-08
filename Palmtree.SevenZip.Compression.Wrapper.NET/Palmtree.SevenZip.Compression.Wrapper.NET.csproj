@@ -1,14 +1,14 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net8.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <AllowUnsafeBlocks>True</AllowUnsafeBlocks>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <PackageRequireLicenseAcceptance>False</PackageRequireLicenseAcceptance>
-    <VersionPrefix>1.7.23</VersionPrefix>
+    <VersionPrefix>1.8.0</VersionPrefix>
     <VersionSuffix>alpha</VersionSuffix>
     <Authors>Palmtree Software</Authors>
     <Copyright>© 2022-2024 Palmtree Software</Copyright>
@@ -54,6 +54,16 @@
 	  <IsAotCompatible>True</IsAotCompatible>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'">
+	  <NoWarn>1701;1702;IDE0290;SYSLIB1054;CA1510;CA1512;CA1513;IDE0301;IDE0300;IDE0028;IDE0305;IDE0301</NoWarn>
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0|AnyCPU'">
+	  <NoWarn>1701;1702;IDE0290;SYSLIB1054;CA1510;CA1512;CA1513;IDE0301;IDE0300;IDE0028;IDE0305;IDE0301</NoWarn>
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
 	<ItemGroup>
 	  <Content Include="docs\README.md">
       <Pack>True</Pack>
@@ -62,8 +72,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Palmtree.Core" Version="1.14.0-alpha" />
-	  <PackageReference Include="Palmtree.IO" Version="1.11.2-alpha" />
+	  <PackageReference Include="Palmtree.Core" Version="1.17.1-alpha" />
+	  <PackageReference Include="Palmtree.IO" Version="1.18.1-alpha" />
 	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET.Native" Version="1.4.2-alpha" />
 	</ItemGroup>
 

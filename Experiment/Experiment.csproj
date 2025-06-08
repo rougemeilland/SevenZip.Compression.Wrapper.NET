@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net8.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -35,6 +35,16 @@
 	  <NoWarn>1701;1702;CA1512</NoWarn>
 	</PropertyGroup>
 
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'">
+	  <NoWarn>1701;1702;CA1512</NoWarn>
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0|AnyCPU'">
+	  <NoWarn>1701;1702;CA1512</NoWarn>
+	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
+	</PropertyGroup>
+
 	<ItemGroup>
 	  <Content Remove="C:\Users\lunor\.nuget\packages\palmtree.sevenzip.compression.wrapper.net.platform.win.x64\1.0.0\contentFiles\any\net5.0\SevenZip.NativeWrapper.Unmanaged.win-x64.dll" />
 	  <Content Remove="C:\Users\lunor\.nuget\packages\palmtree.sevenzip.compression.wrapper.net\1.0.0\contentFiles\any\net5.0\SevenZip.Compression.settings.json" />
@@ -46,8 +56,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Palmtree.Core" Version="1.14.0-alpha" />
-	  <PackageReference Include="Palmtree.IO" Version="1.11.2-alpha" />
+	  <PackageReference Include="Palmtree.Core" Version="1.17.1-alpha" />
+	  <PackageReference Include="Palmtree.IO" Version="1.18.1-alpha" />
 	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET" Version="1.7.22-alpha" />
 	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET.Engine" Version="23.1.1" />
 	</ItemGroup>

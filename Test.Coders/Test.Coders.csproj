@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net8.0;net7.0</TargetFrameworks>
+    <TargetFrameworks>net9.0;net8.0</TargetFrameworks>
     <ImplicitUsings>disable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <EnforceCodeStyleInBuild>True</EnforceCodeStyleInBuild>
@@ -36,15 +36,23 @@
     <NoWarn>1701;1702;CA1512</NoWarn>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'">
+    <NoWarn>1701;1702;CA1512</NoWarn>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0|AnyCPU'">
+    <NoWarn>1701;1702;CA1512</NoWarn>
+  </PropertyGroup>
+
   <ItemGroup>
     <None Remove="7z.win_x64.dll" />
     <None Remove="7z.win_x86.dll" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Palmtree.Core" Version="1.14.0-alpha" />
-    <PackageReference Include="Palmtree.Debug" Version="1.0.23-alpha" />
-    <PackageReference Include="Palmtree.IO" Version="1.11.2-alpha" />
+    <PackageReference Include="Palmtree.Core" Version="1.17.1-alpha" />
+    <PackageReference Include="Palmtree.Debug" Version="1.1.16-alpha" />
+    <PackageReference Include="Palmtree.IO" Version="1.18.1-alpha" />
     <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET" Version="1.7.22-alpha" />
     <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET.Engine" Version="23.1.1" />
   </ItemGroup>
