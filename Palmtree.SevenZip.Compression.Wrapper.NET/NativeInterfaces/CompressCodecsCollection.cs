@@ -7,9 +7,9 @@ using Palmtree.IO;
 
 namespace SevenZip.Compression.NativeInterfaces
 {
-    internal class CompressCodecsCollection
+    internal sealed class CompressCodecsCollection
     {
-        private class CodecsKey
+        private sealed class CodecsKey
             : IEquatable<CodecsKey>
         {
             public CodecsKey(String codecsName, CoderType coderType)

@@ -5,7 +5,7 @@ namespace SevenZip.Compression.NativeInterfaces
     internal partial class CompressSetInStream
         : ICompressSetInStream
     {
-        private NativeInStreamReader? _nativeReader = null;
+        private NativeInStreamReader? _nativeReader;
 
         public static CompressSetInStream Create(IntPtr nativeInterfaceObject)
         {

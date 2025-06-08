@@ -5,7 +5,7 @@ using SevenZip.Compression.NativeInterfaces;
 
 namespace SevenZip.Compression
 {
-    internal class DecoderPalmtreeStreamWithICompressReadUnusedFromInBuf
+    internal sealed class DecoderPalmtreeStreamWithICompressReadUnusedFromInBuf
         : DecoderPalmtreeStream, ICompressDecoderStreamWithICompressReadUnusedFromInBuf
     {
         private readonly CompressReadUnusedFromInBuf _compressReadUnusedFromInBuf;

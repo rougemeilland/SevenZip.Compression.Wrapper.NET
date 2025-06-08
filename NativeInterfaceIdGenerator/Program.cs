@@ -4,11 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Text.Json;
 using System.Text.RegularExpressions;
-//using Palmtree;
 
 namespace NativeInterfaceIdGenerator
 {
-    internal class Program
+    internal sealed class Program
     {
         private const String _sourceDataabseFileName = "SevenZipInterfaces.json";
         private const String _nativeCodeProjectName = "Palmtree.SevenZip.Compression.Wrapper.NET.Native";
@@ -16,7 +15,7 @@ namespace NativeInterfaceIdGenerator
         private static readonly JsonSerializerOptions _jsonSerializerOptions = new() { PropertyNameCaseInsensitive = true };
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:未使用のパラメーターを削除します", Justification = "<保留中>")]
-        public static void Main(String[] args)
+        private static void Main(String[] args)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
@@ -231,7 +230,7 @@ namespace NativeInterfaceIdGenerator
                     nativeInterfaceCsWriter.WriteLine();
                     nativeInterfaceCsWriter.WriteLine($"namespace SevenZip.Compression.NativeInterfaces");
                     nativeInterfaceCsWriter.WriteLine("{");
-                    nativeInterfaceCsWriter.WriteLine("    partial class NativeInterOp");
+                    nativeInterfaceCsWriter.WriteLine("    internal sealed partial class NativeInterOp");
                     nativeInterfaceCsWriter.WriteLine("    {");
                     var firstInterface = true;
                     foreach (var sevenZipInterface in sevenZipInterfacesModel.Interfaces)
@@ -278,9 +277,9 @@ namespace NativeInterfaceIdGenerator
                                     String.Join(", ", parametersSource
                                     .Select(parameter =>
                                     {
-                                        if (parameter.ParameterType.StartsWith("out "))
+                                        if (parameter.ParameterType.StartsWith("out ", StringComparison.Ordinal))
                                             return $"out {parameter.ParameterName}";
-                                        if (parameter.ParameterType.StartsWith("ref "))
+                                        if (parameter.ParameterType.StartsWith("ref ", StringComparison.Ordinal))
                                             return $"ref {parameter.ParameterName}";
                                         else
                                             return parameter.ParameterName;
@@ -363,10 +362,10 @@ namespace NativeInterfaceIdGenerator
                                 nativeInterfaceCsWriter.WriteLine($"namespace SevenZip.Compression.NativeInterfaces");
                                 nativeInterfaceCsWriter.WriteLine("{");
                                 nativeInterfaceCsWriter.WriteLine($"    [Guid(\"{sevenZipInterface.InterfaceId}\")]");
-                                nativeInterfaceCsWriter.WriteLine($"    partial class {className}");
+                                nativeInterfaceCsWriter.WriteLine($"    internal sealed partial class {className}");
                                 nativeInterfaceCsWriter.WriteLine("         : Unknown");
                                 nativeInterfaceCsWriter.WriteLine("    {");
-                                nativeInterfaceCsWriter.WriteLine($"        protected {className}(IntPtr nativeInterfaceObject)");
+                                nativeInterfaceCsWriter.WriteLine($"        private {className}(IntPtr nativeInterfaceObject)");
                                 nativeInterfaceCsWriter.WriteLine("            : base(nativeInterfaceObject)");
                                 nativeInterfaceCsWriter.WriteLine("        {");
                                 nativeInterfaceCsWriter.WriteLine("        }");

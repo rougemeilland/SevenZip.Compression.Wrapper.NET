@@ -104,7 +104,7 @@ namespace SevenZip.Compression.NativeInterfaces
             {
                 if (NativeInterOp.Global__GetSevenZipEntryPointsTable(&entryPontsTable) != HRESULT.S_OK)
                     return false;
-                if (NativeInterOp.ICompressCodecsInfo__Create(&entryPontsTable, checked((UInt32)sizeof(SevenZipEngineEntryPoints)), out IntPtr nativeResource) != HRESULT.S_OK)
+                if (NativeInterOp.ICompressCodecsInfo__Create(&entryPontsTable, checked((UInt32)sizeof(SevenZipEngineEntryPoints)), out var nativeResource) != HRESULT.S_OK)
                     return false;
                 AttatchNativeInterfaceObject(nativeResource);
                 return true;
@@ -113,7 +113,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         private UInt32 GetNumMethods()
         {
-            var result = NativeInterOp.ICompressCodecsInfo__GetNumMethods(NativeInterfaceObject, out UInt32 count);
+            var result = NativeInterOp.ICompressCodecsInfo__GetNumMethods(NativeInterfaceObject, out var count);
             if (result != HRESULT.S_OK)
                 throw result.GetExceptionFromHRESULT();
             return count;

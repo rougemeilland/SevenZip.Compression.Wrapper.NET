@@ -2,7 +2,7 @@
 
 namespace NativeInterfaceIdGenerator
 {
-    internal class SevenZipInterfaceMethodModel
+    internal sealed class SevenZipInterfaceMethodModel
     {
         public SevenZipInterfaceMethodModel()
         {

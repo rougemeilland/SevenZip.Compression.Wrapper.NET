@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 namespace SevenZip.Compression.NativeInterfaces
 {
-    partial class NativeInterOp
+    internal sealed partial class NativeInterOp
     {
         #region IUnknown
 

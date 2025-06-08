@@ -10,7 +10,7 @@ namespace SevenZip.Compression.NativeInterfaces
 {
     internal partial class NativeInterOp
     {
-        private class DllNameResolver
+        private sealed class DllNameResolver
         {
             private readonly Dictionary<String, IntPtr> _loadedDllHandles;
 

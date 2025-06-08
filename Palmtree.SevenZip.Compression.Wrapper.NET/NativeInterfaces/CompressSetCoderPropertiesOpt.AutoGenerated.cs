@@ -6,10 +6,10 @@ using System.Runtime.InteropServices;
 namespace SevenZip.Compression.NativeInterfaces
 {
     [Guid("23170f69-40c1-278a-0000-0004001f0000")]
-    partial class CompressSetCoderPropertiesOpt
+    internal sealed partial class CompressSetCoderPropertiesOpt
          : Unknown
     {
-        protected CompressSetCoderPropertiesOpt(IntPtr nativeInterfaceObject)
+        private CompressSetCoderPropertiesOpt(IntPtr nativeInterfaceObject)
             : base(nativeInterfaceObject)
         {
         }

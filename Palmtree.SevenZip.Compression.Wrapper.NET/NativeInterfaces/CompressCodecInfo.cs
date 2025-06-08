@@ -6,7 +6,7 @@ namespace SevenZip.Compression.NativeInterfaces
     /// <summary>
     /// An interface that allows you to refer to codec information.
     /// </summary>
-    internal class CompressCodecInfo
+    internal sealed class CompressCodecInfo
         : Unknown
     {
         private static readonly Object _lockObject;
