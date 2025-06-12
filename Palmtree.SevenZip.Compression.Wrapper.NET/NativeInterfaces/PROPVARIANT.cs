@@ -86,7 +86,7 @@ namespace SevenZip.Compression.NativeInterfaces
                 }
                 else
                 {
-                    throw Validation.GetFailErrorException($"The value of sizeOfOleChar is unknown.: {nameof(PROPVARIANT)}.{nameof(PROPVARIANT.SizeOfChar)}SizeOfChar={sizeOfChar}");
+                    throw Validation.GetFailErrorException();
                 }
 
                 return encoding.GetString(new Span<Byte>((Byte*)StringValue, count));

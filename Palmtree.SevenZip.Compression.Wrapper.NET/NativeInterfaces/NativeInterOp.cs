@@ -635,7 +635,7 @@ namespace SevenZip.Compression.NativeInterfaces
                 {
                     2 => Encoding.Unicode,
                     4 => Encoding.UTF32,
-                    _ => throw Validation.GetFailErrorException($"The value of sizeOfOleChar is unknown.: {nameof(PROPVARIANT)}.{nameof(PROPVARIANT.SizeOfChar)}SizeOfChar={PROPVARIANT.SizeOfChar}"),
+                    _ => throw Validation.GetFailErrorException(),
                 };
             var bufferSize = encoding.GetByteCount(stringValue);
 
