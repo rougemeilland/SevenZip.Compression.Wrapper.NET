@@ -25,8 +25,7 @@ namespace SevenZip.Compression
 
         public UInt32 ReadUnusedFromInBuf(Span<Byte> data)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
 
             return _compressReadUnusedFromInBuf.ReadUnusedFromInBuf(data);
         }

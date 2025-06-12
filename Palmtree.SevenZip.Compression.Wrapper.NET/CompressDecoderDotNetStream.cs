@@ -53,8 +53,7 @@ namespace SevenZip.Compression
         /// <inheritdoc/>
         public override Int32 Read(Byte[] buffer, Int32 offset, Int32 count)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
 
             return checked((Int32)_sequentialInStream.Read(buffer.AsSpan(offset, count)));
         }
@@ -73,8 +72,7 @@ namespace SevenZip.Compression
         {
             get
             {
-                if (_isDisposed)
-                    throw new ObjectDisposedException(GetType().FullName);
+                ObjectDisposedException.ThrowIf(_isDisposed, this);
 
                 return _compressGetInStreamProcessedSize.InStreamProcessedSize;
             }

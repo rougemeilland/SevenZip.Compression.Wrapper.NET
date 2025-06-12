@@ -13,37 +13,8 @@
     <TieredCompilationQuickJit>false</TieredCompilationQuickJit>
     <Trimming>full</Trimming>
     <IncludeAllContentForSelfExtract>true</IncludeAllContentForSelfExtract>
+    <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
   </PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0|AnyCPU'">
-	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	  <NoWarn>1701;1702;CA1512</NoWarn>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0|AnyCPU'">
-	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	  <NoWarn>1701;1702;CA1512</NoWarn>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0|AnyCPU'">
-	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	  <NoWarn>1701;1702;CA1512</NoWarn>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0|AnyCPU'">
-	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	  <NoWarn>1701;1702;CA1512</NoWarn>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net9.0|AnyCPU'">
-	  <NoWarn>1701;1702;CA1512</NoWarn>
-	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net9.0|AnyCPU'">
-	  <NoWarn>1701;1702;CA1512</NoWarn>
-	  <TreatWarningsAsErrors>True</TreatWarningsAsErrors>
-	</PropertyGroup>
 
 	<ItemGroup>
 	  <Content Remove="C:\Users\lunor\.nuget\packages\palmtree.sevenzip.compression.wrapper.net.platform.win.x64\1.0.0\contentFiles\any\net5.0\SevenZip.NativeWrapper.Unmanaged.win-x64.dll" />
@@ -56,9 +27,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Palmtree.Core" Version="1.17.1-alpha" />
-	  <PackageReference Include="Palmtree.IO" Version="1.18.1-alpha" />
-	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET" Version="1.7.22-alpha" />
+	  <PackageReference Include="Palmtree.Core" Version="1.18.0-alpha" />
+	  <PackageReference Include="Palmtree.IO" Version="1.19.0-alpha" />
+	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET" Version="1.8.1-alpha" />
 	  <PackageReference Include="Palmtree.SevenZip.Compression.Wrapper.NET.Engine" Version="23.1.1" />
 	</ItemGroup>
 

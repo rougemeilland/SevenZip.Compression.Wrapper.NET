@@ -21,8 +21,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         public virtual Unknown QueryInterface(Type interfaceType)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
             if (_nativeInterfaceObject == IntPtr.Zero)
                 throw new InvalidOperationException();
 
@@ -56,8 +55,8 @@ namespace SevenZip.Compression.NativeInterfaces
         {
             get
             {
-                if (_isDisposed)
-                    throw new ObjectDisposedException(GetType().FullName);
+                ObjectDisposedException.ThrowIf(_isDisposed, this);
+
                 if (_nativeInterfaceObject == IntPtr.Zero)
                     throw new InvalidOperationException();
 
@@ -67,8 +66,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         protected void AttatchNativeInterfaceObject(IntPtr nativeInterfaceObject)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
             if (nativeInterfaceObject == IntPtr.Zero)
                 throw new ArgumentException("An attempt was made to assign a null pointer.", nameof(nativeInterfaceObject));
 
@@ -99,7 +97,7 @@ namespace SevenZip.Compression.NativeInterfaces
         private static IntPtr QueryInterface(IntPtr nativeInterfaceObject, Guid interfaceId)
         {
             var interfaceIdBuffer = NativeGUID.FromManagedGuidToNativeGuid(interfaceId);
-            var result = NativeInterOp.IUnknown__QueryInterface(nativeInterfaceObject, ref interfaceIdBuffer, out IntPtr newNativeInterfaceObject);
+            var result = NativeInterOp.IUnknown__QueryInterface(nativeInterfaceObject, ref interfaceIdBuffer, out var newNativeInterfaceObject);
             if (result != HRESULT.S_OK)
                 throw result.GetExceptionFromHRESULT();
             return newNativeInterfaceObject;

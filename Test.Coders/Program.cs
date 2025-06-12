@@ -17,10 +17,9 @@ namespace Test.Coders
     internal sealed class Program
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:未使用のパラメーターを削除します", Justification = "<保留中>")]
-        private static void Main(string[] args)
+        private static void Main(String[] args)
         {
-            // TODO: デッドコード削減の結果の検証。エンコーダ/デコーダのオプショナルなインターフェースのテストも忘れずに。
-            const ulong DATA_SIZE = 64 * 1024LU;
+            const UInt64 DATA_SIZE = 64 * 1024LU;
 
             Console.WriteLine("自己診断中…");
             TestStore(DATA_SIZE);
@@ -66,7 +65,7 @@ namespace Test.Coders
             _ = Console.ReadLine();
         }
 
-        private static void TestStore(ulong DATA_SIZE)
+        private static void TestStore(UInt64 DATA_SIZE)
         {
             var exception = (Exception?)null;
             using var inStream = InputTestDataStream.Create(DATA_SIZE);
@@ -76,11 +75,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestBzip2(ulong DATA_SIZE)
+        private static void TestBzip2(UInt64 DATA_SIZE)
         {
             var properties = new Bzip2EncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
             };
 
@@ -110,11 +109,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestBzip2Stream(ulong DATA_SIZE)
+        private static void TestBzip2Stream(UInt64 DATA_SIZE)
         {
             var properties = new Bzip2EncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
             };
 
@@ -143,11 +142,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestDeflate(ulong DATA_SIZE)
+        private static void TestDeflate(UInt64 DATA_SIZE)
         {
             var properties = new DeflateEncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
             };
 
@@ -177,11 +176,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestDeflateStream(ulong DATA_SIZE)
+        private static void TestDeflateStream(UInt64 DATA_SIZE)
         {
             var properties = new DeflateEncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
             };
 
@@ -210,11 +209,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestDeflate64(ulong DATA_SIZE)
+        private static void TestDeflate64(UInt64 DATA_SIZE)
         {
             var properties = new Deflate64EncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
             };
 
@@ -244,11 +243,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestDeflate64Stream(ulong DATA_SIZE)
+        private static void TestDeflate64Stream(UInt64 DATA_SIZE)
         {
             var properties = new Deflate64EncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
             };
 
@@ -277,11 +276,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestLzma(ulong DATA_SIZE)
+        private static void TestLzma(UInt64 DATA_SIZE)
         {
             var properties = new LzmaEncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
                 MatchFinder = MatchFinderType.BT4,
                 EndMarker = true,
@@ -305,7 +304,7 @@ namespace Test.Coders
                 {
                     using var inStream = pipe.OpenInputStream();
                     using var outStream = OutputTestDataStream.Create(ex => exception = ex);
-                    Span<byte> contentProperties = stackalloc byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
+                    Span<Byte> contentProperties = stackalloc Byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
                     if (inStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var decoder = LzmaDecoder.CreateDecoder(contentProperties);
@@ -317,11 +316,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestLzmaStream(ulong DATA_SIZE)
+        private static void TestLzmaStream(UInt64 DATA_SIZE)
         {
             var properties = new LzmaEncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
                 MatchFinder = MatchFinderType.BT4,
                 EndMarker = true,
@@ -344,7 +343,7 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     var baseOfInStream = pipe.OpenInputStream();
-                    Span<byte> contentProperties = stackalloc byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
+                    Span<Byte> contentProperties = stackalloc Byte[LzmaDecoder.CONTENT_PROPERTY_SIZE];
                     if (baseOfInStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var inStream = LzmaDecoder.CreateDecoderStream(baseOfInStream, DATA_SIZE, contentProperties);
@@ -357,11 +356,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestLzma2(ulong DATA_SIZE)
+        private static void TestLzma2(UInt64 DATA_SIZE)
         {
             var properties = new Lzma2EncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
                 MatchFinder = MatchFinderType.BT4,
             };
@@ -384,7 +383,7 @@ namespace Test.Coders
                 {
                     using var inStream = pipe.OpenInputStream();
                     using var outStream = OutputTestDataStream.Create(ex => exception = ex);
-                    Span<byte> contentProperties = stackalloc byte[Lzma2Decoder.CONTENT_PROPERTY_SIZE];
+                    Span<Byte> contentProperties = stackalloc Byte[Lzma2Decoder.CONTENT_PROPERTY_SIZE];
                     if (inStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var decoder = Lzma2Decoder.CreateDecoder(contentProperties);
@@ -396,11 +395,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestLzma2Stream(ulong DATA_SIZE)
+        private static void TestLzma2Stream(UInt64 DATA_SIZE)
         {
             var properties = new Lzma2EncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
                 MatchFinder = MatchFinderType.BT4,
             };
@@ -422,7 +421,7 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     var baseOfInStream = pipe.OpenInputStream();
-                    Span<byte> contentProperties = stackalloc byte[Lzma2Decoder.CONTENT_PROPERTY_SIZE];
+                    Span<Byte> contentProperties = stackalloc Byte[Lzma2Decoder.CONTENT_PROPERTY_SIZE];
                     if (baseOfInStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var inStream = Lzma2Decoder.CreateDecoderStream(baseOfInStream, DATA_SIZE, contentProperties);
@@ -435,11 +434,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestPpmd7(ulong DATA_SIZE)
+        private static void TestPpmd7(UInt64 DATA_SIZE)
         {
             var properties = new Ppmd7EncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
             };
 
@@ -461,7 +460,7 @@ namespace Test.Coders
                 {
                     using var inStream = pipe.OpenInputStream();
                     using var outStream = OutputTestDataStream.Create(ex => exception = ex);
-                    Span<byte> contentProperties = stackalloc byte[Ppmd7Decoder.CONTENT_PROPERTY_SIZE];
+                    Span<Byte> contentProperties = stackalloc Byte[Ppmd7Decoder.CONTENT_PROPERTY_SIZE];
                     if (inStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var decoder = Ppmd7Decoder.CreateDecoder(contentProperties);
@@ -473,11 +472,11 @@ namespace Test.Coders
                 throw exception;
         }
 
-        private static void TestPpmd7Stream(ulong DATA_SIZE)
+        private static void TestPpmd7Stream(UInt64 DATA_SIZE)
         {
             var properties = new Ppmd7EncoderProperties
             {
-                NumThreads = (uint)Environment.ProcessorCount,
+                NumThreads = (UInt32)Environment.ProcessorCount,
                 Level = CompressionLevel.Level9,
             };
 
@@ -498,7 +497,7 @@ namespace Test.Coders
                 Task.Run(() =>
                 {
                     var baseOfInStream = pipe.OpenInputStream();
-                    Span<byte> contentProperties = stackalloc byte[Ppmd7Decoder.CONTENT_PROPERTY_SIZE];
+                    Span<Byte> contentProperties = stackalloc Byte[Ppmd7Decoder.CONTENT_PROPERTY_SIZE];
                     if (baseOfInStream.ReadBytes(contentProperties) != contentProperties.Length)
                         throw new Exception();
                     using var inStream = Ppmd7Decoder.CreateDecoderStream(baseOfInStream, DATA_SIZE, contentProperties);

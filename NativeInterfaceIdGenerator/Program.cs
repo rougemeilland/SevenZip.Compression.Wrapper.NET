@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace NativeInterfaceIdGenerator
 {
-    internal sealed class Program
+    internal sealed partial class Program
     {
         private const String _sourceDataabseFileName = "SevenZipInterfaces.json";
         private const String _nativeCodeProjectName = "Palmtree.SevenZip.Compression.Wrapper.NET.Native";
@@ -426,16 +426,16 @@ namespace NativeInterfaceIdGenerator
         private static void CopyVersionResource(String solutionPath)
         {
             var encoding = Encoding.GetEncoding("shift_jis");
-            var fileVersionPattern = new Regex(@"FILEVERSION[ \t]+(?<value>[0-9\*\.]+)", RegexOptions.Compiled);
-            var productVersionPattern = new Regex(@"PRODUCTVERSION[ \t]+(?<value>[0-9\*\.]+)", RegexOptions.Compiled);
-            var companyNamePattern = new Regex(@"VALUE[ \t]+""CompanyName""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled);
-            var descriptionPattern = new Regex(@"VALUE[ \t]+""FileDescription""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled);
-            var fileVersionTextPattern = new Regex(@"VALUE[ \t]+""FileVersion""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled);
-            var internalNamePattern = new Regex(@"VALUE[ \t]+""InternalName""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled);
-            var copyrightPattern = new Regex(@"VALUE[ \t]+""LegalCopyright""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled);
-            var originalFileNamePattern = new Regex(@"VALUE[ \t]+""OriginalFilename""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled);
-            var productNamePattern = new Regex(@"VALUE[ \t]+""ProductName""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled);
-            var productVersionTextPattern = new Regex(@"VALUE[ \t]+""ProductVersion""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled);
+            var fileVersionPattern = GetFileVersionPattern();
+            var productVersionPattern = GetProductVersionPattern();
+            var companyNamePattern = GetCompanyNamePattern();
+            var descriptionPattern = GetDescriptionPattern();
+            var fileVersionTextPattern = GetFileVersionTextPattern();
+            var internalNamePattern = GetInternalNamePattern();
+            var copyrightPattern = GetCopyrightPattern();
+            var originalFileNamePattern = GetOriginalFileNamePattern();
+            var productNamePattern = GetProductNamePattern();
+            var productVersionTextPattern = GetProductVersionTextPattern();
             var sourceResourceFilePath = Path.Combine(solutionPath, _nativeCodeProjectName, "Palmtree.SevenZip.Compression.Wrapper.NET.Native.rc");
             var sourceFileText = File.ReadAllText(sourceResourceFilePath, encoding);
             var fileVersion = GetVersionResourceItem(sourceFileText, fileVersionPattern, sourceResourceFilePath);
@@ -505,7 +505,7 @@ namespace NativeInterfaceIdGenerator
         {
             var matchFileVersion = versionPattern.Match(versionResourceText);
             if (!matchFileVersion.Success)
-                throw new Exception($"Some items are missing in the version resource. : pattern=\"{versionPattern}\", path=\"{versionResourceFilePath}\"");
+                throw new ApplicationException($"Some items are missing in the version resource. : pattern=\"{versionPattern}\", path=\"{versionResourceFilePath}\"");
             return matchFileVersion.Groups["value"].Value;
         }
 
@@ -513,7 +513,7 @@ namespace NativeInterfaceIdGenerator
         {
             var matchFileVersion = versionPattern.Match(versionResourceText);
             if (!matchFileVersion.Success)
-                throw new Exception($"Some items are missing in the version resource. : pattern=\"{versionPattern}\", path=\"{versionResourceFilePath}\"");
+                throw new ApplicationException($"Some items are missing in the version resource. : pattern=\"{versionPattern}\", path=\"{versionResourceFilePath}\"");
             return versionResourceText.Replace(matchFileVersion.Value, newVersionResourceItem);
         }
 
@@ -644,7 +644,7 @@ namespace NativeInterfaceIdGenerator
             {
                 "Int16" or "UInt16" or "Int32" or "UInt32" or "Int64" or "UInt64" or "MethodPropID" or "ModulePropID" or "NativeInStreamReader" or "NativeOutStreamWriter" or "NativeProgressReporter" or "NativeProgressReporter?" or "IntPtr" or "ref NativeGUID" or "ref PROPVARIANT" or "out UInt32" or "out UInt64" or "out IntPtr" => true,
                 "void*" or "Byte*" or "UInt32*" or "UInt64*" or "CoderPropertyId*" or "PROPVARIANT*" or "NativeInStreamReader*" or "NativeOutStreamWriter*" or "void**" or "UInt64**" => false,
-                _ => throw new Exception($"Unhandled type: {unmanagedType}"),
+                _ => throw new ApplicationException($"Unhandled type: {unmanagedType}"),
             };
 
         private static String MapTypeFromUnmanageToManage(String unmanagedType)
@@ -685,19 +685,55 @@ namespace NativeInterfaceIdGenerator
 
                 default:
                 {
-                    var match = Regex.Match(unmanagedType, @"^I[A-Za-z0-9]+\*$");
+                    var match = GetPointerToVoidPattern().Match(unmanagedType);
                     if (match.Success)
                         return "void*";
                 }
 
                 {
-                    var match = Regex.Match(unmanagedType, @"^I[A-Za-z0-9]+\*\*$");
+                    var match = GetPointerToPointerToVoidPattern().Match(unmanagedType);
                     if (match.Success)
                         return "void**";
                 }
 
-                throw new Exception($"Unhandled type: {unmanagedType}");
+                throw new ApplicationException($"Unhandled type: {unmanagedType}");
             }
         }
+
+        [GeneratedRegex(@"FILEVERSION[ \t]+(?<value>[0-9\*\.]+)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetFileVersionPattern();
+
+        [GeneratedRegex(@"PRODUCTVERSION[ \t]+(?<value>[0-9\*\.]+)", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetProductVersionPattern();
+
+        [GeneratedRegex(@"VALUE[ \t]+""CompanyName""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetCompanyNamePattern();
+
+        [GeneratedRegex(@"VALUE[ \t]+""FileDescription""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetDescriptionPattern();
+
+        [GeneratedRegex(@"VALUE[ \t]+""FileVersion""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetFileVersionTextPattern();
+
+        [GeneratedRegex(@"VALUE[ \t]+""InternalName""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetInternalNamePattern();
+
+        [GeneratedRegex(@"VALUE[ \t]+""LegalCopyright""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetCopyrightPattern();
+
+        [GeneratedRegex(@"VALUE[ \t]+""OriginalFilename""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetOriginalFileNamePattern();
+
+        [GeneratedRegex(@"VALUE[ \t]+""ProductName""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetProductNamePattern();
+
+        [GeneratedRegex(@"VALUE[ \t]+""ProductVersion""[ \t]*,[ \t]*""(?<value>[^""]+)""", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetProductVersionTextPattern();
+
+        [GeneratedRegex(@"^I[A-Za-z0-9]+\*$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetPointerToVoidPattern();
+
+        [GeneratedRegex(@"^I[A-Za-z0-9]+\*\*$", RegexOptions.Compiled | RegexOptions.CultureInvariant | RegexOptions.ExplicitCapture)]
+        private static partial Regex GetPointerToPointerToVoidPattern();
     }
 }

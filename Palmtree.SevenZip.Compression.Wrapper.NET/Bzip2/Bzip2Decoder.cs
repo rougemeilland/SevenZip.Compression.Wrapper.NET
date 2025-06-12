@@ -48,8 +48,7 @@ namespace SevenZip.Compression.Bzip2
         /// <exception cref="ArgumentNullException"><paramref name="properties"/> is null.</exception>
         public static Bzip2Decoder CreateDecoder(Bzip2DecoderProperties properties)
         {
-            if (properties is null)
-                throw new ArgumentNullException(nameof(properties));
+            ArgumentNullException.ThrowIfNull(properties);
 
             var compressCoder = (CompressCoder?)null;
             var compressSetFinishMode = (CompressSetFinishMode?)null;
@@ -134,12 +133,9 @@ namespace SevenZip.Compression.Bzip2
         /// <exception cref="ArgumentException"><paramref name="compressedInStream"/> does not support reading, or <paramref name="uncompressedOutStream"/> does not support writing.</exception>
         public void Code(Stream compressedInStream, Stream uncompressedOutStream, UInt64? compressedInStreamSize, UInt64? uncompressedOutStreamSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
-            if (compressedInStream is null)
-                throw new ArgumentNullException(nameof(compressedInStream));
-            if (uncompressedOutStream is null)
-                throw new ArgumentNullException(nameof(uncompressedOutStream));
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
+            ArgumentNullException.ThrowIfNull(compressedInStream);
+            ArgumentNullException.ThrowIfNull(uncompressedOutStream);
 
             _compressCoder.Code(
                 compressedInStream,
@@ -189,12 +185,9 @@ namespace SevenZip.Compression.Bzip2
         /// <inheritdoc/>
         public void Code(ISequentialInputByteStream compressedInStream, ISequentialOutputByteStream uncompressedOutStream, UInt64? compressedInStreamSize, UInt64? uncompressedOutStreamSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
-            if (compressedInStream is null)
-                throw new ArgumentNullException(nameof(compressedInStream));
-            if (uncompressedOutStream is null)
-                throw new ArgumentNullException(nameof(uncompressedOutStream));
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
+            ArgumentNullException.ThrowIfNull(compressedInStream);
+            ArgumentNullException.ThrowIfNull(uncompressedOutStream);
 
             _compressCoder.Code(
                 compressedInStream,
@@ -212,8 +205,7 @@ namespace SevenZip.Compression.Bzip2
         {
             get
             {
-                if (_isDisposed)
-                    throw new ObjectDisposedException(GetType().FullName);
+                ObjectDisposedException.ThrowIf(_isDisposed, this);
 
                 return _compressGetInStreamProcessedSize.InStreamProcessedSize;
             }
@@ -231,8 +223,7 @@ namespace SevenZip.Compression.Bzip2
         /// <exception cref="ObjectDisposedException">The decoder has already been disposed.</exception>
         public UInt32 ReadUnusedFromInBuf(Span<Byte> data)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
 
             return _compressReadUnusedFromInBuf.ReadUnusedFromInBuf(data);
         }
@@ -309,10 +300,8 @@ namespace SevenZip.Compression.Bzip2
             UInt64? uncompressedOutStreamSize,
             Boolean leaveOpen = false)
         {
-            if (compressedInStream is null)
-                throw new ArgumentNullException(nameof(compressedInStream));
-            if (properties is null)
-                throw new ArgumentNullException(nameof(properties));
+            ArgumentNullException.ThrowIfNull(compressedInStream);
+            ArgumentNullException.ThrowIfNull(properties);
 
             var (sequentialInStream, compressSetInStream, compressGetInStreamProcessedSize, compressReadUnusedFromInBuf) =
                 GetParameterToCreateStream(
@@ -356,12 +345,10 @@ namespace SevenZip.Compression.Bzip2
             UInt64? uncompressedOutStreamSize,
             Boolean leaveOpen = false)
         {
-            if (compressedInStream is null)
-                throw new ArgumentNullException(nameof(compressedInStream));
+            ArgumentNullException.ThrowIfNull(compressedInStream);
             if (!compressedInStream.CanRead)
                 throw new ArgumentException("The specified stream does not support reading.", nameof(compressedInStream));
-            if (properties is null)
-                throw new ArgumentNullException(nameof(properties));
+            ArgumentNullException.ThrowIfNull(properties);
 
             var (sequentialInStream, compressSetInStream, compressGetInStreamProcessedSize, compressReadUnusedFromInBuf) =
                 GetParameterToCreateStream(

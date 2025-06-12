@@ -172,7 +172,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
             // 7-zip ライブラリ DLL のハンドルを取得する
             var handle = _dllNameResolver.GetDllHandle(_SEVEN_ZIP_DLL_NAME);
-            Validation.Assert(handle != IntPtr.Zero, "handle != IntPtr.Zero");
+            Validation.Assert(handle != IntPtr.Zero);
 
             // 7-zip ライブラリ DLL のエントリポイントを取得する
             if ((entryPointsTable->FpCreateDecoder = GetExport(handle, "CreateDecoder")) == null)
@@ -646,7 +646,7 @@ namespace SevenZip.Compression.NativeInterfaces
             fixed (UInt32* p = stringValueBuffer)
             {
                 var length = encoding.GetBytes(stringValue, new Span<Byte>((Byte*)p, bufferSize));
-                Validation.Assert(length <= bufferSize, "length <= bufferSize");
+                Validation.Assert(length <= bufferSize);
                 nativePropertyValue->ValueType = PropertyValueType.VT_BSTR;
                 nativePropertyValue->StringValue = (Char*)p;
                 return SetNativeCoderProperties(ifp, isOpt, properties, nativeProvertyIds, nativePropertyValues, index + 1);

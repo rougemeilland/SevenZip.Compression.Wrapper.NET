@@ -23,8 +23,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         public override Unknown QueryInterface(Type interfaceType)
         {
-            if (interfaceType is null)
-                throw new ArgumentNullException(nameof(interfaceType));
+            ArgumentNullException.ThrowIfNull(interfaceType);
 
             if (interfaceType.GUID == typeof(SequentialInStream).GUID)
                 return this;

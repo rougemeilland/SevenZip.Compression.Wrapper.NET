@@ -34,7 +34,7 @@ namespace SevenZip.Compression.NativeInterfaces
         public static unsafe void CopyFromManagedGuidToNativeGuid(Guid managedGuid, NativeGUID* nativeGuid)
         {
             if (!managedGuid.TryWriteBytes(new Span<Byte>(nativeGuid, sizeof(NativeGUID))))
-                throw new Exception("Failed to copy the GUID.");
+                throw new ApplicationException("Failed to copy the GUID.");
         }
     }
 }

@@ -48,7 +48,7 @@ namespace SevenZip.Compression.NativeInterfaces
             readonly get
             {
                 if (ValueType != PropertyValueType.VT_BOOL)
-                    throw new Exception("Unexpected value type.");
+                    throw new ApplicationException("Unexpected value type.");
 
                 return _booleanValue != PROPVARIANT_BOOLEAN_VALUE.FALSE;
             }
@@ -65,7 +65,7 @@ namespace SevenZip.Compression.NativeInterfaces
             get
             {
                 if (ValueType != PropertyValueType.VT_BSTR)
-                    throw new Exception("Unexpected value type.");
+                    throw new ApplicationException("Unexpected value type.");
 
                 Encoding encoding;
                 Int32 count;
@@ -98,7 +98,7 @@ namespace SevenZip.Compression.NativeInterfaces
             get
             {
                 if (ValueType != PropertyValueType.VT_BSTR)
-                    throw new Exception("Unexpected value type.");
+                    throw new ApplicationException("Unexpected value type.");
 
                 return new Guid(new ReadOnlySpan<Byte>((Byte*)StringValue, sizeof(NativeGUID)));
             }

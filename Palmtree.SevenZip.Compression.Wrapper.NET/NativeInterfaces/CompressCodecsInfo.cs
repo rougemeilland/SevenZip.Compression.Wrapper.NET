@@ -24,7 +24,7 @@ namespace SevenZip.Compression.NativeInterfaces
                         throw result.GetExceptionFromHRESULT();
                     var propValuePtr = (PROPVARIANT*)&propValueBuffer;
                     if (propValuePtr->ValueType != PropertyValueType.VT_UI4)
-                        throw new Exception("Unexpected value type.");
+                        throw new ApplicationException("Unexpected value type.");
                     return propValuePtr->UInt32Value;
                 }
             }
@@ -52,7 +52,7 @@ namespace SevenZip.Compression.NativeInterfaces
                         throw result.GetExceptionFromHRESULT();
                     var propValuePtr = (PROPVARIANT*)&propValueBuffer;
                     if (propValuePtr->ValueType != PropertyValueType.VT_UI4)
-                        throw new Exception("Unexpected value type.");
+                        throw new ApplicationException("Unexpected value type.");
                     return propValuePtr->UInt32Value;
                 }
             }

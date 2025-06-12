@@ -14,8 +14,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         public void SetCoderProperties(ICoderProperties propertiesGetter)
         {
-            if (propertiesGetter is null)
-                throw new ArgumentNullException(nameof(propertiesGetter));
+            ArgumentNullException.ThrowIfNull(propertiesGetter);
 
             var result = NativeInterOp.ICompressSetCoderProperties__SetCoderProperties(NativeInterfaceObject, propertiesGetter.EnumerateProperties());
             if (result != HRESULT.S_OK)

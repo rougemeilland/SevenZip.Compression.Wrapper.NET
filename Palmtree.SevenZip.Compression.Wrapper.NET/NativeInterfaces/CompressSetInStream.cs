@@ -34,8 +34,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         public void SetInStream(NativeInStreamReader inStreamReader)
         {
-            if (inStreamReader is null)
-                throw new ArgumentNullException(nameof(inStreamReader));
+            ArgumentNullException.ThrowIfNull(inStreamReader);
 
             var success = false;
             try

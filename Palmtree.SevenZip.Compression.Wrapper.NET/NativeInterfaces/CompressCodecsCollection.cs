@@ -62,7 +62,7 @@ namespace SevenZip.Compression.NativeInterfaces
                 lock (_lockObject)
                 {
                     _instance ??= CreateInstance();
-                    Validation.Assert(_instance is not null, "_instance is not null");
+                    Validation.Assert(_instance is not null);
                     return _instance;
                 }
             }

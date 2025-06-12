@@ -41,8 +41,7 @@ namespace SevenZip.Compression.Deflate
         /// <exception cref="ArgumentNullException"><paramref name="properties"/> is null.</exception>
         public static DeflateEncoder CreateEncoder(DeflateEncoderProperties properties)
         {
-            if (properties is null)
-                throw new ArgumentNullException(nameof(properties));
+            ArgumentNullException.ThrowIfNull(properties);
 
             var compressCoder = (CompressCoder?)null;
             var compressSetCoderProperties = (CompressSetCoderProperties?)null;
@@ -97,12 +96,10 @@ namespace SevenZip.Compression.Deflate
         /// <exception cref="ArgumentException"><paramref name="uncompressedInStream"/> does not support reading, or <paramref name="compressedOutStream"/> does not support writing.</exception>
         public void Code(Stream uncompressedInStream, Stream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
-            if (uncompressedInStream is null)
-                throw new ArgumentNullException(nameof(uncompressedInStream));
+            ArgumentNullException.ThrowIfNull(uncompressedInStream);
             if (!uncompressedInStream.CanRead)
                 throw new ArgumentException("The specified stream does not support reading.", nameof(uncompressedInStream));
-            if (compressedOutStream is null)
-                throw new ArgumentNullException(nameof(compressedOutStream));
+            ArgumentNullException.ThrowIfNull(compressedOutStream);
             if (!compressedOutStream.CanWrite)
                 throw new ArgumentException("The specified stream does not support writing.", nameof(compressedOutStream));
 
@@ -148,10 +145,8 @@ namespace SevenZip.Compression.Deflate
         /// <exception cref="ArgumentNullException"><paramref name="uncompressedInStream"/> or <paramref name="compressedOutStream"/> is null.</exception>
         public void Code(ISequentialInputByteStream uncompressedInStream, ISequentialOutputByteStream compressedOutStream, UInt64? uncompressedInStreamSize, UInt64? compressedOutStreamSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
-            if (uncompressedInStream is null)
-                throw new ArgumentNullException(nameof(uncompressedInStream));
-            if (compressedOutStream is null)
-                throw new ArgumentNullException(nameof(compressedOutStream));
+            ArgumentNullException.ThrowIfNull(uncompressedInStream);
+            ArgumentNullException.ThrowIfNull(compressedOutStream);
 
             _compressCoder.Code(
                 uncompressedInStream,

@@ -32,16 +32,14 @@ namespace SevenZip.Compression
 
         public Int32 Read(Span<Byte> buffer)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
 
             return checked((Int32)_sequentialInStream.Read(buffer));
         }
 
         public Task<Int32> ReadAsync(Memory<Byte> buffer, CancellationToken cancellationToken = default)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
 
             cancellationToken.ThrowIfCancellationRequested();
             return Task.Run(() => checked((Int32)_sequentialInStream.Read(buffer.Span)));
@@ -51,8 +49,7 @@ namespace SevenZip.Compression
         {
             get
             {
-                if (_isDisposed)
-                    throw new ObjectDisposedException(GetType().FullName);
+                ObjectDisposedException.ThrowIf(_isDisposed, this);
 
                 return _compressGetInStreamProcessedSize.InStreamProcessedSize;
             }

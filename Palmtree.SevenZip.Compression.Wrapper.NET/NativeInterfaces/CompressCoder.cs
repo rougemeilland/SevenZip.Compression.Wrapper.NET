@@ -16,12 +16,10 @@ namespace SevenZip.Compression.NativeInterfaces
 
         public void Code(Stream inStream, Stream outStream, UInt64? inSize, UInt64? outSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
-            if (inStream is null)
-                throw new ArgumentNullException(nameof(inStream));
+            ArgumentNullException.ThrowIfNull(inStream);
             if (!inStream.CanRead)
                 throw new ArgumentException($"The specified stream ({nameof(inStream)}) does not support reading.", nameof(inStream));
-            if (outStream is null)
-                throw new ArgumentNullException(nameof(outStream));
+            ArgumentNullException.ThrowIfNull(outStream);
             if (!outStream.CanWrite)
                 throw new ArgumentException($"The specified stream ({nameof(outStream)}) does not support writing.", nameof(outStream));
 
@@ -39,10 +37,8 @@ namespace SevenZip.Compression.NativeInterfaces
 
         public void Code(ISequentialInputByteStream inStream, ISequentialOutputByteStream outStream, UInt64? inSize, UInt64? outSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
-            if (inStream is null)
-                throw new ArgumentNullException(nameof(inStream));
-            if (outStream is null)
-                throw new ArgumentNullException(nameof(outStream));
+            ArgumentNullException.ThrowIfNull(inStream);
+            ArgumentNullException.ThrowIfNull(outStream);
 
             var result =
                 NativeInterOp.ICompressCoder__Code(

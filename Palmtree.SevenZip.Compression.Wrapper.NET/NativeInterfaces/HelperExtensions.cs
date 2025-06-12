@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using Palmtree;
 using Palmtree.IO;
@@ -11,11 +10,11 @@ namespace SevenZip.Compression.NativeInterfaces
     {
         public static Exception GetExceptionFromHRESULT(this HRESULT result)
         {
-            Validation.Assert(result != HRESULT.S_OK, "result != HRESULT.S_OK");
+            Validation.Assert(result != HRESULT.S_OK);
             if (result == HRESULT.S_FALSE)
-                return new Exception("Error detected.");
+                return new ApplicationException("Error detected.");
             var exception = Marshal.GetExceptionForHR((Int32)result);
-            Validation.Assert(exception is not null, "exception is not null");
+            Validation.Assert(exception is not null);
             return exception;
         }
 
@@ -36,8 +35,7 @@ namespace SevenZip.Compression.NativeInterfaces
             {
                 try
                 {
-                    if (size > Int32.MaxValue)
-                        throw new ArgumentOutOfRangeException(nameof(size));
+                    ArgumentOutOfRangeException.ThrowIfGreaterThan(size, (UInt32)Int32.MaxValue);
                     unsafe
                     {
                         var length = inputStream.Read(new Span<Byte>(buffer.ToPointer(), checked((Int32)size)));
@@ -61,8 +59,7 @@ namespace SevenZip.Compression.NativeInterfaces
             {
                 try
                 {
-                    if (size > Int32.MaxValue)
-                        throw new ArgumentOutOfRangeException(nameof(size));
+                    ArgumentOutOfRangeException.ThrowIfGreaterThan(size, (UInt32)Int32.MaxValue);
                     unsafe
                     {
                         var length = outputStream.Write(new ReadOnlySpan<Byte>(buffer.ToPointer(), checked((Int32)size)));
@@ -86,8 +83,7 @@ namespace SevenZip.Compression.NativeInterfaces
             {
                 try
                 {
-                    if (size > Int32.MaxValue)
-                        throw new ArgumentOutOfRangeException(nameof(size));
+                    ArgumentOutOfRangeException.ThrowIfGreaterThan(size, (UInt32)Int32.MaxValue);
                     unsafe
                     {
                         var length = inputStream.Read(new Span<Byte>(buffer.ToPointer(), checked((Int32)size)));
@@ -111,8 +107,7 @@ namespace SevenZip.Compression.NativeInterfaces
             {
                 try
                 {
-                    if (size > Int32.MaxValue)
-                        throw new ArgumentOutOfRangeException(nameof(size));
+                    ArgumentOutOfRangeException.ThrowIfGreaterThan(size, (UInt32)Int32.MaxValue);
                     unsafe
                     {
                         outputStream.Write(new ReadOnlySpan<Byte>(buffer.ToPointer(), checked((Int32)size)));
@@ -147,7 +142,10 @@ namespace SevenZip.Compression.NativeInterfaces
                 }
             }
 
-            static unsafe UInt64 ToUInt64Value(IntPtr p) => p == IntPtr.Zero ? 0 : *(UInt64*)p.ToPointer();
+            static unsafe UInt64 ToUInt64Value(IntPtr p)
+            {
+                return p == IntPtr.Zero ? 0 : *(UInt64*)p.ToPointer();
+            }
 
             return nativeReporter;
         }

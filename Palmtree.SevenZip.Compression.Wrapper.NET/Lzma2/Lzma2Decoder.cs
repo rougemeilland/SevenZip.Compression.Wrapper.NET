@@ -36,8 +36,7 @@ namespace SevenZip.Compression.Lzma2
         {
             get
             {
-                if (_isDisposed)
-                    throw new ObjectDisposedException(GetType().FullName);
+                ObjectDisposedException.ThrowIf(_isDisposed, this);
 
                 return _compressGetInStreamProcessedSize.InStreamProcessedSize;
             }
@@ -81,8 +80,7 @@ namespace SevenZip.Compression.Lzma2
         /// <exception cref="ArgumentNullException"><paramref name="properties"/> is null.</exception>
         public static Lzma2Decoder CreateDecoder(Lzma2DecoderProperties properties, ReadOnlySpan<Byte> contentProperties)
         {
-            if (properties is null)
-                throw new ArgumentNullException(nameof(properties));
+            ArgumentNullException.ThrowIfNull(properties);
             if (contentProperties.Length != CONTENT_PROPERTY_SIZE)
                 throw new ArgumentException($"{nameof(contentProperties)} is not {CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
 
@@ -197,14 +195,11 @@ namespace SevenZip.Compression.Lzma2
         /// <exception cref="ArgumentException"><paramref name="compressedInStream"/> does not support reading, or <paramref name="uncompressedOutStream"/> does not support writing.</exception>
         public void Code(Stream compressedInStream, Stream uncompressedOutStream, UInt64? compressedInStreamSize, UInt64? uncompressedOutStreamSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
-            if (compressedInStream is null)
-                throw new ArgumentNullException(nameof(compressedInStream));
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
+            ArgumentNullException.ThrowIfNull(compressedInStream);
             if (!compressedInStream.CanRead)
                 throw new ArgumentException("The specified stream does not support reading.", nameof(compressedInStream));
-            if (uncompressedOutStream is null)
-                throw new ArgumentNullException(nameof(uncompressedOutStream));
+            ArgumentNullException.ThrowIfNull(uncompressedOutStream);
             if (!uncompressedOutStream.CanWrite)
                 throw new ArgumentException("The specified stream does not support writing.", nameof(uncompressedOutStream));
 
@@ -260,12 +255,9 @@ namespace SevenZip.Compression.Lzma2
         /// <exception cref="ArgumentNullException"><paramref name="compressedInStream"/> or <paramref name="uncompressedOutStream"/> is null.</exception>
         public void Code(ISequentialInputByteStream compressedInStream, ISequentialOutputByteStream uncompressedOutStream, UInt64? compressedInStreamSize, UInt64? uncompressedOutStreamSize, IProgress<(UInt64 inStreamProcessedCount, UInt64 outStreamProcessedCount)>? progress)
         {
-            if (_isDisposed)
-                throw new ObjectDisposedException(GetType().FullName);
-            if (compressedInStream is null)
-                throw new ArgumentNullException(nameof(compressedInStream));
-            if (uncompressedOutStream is null)
-                throw new ArgumentNullException(nameof(uncompressedOutStream));
+            ObjectDisposedException.ThrowIf(_isDisposed, this);
+            ArgumentNullException.ThrowIfNull(compressedInStream);
+            ArgumentNullException.ThrowIfNull(uncompressedOutStream);
 
             _compressCoder.Code(
                 compressedInStream,
@@ -377,10 +369,8 @@ namespace SevenZip.Compression.Lzma2
             ReadOnlySpan<Byte> contentProperties,
             Boolean leaveOpen = false)
         {
-            if (compressedInStream is null)
-                throw new ArgumentNullException(nameof(compressedInStream));
-            if (properties is null)
-                throw new ArgumentNullException(nameof(properties));
+            ArgumentNullException.ThrowIfNull(compressedInStream);
+            ArgumentNullException.ThrowIfNull(properties);
             if (contentProperties.Length != CONTENT_PROPERTY_SIZE)
                 throw new ArgumentException($"{nameof(contentProperties)} is not {CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
 
@@ -436,12 +426,10 @@ namespace SevenZip.Compression.Lzma2
             ReadOnlySpan<Byte> contentProperties,
             Boolean leaveOpen = false)
         {
-            if (compressedInStream is null)
-                throw new ArgumentNullException(nameof(compressedInStream));
+            ArgumentNullException.ThrowIfNull(compressedInStream);
             if (!compressedInStream.CanRead)
                 throw new ArgumentException("The specified stream does not support reading.", nameof(compressedInStream));
-            if (properties is null)
-                throw new ArgumentNullException(nameof(properties));
+            ArgumentNullException.ThrowIfNull(properties);
             if (contentProperties.Length != CONTENT_PROPERTY_SIZE)
                 throw new ArgumentException($"{nameof(contentProperties)} is not {CONTENT_PROPERTY_SIZE} bytes long.: length={contentProperties.Length}", nameof(contentProperties));
 

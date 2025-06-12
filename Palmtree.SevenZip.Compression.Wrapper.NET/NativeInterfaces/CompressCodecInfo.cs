@@ -118,7 +118,7 @@ namespace SevenZip.Compression.NativeInterfaces
                     {
                         CoderType.Decoder => CreateCompressDecoder(NativeInterfaceObject, Index, ref _compressCoderInterfaceId),
                         CoderType.Encoder => CreateCompressEncoder(NativeInterfaceObject, Index, ref _compressCoderInterfaceId),
-                        _ => throw new Exception($"Unknown coder type: {CoderType}"),
+                        _ => throw new ApplicationException($"Unknown coder type: {CoderType}"),
                     });
         }
 
@@ -212,7 +212,7 @@ namespace SevenZip.Compression.NativeInterfaces
                     throw result.GetExceptionFromHRESULT();
                 var propValuePtr = (PROPVARIANT*)&propValueBuffer;
                 if (propValuePtr->ValueType != PropertyValueType.VT_UI8)
-                    throw new Exception("Unexpected value type.");
+                    throw new ApplicationException("Unexpected value type.");
                 return propValuePtr->UInt64Value;
             }
         }
@@ -313,7 +313,7 @@ namespace SevenZip.Compression.NativeInterfaces
                     {
                         PropertyValueType.VT_EMPTY => 1,
                         PropertyValueType.VT_UI4 => propValuePtr->UInt32Value,
-                        _ => throw new Exception("Unexpected value type."),
+                        _ => throw new ApplicationException("Unexpected value type."),
                     };
             }
         }

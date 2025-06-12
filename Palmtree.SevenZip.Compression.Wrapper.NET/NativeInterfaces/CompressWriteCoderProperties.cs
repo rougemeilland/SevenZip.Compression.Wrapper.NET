@@ -16,8 +16,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         public void WriteCoderProperties(ISequentialOutputByteStream outStream)
         {
-            if (outStream is null)
-                throw new ArgumentNullException(nameof(outStream));
+            ArgumentNullException.ThrowIfNull(outStream);
 
             var result = NativeInterOp.ICompressWriteCoderProperties__WriteCoderProperties(NativeInterfaceObject, outStream.FromOutputStreamToNativeDelegate());
             if (result != HRESULT.S_OK)
@@ -26,8 +25,7 @@ namespace SevenZip.Compression.NativeInterfaces
 
         public void WriteCoderProperties(Stream outStream)
         {
-            if (outStream is null)
-                throw new ArgumentNullException(nameof(outStream));
+            ArgumentNullException.ThrowIfNull(outStream);
             if (!outStream.CanWrite)
                 throw new ArgumentException("The specified stream does not support writing.", nameof(outStream));
 
