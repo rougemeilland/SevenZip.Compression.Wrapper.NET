@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace NativeInterfaceIdGenerator
 {
-    internal sealed partial class Program
+    internal static partial class Program
     {
         private const String _sourceDataabseFileName = "SevenZipInterfaces.json";
         private const String _nativeCodeProjectName = "Palmtree.SevenZip.Compression.Wrapper.NET.Native";

@@ -14,7 +14,7 @@ using SevenZip.Compression.Ppmd7;
 
 namespace Test.Coders
 {
-    internal sealed class Program
+    internal static class Program
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Style", "IDE0060:未使用のパラメーターを削除します", Justification = "<保留中>")]
         private static void Main(String[] args)
